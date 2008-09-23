@@ -1,0 +1,484 @@
+/* CSS Document */
+
+/*etiquetas HTML---------------------------------------------------------------------*/
+
+* {margin:0;padding:0;}
+
+
+
+body {
+  background:#fff;
+  padding:5px 0 14px;
+  font-family:Verdana, Arial, Helvetica, sans-serif;
+  text-align:left;
+  color:#5b6835;
+  font-size:10px;
+}
+
+a{
+text-decoration:none;
+}
+
+div{
+cursor:default;
+}
+
+ul{
+list-style:none;
+}
+
+li{
+list-style:none;
+}
+
+
+input {
+	font-size: 10px;
+	color: #000000;
+}
+
+
+input[type='button']{
+cursor: pointer;
+background-color: #ffffff;
+}
+
+input[type='radio']{
+cursor: pointer;
+}
+
+input[type='button'][disabled]{
+cursor: not-allowed;
+background-color: #ececdc;
+}
+
+
+*[disabled] {
+	color: #000000;
+	background-color: #ececdc;
+}
+
+
+
+mainbuttondiv{
+float:left;
+width:100px;
+BACKGROUND-COLOR: #145000;
+
+left:50%;
+margin-left:0;
+}
+
+/*----------------------------------------------------------------------------------------*/
+
+#base{
+width:1000px;
+height:600px;
+position:relative;
+left:50%;
+margin-left:-500;
+}
+
+
+.titulos {
+	color: #FFFFFF;
+	border-style:solid;
+	border-color:#FFFFFF;
+	border-width:2px;
+	border-left:0px;
+	border-right:0px;
+	font-size: 14px;
+	background-color:#c1d673;
+}
+
+#principal{
+background:#ecf8cb;
+margin-top:5px;
+text-indent:10px;
+width:49%;
+height:550px;
+float:left;
+cursor:default;
+}
+
+#secundario{
+/*position:relative;*/
+margin-top:5px;
+text-indent:10px;
+background:#ecf8cb;
+width:49%;
+height:550px;
+float:right;
+cursor:default;
+} 
+ 
+#l{
+float:left;
+}
+
+#r{
+float:right;
+}
+
+.box_amarillo{
+	background-color:#ecf8cb; 
+	border: 1px solid #c1d673;
+	
+	padding: 5px; 
+	margin-left:10px;
+}
+
+
+/* DIVS para formularios alineados -------------------- */
+div.row {
+  clear: both;
+  padding-top: 3px;
+  cursor:default;
+}
+
+div.row span.label {
+  float: left;
+  width: 100px;
+  text-align: left;
+  margin-top:3px;
+
+}
+
+div.row span.formw {
+  float: left;
+  width: 100px;
+  text-align: left;
+  margin-left: 35px;
+}
+
+/*---------------- CALENDARIO --------------------------------------------------------*/
+#calend {
+margin-top:20px;
+margin-left:10px;
+width:890px;
+}
+
+#calend_left {
+overflow: hidden;
+width:50px;
+float:left;
+height:400px;
+margin-right:3px;
+margin-top:45px;
+}
+
+#calend_top {
+overflow:hidden;
+float:left;
+width:819px;
+}
+
+#calend_mid {
+overflow:scroll;
+float:left;
+height:415px;
+width:835px;
+margin-top:3px;
+background-color:#FFFFFF;
+}
+
+#calend_bottom{
+margin-left:50px;
+width:835px;
+float:left;
+}
+	
+.t_general{
+background-color:#FFFFFF;
+border-style:solid;
+border-color:#000000;
+border:0;
+border-collapse:collapse;
+margin-top:0px;
+font-size:9px;
+cursor:default;
+}
+
+.t_container{
+padding:0px;
+}
+
+.t_row{
+border-style:solid;
+border-width:1px;
+border-color:#000000;
+}
+
+.over{background-color:#fee4b1;}
+
+.t_row_header{
+border-style:solid;
+border-width:1px;
+border-color:#000000;
+background-color:#ECE9D8;
+}
+
+.t_col{
+padding:0px;
+height:14px;
+border-style:solid;
+border-width:1px;
+border-color:#999999;
+}
+
+.t_cell_div{
+height:14px;
+width:23px;
+}
+
+.t_col_habit{
+padding:0px;
+width:100px;
+height:15px;
+border-style:solid;
+border-width:1px;
+border-color:#000000;
+}
+
+.finde {
+background-color:#D2D2FF;
+}
+ 
+.hoy{
+background-color:#eac995;
+}
+
+/*box calendario*/
+#BoxDiv{
+z-index:400; 
+position:absolute;
+background:url(/hotel/img/cal_box_border.gif);
+background-repeat:no-repeat;
+width:290px;
+height:105px;
+}
+
+.cal_box_title{
+font-weight: bold;
+}
+
+.cal_box_info{
+margin:5 10px;
+font-size:10px;
+}
+
+#BoxDiv a{
+cursor: pointer;
+text-decoration:underline; color: blue;
+}
+
+.rango_res{
+background-color: #336699;	
+}
+
+/*LEFT habitacion de literas*/
+.hab_literas{
+background:url(/hotel/img/arrow_d.gif);
+background-repeat:no-repeat;
+background-position:right;
+cursor: pointer;
+
+}
+.hab_literas2{
+background:url(/hotel/img/arrow_r.gif);
+background-repeat:no-repeat;
+background-position:right;
+cursor: pointer;
+
+}
+
+/* BORRAR
+.tipo_5 {
+background-color: #F8FCAD;
+}
+.tipo_1 {
+background-color: #FFCC33;
+}
+.tipo_2 {
+background-color: #f87a17;
+}
+.tipo_3 {
+background-color: #CC66FF;
+}
+.tipo_4 {
+background-color: #00CCFF;
+}
+*/
+.evento {
+cursor: pointer;
+background-repeat:no-repeat;
+background-position:right;
+}
+.checkout {
+background-color: #777777; 
+}
+.checkin {
+background-color: #FF0000; 
+}
+.reserva {
+background-color: #00CC00; 
+}
+
+
+/*Estilos pagina login -----------------------------------*/
+.login{
+width:700px;
+height:450px;  
+border: 1px solid #c1d673; 
+position:relative;
+left:50%;
+margin-top:50px;
+margin-left:-400px;
+padding-top:10px;
+padding-left:20px;
+float:left;
+}
+
+
+/*Menu --------------------------------------------------------*/
+
+#userdiv{
+float:right;
+width:170px;
+text-align:right;
+padding-left:10px;
+padding-right:10px;
+margin-top:5px;
+}
+
+ul {
+	margin:0;
+	padding:0;
+	list-style:none;
+	}
+/* header bar */
+#header-bar {
+	width:100%;
+	height:27px;
+	padding:0 0 3px 0px;
+	background-color: #8b9e56;
+	
+	}
+
+/* navigation */
+#navigation {
+	width:700px;
+	float:left;
+	height:27px;
+	border-left:1px solid #aaa;
+	}
+#navigation li {
+	float:left;
+	border-right:1px solid #aaa;
+	}
+#navigation li a {
+	float:left;
+	display:block;
+	height:30px;
+	line-height:20px;
+	font-size:12px;
+	padding:0 11px;
+	color:#ecf8cb;
+	cursor:pointer;
+	}
+/* sub navigation */
+#navigation li:hover,
+#navigation li.hover {position:relative;}
+#navigation li:hover ul,
+#navigation li.hover ul {display:block;}
+#navigation ul {
+	display:none;
+	position:absolute;
+	top:30px;
+	left:-1px;
+	width:160px;
+	background:#eee;
+	border-left:1px solid #ccc;
+	border-right:1px solid #ccc;
+	border-top:1px solid #ccc;
+	z-index:200;
+	}
+#navigation ul li {
+	width:160px;
+	border:0;
+	border-bottom:1px solid #ccc;
+	height:auto;
+	}
+#navigation li li a {
+	line-height:normal !important;
+	height:auto !important;
+	float:none !important;
+	padding:4px 11px;
+	background-color: #dff1ad;
+	color:#738347;
+	}
+#navigation li li a:hover {
+text-decoration:none;
+background:#c1d673;
+color:#738347;
+}
+
+
+/*Autocomplete de textbox paises--------------------------*/
+div.auto_complete {
+        width: 350px;
+        background: #fff;
+}
+div.auto_complete ul {
+  border:1px solid #888;
+  margin:0;
+  padding:0;
+  width:100%;
+  list-style-type:none;
+}
+div.auto_complete ul li {
+  margin:0;
+  padding:3px;
+}
+div.auto_complete ul li.selected {
+  background-color: #ffb;
+}
+div.auto_complete ul strong.highlight {
+  color: #800; 
+  margin:0;
+  padding:0;
+}
+
+
+/*Message box--------------------------*/
+
+
+#text{
+margin:20px;
+position:relative;
+text-align:center;
+}
+
+
+/*admin temporadas y precios---------*/
+
+.fondo_tabla {
+	background:#c1d673;
+}
+#table_tempo ul {
+	border:1px solid #888;
+	background:#c1d673;
+	cursor:pointer;
+}
+.selected {
+	background-color: #ffb;
+}
+
+#aloj_left {
+overflow: auto;
+width:100px;
+float:left;
+height:400px;
+margin-right:3px;
+
+}
