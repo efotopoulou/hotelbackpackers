@@ -1,5 +1,95 @@
-/* CSS Document */
+/* ESTILOS PARA LA TPV*/
+body{margin:0pt;padding:0pt}
+.orange{background-color:orange}
+.fixedRow, .precioFixed{background-color:orange}
+.btnbck{background-color:#e0edfe;}
+.btnpress{background:#C3D9FF}
+.btnunpress{background:#e0edfe}
+.blueFuerte{background:#150cc0;color:white}
+.liniaBck{background:#E1E7F2}
+.redFuerte{background:red}
+.redtext{color:red}
+.bluetext{color:blue}
+.btncontent{vertical-align:middle;height:100%;border-right:1px solid #C3D9FF;cursor:pointer;text-align:center}
+.h1f{float:left;background-color:#fff;}
+.h1r{float:right;background-color:#fff}
+.btn{margin-left:0;height:97%}
+.notcalcbtntop{padding-top:3px;}
+div{margin:0pt;padding:0pt}
+.closebtn,.tdbtn, .actionbtn{font-family:Arial,sans-serif;border-right:1px solid #C3D9FF}
+.tdbtn{font-size:35px;cursor:pointer}
+.actionbtn{font-size:23px;cursor:pointer}
+.closebtn{font-size:23px}
+.tablebtn{width:100%;height:96%;}
+table.tablebtn tr{vertical-align:middle}
+input {border:1px solid #C3D9FF}
+.title{
+background:#E1E7F2 url(images/bg_gradient.gif)  repeat-x scroll 0%;
+color:#666666;
+font-family:arial,sans-serif;
+font-size:75%;
+font-weight:bold;
+}
+.link {
+cursor:pointer;text-decoration:none;color:blue;
+}
+.center{text-align:center}
+.displaynone{display:none}
+.bckefectivo{background:#FFFFFF}
 
+/* ESTILOS PARA LOS PLATILLOS Y LAS FAMILIAS*/
+#scrollable {
+	height:100%;
+	background-color:white;
+	border:1px solid #ddd;
+	padding:0px;
+	//width:50%;
+}
+
+/* container for the scrollable items */
+div.items {
+	//background-color:#efefef;
+	height:100%;	
+	margin-left:0px;	
+	float:left;
+	//width:96% !important;
+}
+
+/* single item */
+div.items .item {
+	display:block;
+	float:left;
+	margin-right:1px;
+	text-decoration:none;
+	text-align:center;
+	cursor:pointer;
+	font-size:20px;
+	color:#ccc;
+	
+}
+div.items .item table tr td,.fam table tr td{
+	font-size:20px;
+	color:#ccc;
+}
+/* next / prev buttons */
+div.prev, div.next {
+	border:1px solid #ddd;
+	display:block;
+	width:15px;
+	height:100%;
+	padding:0px;
+	cursor:pointer;
+}
+
+div.prev {
+	background:url(../img/button-left.gif) no-repeat scroll center center;
+	//float:left;		
+}
+
+div.next {
+	background:url(../img/button-right.gif) no-repeat scroll center center;
+	//float:right;
+}
 /*etiquetas HTML---------------------------------------------------------------------*/
 
 * {margin:0;padding:0;}
@@ -8,7 +98,7 @@
 
 body {
   background:#fff;
-  padding:5px 0 14px;
+  padding:0px;
   font-family:Verdana, Arial, Helvetica, sans-serif;
   text-align:left;
   color:#5b6835;
@@ -90,6 +180,13 @@ margin-left:-500;
 	font-size: 14px;
 	background-color:#c1d673;
 }
+.titulos1 {
+	color: #FFFFFF;
+	border-style:solid;
+	border-color:#FFFFFF;
+	font-size: 20px;
+	background-color:#c1d673;
+}
 
 #principal{
 background:#ecf8cb;
@@ -99,6 +196,7 @@ width:49%;
 height:550px;
 float:left;
 cursor:default;
+clear:left;
 }
 
 #secundario{
@@ -107,6 +205,38 @@ margin-top:5px;
 text-indent:10px;
 background:#ecf8cb;
 width:49%;
+height:550px;
+float:right;
+cursor:default;
+} 
+
+#principalesCj{
+background:#ecf8cb;
+margin-top:5px;
+text-indent:10px;
+width:32%;
+height:550px;
+float:left;
+cursor:default;
+clear:left;
+}
+
+#secundarioesCj{
+/*position:relative;*/
+margin-top:5px;
+text-indent:10px;
+background:#ecf8cb;
+width:67%;
+height:550px;
+float:right;
+cursor:default;
+}
+#stockbar{
+/*position:relative;*/
+margin-top:5px;
+text-indent:10px;
+background:#ecf8cb;
+width:100%;
 height:550px;
 float:right;
 cursor:default;
@@ -252,7 +382,7 @@ background-color:#eac995;
 #BoxDiv{
 z-index:400; 
 position:absolute;
-background:url(/hotel/img/cal_box_border.gif);
+background:url(/img/cal_box_border.gif);
 background-repeat:no-repeat;
 width:290px;
 height:105px;
@@ -278,14 +408,14 @@ background-color: #336699;
 
 /*LEFT habitacion de literas*/
 .hab_literas{
-background:url(/hotel/img/arrow_d.gif);
+background:url(/img/arrow_d.gif);
 background-repeat:no-repeat;
 background-position:right;
 cursor: pointer;
 
 }
 .hab_literas2{
-background:url(/hotel/img/arrow_r.gif);
+background:url(/img/arrow_r.gif);
 background-repeat:no-repeat;
 background-position:right;
 cursor: pointer;
@@ -359,7 +489,7 @@ ul {
 /* header bar */
 #header-bar {
 	width:100%;
-	height:27px;
+	height:5%;
 	padding:0 0 3px 0px;
 	background-color: #8b9e56;
 	
@@ -367,7 +497,6 @@ ul {
 
 /* navigation */
 #navigation {
-	width:700px;
 	float:left;
 	height:27px;
 	border-left:1px solid #aaa;
