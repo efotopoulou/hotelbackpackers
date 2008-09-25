@@ -4,7 +4,7 @@ include($_SERVER['DOCUMENT_ROOT'] . '/hotel/Dominio/class_cliente.php');
 include_once($_SERVER['DOCUMENT_ROOT'] . '/hotel/Dominio/class_habitaciones.php');
 include_once($_SERVER['DOCUMENT_ROOT'] . '/hotel/Dominio/class_factura.php');
 include_once($_SERVER['DOCUMENT_ROOT'] . '/hotel/Dominio/class_temporada.php');
-include($_SERVER['DOCUMENT_ROOT'] . '/hotel/Dominio/class_session.php');
+include($_SERVER['DOCUMENT_ROOT'] . '/common/Dominio/class_session.php');
 	
 	function loadCheckins(){
 		$objResponse = new xajaxResponse('ISO-8859-1');

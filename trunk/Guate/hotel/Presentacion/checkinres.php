@@ -221,7 +221,7 @@ $xajax->printJavascript('xajax/');
 <div id="base">
 
 
-<?php include('menu.php'); ?>
+<?php include($_SERVER['DOCUMENT_ROOT'] . '/common/Presentacion/menu.php'); ?>
 <div id="principal">
 <h5 class="titulos">Realizar Check-in</h5>		
 					

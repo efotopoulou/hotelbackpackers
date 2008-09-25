@@ -17,14 +17,16 @@ ob_start();
 $sesion = new session();
 ob_end_clean();
 
-$page='login';
+$page='';
 
 if($_GET!=null){
 	$p_req=$_GET['page'];
 	
-	if($sesion->is_allowed($p_req))
-		$page=$p_req;	
+	if($sesion->is_allowed_rest($p_req))
+		$page='Presentacion/'.$p_req.'.php';
+	else
+		$page='/hotel/view.php?page=login'; 	
 }
 
-include('Presentacion/'.$page.'.php');
+include($page);
 ?>

@@ -1,5 +1,5 @@
 <?php
-require($_SERVER['DOCUMENT_ROOT'] . '/hotel/Dominio/class_session.php');
+require($_SERVER['DOCUMENT_ROOT'] . '/common/Dominio/class_session.php');
 require($_SERVER['DOCUMENT_ROOT'] . '/hotel/Dominio/class_usuario.php');
 	
 	function loadUsers(){

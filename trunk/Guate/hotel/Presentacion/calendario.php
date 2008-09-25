@@ -218,7 +218,7 @@ $xajax->printJavascript('xajax/');
 <body>
 
 <div id="base">
-<?php include('menu.php'); ?>
+<?php include($_SERVER['DOCUMENT_ROOT'] . '/common/Presentacion/menu.php'); ?>
 		
 <div id="principal" style="width:100%">
 
