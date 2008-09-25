@@ -41,8 +41,7 @@ else
 						<li><a href="view.php?page=admin_listados">Listados</a></li>
 					</ul>
 				</li>
-				<li><a href="/Restaurante/Presentacion/view.php?page=tpv">Restaurante</a></li>
-				<li><a href="/bar/Presentacion/view.php?page=tpv">Bar</a></li>
+				<li><a href="/recepcion/view.php?page=caja">Caja</a></li>
 				<?php } ?>
 				
 			</ul>

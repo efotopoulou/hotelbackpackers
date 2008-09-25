@@ -7,7 +7,7 @@ require($_SERVER['DOCUMENT_ROOT'] . '/hotel/Dominio/class_calendario.php');
 require_once($_SERVER['DOCUMENT_ROOT'] . '/hotel/Dominio/class_temporada.php');
 require($_SERVER['DOCUMENT_ROOT'] . '/hotel/Dominio/class_checkinres.php');
 require($_SERVER['DOCUMENT_ROOT'] . '/hotel/Dominio/class_pais.php');
-require($_SERVER['DOCUMENT_ROOT'] . '/hotel/Dominio/class_session.php');
+require($_SERVER['DOCUMENT_ROOT'] . '/common/Dominio/class_session.php');
 require_once($_SERVER['DOCUMENT_ROOT'] . '/hotel/Dominio/class_factura.php');
 require($_SERVER['DOCUMENT_ROOT'] . '/hotel/Presentacion/calendario.func.php');
 require_once ($_SERVER['DOCUMENT_ROOT'] . '/hotel/Dominio/class_caja.php');

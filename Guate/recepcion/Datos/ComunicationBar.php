@@ -1,24 +1,24 @@
 <?php
 /**
- *	Descripción:
+ *	Descripciï¿½n:
  *		Esta clase permite al usuario realizar peticiones de qualquier tipo (SELECT, INSERT,
- *		UPDATE, DELETE, ALTER, CREATE, ...) a la base de datos mediante la función com_query.
- *		En función de la sentencia ejecutada devolverá un resultado coherente definido en la
- *		especificación de la propia función.
+ *		UPDATE, DELETE, ALTER, CREATE, ...) a la base de datos mediante la funciï¿½n com_query.
+ *		En funciï¿½n de la sentencia ejecutada devolverï¿½ un resultado coherente definido en la
+ *		especificaciï¿½n de la propia funciï¿½n.
  *
- *	Ejemplos de utilización al final del fichero.
+ *	Ejemplos de utilizaciï¿½n al final del fichero.
  */
-require_once ($_SERVER['DOCUMENT_ROOT'] . '/common/Dominio/class_log.php');
-require_once ($_SERVER['DOCUMENT_ROOT'] . '/common/creole/Creole.php');
+
+require_once ('creole/Creole.php');
 /**
- * TODO: comprovación de errores y que no salten (@funcion)
+ * TODO: comprovaciï¿½n de errores y que no salten (@funcion)
  */
 
-class Comunication{
+class ComunicationBar{
 
-	//	PARAMETROS PARA LA CONEXIÓN
+	//	PARAMETROS PARA LA CONEXIï¿½N
 	const PHPTYPE = 'mysqli';
- 	const DBNAME =	'guate_bd';
+ 	const DBNAME =	'bar_bd';
  	const DBURL =	'localhost';
  	const DBUSER =	'root';//'spiderman';
  	const DBPSW =	'';//'3jvjD.pzjFcPr563';
@@ -42,47 +42,41 @@ class Comunication{
              			 'username' => self::DBUSER,
              			 'password' => self::DBPSW,
              			 'database' => self::DBNAME);
-             			 
-	 private $dns2 = array('phptype'  => self::PHPTYPE,
-	 'hostspec' => self::DBURL,
-	 'username' => self::DBUSER,
-	 'password' => self::DBPSW,
-	 'database' => 'guate_bd_prueba');//
 
 /*********************************************************************************/
 /********************************** SERVICIOS ************************************/
 /*********************************************************************************/
 
 	/**
-	 * Realiza una query qualquiera de forma automática y devuelve el resultado en función del tipo de query lanzada
+	 * Realiza una query qualquiera de forma automï¿½tica y devuelve el resultado en funciï¿½n del tipo de query lanzada
 	 *
 	 * @param $query (String):
-	 * 				Debe contener una query válida para ser ejecutada. (Select, Insert, Update, Delete, Alter, Create,...)
-	 * 				Puede contener el numero de parámetros que sean necesarios. (parámetros = ?)
+	 * 				Debe contener una query vï¿½lida para ser ejecutada. (Select, Insert, Update, Delete, Alter, Create,...)
+	 * 				Puede contener el numero de parï¿½metros que sean necesarios. (parï¿½metros = ?)
 	 * @param $prepareData (Array):
-	 * 				Debe informar los parámetros que haya en la query.
-	 * 				Si la query no tiene parámetros no debe ser informado.
-	 * 				Por defecto es un array vacío.
+	 * 				Debe informar los parï¿½metros que haya en la query.
+	 * 				Si la query no tiene parï¿½metros no debe ser informado.
+	 * 				Por defecto es un array vacï¿½o.
 	 * @param $fieldsType (String):
-	 * 				Contiene los tipos de los parámetros que se han informado.
-	 * 				A cada parámetro le corresponde un carácter.
-	 * 				Deben estar en el mismo orden que los parámetros pasados en $prepareData.
-	 * 				En caso de no ser informado será rellenado de forma automática,
-	 * 					pero comporta una pérdida de rendimiento
+	 * 				Contiene los tipos de los parï¿½metros que se han informado.
+	 * 				A cada parï¿½metro le corresponde un carï¿½cter.
+	 * 				Deben estar en el mismo orden que los parï¿½metros pasados en $prepareData.
+	 * 				En caso de no ser informado serï¿½ rellenado de forma automï¿½tica,
+	 * 					pero comporta una pï¿½rdida de rendimiento
 	 * 				Tipos: i (int), d (double), s (string). No se acepta 'b' (blob).
 	 *
-	 * @return $rs: Si todo va bien, en función del tipo de query tendrá el siguiente contenido:
+	 * @return $rs: Si todo va bien, en funciï¿½n del tipo de query tendrï¿½ el siguiente contenido:
 	 * 					SELECT: contiene el resultado (resultSet) completo de la query.
 	 * 							Si no se encuentran registros
 	 * 					INSERT,UPDATE,DELETE:contiene el numero de registros afectados por la query
 	 * 					OTRAS: por determinar.
 	 * 				Si hay fallos, es -1.
-	 * 				Los fallos ocurridos se podrán recuperar de los atributos error y errno.
+	 * 				Los fallos ocurridos se podrï¿½n recuperar de los atributos error y errno.
 	 */
 /*	public function comQuery($query,$prepareData = array(),$fieldsType = 'auto') {
 		$result = null;
 
-		//conexión a la base de datos
+		//conexiï¿½n a la base de datos
 		$con = @ new mysqli(self::DBURL, self::DBUSER, self::DBPSW, self::DBNAME);
 		if (mysqli_connect_errno()){
 			//throw new DataBaseException (mysqli_connect_error(),mysqli_connect_errno());
@@ -96,14 +90,14 @@ class Comunication{
         	throw new Exception (mysqli_stmt_error($stmt),mysqli_stmt_errno($stmt));
         }
 
-        //Preparación de los posibles parámetros de la query
+        //Preparaciï¿½n de los posibles parï¿½metros de la query
         $bind_params = ($fieldsType == 'auto') ? (array) $this->fetchBindParams(array_values($prepareData)) : (array) $fieldsType;
         $params = array_merge($bind_params,$prepareData);
         @call_user_func_array(array($stmt,"bind_param") , $params);
 
         if ($stmt->execute()){
         	$this->numRows = mysqli_stmt_affected_rows($stmt);
-	        //recuperamos los el resultado según el tipo de query lanzada.
+	        //recuperamos los el resultado segï¿½n el tipo de query lanzada.
 	        $exploded_query = explode (" ", $query);
 	        if (strtoupper($exploded_query[0]) == 'SELECT'){
 	        	//para la select, retornamos el resultset completo
@@ -136,23 +130,18 @@ class Comunication{
 */
 	public function query ($query, $prepareData = array(), $fieldsType = 'auto') {
 		try {
-		
-		if($_SERVER['HTTP_HOST']=='localhost:8080'){
-			$conn = @ Creole::getConnection($this->dns);
-		}
-		else{
-		//conexión a la base de datos
+		//conexiï¿½n a la base de datos
 		$conn = @ Creole::getConnection($this->dns);
-		}
+
 		//inicializamos el objeto stmt con la query a realizar
 		$stmt = @ $conn->prepareStatement ($query);
 
-        //Preparación de los posibles parámetros de la query
+        //Preparaciï¿½n de los posibles parï¿½metros de la query
         if ($fieldsType == 'auto'){
-        	//Dejamos la definición del tipo de los parametros a Creole
+        	//Dejamos la definiciï¿½n del tipo de los parametros a Creole
         	$this->setParamsAutomatic($stmt, $prepareData);
         }else{
-        	//Definimos manualmente el tipo de los parámetros
+        	//Definimos manualmente el tipo de los parï¿½metros
         	$this->setParamsManually($stmt,$fieldsType,$prepareData);
         }
 
@@ -161,41 +150,37 @@ class Comunication{
         //cerramos los objetos
         $stmt->close();
     	$conn->close();
-    	
-		return $result;
+
+        return $result;
 		}
 		catch (Exception $sqle) {
- 	 		$log = new log();
- 	 		if(mysqli_connect_errno()){
- 	 			print "ERROR: No se pudo conectar con la base de datos.";
- 	 			$log->insertar_error($sqle->getMessage());
- 	 			exit();
- 	 		}
-			$log->insertar_error($sqle->getMessage());
-  			return 0;
-		}         
+			$this->guardarError($sqle);
+ 			throw $sqle;
+		}
 	 }
-
+	 
+    public function guardarError($sqle){
+          try{
+			$this->update("INSERT INTO error values (?,1,NOW())",array($sqle->toString().$sqle->getFile().$sqle->getLine()),array(ComunicationBar::$TSTRING));
+          }catch(Exception $e){
+          	echo("ERROR EN LA BASE DE DATOS!!!!!!!!!!");
+          }
+    } 
 	public function update ($query, $prepareData = array(), $fieldsType = 'auto', &$LastInsertId = 0) {
 		try {
-			
-		if($_SERVER['HTTP_HOST']=='localhost:8080'){
-			$conn = @ Creole::getConnection($this->dns);
-		}
-		else{
-		//conexión a la base de datos
+
+		//conexiï¿½n a la base de datos
 		$conn = @ Creole::getConnection($this->dns);
-		}
-		
+
 		//inicializamos el objeto stmt con la query a realizar
 		$stmt = @ $conn->prepareStatement ($query);
 
-        //Preparación de los posibles parámetros de la query
+        //Preparaciï¿½n de los posibles parï¿½metros de la query
         if ($fieldsType == 'auto') {
-        	//Dejamos la definición del tipo de los parametros a Creole
+        	//Dejamos la definiciï¿½n del tipo de los parametros a Creole
         	$this->setParamsAutomatic($stmt, $prepareData);
         }else{
-        	//Definimos manualmente el tipo de los parámetros
+        	//Definimos manualmente el tipo de los parï¿½metros
         	$this->setParamsManually($stmt,$fieldsType,$prepareData);
         }
 
@@ -208,24 +193,21 @@ class Comunication{
         //cerramos los objetos
         $stmt->close();
     	$conn->close();
-		
-		return $result;
-		}
-		catch (Exception $sqle) {
- 	 		$log = new log();
- 	 		if(mysqli_connect_errno()){
- 	 			print "ERROR: No se pudo conectar con la base de datos.";
- 	 			$log->insertar_error($sqle->getMessage());
- 	 			exit();
- 	 		}
- 	 		$log->insertar_error($sqle->getMessage());
-  			return 0;
-		}
+
+        return $LastInsertId;
+	  }
+	 	catch (Exception $sqle) {
+			$this->guardarError($sqle);
+ 			throw $sqle;
+		} 
 	 }
 
 	public function getLastInsertId(){
 		$conn = @ Creole::getConnection($this->dns);
-
+	}
+	public function getLastId(){
+		$conn = @ Creole::getConnection($this->dns);
+		return $conn->getIdGenerator()->getId();
 	}
 /*********************************************************************************/
 /******************************** FUNCIONES PRIVADAS *****************************/
@@ -314,7 +296,7 @@ class Comunication{
 	}
 */
 	/**
-	 *	Dado un array de parámetros devuelve la cadena de tipos.
+	 *	Dado un array de parï¿½metros devuelve la cadena de tipos.
 	 *
 	 *	@param $inputValues (Array):
 	 *				Contiene los valores a sustituir de la Prepared Statement,
@@ -364,7 +346,7 @@ class Comunication{
 	 * 					atributos de la clase error y errno
 	 *
 	 *
-	 * Nota: deve ser ejecutado después de execute.
+	 * Nota: deve ser ejecutado despuï¿½s de execute.
 	 */
 /*	private function get_resultset_from_stmt($stmt){
 		$results="";
@@ -392,13 +374,13 @@ class Comunication{
 	}
 */
 /*
-Ejemplos de utilización de la clase.
+Ejemplos de utilizaciï¿½n de la clase.
 
-Como lanzar una query sin parámetros
+Como lanzar una query sin parï¿½metros
 	$query = "Select * from usuarios";
 	$data = $this->com_query($query);
 
-Como lanzar una query con parámetros
+Como lanzar una query con parï¿½metros
 	$query = "SELECT * FROM usuarios where nickname = ?";
 	$data = $this->com_query($query,array("riverinyo"),'s');
 
@@ -406,3 +388,4 @@ Como lanzar una query con parámetros
 */
 }
 ?>
+

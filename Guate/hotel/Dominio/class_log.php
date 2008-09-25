@@ -1,6 +1,6 @@
 <?php
 
-require_once ($_SERVER['DOCUMENT_ROOT'] . '/hotel/Datos/Dlog.php');
+require_once ($_SERVER['DOCUMENT_ROOT'] . '/common/Datos/Dlog.php');
 
 class log{
 	
