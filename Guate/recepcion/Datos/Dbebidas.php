@@ -4,8 +4,8 @@ require_once ('ComunicationRecep.php');
 
 class Dbebidas{
 	
-	const GET_BEBIDAS = 'SELECT b.idBebida,b.numBebida,b.nombre,b.precioLimitado,b.precioNormal FROM bebida b, familiabar f WHERE f.id_familia=b.id_familia and f.nombre=?';
-	const GET_INFO_BEBIDAS = 'SELECT b.idBebida,b.numBebida,b.nombre,b.precioLimitado,b.precioNormal,f.color,f.nombre as familiabar FROM bebida b, familia f WHERE f.id_familia=b.id_familia order by f.nombre';
+	const GET_BEBIDAS = 'SELECT b.idBebida,b.numBebida,b.nombre,b.precioLimitado,b.precioNormal FROM bebida b, familiabebida f WHERE f.id_familia=b.id_familia and f.nombre=?';
+	const GET_INFO_BEBIDAS = 'SELECT b.idBebida,b.numBebida,b.nombre,b.precioLimitado,b.precioNormal,f.color,f.nombre as familiabar FROM bebida b, familiabebida f WHERE f.id_familia=b.id_familia order by f.nombre';
     const IS_FAMILY_FREE = 'select idBebida from bebida where id_familia=?';
 	const DELETE_BEBIDA = 'delete from bebida where idBebida=?';
 	const INSERT_BEBIDA = 'insert into bebida values (0,?,?,?,?,?)';

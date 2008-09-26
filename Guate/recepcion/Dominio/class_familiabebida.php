@@ -1,6 +1,6 @@
 <?php
 
-require ($_SERVER['DOCUMENT_ROOT'] . '/recepcion/Datos/Dfamiliabar.php');
+require ($_SERVER['DOCUMENT_ROOT'] . '/recepcion/Datos/Dfamiliabebida.php');
 require ('familia.php');
  
 class class_familia{
