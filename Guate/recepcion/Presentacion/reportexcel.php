@@ -1,5 +1,5 @@
 <?php
-include ('reporte.php');
+require($_SERVER['DOCUMENT_ROOT'] . '/recepcion/Presentacion/reporte.php');
 require ($_SERVER['DOCUMENT_ROOT'] . '/recepcion/Dominio/MensajeJSON.php');
 
 $idcaja =  $_GET['idcaja'];
@@ -7,7 +7,21 @@ $idcaja =  $_GET['idcaja'];
 /** Error reporting */
 error_reporting(E_ALL);
 
+$mensaje = new MensajeJSON();
+
+if ($idcaja){
+error_reporting(E_ERROR);
+$reporte = new getreporte();
+$response=$reporte->getdatosExcel($idcaja,$mensaje);	
+}else{
+//	error_reporting(E_ERROR);
+$caja=new caja();
+$id_caja=$caja->get_id_caja ();
+$reporte = new getreporte();
+$response=$reporte->getdatosExcel($id_caja,$mensaje);
+}
 /** Include path **/
+
 //set_include_path(get_include_path() . PATH_SEPARATOR . '../Datos/Classes/');
 set_include_path($_SERVER['DOCUMENT_ROOT'].'/common/Excel/');
 
@@ -17,24 +31,8 @@ include 'PHPExcel.php';
 /** PHPExcel_RichText */
 require_once 'PHPExcel/RichText.php';
 
-
 /** PHPExcel_IOFactory */
 include 'PHPExcel/IOFactory.php';
-
-$mensaje = new MensajeJSON();
-
-if ($idcaja){
-	error_reporting(E_ERROR);
-$reporte = new getreporte();
-$response=$reporte->getdatosExcel($idcaja,$mensaje);	
-}else{
-	error_reporting(E_ERROR);
-$caja=new caja();
-$id_caja=$caja->get_id_caja ();
-
-$reporte = new getreporte();
-$response=$reporte->getdatosExcel($id_caja,$mensaje);
-}
 
 
 header('Content-type: application/xls');

@@ -46,7 +46,6 @@ class Dcaja{
 		$PARAMS = array();
 		$PARAMS_TYPES = array ();
 		$result = $comunication->query(self::GET_ID_CAJA,$PARAMS,$PARAMS_TYPES);
-		
 		return $result;
 	}
 	public function open_caja($fondo){

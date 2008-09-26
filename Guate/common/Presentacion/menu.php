@@ -22,24 +22,20 @@ else
 
 <div id="header-bar">
 			<!-- navigation -->
-			<ul id="navigation">
-				<li><a href="/hotel/view.php?page=calendario">Calendario</a>
-				</li>
-				<li><a href="/hotel/view.php?page=reserva">Reservaciones</a>
-				</li>
-				<li><a href="/hotel/view.php?page=checkinres">Check-in</a>
-				</li>
-
-				<li><a href="/hotel/view.php?page=checkout">Check-out</a>
-
-				</li>
-				<li><a href="/hotel/view.php?page=cliente">Clientes</a>
-				</li>
+			    <ul id="navigation">
+				<li><a href="/hotel/view.php?page=calendario">Calendario</a></li>
+		<li><a>Opciones Hotel</a>
+			<ul>
 				
+				<li><a href="/hotel/view.php?page=reserva">Reservaciones</a></li>
+				<li><a href="/hotel/view.php?page=checkinres">Check-in</a></li>
+                <li><a href="/hotel/view.php?page=checkout">Check-out</a></li>
+				<li><a href="/hotel/view.php?page=cliente">Clientes</a></li>
 				<li><a href="/hotel/view.php?page=factura">Facturas</a></li>
-					
+		    </ul>
+		</li>		
 				<?php if($allowed){ ?>
-				<li><a>Admin</a>
+				<li><a>Admin Hotel</a>
 					<ul>
 						<li><a href="/hotel/view.php?page=admin_precios">Precios y Temporadas</a></li>
 						<li><a href="/hotel/view.php?page=admin_users">Usuarios</a></li>
@@ -66,7 +62,6 @@ else
 				<select id="turno" style="float:left;width:120px;margin-left:10px">
 				<option id="Manana">Manana</option>
 				<option id="Tarde">Tarde</option>
-				<option id="Noche">Noche</option>
 				</select>
 			</div>
 			<div style="clear:both"></div>

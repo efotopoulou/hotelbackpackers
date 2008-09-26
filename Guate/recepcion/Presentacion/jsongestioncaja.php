@@ -5,7 +5,7 @@ require ($_SERVER['DOCUMENT_ROOT'] . '/recepcion/Dominio/MensajeJSON.php');
 include ($_SERVER['DOCUMENT_ROOT'] . '/recepcion/Dominio/class_stock.php');
 
 $fondo = $_POST['fondo'];
-$efectivoCerrar = $_GET['efectivo'];
+$efectivoCerrar = $_POST['efectivo'];
 $totalTipo =  $_POST['tipo'];
 $dinero =  $_POST['dinero'];
 $description =  $_POST['description'];
