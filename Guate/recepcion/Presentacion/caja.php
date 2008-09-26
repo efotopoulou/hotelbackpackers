@@ -97,6 +97,7 @@ $.ajax({
  $.unblockUI();
  $("input,textarea").attr({disabled:false});
  $(".fondo").html(fondo);
+ $(".supEfectivo").html(fondo);
 }
 function desactivar(){
 $("#efectivo_cerrar,#input_money,#output_money,#categoria,#description,#cob,#an,#fact,#accM,#accV").attr({disabled:true});
