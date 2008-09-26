@@ -25,7 +25,8 @@ $movimientos=$reporte->get_resumen($id_caja);
 	   for($i=0;$i<count($movimientos);$i++) {
 	   $categorias[$movimientos[$i]->categoria][$movimientos[$i]->tipo]=$movimientos[$i]->suma;
 	   }
-  }	  	
+  }else $categorias["Adicion Bar Restaurante"]["entrada"]=$totalTickets;
+  	
 $reportmov=$reporte->get_reporte($id_caja);
 if ((sizeof($reportmov))>0){
 	  for($i=0;$i<count($reportmov);$i++) {
@@ -75,7 +76,8 @@ $movimientos=$reporte->get_resumen($id_caja);
 	   for($i=0;$i<count($movimientos);$i++) {
 	   $categorias[$movimientos[$i]->categoria][$movimientos[$i]->tipo]=$movimientos[$i]->suma;
 	   }
-  }	  	
+  }else $categorias["Adicion Bar Restaurante"]["entrada"]=$totalTickets;	
+    	
 $reportmov=$reporte->get_reporte($id_caja);
 $ReportDetails = array();
 if ((sizeof($reportmov))>0){
