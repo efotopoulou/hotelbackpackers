@@ -1,5 +1,5 @@
  <?php
-require_once ('ComunicationRes.php');
+require_once ('ComunicationRecep.php');
 
 class Dreporte{
 	
