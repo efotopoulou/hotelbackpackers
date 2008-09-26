@@ -1,9 +1,35 @@
 function getFamilias(){
- $.getJSONGuate("Presentacion/jsonplattpv.php", function(json){
+ $.getJSON("../Presentacion/jsonplattpv.php", function(json){
     json = verificaJSON(json);
     crearFamilias(json);
- },false);
+ });
 }
+function getFamiliasBar(file){
+ $.getJSON(file, function(json){
+    json = verificaJSON(json);
+    crearFamilias(json);
+ });
+}
+function getPlatillosVentaRecepcion(file){
+ $.getJSONGuate(file, function(json){
+    json = verificaJSON(json);
+    crearPlatVenta(json);
+ });
+}
+function crearPlatVenta(json){
+    var platillos =json["platillos"];
+    var html ="<div class='platscroll' style='height:100%'>"+
+	          "<table style='text-align:center' width='100%' border=0 cellpadding='1' cellspacing='1'><tr  height='60'>";
+	for(var i=0;i<platillos.length;i++){
+    	 html +='<td><div class="plat" style="height:100%;background:#A4C1B3" onmousedown="platomousedown(\''+platillos[i]["nombre"]+'\',\''+platillos[i]["idBebida"]+'\','+platillos[i]["precioNormal"]+','+platillos[i]["precioLimitado"]+',this.id)"><table width="100%" height="100%" style="text-align:center;background:#A4C13"><tr><td>'+platillos[i]["nombre"]+'</td></tr></table></div></div></td>';
+ 		if ((i%3)==2) html +="</tr><tr height='60'>";
+	}
+	html +="</tr></table>"+
+	'</div>';
+	$("#platillos").append(html);
+	$(".plat").corner();
+}
+
 function crearFamilias(json){
  var familias = new Array();
  var colores = new Array();
@@ -11,7 +37,7 @@ function crearFamilias(json){
     for(var k in json["color"]){
       familias[familias.length]=k;
       colores[colores.length]=json["color"][k];
-      if (json["familias"][k]) 
+      if (json["familias"][k])
         if (json["familias"][k].length<=6) crearPlatillosHTML(json["familias"][k],colores[colores.length-1],i);
         else crearPlatillosScroll(json["familias"][k], colores[colores.length-1], i);
       i++;
@@ -91,8 +117,8 @@ function crearPlatillosScroll(platillos, color, numPlat){
     '<td><div class="items">';
 
     for(var i=0;i<platillos.length;i++){
-    	if ((i%2)==0) html += '<div class="item"><div class="plat scrollPlat" style="margin-bottom:2px;height:'+height+'px;width:'+width+'px;background-color:'+color+'" onmousedown="platomousedown(\''+platillos[i]["nombre"]+'\',\''+platillos[i]["idPlatillo"]+'\','+platillos[i]["precioNormal"]+','+platillos[i]["precioLimitado"]+',this.id)"><table width="100%" height="100%" style="text-align:center"><tr><td>'+platillos[i]["nombre"]+'</td></tr></table></div>';
-	   	else html +='<div class="plat scrollPlat" onmousedown="platomousedown(\''+platillos[i]["nombre"]+'\',\''+platillos[i]["idPlatillo"]+'\','+platillos[i]["precioNormal"]+','+platillos[i]["precioLimitado"]+',this.id)" style="height:'+height+'px;width:'+width+'px;background:'+color+'"><table width="100%" height="100%" style="text-align:center"><tr><td>'+platillos[i]["nombre"]+'</td></tr></table></div></div>';
+    	if ((i%2)==0) html += '<div class="item"><div class="plat scrollPlat" style="margin-bottom:2px;height:'+height+'px;width:'+width+'px;background-color:'+color+'" onmousedown="platomousedown(\''+platillos[i]["nombre"]+'\',\''+platillos[i]["idBebida"]+'\','+platillos[i]["precioNormal"]+','+platillos[i]["precioLimitado"]+',this.id)"><table width="100%" height="100%" style="text-align:center"><tr><td>'+platillos[i]["nombre"]+'</td></tr></table></div>';
+	   	else html +='<div class="plat scrollPlat" onmousedown="platomousedown(\''+platillos[i]["nombre"]+'\',\''+platillos[i]["idBebida"]+'\','+platillos[i]["precioNormal"]+','+platillos[i]["precioLimitado"]+',this.id)" style="height:'+height+'px;width:'+width+'px;background:'+color+'"><table width="100%" height="100%" style="text-align:center"><tr><td>'+platillos[i]["nombre"]+'</td></tr></table></div></div>';
     }
     if ((platillos.length%2)!=0) html +="</div>"; 
     html += '</div></td>'+ 
@@ -104,10 +130,10 @@ function crearPlatillosScroll(platillos, color, numPlat){
 }
 function crearPlatillosHTML(platillos,color, numPlat){
     var html ="<div id='platillosscroll"+numPlat+"' class='platscroll' style='height:100%;position:absolute;display:none'>"+
-	          "<table style='text-align:center' width='100%' height='100%' border=0 cellpadding='1' cellspacing='1'><tr height='50%'>";
+	          "<table style='text-align:center' width='100%' border=0 cellpadding='1' cellspacing='1'><tr  height='60'>";
 	for(var i=0;i<platillos.length;i++){
-		if (i==Math.round(platillos.length/2)) html +="</tr><tr height='50%'>";
-	   	 html +='<td><div class="plat" onmousedown="platomousedown(\''+platillos[i]["nombre"]+'\',\''+platillos[i]["idPlatillo"]+'\','+platillos[i]["precioNormal"]+','+platillos[i]["precioLimitado"]+',this.id)" style="height:100%;background:'+color+'"><table width="100%" height="100%" style="text-align:center"><tr><td>'+platillos[i]["nombre"]+'</td></tr></table></div></div></td>';
+    	 html +='<td><div class="plat" onmousedown="platomousedown(\''+platillos[i]["nombre"]+'\',\''+platillos[i]["idBebida"]+'\','+platillos[i]["precioNormal"]+','+platillos[i]["precioLimitado"]+',this.id)" style="height:100%;background:'+color+'"><table width="100%" height="100%" style="text-align:center"><tr><td>'+platillos[i]["nombre"]+'</td></tr></table></div></div></td>';
+ 		if ((i%3)==2) html +="</tr><tr height='60'>";
 	}
 	html +="</tr></table>"+
 	'</div>';

@@ -9,7 +9,7 @@ class Dstock{
 	const ADD_STOCK = 'UPDATE stockbebidas SET stockbar=?,stockrestaurante=?,unidadventa=? where idBebida=?';
     const INFORM_STOCK_BAR = 'UPDATE stockbebidas SET stockbar=? where idBebida=?';
 	const INFORM_STOCK_REST = 'UPDATE stockbebidas SET stockrestaurante=? where idBebida=?';
-	const GET_STOCK_RECEPTION = 'select t1.idBebida,t2.numBebida,t2.nombre from stockbebidas t1,bebida t2 where t2.idBebida=t1.idBebida and stockrestaurante!=0 order by numBebida';
+	const GET_STOCK_RECEPTION = 'select t2.nombre, t2.idBebida,t2.precioNormal,t2.precioLimitado from stockbebidas t1,bebida t2 where t2.idBebida=t1.idBebida and stockrestaurante!=0 order by numBebida';
 	
 	const SET_PLATILLOS = 'INSERT INTO comanda values(0,?,\'cobrado\',NOW(),?,?,?,?,?,?)';
 	const GET_ID_CAJA = 'select id_caja from caja where estado=1';
