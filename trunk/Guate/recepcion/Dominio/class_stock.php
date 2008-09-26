@@ -53,7 +53,7 @@ class stock{
 	       $n=0;
 	     while($rs->next()){
 		$result=$rs->getRow();
-		$ors[$n] = new StockReception($result["idBebida"],$result["numBebida"],$result["nombre"]);
+		$ors[$n] = new StockReception($result["nombre"],$result["idBebida"],$result["precioNormal"],$result["precioLimitado"]);
 		$n++;
 		}														
         }else{
