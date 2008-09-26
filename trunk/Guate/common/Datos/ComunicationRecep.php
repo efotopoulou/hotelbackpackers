@@ -18,7 +18,7 @@ class ComunicationRes{
 
 	//	PARAMETROS PARA LA CONEXI�N
 	const PHPTYPE = 'mysqli';
- 	const DBNAME =	'restaurante_bd';
+ 	const DBNAME =	'recepcion_bd';
  	const DBURL =	'localhost';
  	const DBUSER =	'root';//'spiderman';
  	const DBPSW =	'';//'3jvjD.pzjFcPr563';

@@ -1,6 +1,6 @@
 <?php
 
-require_once ('ComunicationRes.php');
+require_once ('ComunicationRecep.php');
 
 class Dbackup{
 	const SETBACKUP = 'INSERT INTO backup values(?,0)';

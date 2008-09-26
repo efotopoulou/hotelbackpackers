@@ -1,6 +1,6 @@
 <?php
 
-require_once ('ComunicationRes.php');
+require_once ('ComunicationRecep.php');
 
 class Dcomanda{
 	//idComanda,estado,fechaHora,usuario,efectivo,mesa,tipoCliente,total,id_cliente,id_caja
