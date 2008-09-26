@@ -23,7 +23,7 @@ table{background:#DDD}
 //------------------------------------------------------------AL CARGAR LA PAGINA--------------------------------------------------------------//	
 $(document).ready(function(){
 $.getJSONGuate("gestionreporte.php",{idcaja:'<?php echo($idcaja); ?>'}, function(json){
-  alert('<?php echo($idcaja); ?>');
+ // alert('<?php echo($idcaja); ?>');
   json = verificaJSON(json);
   loadPage(json); 
   });

@@ -13,6 +13,8 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/hotel/Dominio/class_habitaciones.php'
 
 include($_SERVER['DOCUMENT_ROOT'] . '/hotel/Presentacion/calendario.func.php');
 
+include($_SERVER['DOCUMENT_ROOT'] . '/recepcion/Dominio/class_caja.php');
+
 if($_POST!=null){
 	$d=$_POST['d'];
 	$m=$_POST['m'];
@@ -40,7 +42,11 @@ $xajax->printJavascript('xajax/');
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 		<meta name="MSSmartTagsPreventParsing" content="true">
 		<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
-	
+	   
+	   <script src="/common/js/jquery-1.2.3.pack.js"></script>
+	   <script src="/common/js/jquery.blockUI.js"></script>
+	   
+	   
 		<link href="css/estilo.css" rel="stylesheet" type="text/css" />	
 		<script src="scripts/nav.js"></script>	
 	</head>
@@ -214,12 +220,28 @@ $xajax->printJavascript('xajax/');
 		window.attachEvent("onload", moveCalend);
 		if(today) window.attachEvent("onload", showColDayAct);  
 	}
+	function cajaCerrada(){
+   $.blockUI({ message: $('#cajaCerrada')}); 	
+ }
 </script>
-<body>
+<body
+ <?php
+ $openOrClose=new caja();
+ $estadocaja=$openOrClose->estado_caja();
+ if ($estadocaja==0){
+ ?>
+//alert("hola");
+onload="cajaCerrada();"
+ <?php }?>
+>
+
+
 
 <div id="base">
+
+<div id="cajaCerrada" style="display:none">la caja esta cerrada<br /><a href="/recepcion/view.php?page=caja">Abrir caja</a></div>
+
 <?php include($_SERVER['DOCUMENT_ROOT'] . '/common/Presentacion/menu.php'); ?>
-		
 <div id="principal" style="width:100%">
 
 <form action="view.php?page=reserva" method="POST" name="FormRes">

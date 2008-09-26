@@ -63,17 +63,17 @@ $("#output_money").keyup(function () {
 	else $("#input_money").attr({disabled:true});
 })
 
-$("#categoria").change(function () {
-          if(this.value==8) {
-          	changedisplay('reception');
-          	changedisplay('noreception');
-          	$("#input_money,#output_money").attr({disabled:true});	
-          }else{
-          $("#reception").addClass("changedisplay");
-          $("#noreception").removeClass("changedisplay");
-          $("#input_money,#output_money").attr({disabled:false});	
-          }
-        })
+//$("#categoria").change(function () {
+ //         if(this.value==8) {
+ //         	changedisplay('reception');
+ //         	changedisplay('noreception');
+ //         	$("#input_money,#output_money").attr({disabled:true});	
+ //         }else{
+//          $("#reception").addClass("changedisplay");
+//         $("#noreception").removeClass("changedisplay");
+ //         $("#input_money,#output_money").attr({disabled:false});	
+ //         }
+//        })
 
 });
 
@@ -98,15 +98,20 @@ $.ajax({
  $("input,textarea").attr({disabled:false});
  $(".fondo").html(fondo);
 }
+function desactivar(){
+$("#efectivo_cerrar,#input_money,#output_money,#categoria,#description,#cob,#an,#fact,#accM,#accV").attr({disabled:true});
+}
+
 //--------------------------------------------------------CERRAR CAJA----------------------------------------------------------------------//
 function closeCaja(efectivoCerrar){
 
  if(confirm('�Estas seguro que quieres cerrar la caja?')){
-    $.getJSON("Presentacion/jsongestioncaja.php",{efectivo:efectivoCerrar}, function(json){
+    $.getJSONGuate("Presentacion/jsongestioncaja.php",{efectivo:efectivoCerrar}, function(json){
       if (!json["Mensaje"]){
-       alert("La caja esta cerrada!"); 
-	   $("#efectivo_cerrar,#input_money,#output_money,#categoria,#description,#cob,#an,#fact,#accM,#accV").attr({disabled:true});
-      } else alert (json["Mensaje"]);
+       alert("Error,la caja no esta cerrada."); 
+	   } else {alert (json["Mensaje"]);
+              $("#efectivo_cerrar,#input_money,#output_money,#categoria,#description,#cob,#an,#fact,#accM,#accV,#reporteexcel,#reporte").attr({disabled:true});
+              }
     });
     }else {$("#efectivo_cerrar").val("");}
 
@@ -332,7 +337,7 @@ if(nom && ap1 && nit && nofact){
 }
 function cancelarapertura(){
 $.unblockUI();
-$("#efectivo_cerrar,#input_money,#output_money,#categoria,#description,#cob,#an,#fact,#accM,#accV").attr({disabled:true});	
+$("#efectivo_cerrar,#input_money,#output_money,#categoria,#description,#cob,#an,#fact,#accM,#accV,#reporteexcel,#reporte").attr({disabled:true});	
 }
 //-------------------------------------------REPORTE CAJA (HTML - EXCEL)-------------------------------------------------//
 function reportecaja(type){
@@ -381,12 +386,12 @@ Fondo: <input type="text" id="fondo" name="fondo"/><br />
 <div id="principalesCj">
 	<h5 class="titulos">Resumen de Caja</h5>
 	
-		<div class="box_amarillo" style="margin-top:20px;margin-left:10px">
+		<div class="box_amarillo" style="margin-top:10px;margin-left:10px">
 		<div><span class="label"><b><h3>Estado de caja</h3></b></span>
 		<form name="cajaresumen">
 			<div class="row" align="left">
-      		<div style="width:120px;float:left;margin-top:20px"><span>Fondo Inicial:</span></div>
-      		<div style="margin-top:20px"><span class="fondo">0</span></div>
+      		<div style="width:120px;float:left;margin-top:10px"><span>Fondo Inicial:</span></div>
+      		<div style="margin-top:10px"><span class="fondo">0</span></div>
    			</div>
    			<div class="row" align="left">
       		<div style="width:120px;float:left"><span >Total Tiquets:</span></div>
@@ -408,7 +413,7 @@ Fondo: <input type="text" id="fondo" name="fondo"/><br />
 		</div>
 		</div>
 		
-			<div class="box_amarillo" style="margin-top:20px;margin-left:10px">
+			<div class="box_amarillo" style="margin-top:10px;margin-left:10px">
 		<div><span class="label"><b><h3>Ingresar o sacar dinero de la caja:</h3></b></span>
 		<form name="cajaInSac">
 			<div class="row" align="left">
@@ -432,7 +437,7 @@ Fondo: <input type="text" id="fondo" name="fondo"/><br />
       		    <div style="width:120px;float:left;margin-left:150px;margin-top:10px"><span><input type="button" value="Acceptar" id="accM" onClick="insertMovimiento(input_money.value,output_money.value,description.value,categoria.value)"/></span></div>
    				</div>
    				
-   				<div class="changedisplay" id="reception">
+   				<!-- <div class="changedisplay" id="reception">
    				<center><table class="box_amarillo">
                 <tr><td><h6>Producto:</h6></td><td><select id="productoreception"></select></td></tr>
                 <tr><td><h6>Cantidad:</h6></td><td><input type="text" style="width:100%" id="cantity" value="1"/></td></tr>
@@ -441,7 +446,7 @@ Fondo: <input type="text" id="fondo" name="fondo"/><br />
    				
    				<div style="clear:both"></div>
       		    <div style="width:120px;float:left;margin-left:150px;margin-top:10px"><span><input type="button" value="Acceptar" id="accV" onClick="insertVentaReception(cantity.value,productoreception.value)"/></span></div>
-   				</div>
+   				</div> -->
    				
    			</div>
    			<div style="clear:both"></div>
@@ -449,7 +454,7 @@ Fondo: <input type="text" id="fondo" name="fondo"/><br />
 		</div>
 		</div>
 
-			<div class="box_amarillo" style="margin-top:20px;margin-left:10px">
+			<div class="box_amarillo" style="margin-top:10px;margin-left:10px">
 		<div><span class="label"><b><h3>Cerrar Caja:</h3></b></span>
 		<form name="cajaInSac">
 			<div class="row" align="left">

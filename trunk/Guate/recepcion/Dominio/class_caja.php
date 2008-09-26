@@ -37,7 +37,6 @@ class caja{
 		function get_id_caja (){
 		 $idcj = new Dcaja();
 		 $idcaja = $idcj->get_id_caja ();
-		 
 		 if ($idcaja->getRecordCount()>0){
 			while($idcaja->next()){
 				$resultc=$idcaja->getRow();
