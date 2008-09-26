@@ -52,7 +52,7 @@ class bebidas{
 	       $n=0;
 	     while($rs->next()){
 		$result=$rs->getRow();
-		$fam = new BebidasBar($result["idBebida"],$result["numBebida"],$result["nombre"],$result["precioLimitado"],$result["precioNormal"],$result["color"],$result["familia"]);
+		$fam = new BebidasBar($result["idBebida"],$result["numBebida"],$result["nombre"],$result["precioLimitado"],$result["precioNormal"],$result["color"],$result["familiabar"]);
 		$a[$n]=$fam;
 		$n++;
 		}														

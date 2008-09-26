@@ -4,10 +4,10 @@ require_once ('ComunicationRecep.php');
 
 class Dfamilia{
 	
-	const GET_FAMILIAS = 'SELECT * FROM familiabar';
-	const DELETE_FAMILY = 'delete from familiabar where id_familia=?';
-	const INSERT_FAMILY = 'insert into familiabar values (0,?,?)';
-	const MODIFICAR_FAMILY = 'UPDATE familiabar SET nombre=? where id_familia=?';
+	const GET_FAMILIAS = 'SELECT * FROM familiabebida';
+	const DELETE_FAMILY = 'delete from familiabebida where id_familia=?';
+	const INSERT_FAMILY = 'insert into familiabebida values (0,?,?)';
+	const MODIFICAR_FAMILY = 'UPDATE familiabebida SET nombre=? where id_familia=?';
 	
 	public function get_familias (){
 		$comunication = new ComunicationRecep();
