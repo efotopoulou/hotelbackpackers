@@ -11,7 +11,7 @@ class Dcocina{
 	const RECUPERAR_LINEA = 'UPDATE cocina SET presentado=1,horadelete=null where idLineaComanda=?';
 		
 	public function select_pedidos (){
-		$comunication = new ComunicationRes();
+		$comunication = new ComunicationRecep();
 		$PARAMS = array();
 		$PARAMS_TYPES = array ();
 		$result = $comunication->query(self::SELECT_PEDIDOS,$PARAMS,$PARAMS_TYPES);
@@ -19,7 +19,7 @@ class Dcocina{
 		return $result;
 	}
 	public function delete_pedidos (){
-		$comunication = new ComunicationRes();
+		$comunication = new ComunicationRecep();
 		$PARAMS = array();
 		$PARAMS_TYPES = array ();
 		$result = $comunication->query(self::DELETE_PEDIDOS,$PARAMS,$PARAMS_TYPES);
@@ -27,9 +27,9 @@ class Dcocina{
 		return $result;
 	}
 	public function eliminar_pedido ($idLineaComanda){
-		$comunication = new ComunicationRes();
+		$comunication = new ComunicationRecep();
 		$PARAMS = array($idLineaComanda);
-		$PARAMS_TYPES = array (ComunicationRes::$TINT);
+		$PARAMS_TYPES = array (ComunicationRecep::$TINT);
 		$result = $comunication->update(self::ELIMINAR_LINEA,$PARAMS,$PARAMS_TYPES);
 		
 		return $result;
@@ -37,7 +37,7 @@ class Dcocina{
 	}
 	
 	public function recuperar_pedido (){
-		$comunication = new ComunicationRes();
+		$comunication = new ComunicationRecep();
 		$PARAMS = array();
 		$PARAMS_TYPES = array ();
 		$lineaid = $comunication->query(self::RECUPERAR_LINEAID,$PARAMS,$PARAMS_TYPES);
@@ -49,7 +49,7 @@ class Dcocina{
 				}}		
 
 		$params = array($a);
-		$PARAMS_INSERT = array(ComunicationRes::$TINT);
+		$PARAMS_INSERT = array(ComunicationRecep::$TINT);
 		$result = $comunication->update(self::RECUPERAR_LINEA,$params,$PARAMS_INSERT);
 		return $result;
 	

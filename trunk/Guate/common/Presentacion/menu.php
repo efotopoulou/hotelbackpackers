@@ -45,6 +45,14 @@ else
 				</li>
 				<li><a href="/recepcion/view.php?page=caja">Caja</a></li>
 				<?php } ?>
+				<li><a>Opciones Recepcion</a>
+			<ul>
+				<li><a href="/recepcion/view.php?page=tpv">Venta en Recepcion</a></li>
+				<li><a href="/recepcion/view.php?page=historicocaja">Historico Caja</a></li>
+				<li><a href="/recepcion/view.php?page=gestionbebidas">Gestion de Bebidas</a></li>
+				
+		    </ul>
+		</li>		
 				
 			</ul>
 			

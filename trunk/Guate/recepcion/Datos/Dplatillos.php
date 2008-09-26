@@ -13,15 +13,15 @@ class Dplatillos{
 	
 	
 	public function get_platillos ($familia){
-		$comunication = new ComunicationRes();
+		$comunication = new ComunicationRecep();
 		$PARAMS = array($familia);
-		$PARAMS_TYPES = array (ComunicationRes::$TSTRING);
+		$PARAMS_TYPES = array (ComunicationRecep::$TSTRING);
 		$result = $comunication->query(self::GET_PLATILLOS,$PARAMS,$PARAMS_TYPES);
 		
 		return $result;
 	}
 	public function get_info_platos (){
-		$comunication = new ComunicationRes();
+		$comunication = new ComunicationRecep();
 		$PARAMS = array();
 		$PARAMS_TYPES = array ();
 		$result = $comunication->query(self::GET_INFO_PLATOS,$PARAMS,$PARAMS_TYPES);
@@ -29,33 +29,33 @@ class Dplatillos{
 		return $result;
 	}
 	public function is_family_free ($idfamilia){
-		$comunication = new ComunicationRes();
+		$comunication = new ComunicationRecep();
 		$PARAMS = array($idfamilia);
-		$PARAMS_TYPES = array (ComunicationRes::$TINT);
+		$PARAMS_TYPES = array (ComunicationRecep::$TINT);
 		$result = $comunication->query(self::IS_FAMILY_FREE,$PARAMS,$PARAMS_TYPES);
 		
 		return $result;
 	}
 	public function delete_platillo ($idPlatillo){
-		$comunication = new ComunicationRes();
+		$comunication = new ComunicationRecep();
 		$PARAMS = array($idPlatillo);
-		$PARAMS_TYPES = array (ComunicationRes::$TSTRING);
+		$PARAMS_TYPES = array (ComunicationRecep::$TSTRING);
 		$result = $comunication->query(self::DELETE_PLATILLO,$PARAMS,$PARAMS_TYPES);
 		
 		return $result;
 	}
 	public function insert_platillo ($idPlato,$nameplato,$precioN,$precioL,$platoFamily,$cocina){
-		$comunication = new ComunicationRes();
+		$comunication = new ComunicationRecep();
 		$PARAMS = array($idPlato,$nameplato,$precioN,$precioL,$cocina,$platoFamily);
-		$PARAMS_TYPES = array (ComunicationRes::$TSTRING,ComunicationRes::$TSTRING,ComunicationRes::$TFLOAT,ComunicationRes::$TFLOAT,ComunicationRes::$TINT,ComunicationRes::$TINT);
+		$PARAMS_TYPES = array (ComunicationRecep::$TSTRING,ComunicationRecep::$TSTRING,ComunicationRecep::$TFLOAT,ComunicationRecep::$TFLOAT,ComunicationRecep::$TINT,ComunicationRecep::$TINT);
 		$result = $comunication->update(self::INSERT_PLATILLO,$PARAMS,$PARAMS_TYPES);
 		
 		return $result;
 	}
 	public function modificar_platillo ($precioLmod,$precioNmod,$cocina,$idplatomod){
-		$comunication = new ComunicationRes();
+		$comunication = new ComunicationRecep();
 		$PARAMS = array($precioLmod,$precioNmod,$cocina,$idplatomod);
-		$PARAMS_TYPES = array (ComunicationRes::$TFLOAT,ComunicationRes::$TFLOAT,ComunicationRes::$TINT,ComunicationRes::$TSTRING);
+		$PARAMS_TYPES = array (ComunicationRecep::$TFLOAT,ComunicationRecep::$TFLOAT,ComunicationRecep::$TINT,ComunicationRecep::$TSTRING);
 		$result = $comunication->update(self::MODIFICAR_PLATILLO,$PARAMS,$PARAMS_TYPES);
 		
 		return $result;

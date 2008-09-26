@@ -1,6 +1,6 @@
 <?php
 
-require_once ('ComunicationBar.php');
+require_once ('ComunicationRecep.php');
 
 class Dstock{
 	
@@ -20,7 +20,7 @@ class Dstock{
 
 	
 	public function get_stock (){
-		$comunication = new ComunicationBar();
+		$comunication = new ComunicationRecep();
 		$PARAMS = array();
 		$PARAMS_TYPES = array ();
 		$result = $comunication->query(self::GET_STOCK,$PARAMS,$PARAMS_TYPES);
@@ -28,10 +28,10 @@ class Dstock{
 		return $result;
 	}	
 	public function add_stock($addornew,$idbebida,$stockbar,$stockrestaurante,$unidadventa){
-	   $comunication = new ComunicationBar();
+	   $comunication = new ComunicationRecep();
 	    if ($addornew == 'b6'){
 		$PARAMS = array($idbebida);
-		$PARAMS_TYPES = array (ComunicationBar::$TINT);
+		$PARAMS_TYPES = array (ComunicationRecep::$TINT);
 		$result = $comunication->query(self::GET_BEBIDA,$PARAMS,$PARAMS_TYPES);
 		
 		if ($result->getRecordCount()>0){
@@ -48,15 +48,15 @@ class Dstock{
 	    }else if ($addornew == 'b7'){
 	    $PARAMS = array($stockbar,$stockrestaurante,$unidadventa,$idbebida);	
 	    }
-		$PARAMS_TYPES = array (ComunicationBar::$TFLOAT,ComunicationBar::$TFLOAT,ComunicationBar::$TINT,ComunicationBar::$TINT);
+		$PARAMS_TYPES = array (ComunicationRecep::$TFLOAT,ComunicationRecep::$TFLOAT,ComunicationRecep::$TINT,ComunicationRecep::$TINT);
 		$result = $comunication->query(self::ADD_STOCK,$PARAMS,$PARAMS_TYPES);
 		
 	}
 	
 	public function get_stock_bebida($idbebida){
-	    $comunication = new ComunicationBar();
+	    $comunication = new ComunicationRecep();
 		$PARAMS = array($idbebida);
-		$PARAMS_TYPES = array (ComunicationBar::$TINT);
+		$PARAMS_TYPES = array (ComunicationRecep::$TINT);
 		$result = $comunication->query(self::GET_BEBIDA,$PARAMS,$PARAMS_TYPES);
 		
 		if ($result->getRecordCount()>0){
@@ -70,9 +70,9 @@ class Dstock{
 	}
 	
 	public function informar_controlstock($idbebida,$cantidad){
-	$comunication = new ComunicationBar();
+	$comunication = new ComunicationRecep();
 		$PARAMS = array($idbebida);
-		$PARAMS_TYPES = array (ComunicationBar::$TINT);
+		$PARAMS_TYPES = array (ComunicationRecep::$TINT);
 		$result = $comunication->query(self::GET_BEBIDA,$PARAMS,$PARAMS_TYPES);
 		
 		if ($result->getRecordCount()>0){
@@ -83,14 +83,14 @@ class Dstock{
 				}}	
 		$stockbar=$sb-(1/$unidad)*$cantidad;	
 	    $PARAMS = array($stockbar,$idbebida);
-		$PARAMS_TYPES = array (ComunicationBar::$TFLOAT,ComunicationBar::$TINT);
+		$PARAMS_TYPES = array (ComunicationRecep::$TFLOAT,ComunicationRecep::$TINT);
 		$result = $comunication->query(self::INFORM_STOCK_BAR,$PARAMS,$PARAMS_TYPES);
 	}
 	
 	public function informar_stock_rest($idbebida,$cantidad){
-	$comunication = new ComunicationBar();
+	$comunication = new ComunicationRecep();
 		$PARAMS = array($idbebida);
-		$PARAMS_TYPES = array (ComunicationBar::$TINT);
+		$PARAMS_TYPES = array (ComunicationRecep::$TINT);
 		$result = $comunication->query(self::GET_BEBIDA,$PARAMS,$PARAMS_TYPES);
 		
 		if ($result->getRecordCount()>0){
@@ -101,12 +101,12 @@ class Dstock{
 				}}	
 		$stockrestaurante=$sr-(1/$unidad)*$cantidad;	
 	    $PARAMS = array($stockrestaurante,$idbebida);
-		$PARAMS_TYPES = array (ComunicationBar::$TFLOAT,ComunicationBar::$TINT);
+		$PARAMS_TYPES = array (ComunicationRecep::$TFLOAT,ComunicationRecep::$TINT);
 		$result = $comunication->query(self::INFORM_STOCK_REST,$PARAMS,$PARAMS_TYPES);
 	}
 	
 	public function get_stockreception(){
-	$comunication = new ComunicationBar();
+	$comunication = new ComunicationRecep();
 	$PARAMS = array();
 	$PARAMS_TYPES = array ();
 	$result = $comunication->query(self::GET_STOCK_RECEPTION,$PARAMS,$PARAMS_TYPES);

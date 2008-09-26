@@ -22,32 +22,32 @@ class Dcomanda{
     const BORRAR_LINEA_COMANDA='DELETE FROM lineacomanda WHERE idComanda IN (SELECT idComanda FROM comanda WHERE estado=?)';
    
     public function borrarComanda($estado){
-	 	$comunication = new ComunicationRes();
+	 	$comunication = new ComunicationRecep();
 		$params = array($estado);
-		$PARAMS_TYPES = array (ComunicationRes::$TSTRING);
+		$PARAMS_TYPES = array (ComunicationRecep::$TSTRING);
 		$comanda = $comunication->query(self::BORRAR_LINEA_COMANDA,$params,$PARAMS_TYPES);
 		$comanda = $comunication->query(self::BORRAR_COMANDA,$params,$PARAMS_TYPES);
 		return $comanda;
 	}
 	public function comandasRestore(){
-	 	$comunication = new ComunicationRes();
+	 	$comunication = new ComunicationRecep();
 		$params = array();
 		$PARAMS_TYPES = array ();
 		$comanda = $comunication->query(self::RESTORE_COMANDA,$params,$PARAMS_TYPES);
 		return $comanda;
 	}
 	public function getLiniasComanda($idComanda){
-	 	$comunication = new ComunicationRes();
+	 	$comunication = new ComunicationRecep();
 		$params = array($idComanda);
-		$PARAMS_TYPES = array (ComunicationRes::$TSTRING);
+		$PARAMS_TYPES = array (ComunicationRecep::$TSTRING);
 		$liniaComanda = $comunication->query(self::GETLINIAS,$params,$PARAMS_TYPES);
 		return $liniaComanda;
 	}
 
 	public function existeIdComanda($idComanda){
-	 	$comunication = new ComunicationRes();
+	 	$comunication = new ComunicationRecep();
 		$params = array($idComanda);
-		$PARAMS_TYPES = array (ComunicationRes::$TSTRING);
+		$PARAMS_TYPES = array (ComunicationRecep::$TSTRING);
 		$idcomanda = $comunication->query(self::EXISTE_COMANDA,$params,$PARAMS_TYPES);
 		$return = false;
         if ($idcomanda->getRecordCount()>0){
@@ -57,7 +57,7 @@ class Dcomanda{
 	}
 		
 	public function getNextMaxIdComanda(){
-	 	$comunication = new ComunicationRes();
+	 	$comunication = new ComunicationRecep();
 		$params = array();
 		$PARAMS_TYPES = array ();
 		$idcaja = $comunication->query(self::GET_LAST_ID_COMANDA,$params,$PARAMS_TYPES);
@@ -71,7 +71,7 @@ class Dcomanda{
 	}
 
 	public function getIdCaja(){
-	 	$comunication = new ComunicationRes();
+	 	$comunication = new ComunicationRecep();
 		$params = array();
 		$PARAMS_TYPES = array ();
 		$idcaja = $comunication->query(self::GET_ID_CAJA,$params,$PARAMS_TYPES);
@@ -86,7 +86,7 @@ class Dcomanda{
 	}
 	
 	public function set_comandaAbierta($comandaID,$efectivo,$numMesa, $tipoCliente, $total, $idcliente,$free){
-		$comunication = new ComunicationRes();
+		$comunication = new ComunicationRecep();
 		$params = array();
 		$PARAMS_TYPES = array ();
 		$idcaja = $comunication->query(self::GET_ID_CAJA,$params,$PARAMS_TYPES);
@@ -98,13 +98,13 @@ class Dcomanda{
 				$idCaja=$resultc["id_caja"];
 				}}	
 		$PARAMS = array($comandaID,$efectivo,$numMesa, $tipoCliente, $total, $idcliente, $idCaja, $free);
-		$PARAMS_TYPES = array (ComunicationRes::$TSTRING,ComunicationRes::$TFLOAT,ComunicationRes::$TINT,ComunicationRes::$TINT,ComunicationRes::$TFLOAT,ComunicationRes::$TINT,ComunicationRes::$TINT,ComunicationRes::$TSTRING);
+		$PARAMS_TYPES = array (ComunicationRecep::$TSTRING,ComunicationRecep::$TFLOAT,ComunicationRecep::$TINT,ComunicationRecep::$TINT,ComunicationRecep::$TFLOAT,ComunicationRecep::$TINT,ComunicationRecep::$TINT,ComunicationRecep::$TSTRING);
 		$result = $comunication->query(self::SET_PLATILLOS,$PARAMS,$PARAMS_TYPES);
 		
 		return $result;
 	}
 		public function setComanda($comandaID,$estado,$efectivo,$numMesa, $tipoCliente, $total, $idcliente,$free){
-		$comunication = new ComunicationRes();
+		$comunication = new ComunicationRecep();
 		$params = array();
 		$PARAMS_TYPES = array ();
 		$idcaja = $comunication->query(self::GET_ID_CAJA,$params,$PARAMS_TYPES);
@@ -116,24 +116,24 @@ class Dcomanda{
 				$idCaja=$resultc["id_caja"];
 				}}	
 		$PARAMS = array($comandaID,$estado,$efectivo,$numMesa, $tipoCliente, $total, $idcliente, $idCaja, $free);
-		$PARAMS_TYPES = array (ComunicationRes::$TSTRING,ComunicationRes::$TSTRING,ComunicationRes::$TFLOAT,ComunicationRes::$TINT,ComunicationRes::$TINT,ComunicationRes::$TFLOAT,ComunicationRes::$TINT,ComunicationRes::$TINT,ComunicationRes::$TSTRING);
+		$PARAMS_TYPES = array (ComunicationRecep::$TSTRING,ComunicationRecep::$TSTRING,ComunicationRecep::$TFLOAT,ComunicationRecep::$TINT,ComunicationRecep::$TINT,ComunicationRecep::$TFLOAT,ComunicationRecep::$TINT,ComunicationRecep::$TINT,ComunicationRecep::$TSTRING);
 		$result = $comunication->query(self::SET_COMANDA,$PARAMS,$PARAMS_TYPES);
 		
 		return $result;
 	}
 	
 	public function borrarLineasComanda($comandaID){
-		$comunication = new ComunicationRes();
+		$comunication = new ComunicationRecep();
 		$PARAMS = array($comandaID);
-		$PARAMS_TYPES = array (ComunicationRes::$TSTRING);
+		$PARAMS_TYPES = array (ComunicationRecep::$TSTRING);
 		$result = $comunication->query(self::ERASE_LISTA_PLATILLOS,$PARAMS,$PARAMS_TYPES);
 		
 		return $result;
 	}
 	public function setLineaComanda($comandaID,$platoId,$cantidad,$precio){
-		$comunication = new ComunicationRes();
+		$comunication = new ComunicationRecep();
 		$PARAMS = array($comandaID,$platoId,$cantidad,$precio);
-		$PARAMS_TYPES = array (ComunicationRes::$TSTRING,ComunicationRes::$TSTRING,ComunicationRes::$TINT,ComunicationRes::$TFLOAT);
+		$PARAMS_TYPES = array (ComunicationRecep::$TSTRING,ComunicationRecep::$TSTRING,ComunicationRecep::$TINT,ComunicationRecep::$TFLOAT);
 		$result = $comunication->update(self::SET_LISTA_PLATILLOS,$PARAMS,$PARAMS_TYPES);
 		$id = $comunication->query(self::GET_LAST_ID,array(),array());
 	    $id->next();
@@ -143,17 +143,17 @@ class Dcomanda{
 		
 	}
 	public function updateComandaAbierta($comandaID,$efectivo){
-		$comunication = new ComunicationRes();
+		$comunication = new ComunicationRecep();
 		$PARAMS = array($efectivo,$comandaID);
-		$PARAMS_TYPES = array (ComunicationRes::$TSTRING,ComunicationRes::$TSTRING);
+		$PARAMS_TYPES = array (ComunicationRecep::$TSTRING,ComunicationRecep::$TSTRING);
 		$result = $comunication->query(self::UPDATE_EFECTIVO_COMANDA,$PARAMS,$PARAMS_TYPES);
 		
 		return $result;
 	}
 	public function esCocina($idPlatillo){
-		$comunication = new ComunicationRes();
+		$comunication = new ComunicationRecep();
 		$PARAMS = array($idPlatillo);
-		$PARAMS_TYPES = array (ComunicationRes::$TSTRING);
+		$PARAMS_TYPES = array (ComunicationRecep::$TSTRING);
 		$result = $comunication->query(self::ES_COCINA,$PARAMS,$PARAMS_TYPES);
 		$result->next();
 		$result=$result->getRow();
@@ -161,9 +161,9 @@ class Dcomanda{
 		return $aux;
 	}
 	public function setCocina($idLineaComanda){
-		$comunication = new ComunicationRes();
+		$comunication = new ComunicationRecep();
 		$PARAMS = array($idLineaComanda);
-		$PARAMS_TYPES = array (ComunicationRes::$TINT);
+		$PARAMS_TYPES = array (ComunicationRecep::$TINT);
 		$result = $comunication->query(self::SET_COCINA,$PARAMS,$PARAMS_TYPES);
 		return $result;
 	}
