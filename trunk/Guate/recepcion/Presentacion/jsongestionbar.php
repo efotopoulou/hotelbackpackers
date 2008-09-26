@@ -1,5 +1,5 @@
 <?php
-require ($_SERVER['DOCUMENT_ROOT'] . '/recepcion/Dominio/class_familiabar.php');
+require ($_SERVER['DOCUMENT_ROOT'] . '/recepcion/Dominio/class_familiabebida.php');
 require ($_SERVER['DOCUMENT_ROOT'] . '/recepcion/Dominio/class_bebidas.php');
 require ($_SERVER['DOCUMENT_ROOT'] . '/recepcion/Dominio/class_stock.php');
 require ($_SERVER['DOCUMENT_ROOT'] . '/recepcion/Dominio/MensajeJSON.php');
