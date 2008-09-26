@@ -14,7 +14,7 @@ require_once ($_SERVER['DOCUMENT_ROOT'] .'/common/creole/Creole.php');
  * TODO: comprovaci�n de errores y que no salten (@funcion)
  */
 
-class ComunicationRes{
+class ComunicationRecep{
 
 	//	PARAMETROS PARA LA CONEXI�N
 	const PHPTYPE = 'mysqli';
@@ -171,7 +171,7 @@ class ComunicationRes{
 	 }
     public function guardarError($sqle){
           try{
-			$this->update("INSERT INTO error values (?,1,NOW())",array($sqle->toString().$sqle->getFile().$sqle->getLine()),array(ComunicationRes::$TSTRING));
+			$this->update("INSERT INTO error values (?,1,NOW())",array($sqle->toString().$sqle->getFile().$sqle->getLine()),array(ComunicationRecep::$TSTRING));
           }catch(Exception $e){
           	echo("ERROR EN LA BASE DE DATOS!!!!!!!!!!");
           }

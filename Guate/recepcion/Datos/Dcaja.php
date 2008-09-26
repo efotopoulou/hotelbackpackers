@@ -33,7 +33,7 @@ class Dcaja{
 	const GET_PRECIOS = 'select precioLimitado,precioNormal from bar_bd.bebida where idBebida=?';
 	
 	public function is_caja_open (){
-		$comunication = new ComunicationRes();
+		$comunication = new ComunicationRecep();
 		$PARAMS = array();
 		$PARAMS_TYPES = array ();
 		$result = $comunication->query(self::IS_CAJA_OPEN,$PARAMS,$PARAMS_TYPES);
@@ -42,23 +42,23 @@ class Dcaja{
 	}
 	
 	public function get_id_caja (){
-		$comunication = new ComunicationRes();
+		$comunication = new ComunicationRecep();
 		$PARAMS = array();
 		$PARAMS_TYPES = array ();
 		$result = $comunication->query(self::GET_ID_CAJA,$PARAMS,$PARAMS_TYPES);
 		return $result;
 	}
 	public function open_caja($fondo){
-		$comunication = new ComunicationRes();
+		$comunication = new ComunicationRecep();
 		$params = array(0,$fondo);
-		$PARAMS_INSERT = array(ComunicationRes::$TINT,ComunicationRes::$TFLOAT);
+		$PARAMS_INSERT = array(ComunicationRecep::$TINT,ComunicationRecep::$TFLOAT);
 		$result = $comunication->update(self::OPEN_CAJA,$params,$PARAMS_INSERT);
 		
 		return $result;
 	}
 	
 	public function get_fondo_caja (){
-		$comunication = new ComunicationRes();
+		$comunication = new ComunicationRecep();
 		$PARAMS = array();
 		$PARAMS_TYPES = array ();
 		$result = $comunication->query(self::GET_FONDO_CAJA,$PARAMS,$PARAMS_TYPES);
@@ -67,16 +67,16 @@ class Dcaja{
 	}
 	
 	public function close_caja ($efectivoCerrar){
-		$comunication = new ComunicationRes();
+		$comunication = new ComunicationRecep();
 		$PARAMS = array($efectivoCerrar);
-		$PARAMS_TYPES = array (ComunicationRes::$TFLOAT);
+		$PARAMS_TYPES = array (ComunicationRecep::$TFLOAT);
 		$result = $comunication->update(self::CLOSE_CAJA,$PARAMS,$PARAMS_TYPES);
 		
 		return $result;
 	
 	}
 	public function insert_movimiento($tipo,$dinero,$descripcion,$categoria,$idencargado){
-		$comunication = new ComunicationRes();
+		$comunication = new ComunicationRecep();
 		$params = array();
 		$PARAMS_TYPES = array ();
 		$idcaja = $comunication->query(self::GET_ID_CAJA,$params,$PARAMS_TYPES);
@@ -88,14 +88,14 @@ class Dcaja{
 				$a=$resultc["id_caja"];
 				}}		
         $params = array($a,$tipo,$dinero,$descripcion,$categoria,$idencargado);
-		$PARAMS_INSERT = array(ComunicationRes::$TINT,ComunicationRes::$TSTRING,ComunicationRes::$TFLOAT,ComunicationRes::$TSTRING,ComunicationRes::$TSTRING,ComunicationRes::$TINT);
+		$PARAMS_INSERT = array(ComunicationRecep::$TINT,ComunicationRecep::$TSTRING,ComunicationRecep::$TFLOAT,ComunicationRecep::$TSTRING,ComunicationRecep::$TSTRING,ComunicationRecep::$TINT);
 		$result = $comunication->update(self::INS_MOV,$params,$PARAMS_INSERT);
 		
 		return $result;
 	}
 	
 	public function insert_venta_recepcion($idproducto,$cantity,$checked,$description,$idencargado){
-		$comunication = new ComunicationRes();
+		$comunication = new ComunicationRecep();
 		//encontramos el id de la caja abierta
 		$params = array();
 		$PARAMS_TYPES = array ();
@@ -107,7 +107,7 @@ class Dcaja{
 				}}
 		//buscamos el precio del dicho pedido		
 		$params = array($idproducto);
-		$PARAMS_TYPES = array (ComunicationRes::$TINT);
+		$PARAMS_TYPES = array (ComunicationRecep::$TINT);
 		$precios = $comunication->query(self::GET_PRECIOS,$params,$PARAMS_TYPES);
 		if ($precios->getRecordCount()>0){
 			while($precios->next()){
@@ -119,14 +119,14 @@ class Dcaja{
 		else	$preciofinal=$precioL*$cantity;
 
 		$params = array($a,"entrada",$preciofinal,$cantity." de ".$description,8,$idencargado);
-		$PARAMS_INSERT = array(ComunicationRes::$TINT,ComunicationRes::$TSTRING,ComunicationRes::$TFLOAT,ComunicationRes::$TSTRING,ComunicationRes::$TSTRING,ComunicationRes::$TINT);
+		$PARAMS_INSERT = array(ComunicationRecep::$TINT,ComunicationRecep::$TSTRING,ComunicationRecep::$TFLOAT,ComunicationRecep::$TSTRING,ComunicationRecep::$TSTRING,ComunicationRecep::$TINT);
 		$result = $comunication->update(self::INS_MOV,$params,$PARAMS_INSERT);
 		
 		return $result;
 	}
 			
 	public function total_money_mov (){
-		$comunication = new ComunicationRes();
+		$comunication = new ComunicationRecep();
 		$PARAMS = array();
 		$PARAMS_TYPES = array ();
 		$result = $comunication->query(self::TOTAL_MONEY_MOV,$PARAMS,$PARAMS_TYPES);
@@ -134,7 +134,7 @@ class Dcaja{
 		return $result;
 	}
 	public function total_tickets (){
-		$comunication = new ComunicationRes();
+		$comunication = new ComunicationRecep();
 		$PARAMS = array();
 		$PARAMS_TYPES = array ();
 		$result = $comunication->query(self::TOTAL_TICKETS,$PARAMS,$PARAMS_TYPES);
@@ -142,18 +142,18 @@ class Dcaja{
 		return $result;
 	}
 	public function total_tickets_old ($idcaja){
-		$comunication = new ComunicationRes();
+		$comunication = new ComunicationRecep();
 		$PARAMS = array($idcaja);
-		$PARAMS_TYPES = array (ComunicationRes::$TINT);
+		$PARAMS_TYPES = array (ComunicationRecep::$TINT);
 		$result = $comunication->query(self::TOTAL_TICKETS_OLD,$PARAMS,$PARAMS_TYPES);
 		
 		return $result;
 	}
 	
 	public function cobrar_ticket ($idComanda){
-		$comunication = new ComunicationRes();
+		$comunication = new ComunicationRecep();
 		$PARAMS = array($idComanda);
-		$PARAMS_TYPES = array (ComunicationRes::$TSTRING);
+		$PARAMS_TYPES = array (ComunicationRecep::$TSTRING);
 		$estado = $comunication->query(self::ESTADO_COMANDA,$PARAMS,$PARAMS_TYPES);
 		if ($estado->getRecordCount()>0){
 			while($estado->next()){
@@ -163,78 +163,78 @@ class Dcaja{
 		if ($a=='facturado') return false;
 		else{
 		$PARAMS = array($idComanda);
-		$PARAMS_TYPES = array (ComunicationRes::$TSTRING);
+		$PARAMS_TYPES = array (ComunicationRecep::$TSTRING);
 		$result = $comunication->update(self::COBRAR_TICKET,$PARAMS,$PARAMS_TYPES);
 		return $result;
 		}
 	}
 	public function anular_ticket ($idComanda){
-		$comunication = new ComunicationRes();
+		$comunication = new ComunicationRecep();
 		$PARAMS = array($idComanda);
-		$PARAMS_TYPES = array (ComunicationRes::$TSTRING);
+		$PARAMS_TYPES = array (ComunicationRecep::$TSTRING);
 		$result = $comunication->update(self::ANULAR_TICKET,$PARAMS,$PARAMS_TYPES);
 		
 		return $result;
 	
 	}
 	public function facturar_ticket($idComanda){
-		$comunication = new ComunicationRes();
+		$comunication = new ComunicationRecep();
 		$PARAMS = array($idComanda);
-		$PARAMS_TYPES = array (ComunicationRes::$TSTRING);
+		$PARAMS_TYPES = array (ComunicationRecep::$TSTRING);
 		$result = $comunication->update(self::FACTURAR_TICKET,$PARAMS,$PARAMS_TYPES);
 		
 		return $result;
 	}
 	public function find_caja($inicio,$fin){		
-		$comunication = new ComunicationRes();
+		$comunication = new ComunicationRecep();
 		$params = array($fin.' 23:59:59',$inicio);
-		$PARAMS_INSERT = array(ComunicationRes::$TSTRING,ComunicationRes::$TSTRING);
+		$PARAMS_INSERT = array(ComunicationRecep::$TSTRING,ComunicationRecep::$TSTRING);
 		$result = $comunication->query(self::FIND_CAJA,$params,$PARAMS_INSERT);
 		
 		return $result;
 	}
 	public function find_one_caja($idcaja){		
-		$comunication = new ComunicationRes();
+		$comunication = new ComunicationRecep();
 		$params = array($idcaja);
-		$PARAMS_INSERT = array(ComunicationRes::$TINT);
+		$PARAMS_INSERT = array(ComunicationRecep::$TINT);
 		$result = $comunication->query(self::FIND_ONE_CAJA,$params,$PARAMS_INSERT);
 		
 		return $result;
 	}
 	public function load_tickets ($idcaja){
-		$comunication = new ComunicationRes();
+		$comunication = new ComunicationRecep();
 		$PARAMS = array($idcaja,$idcaja,$idcaja);
-		$PARAMS_TYPES = array (ComunicationRes::$TINT,ComunicationRes::$TINT,ComunicationRes::$TINT);
+		$PARAMS_TYPES = array (ComunicationRecep::$TINT,ComunicationRecep::$TINT,ComunicationRecep::$TINT);
 		$result = $comunication->query(self::LOAD_TICKETS,$PARAMS,$PARAMS_TYPES);
 		
 		return $result;
 	}
 	public function load_movimientos ($idcaja){
-		$comunication = new ComunicationRes();
+		$comunication = new ComunicationRecep();
 		$PARAMS = array($idcaja);
-		$PARAMS_TYPES = array (ComunicationRes::$TINT);
+		$PARAMS_TYPES = array (ComunicationRecep::$TINT);
 		$result = $comunication->query(self::LOAD_MOV,$PARAMS,$PARAMS_TYPES);
 		
 		return $result;
 	}
 	public function total_money_mov_old ($idcaja){
-		$comunication = new ComunicationRes();
+		$comunication = new ComunicationRecep();
 		$PARAMS = array($idcaja);
-		$PARAMS_TYPES = array (ComunicationRes::$TINT);
+		$PARAMS_TYPES = array (ComunicationRecep::$TINT);
 		$result = $comunication->query(self::TOTAL_MONEY_MOV_OLD,$PARAMS,$PARAMS_TYPES);
 		
 		return $result;
 	}
 	public function get_fondo_caja_old ($idcaja){
-		$comunication = new ComunicationRes();
+		$comunication = new ComunicationRecep();
 		$PARAMS = array($idcaja);
-		$PARAMS_TYPES = array (ComunicationRes::$TINT);
+		$PARAMS_TYPES = array (ComunicationRecep::$TINT);
 		$result = $comunication->query(self::GET_FONDO_CAJA_OLD,$PARAMS,$PARAMS_TYPES);
 		
 		return $result;
 	}
 	public function are_tiquets_cobrados (){
-		$comunication = new ComunicationRes();
+		$comunication = new ComunicationRecep();
 		$PARAMS = array();
 		$PARAMS_TYPES = array ();
 		$result = $comunication->query(self::ARE_TIKETS_COBRADOS,$PARAMS,$PARAMS_TYPES);
@@ -242,42 +242,42 @@ class Dcaja{
 		return $result;
 	}
 	public function get_usuarios (){
-		$comunication = new ComunicationRes();
+		$comunication = new ComunicationRecep();
 		$PARAMS = array();
 		$PARAMS_TYPES = array ();
 		$result = $comunication->query(self::GET_USUARIOS,$PARAMS,$PARAMS_TYPES);
 		return $result;
 	}	
 	public function get_usuarios_comandas ($idusuario,$month,$year){
-		$comunication = new ComunicationRes();
+		$comunication = new ComunicationRecep();
 		$PARAMS = array($idusuario,$month,$year,$idusuario,$month,$year);
-		$PARAMS_TYPES = array (ComunicationRes::$TINT,ComunicationRes::$TINT,ComunicationRes::$TINT,ComunicationRes::$TINT,ComunicationRes::$TINT,ComunicationRes::$TINT);
+		$PARAMS_TYPES = array (ComunicationRecep::$TINT,ComunicationRecep::$TINT,ComunicationRecep::$TINT,ComunicationRecep::$TINT,ComunicationRecep::$TINT,ComunicationRecep::$TINT);
 		$result = $comunication->query(self::USUARIOS_COMANDAS,$PARAMS,$PARAMS_TYPES);
 		return $result;
 	}
 	public function total_cuenta($idusuario,$month,$year){
-		$comunication = new ComunicationRes();
+		$comunication = new ComunicationRecep();
 		$PARAMS = array($idusuario,$month,$year);
-		$PARAMS_TYPES = array (ComunicationRes::$TINT,ComunicationRes::$TINT,ComunicationRes::$TINT);
+		$PARAMS_TYPES = array (ComunicationRecep::$TINT,ComunicationRecep::$TINT,ComunicationRecep::$TINT);
 		$result = $comunication->query(self::TOTAL_CUENTA,$PARAMS,$PARAMS_TYPES);
 		return $result;
 	}	
 	public function get_pedido($idComanda){
-		$comunication = new ComunicationRes();
+		$comunication = new ComunicationRecep();
 		$PARAMS = array($idComanda);
-		$PARAMS_TYPES = array (ComunicationRes::$TSTRING);
+		$PARAMS_TYPES = array (ComunicationRecep::$TSTRING);
 		$result = $comunication->query(self::GET_PEDIDO,$PARAMS,$PARAMS_TYPES);
 		return $result;
 	}
 	public function get_pedido_bar($idComanda){
-	    $comunication = new ComunicationRes();
+	    $comunication = new ComunicationRecep();
 		$PARAMS = array($idComanda);
-		$PARAMS_TYPES = array (ComunicationRes::$TINT);
+		$PARAMS_TYPES = array (ComunicationRecep::$TINT);
 		$result = $comunication->query(self::GET_PEDIDO_BAR,$PARAMS,$PARAMS_TYPES);
 		return $result;	
 	 }
 	public function get_mov_categories(){
-		$comunication = new ComunicationRes();
+		$comunication = new ComunicationRecep();
 		$PARAMS = array();
 		$PARAMS_TYPES = array ();
 		$result = $comunication->query(self::GET_MOV_CATEGORIES,$PARAMS,$PARAMS_TYPES);

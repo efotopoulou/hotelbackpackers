@@ -12,7 +12,7 @@ class Dreporte{
 	const GET_TIQUETS = 'select date(fechaHora) as fecha,time(fechaHora) as time,idComanda,total from comanda t1,caja t2 where t1.id_caja=t2.id_caja and t2.id_caja=?';
 	
 	public function get_categories(){
-		$comunication = new ComunicationRes();
+		$comunication = new ComunicationRecep();
 		$PARAMS = array();
 		$PARAMS_TYPES = array ();
 		$result = $comunication->query(self::GET_CATEGORIES,$PARAMS,$PARAMS_TYPES);
@@ -20,41 +20,41 @@ class Dreporte{
 		return $result;
 	}	
 	public function get_resumen($idcaja){
-		$comunication = new ComunicationRes();
+		$comunication = new ComunicationRecep();
 		$PARAMS = array($idcaja);
-		$PARAMS_TYPES = array (ComunicationRes::$TINT);
+		$PARAMS_TYPES = array (ComunicationRecep::$TINT);
 		$result = $comunication->query(self::GET_RESUMEN_REPORTE,$PARAMS,$PARAMS_TYPES);
 		
 		return $result;
 	}	
 	public function get_fechaHoraApertura($idcaja){
-		$comunication = new ComunicationRes();
+		$comunication = new ComunicationRecep();
 		$PARAMS = array($idcaja);
-		$PARAMS_TYPES = array (ComunicationRes::$TINT);
+		$PARAMS_TYPES = array (ComunicationRecep::$TINT);
 		$result = $comunication->query(self::GET_FECHAHORAAPERTURA,$PARAMS,$PARAMS_TYPES);
 		
 		return $result;
 	}	
 	public function get_fechaHoraCierre($idcaja){
-		$comunication = new ComunicationRes();
+		$comunication = new ComunicationRecep();
 		$PARAMS = array($idcaja);
-		$PARAMS_TYPES = array (ComunicationRes::$TINT);
+		$PARAMS_TYPES = array (ComunicationRecep::$TINT);
 		$result = $comunication->query(self::GET_FECHAHORACIERRE,$PARAMS,$PARAMS_TYPES);
 		
 		return $result;
 	}	
 	public function get_reporte($id_caja){
-		$comunication = new ComunicationRes();	
+		$comunication = new ComunicationRecep();	
 		$PARAMS = array($id_caja,$id_caja);
-		$PARAMS_TYPES = array (ComunicationRes::$TINT,ComunicationRes::$TINT);
+		$PARAMS_TYPES = array (ComunicationRecep::$TINT,ComunicationRecep::$TINT);
 		$result = $comunication->query(self::GET_REPORTE,$PARAMS,$PARAMS_TYPES);
 		
 		return $result;
 	}	
 	public function get_tiquets($id_caja){
-		$comunication = new ComunicationRes();	
+		$comunication = new ComunicationRecep();	
 		$PARAMS = array($id_caja);
-		$PARAMS_TYPES = array (ComunicationRes::$TINT);
+		$PARAMS_TYPES = array (ComunicationRecep::$TINT);
 		$result = $comunication->query(self::GET_TIQUETS,$PARAMS,$PARAMS_TYPES);
 		
 		return $result;

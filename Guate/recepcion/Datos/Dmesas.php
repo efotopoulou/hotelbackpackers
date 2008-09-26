@@ -8,7 +8,7 @@ class Dmesas{
 	
 	
 	public function get_no_mesas(){
-		$comunication = new ComunicationRes();
+		$comunication = new ComunicationRecep();
 		$PARAMS = array();
 		$PARAMS_TYPES = array ();
 		$result = $comunication->query(self::GET_NUMERO_MESAS,$PARAMS,$PARAMS_TYPES);
@@ -16,9 +16,9 @@ class Dmesas{
 		return $result;
 	}
 	public function modificar_mesas ($numeroDeMesas){
-		$comunication = new ComunicationRes();
+		$comunication = new ComunicationRecep();
 		$PARAMS = array($numeroDeMesas);
-		$PARAMS_TYPES = array (ComunicationRes::$TINT);
+		$PARAMS_TYPES = array (ComunicationRecep::$TINT);
 		$result = $comunication->update(self::MODIFICAR_MESAS,$PARAMS,$PARAMS_TYPES);
 		
 		return $result;

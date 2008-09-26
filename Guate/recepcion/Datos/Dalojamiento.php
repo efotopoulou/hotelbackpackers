@@ -10,7 +10,7 @@ class Dalojamiento{
 	const ERROR = 'INSERT INTO error VALUES(?,2,NOW())';
 	
 	function insert_checkinmov($idcheck,$idencargado){
-	$comunication = new ComunicationRes();
+	$comunication = new ComunicationRecep();
 		
 		$params = array();
 		$PARAMS_TYPES = array ();
@@ -23,7 +23,7 @@ class Dalojamiento{
 		
 		
 		$PARAMS = array($idcheck);
-		$PARAMS_TYPES = array (ComunicationRes::$TINT);
+		$PARAMS_TYPES = array (ComunicationRecep::$TINT);
 		$checkin = $comunication->query(self::SELECT_CHECKIN,$PARAMS,$PARAMS_TYPES);
 		
 		if ($checkin->getRecordCount()>0){
@@ -39,12 +39,12 @@ class Dalojamiento{
 		
 	    if($importe_pagado!=0){
 		 $PARAMS = array($a,"entrada",$importe_pagado,$nombre." ".$apellido1." ".$apellido2." noches(".$noches.") ".$descripcion." chekin",2,$idencargado);
-	     $PARAMS_TYPES = array (ComunicationRes::$TINT,ComunicationRes::$TSTRING,ComunicationRes::$TFLOAT,ComunicationRes::$TSTRING,ComunicationRes::$TINT,ComunicationRes::$TINT);
+	     $PARAMS_TYPES = array (ComunicationRecep::$TINT,ComunicationRecep::$TSTRING,ComunicationRecep::$TFLOAT,ComunicationRecep::$TSTRING,ComunicationRecep::$TINT,ComunicationRecep::$TINT);
 		 $checkin = $comunication->query(self::INS_MOV,$PARAMS,$PARAMS_TYPES);		
 		}	
 	}
 	function insert_checkoutmov($idcheck,$valor,$idencargado){
-	$comunication = new ComunicationRes();
+	$comunication = new ComunicationRecep();
 	if ($valor != 0){	
 		$params = array();
 		$PARAMS_TYPES = array ();
@@ -58,7 +58,7 @@ class Dalojamiento{
 		
 		
 		$PARAMS = array($idcheck);
-		$PARAMS_TYPES = array (ComunicationRes::$TINT);
+		$PARAMS_TYPES = array (ComunicationRecep::$TINT);
 		$checkin = $comunication->query(self::SELECT_CHECKIN,$PARAMS,$PARAMS_TYPES);
 		
 		if ($checkin->getRecordCount()>0){
@@ -73,7 +73,7 @@ class Dalojamiento{
 		}		
 		
 		$PARAMS = array($valor);
-		$PARAMS_TYPES = array (ComunicationRes::$TFLOAT);
+		$PARAMS_TYPES = array (ComunicationRecep::$TFLOAT);
 		$checkin = $comunication->query(self::ERROR,$PARAMS,$PARAMS_TYPES);		
 		
 		
@@ -81,7 +81,7 @@ class Dalojamiento{
 		else if($valor!=0) $PARAMS = array($a,"entrada",$valor,$nombre." ".$apellido1." ".$apellido2." noches(".$noches.") ".$descripcion." chekout",2,$idencargado);
 		
 		
-		$PARAMS_TYPES = array (ComunicationRes::$TINT,ComunicationRes::$TSTRING,ComunicationRes::$TFLOAT,ComunicationRes::$TSTRING,ComunicationRes::$TINT,ComunicationRes::$TINT);
+		$PARAMS_TYPES = array (ComunicationRecep::$TINT,ComunicationRecep::$TSTRING,ComunicationRecep::$TFLOAT,ComunicationRecep::$TSTRING,ComunicationRecep::$TINT,ComunicationRecep::$TINT);
 		$checkin = $comunication->query(self::INS_MOV,$PARAMS,$PARAMS_TYPES);		
 	}		
   }
