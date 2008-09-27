@@ -301,7 +301,7 @@ function vaciar(){
      </div>
         <div id="editplatillo" style="margin-top:5px" class="changedisplay">			
 		<table width=97%>
-		<tr><td width=5% bgcolor="#ecf8cb"><img src="../img/flecha_dcha.jpg"></td>
+		<tr><td width=5% bgcolor="#ecf8cb"><img src="/common/img/flecha_dcha.jpg"></td>
 		<td width=10%><input style="width: 100%" id="idbebida" value="" type="text"/></td>
 		<td width=30%><input style="width: 100%" id="namebebida" value="" type="text"/></td>
 		<td width=10%><input style="width: 100%" id="precioN" value="" type="text"/></td>
@@ -313,7 +313,7 @@ function vaciar(){
 		
 		<div id="modificarplatillo" style="margin-top:5px" class="changedisplay">			
 		<table width=97%>
-		<tr><td width=5% bgcolor="#ecf8cb"><img src="../img/flecha_dcha.jpg"></td>
+		<tr><td width=5% bgcolor="#ecf8cb"><img src="/common/img/flecha_dcha.jpg"></td>
 		<td width=10%><input style="width: 100%" id="idplatomod" value="" type="text"/></td>
 		<td width=30%><input style="width: 100%" id="nameplatomod" value="" type="text"/></td>
 		<td width=10%><input style="width: 100%" id="precioNmod" value="" type="text"/></td>

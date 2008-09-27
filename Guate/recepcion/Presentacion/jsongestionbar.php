@@ -49,7 +49,7 @@ $response = loadfamily($familia);
 $idfam = substr($famidmod, 1);
 $familia->modificar_family($namefamilymod,$idfam);
 $response = loadfamily($familia);	
-}else if ($idbebida){
+}else if ($idbebida){	
 $bebidasinfo->insert_bebida($idbebida,$namebebida,$precioL,$precioN,$bebidaFamily);
 $response = loadbebidas($bebidasinfo);
 }else if ($idbebidamod){

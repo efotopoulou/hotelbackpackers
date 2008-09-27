@@ -9,7 +9,7 @@ class Dbebidas{
     const IS_FAMILY_FREE = 'select idBebida from bebida where id_familia=?';
 	const DELETE_BEBIDA = 'delete from bebida where idBebida=?';
 	const INSERT_BEBIDA = 'insert into bebida values (0,?,?,?,?,?)';
-	const INSERT_BEBIDA_STOCK = 'insert into stockbebidas values (?,0,0)';
+	const INSERT_BEBIDA_STOCK = 'insert into stockbebidas values (?,0,0,1)';
 	const DELETE_BEBIDA_STOCK = 'delete from stockbebidas where idBebida=?';
 	const MODIFICAR_BEBIDA = 'UPDATE bebida SET precioLimitado=?,precioNormal=? where idBebida=?';
 	
@@ -55,6 +55,7 @@ class Dbebidas{
 		$PARAMS_TYPES = array (ComunicationRecep::$TINT,ComunicationRecep::$TSTRING,ComunicationRecep::$TFLOAT,ComunicationRecep::$TFLOAT,ComunicationRecep::$TINT);
 		$id = $comunication->update(self::INSERT_BEBIDA,$PARAMS,$PARAMS_TYPES);
 		
+		//informar el contol del stock sobre la nueva bebida que entramos
 		$PARAMS = array($id);
 		$PARAMS_TYPES = array (ComunicationRecep::$TINT);
 		$result = $comunication->update(self::INSERT_BEBIDA_STOCK,$PARAMS,$PARAMS_TYPES);
