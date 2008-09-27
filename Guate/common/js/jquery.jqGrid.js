@@ -1,7 +1,7 @@
 // we make it simple as possible
 function jqGridInclude()
 {
-    var pathtojsfiles = "/Restaurante/js/js/"; // need to be ajusted
+    var pathtojsfiles = "/common/js/jqGrid/"; // need to be ajusted
     // if you do not want some module to be included
     // set include to false.
     // by default all modules are included.

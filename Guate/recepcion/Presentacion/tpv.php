@@ -7,7 +7,7 @@ require ($_SERVER['DOCUMENT_ROOT'] . '/recepcion/Dominio/class_caja.php');
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<title>TPV</title>
-		<link rel="stylesheet" type="text/css" media="screen" href="/Restaurante/css/grid.css" />
+		<link rel="stylesheet" type="text/css" media="screen" href="/common/css/grid.css" />
 		<link href="/common/css/estilo.css" rel="stylesheet" type="text/css" />
 
 		<script src="/common/js/jquery-1.2.3.pack.js"></script>

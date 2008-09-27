@@ -303,7 +303,7 @@ function sendMain(){
 //-------------------------------------------MOSTRAR LISTA DE CLIENTES Y TRABAJADORES------------------//
 function mostrarListaClientes(){
   jQuery("#list2").jqGrid({
-    url:'jsongrid.php?q=cliente&nd='+new Date().getTime(),
+    url:'Presentacion/jsongrid.php?q=cliente&nd='+new Date().getTime(),
     datatype: "xml",
     colNames:['Id','Nombre', 'Apellido1', 'Apellido2','Pasaporte'],
     colModel:[
@@ -333,7 +333,7 @@ function mostrarListaClientes(){
  }
 function mostrarListaTrabajadores(){
   jQuery("#list3").jqGrid({
-    url:'jsongrid.php?q=trabajador&nd='+new Date().getTime(),
+    url:'Presentacion/jsongrid.php?q=trabajador&nd='+new Date().getTime(),
     datatype: "xml",
     colNames:['Id_usuario','Id_perfil', 'nombre'],
     colModel:[
@@ -344,7 +344,7 @@ function mostrarListaTrabajadores(){
     pager: jQuery('#pager3'),
     rowNum:10,
     rowList:[10,20,30],
-    imgpath: '/Restaurante/css/images',
+    imgpath: '/common/css/images',
     sortname: 'Id_usuario',
     viewrecords: true,
     sortorder: "desc",
