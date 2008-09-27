@@ -52,7 +52,7 @@ function preparestock(aux){
    $("#restaurantestock").val(restaurante);
    $("#totalstock").val(total);
    $("#unidadventa").val(unidadventa);
-   $("#numbebida,#namebebida,#totalstock").attr({disabled:true});
+   $("#numbebida,#namebebida,#totalstock,#barstock").attr({disabled:true});
   
    changedisplay('b5');
    changedisplay('addstock');
