@@ -210,7 +210,7 @@ class ComunicationRecep{
         $stmt->close();
     	$conn->close();
 		
-		return $result;
+		 return $LastInsertId;
 		}
 		catch (Exception $sqle) {
 			$this->guardarError($sqle);
