@@ -25,9 +25,10 @@ class comanda{
 			$rs = $dtp->borrarComanda($estado);
 		}
 		
-		function setComanda($comandaID, $estado, $efectivo,$numMesa, $tipoCliente, $total, $idcliente ,$free){
+		function setComandaVenta($efectivo, $tipoCliente, $total, $idcliente ,$free){
 			$dtp = new DComanda();
-			$rs = $dtp->setComanda($comandaID, $estado, $efectivo,$numMesa, $tipoCliente, $total, $idcliente ,$free);
+			$rs = $dtp->setComandaVenta($efectivo, $tipoCliente, $total, $idcliente ,$free);
+			return $rs;
 		}
 		function comandasRestore(){
 			$dtp = new DComanda();

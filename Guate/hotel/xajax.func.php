@@ -154,7 +154,7 @@ require($_SERVER['DOCUMENT_ROOT'] . '/recepcion/Dominio/class_alojamiento.php');
 		}
 	
 		$html='
-		<img style="position: absolute; left: 33px; top: -16px;" src="/hotel/img/cal_box_border_arrow.gif" onClick="hideBox()"/>
+		  <img style="position: absolute; left: 33px; top: -16px;" src="/hotel/img/cal_box_border_arrow.gif" onClick="hideBox()"/>
 		<img style="position: absolute; left: 265px; top: 10px; cursor: pointer" src="/hotel/img/cal_box_close.gif" onClick="hideBox()"/>
 		<div style="position: absolute; left: 15px; top: 10px; z-index:2000">
 			<div class="cal_box_title">'.$titulo.'</div> 
