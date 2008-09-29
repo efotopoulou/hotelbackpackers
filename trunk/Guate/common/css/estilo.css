@@ -498,7 +498,7 @@ ul {
 /* navigation */
 #navigation {
 	float:left;
-	height:27px;
+	height:5%;
 	border-left:1px solid #aaa;
 	}
 #navigation li {
@@ -508,7 +508,7 @@ ul {
 #navigation li a {
 	float:left;
 	display:block;
-	height:30px;
+	height:27px;
 	line-height:20px;
 	font-size:12px;
 	padding:0 11px;

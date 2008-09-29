@@ -137,12 +137,9 @@ Introduzca el razon de la cortesia:<br />
   <div id="clientpressed4" class="client" style="float:right;cursor:pointer;padding:7px" onmousedown="clientemousedown(4)">Normal</div>
   <div style="clear:both"></div>
  </div>
- <div style="width:100%;height:94%">
- 
-<div id="abajo_izquierda" style="height:100%;width:100%;overflow: hidden">
-<table  width="100%" height="100%" border=0 cellpadding="1" cellspacing="1">	
+<table  width="100%"  border=0 cellpadding="1" cellspacing="1">	
 <tr>
-<td id="platillosTd" height='50%' width="100%"><div id="platillos" style="position:relative;width:100%;height:100%"></div>
+<td id="platillosTd"><div id="platillos"></div>
 </td>
 </tr>
 </table>
@@ -154,10 +151,6 @@ var listaPedidos = new LineaComandaScreen();
 var clienteScreen = new ClienteScreen();
 var main = new Main();
 </script>	
- </div>
-</div>
- 
-
 </td>
 
 <!--CUADRO DERECHA ARRIBA-->
@@ -174,12 +167,13 @@ var main = new Main();
 <tr  height="50%">
 <!--CUADRO DERECHA ABAJO-->
 
-<td width="50%" height="50%" id="abajoderecha">
-<table  width="100%" height="100%" border=0 cellpadding="0" cellspacing="0">
+<td id="abajoderecha">
+<table width="100%" height="100%" border=0 cellpadding="0" cellspacing="0">
    <!--TITULOS DE LOS INPUTS-->
 <tr class="title">
 <!--INPUTS IDCOMANDA,TOTAL,EFECTIVO,CAMBIO-->
-<td  align="center">Total</td><td align="center">Efectivo</td><td align="center" >Cambio</td></tr>
+<td width="25%" align="center">Comanda</td><td width="25%" align="center">Total</td><td align="center" width="25%">Efectivo</td><td width="25%" align="center">Cambio</td></tr>
+<tr height="5%"><td><input id="idComanda" type="text" style="width:100%;text-align:center;font-family:Arial,sans-serif;font-size:30px" /></td>
 <td><input id="total" type="text" border=0 disabled=true style="width:100%;text-align:center;font-family:Arial,sans-serif;font-size:30px"/></td>
 <td><input id="efectivo" type="text" disabled=true style="width:100%;text-align:center;font-family:Arial,sans-serif;font-size:30px"/></td>
 <!-- disabled=true -->

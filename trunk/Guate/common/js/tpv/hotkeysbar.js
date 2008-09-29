@@ -13,10 +13,10 @@ function hotkeys(){
 	jQuery.hotkeys.add('backspace',function (){ borrar("Borrar");changeClass("Borrar")});
 	jQuery.hotkeys.add('e',function (){ efectivo();changeClass("Efectivo")});
 	
-	jQuery.hotkeys.add('right',mesaRight);
+/*	jQuery.hotkeys.add('right',mesaRight);
 	jQuery.hotkeys.add('left',mesaLeft);
 	jQuery.hotkeys.add('up',mesaUpDown);
-	jQuery.hotkeys.add('down',mesaUpDown);
+	jQuery.hotkeys.add('down',mesaUpDown);*/
 	
 }
 

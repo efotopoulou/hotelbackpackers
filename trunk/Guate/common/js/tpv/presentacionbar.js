@@ -87,8 +87,9 @@ function platomousedown(plato,platoid,precioN,precioLim,id){
 	  listaPedidos.addComanda();	
 	  main.comanda().currentClientType=main.comandaArray[aux].currentClientType;
 	 }
+	 clientemousedown(4);
 	}
-//	else clienteScreen.setCorrectColor(main.comanda().currentClientType);
+	else clienteScreen.setCorrectColor(main.comanda().currentClientType);
    main.comanda().numRow+=1;
    var precio=escogePrecio(precioN,precioLim);
    main.comanda().liniasComanda[main.comanda().numRow] = new LiniaComanda(platoid,precio,precio,precioN,precioLim,plato);
@@ -248,7 +249,7 @@ function comprobarOut(id){
 //-------------------------------------------sendComandaAbierta----------------------------------------//
 function sendComanda(){
  var myJsonMain = JSON.stringify(main.comanda());
-  $.getJSONGuate("jsonsavetpv.php",{ json: myJsonMain}, function(json){
+  $.getJSONGuate("Presentacion/jsonsavetpv.php",{ json: myJsonMain}, function(json){
     if (json["Mensaje"]) {
     	changeClass('Efectivo');
     	efectivo();
@@ -335,8 +336,6 @@ function mostrarListaTrabajadores(){
  		case 2: precio=precioLim; break;
  		case 3: precio=precioN; break;
  		case 4: precio=precioN; break;
- 		case 5: precio=precioLim; break;
- 		
  	}
  	return precio;
  }

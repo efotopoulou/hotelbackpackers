@@ -1,6 +1,6 @@
 <?php
-require ('../Dominio/class_comanda.php');
-require ('../Dominio/MensajeJSON.php');
+require ($_SERVER['DOCUMENT_ROOT'] . '/recepcion/Dominio/class_comanda.php');
+require ($_SERVER['DOCUMENT_ROOT'] . '/recepcion/Dominio/MensajeJSON.php');
 //Recoge el parametro y se limpia de contrabarras
  $json = $_POST['json'];
  $mesaNum = $_POST['mesa'];
@@ -15,7 +15,7 @@ $mesa = json_decode($json, true);
 $mesa["numRow"];
 //idComanda,estado,fechaHora,usuario,efectivo,mesa,tipoCliente,Total
 try {
- $comanda->setComandaAbierta($mesa["comandaID"],$mesa["efectivo"],$mesaNum,$mesa["currentClientType"],$mesa["total"],$mesa["id_cliente"],$mesa["free"]);
+ $comanda->setComanda($mesa["comandaID"],$mesa["efectivo"],$mesaNum,$mesa["currentClientType"],$mesa["total"],$mesa["id_cliente"],$mesa["free"]);
  //Se borra por si acaso ha desactivado el efectivo y lo vuelve a apretar.
  //$comanda->borrarLineasComanda($mesa["comandaID"]);
  $lineas = $mesa["liniasComanda"];
