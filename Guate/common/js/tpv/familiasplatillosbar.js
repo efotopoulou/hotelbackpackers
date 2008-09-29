@@ -27,7 +27,7 @@ function crearPlatVenta(json){
 	html +="</tr></table>"+
 	'</div>';
 	$("#platillos").append(html);
-	$(".plat").corner();
+	//$(".plat").corner();
 }
 
 function crearFamilias(json){
