@@ -107,12 +107,14 @@ $("#efectivo_cerrar,#input_money,#output_money,#categoria,#description,#cob,#an,
 function closeCaja(efectivoCerrar){
 
  if(confirm('�Estas seguro que quieres cerrar la caja?')){
+    $.blockUI({ message: $('#closingcash')});	
     $.getJSONGuate("Presentacion/jsongestioncaja.php",{efectivo:efectivoCerrar}, function(json){
       if (!json["Mensaje"]){
        alert("Error,la caja no esta cerrada."); 
 	   } else {alert (json["Mensaje"]);
               $("#efectivo_cerrar,#input_money,#output_money,#categoria,#description,#cob,#an,#fact,#accM,#accV,#reporteexcel,#reporte").attr({disabled:true});
               }
+     $.unblockUI();
     });
     }else {$("#efectivo_cerrar").val("");}
 
@@ -368,6 +370,11 @@ Fondo: <input type="text" id="fondo" name="fondo"/><br />
 <input type="button" value="Aceptar" onClick="openCaja(fondo.value)" />	
 <input type="button" value="Cancelar" onClick="cancelarapertura();" />
 </div>
+
+<div  id="closingcash" style="display:none;margin:0 auto;text-align:center;">
+La caja se esta cerrando.Por favor espere.<br />
+</div>
+
 <div  id="factura" style="display:none;margin:0 auto;text-align:center;" class="box_amarillo">
 <center><table class="box_amarillo">
 <tr><td><h6>Nombre:</h6></td><td><input type="text" id="nombre"/></td></tr>

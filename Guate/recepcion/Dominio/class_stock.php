@@ -3,6 +3,7 @@
 require ($_SERVER['DOCUMENT_ROOT'] . '/recepcion/Datos/Dstock.php');
 require ('stockbar.php');
 require ('stockreception.php');
+require ('ventaturno.php');
 
 class stock{
 		private $pla;
@@ -60,6 +61,34 @@ class stock{
 	    $result=null;
 			}
         return $ors;	
+		}
+		
+		function venta_turno(){
+		$gsr = new Dstock();
+        $rs = $gsr->venta_turno();
+        	
+          if ($rs->getRecordCount()>0){
+	       $n=0;
+	     while($rs->next()){
+		$result=$rs->getRow();
+		$ors[$n] = new VentaTurno($result["numBebida"],$result["nombre"],$result["suma"]);
+		$n++;
+		}														
+        }else{
+	    $result=null;
+			}
+        return $ors;	
+		}
+		
+		function recuperar_venta(){
+		$gsb = new Dstock();
+		$rs = $gsb->recuperar_venta();		
+		}
+		
+		function recuperar_venta_caja(){
+		$gsb = new Dstock();
+		$rs = $gsb->recuperar_venta_caja();		
+		return $rs;
 		}
 		
 		

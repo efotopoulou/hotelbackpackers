@@ -44,7 +44,7 @@
 	height: 192px;
 	width: 192px;
 	background-color: #FF0000;
-	background-image: url(../../css/images/pickerbg.png);
+	background-image: url(/common/js/color_picker/images/pickerbg.png);
 	background-repeat: no-repeat;
 	background-position: center;
 	top: 0px;
@@ -56,7 +56,7 @@
 	position: absolute;
 	width: 11px;
 	height: 11px;
-	background-image: url(../../css/images/select.gif);
+	background-image: url(/common/js/color_picker/images/select.gif);
 	background-repeat:no-repeat;
 }
 #cPhue
@@ -66,12 +66,12 @@
 	left: 200px;
 	width: 18px;
 	height: 186px;
-	background-image: url(../../css/images/hue.png);
+	background-image: url(/common/js/color_picker/images/hue.png);
 }
 #cPhueIndic
 {
 	position:absolute;
-	background-image: url(../../css/images/color_indic.gif);
+	background-image: url(/common/js/color_picker/images/color_indic.gif);
 	background-repeat:no-repeat;
 	width: 18px;
 	height: 7px;
