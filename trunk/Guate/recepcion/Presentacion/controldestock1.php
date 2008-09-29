@@ -66,8 +66,7 @@ function addstock(aux){
 	var stockbar = $("#barstock").val();
 	var stockrestaurante = $("#restaurantestock").val();
 	var unidadventa = $("#unidadventa").val();
-	  //if(idbebida && stockbar && stockrestaurante && unidadventa){
-	  if(idbebida && stockrestaurante && unidadventa){
+	  if(idbebida && stockbar && stockrestaurante && unidadventa){
          if(confirm('�Estas seguro que quieres a�adir estas cantidades del producto?')){
              $.getJSONGuate("Presentacion/jsongestionstock.php",{aux:aux,idbebida:idbebida,stockbar:stockbar,stockrestaurante:stockrestaurante,unidadventa:unidadventa}, function(json){
              json = verificaJSON(json);
@@ -103,7 +102,7 @@ function loadbebidas(json){
       for(i=0;i<json.stockInfo.length;i++) {
         idStock="B"+json.stockInfo[i].idBebida;
         total=parseInt(json.stockInfo[i].stockrestaurante)+parseInt(json.stockInfo[i].stockbar);
-        $("#stockTable").append("<tr id="+idStock+"><td class='checkbox' width=2%><input type='checkbox' onmousedown='changeClass(\""+idStock+"\");'></td><td width=10% class='codigo'>"+json.stockInfo[i].numBebida+"</td><td width=41% class='name'>"+json.stockInfo[i].nombre+"</h6></td><td width=10% class='sr'>"+json.stockInfo[i].stockrestaurante+"</td><td width=10% class='unidad'>"+json.stockInfo[i].unidadventa+"</td></tr>");	
+        $("#stockTable").append("<tr id="+idStock+"><td class='checkbox' width=2%><input type='checkbox' onmousedown='changeClass(\""+idStock+"\");'></td><td width=10% class='codigo'>"+json.stockInfo[i].numBebida+"</td><td width=41% class='name'>"+json.stockInfo[i].nombre+"</h6></td><td width=10% class='sb'>"+json.stockInfo[i].stockbar+"</h6></td><td width=10% class='sr'>"+json.stockInfo[i].stockrestaurante+"</td><td><h6>"+total+"</td><td width=10% class='unidad'>"+json.stockInfo[i].unidadventa+"</td></tr>");	
         }
         }
 }
@@ -166,7 +165,7 @@ function recuperarventa(){
 	
 	<div>
 	<table cellpadding=0 cellspacing=1>
-    <tr class="titulos1"><td width=12%><h6>Codigo</h6></td><td width=40%><h6><center>Nombre Producto</center></h6></td><td width=10%><h6>Stock Recepcion</h6></td><td width=13%><h6><center>Unidad Venta</center></h6></td></tr>
+    <tr class="titulos1"><td width=12%><h6>Codigo</h6></td><td width=40%><h6><center>Nombre Producto</center></h6></td><td width=10%><h6><center>Stock Bar</center></h6></td><td width=10%><h6>Stock Recepcion</h6></td><td><h6>Stock Total</h6></td><td width=13%><h6><center>Unidad Venta</center></h6></td></tr>
     </table>
     </div>
   
@@ -188,9 +187,9 @@ function recuperarventa(){
 	<tr><td width=3% bgcolor="#ecf8cb"><img src="../img/flecha_dcha.jpg"></td>
 	<td width=10%><input style="width: 100%" id="numbebida" value="" type="text"/></td>
 	<td width=40%><input style="width: 100%" id="namebebida" value="" type="text"/></td>
-	<!-- <td width=10%><input style="width: 100%" id="barstock" value="" type="text"/></td> -->
+	<td width=10%><input style="width: 100%" id="barstock" value="" type="text"/></td>
 	<td width=10%><input style="width: 100%" id="restaurantestock" value="" type="text"/></td>
-	<!-- <td><input style="width: 100%" id="totalstock" value="" type="text"/></td> -->
+	<td><input style="width: 100%" id="totalstock" value="" type="text"/></td>
 	<td width=10%><input style="width: 100%" id="unidadventa" value="" type="text"/></td>
 	</tr>
 	</table>
@@ -212,6 +211,5 @@ function recuperarventa(){
 
 </body>
 </html>
-
 
 
