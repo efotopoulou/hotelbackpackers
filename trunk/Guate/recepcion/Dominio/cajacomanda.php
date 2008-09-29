@@ -1,7 +1,6 @@
 <?php
 class CajaComanda{
     var $idComanda;
-    var $estado;
     var $fechaHora;
     var $total;
     var $efectivo;
@@ -9,9 +8,8 @@ class CajaComanda{
     var $nombre;
     var $free;
 	
-	function CajaComanda($idComanda,$estado,$fechaHora,$total,$efectivo,$tipoCliente,$nombre,$free){
+	function CajaComanda($idComanda,$fechaHora,$total,$efectivo,$tipoCliente,$nombre,$free){
 	$this->idComanda = $idComanda;
-	$this->estado = $estado;
 	$this->fechaHora = $fechaHora;
 	$this->total = $total;
 	$this->efectivo = $efectivo;
