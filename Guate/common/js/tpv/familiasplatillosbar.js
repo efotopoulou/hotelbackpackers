@@ -18,16 +18,16 @@ function getPlatillosVentaRecepcion(file){
 }
 function crearPlatVenta(json){
     var platillos =json["platillos"];
-    var html ="<div class='platscroll' style='height:100%'>"+
-	          "<table style='text-align:center' width='100%' border=0 cellpadding='1' cellspacing='1'><tr  height='60'>";
+    var html ="<div class='platscroll'>"+
+	          "<table style='text-align:center' width='100%' border=0 cellpadding='1' cellspacing='1'><tr  height='40'>";
 	for(var i=0;i<platillos.length;i++){
     	 html +='<td><div class="plat" style="height:100%;background:#A4C1B3" onmousedown="platomousedown(\''+platillos[i]["nombre"]+'\',\''+platillos[i]["idBebida"]+'\','+platillos[i]["precioNormal"]+','+platillos[i]["precioLimitado"]+',this.id)"><table width="100%" height="100%" style="text-align:center;background:#A4C13"><tr><td>'+platillos[i]["nombre"]+'</td></tr></table></div></div></td>';
- 		if ((i%3)==2) html +="</tr><tr height='60'>";
+ 		if (((i%3)==2) && (i+1!=platillos.length)) html +="</tr><tr height='60'>";
 	}
 	html +="</tr></table>"+
 	'</div>';
 	$("#platillos").append(html);
-	//$(".plat").corner();
+	$(".plat").corner();
 }
 
 function crearFamilias(json){
