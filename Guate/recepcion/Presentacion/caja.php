@@ -242,7 +242,7 @@ function loadPage(json){
      	if(json.TicketsInfo[i].free) nombre=json.TicketsInfo[i].free;
      	else if(json.TicketsInfo[i].nombre) nombre = json.TicketsInfo[i].nombre;
         idCom=json.TicketsInfo[i].idComanda;
-        $("#ticketsTable").append("<tr id="+idCom+"><td class='checkbox' width=2%><input type='checkbox'  onmousedown='changeClass(\""+idCom+"\");'></td><td width=5%><h6>"+idCom+"</h6></td><td width=9% class='estado'><h6>"+json.TicketsInfo[i].estado+"</h6></td><td width=22%><h6>"+json.TicketsInfo[i].fechaHora+"</h6></td><td width=6%><h6>"+json.TicketsInfo[i].total+"</h6></td><td width=8%><h6>"+json.TicketsInfo[i].efectivo+"</h6></td><td width=8%><h6>"+camb+"</h6></td><td width=7%><h6>"+json.TicketsInfo[i].tipoCliente+"</h6></td><td><h6>"+nombre+"</h6></td></tr>");
+        $("#ticketsTable").append("<tr id="+idCom+"><td class='checkbox' width=2%><input type='checkbox'  onmousedown='changeClass(\""+idCom+"\");'></td><td width=5%><h6>"+idCom+"</h6></td><td width=22%><h6>"+json.TicketsInfo[i].fechaHora+"</h6></td><td width=6%><h6>"+json.TicketsInfo[i].total+"</h6></td><td width=8%><h6>"+json.TicketsInfo[i].efectivo+"</h6></td><td width=8%><h6>"+camb+"</h6></td><td width=7%><h6>"+json.TicketsInfo[i].tipoCliente+"</h6></td><td><h6>"+nombre+"</h6></td></tr>");
         $("#"+idCom+" td:not(.checkbox)").mousedown(function(e){
            showpedido(this.parentNode.id);
         });
@@ -485,7 +485,7 @@ La caja se esta cerrando.Por favor espere.<br />
 
 	<h5 class="titulos">Comandas realizadas en la Recepcion</h5>
 	<table  width=97% cellpadding=0 cellspacing=1>
-    <tr><td width=2%>&nbsp;</td><td width=5%><h6>ID</h6></td><td width=9%><h6><center>estado</center></h6></td><td width=22%><h6><center>Fecha Hora</center></h6></td><td width=6%><h6><h6>Total</h6></h6></td><td width=8%><h6>efectivo</h6></td><td width=8%><h6>cambio</h6></td><td width=10%><h6>Cliente</h6></td><td><h6><center>Descripcion</center></h6></td></tr>
+    <tr><td width=2%>&nbsp;</td><td width=5%><h6>ID</h6></td><td width=22%><h6><center>Fecha Hora</center></h6></td><td width=6%><h6><h6>Total</h6></h6></td><td width=8%><h6>efectivo</h6></td><td width=8%><h6>cambio</h6></td><td width=10%><h6>Cliente</h6></td><td><h6><center>Descripcion</center></h6></td></tr>
     </table>
   <div style="height:25%;overflow:auto">
     <table id="ticketsTable" width=97% cellpadding=0 cellspacing=1>

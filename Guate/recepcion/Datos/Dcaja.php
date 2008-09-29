@@ -5,22 +5,22 @@ require_once ('ComunicationRecep.php');
 class Dcaja{
 	
 	const IS_CAJA_OPEN = 'SELECT estado from caja WHERE estado=true';
-	const OPEN_CAJA = 'INSERT INTO caja VALUES(?,1,NOW(),null,?,null)';
+	const OPEN_CAJA = 'INSERT INTO caja VALUES(?,1,NOW(),null,?,null,0)';
 	const GET_FONDO_CAJA = 'SELECT fondoInicial from caja where estado=1';
 	const GET_ID_CAJA = 'select id_caja from caja where estado=1';
 	const CLOSE_CAJA = 'UPDATE caja SET estado=0,fechaHoraCierre=NOW(), EfectivoCerrar=? where caja.estado=1';
 	const INS_MOV = 'INSERT INTO movimiento VALUES(NOW(),?,?,?,?,?,?)';
 	const TOTAL_MONEY_MOV = 'SELECT t1.tipo,sum(t1.dinero) as suma from movimiento t1,caja t2 where t1.id_caja=t2.id_caja and t2.estado=1 group by tipo';
-	const TOTAL_TICKETS = 'SELECT sum(t1.total) as totalTickets from comanda t1,caja t2 where t1.id_caja=t2.id_caja and t2.estado=1 and (t1.estado="cobrado" or t1.estado="facturado")';
+	const TOTAL_TICKETS = 'SELECT sum(t1.total) as totalTickets from comanda t1,caja t2 where t1.id_caja=t2.id_caja and t2.estado=1';
 	const COBRAR_TICKET = 'UPDATE comanda SET estado="cobrado" where idComanda=?';
 	const ESTADO_COMANDA = 'select estado from comanda where idComanda=?';
 	const ANULAR_TICKET = 'UPDATE comanda SET estado="anulado" where idComanda=?';
 	const FACTURAR_TICKET = 'UPDATE comanda SET estado="facturado" where idComanda=?';
 	const FIND_CAJA = 'select id_caja,fechaHoraApertura,fechaHoraCierre,fondoInicial,EfectivoCerrar from caja where fechaHoraApertura <= ? and  fechaHoraApertura >= ?';
 	const FIND_ONE_CAJA = 'select id_caja,fechaHoraApertura,fechaHoraCierre,fondoInicial,EfectivoCerrar from caja where id_caja=?';
-	const LOAD_TICKETS = 'select t1.idComanda,t1.estado,t1.fechaHora,t1.total,t1.efectivo,t4.clientType,concat(t3.nombre," ",t3.apellido1," ", t3.apellido2) as nombre,null as free from comanda t1,caja t2, guate_bd.cliente t3,tipocliente t4 where t1.id_caja=t2.id_caja and t2.id_caja=? and t1.id_cliente=t3.Id_cliente and t4.idTipoCliente=t1.tipoCliente and t1.tipoCliente=3 union select t1.idComanda,t1.estado,t1.fechaHora,t1.total,t1.efectivo,t4.clientType,t3.nombre,null as free from comanda t1,caja t2, guate_bd.usuario t3,tipocliente t4 where t1.id_caja=t2.id_caja and t2.id_caja=? and t1.id_cliente=t3.Id_usuario and t4.idTipoCliente=t1.tipoCliente and t1.tipoCliente=2 union select t1.idComanda,t1.estado,t1.fechaHora,t1.total,t1.efectivo,t4.clientType,null,t1.free from comanda t1,caja t2,tipocliente t4 where t1.id_caja=t2.id_caja and t2.id_caja=? and t1.id_cliente is null and  t1.tipoCliente=t4.idTipoCliente order by fechaHora desc';
+	const LOAD_TICKETS = 'select t1.idComanda,t1.fechaHora,t1.total,t1.efectivo,t4.clientType,concat(t3.nombre," ",t3.apellido1," ", t3.apellido2) as nombre,null as free from comanda t1,caja t2, guate_bd.cliente t3,tipocliente t4 where t1.id_caja=t2.id_caja and t2.id_caja=? and t1.id_cliente=t3.Id_cliente and t4.idTipoCliente=t1.tipoCliente and t1.tipoCliente=3 union select t1.idComanda,t1.fechaHora,t1.total,t1.efectivo,t4.clientType,t3.nombre,null as free from comanda t1,caja t2, guate_bd.usuario t3,tipocliente t4 where t1.id_caja=t2.id_caja and t2.id_caja=? and t1.id_cliente=t3.Id_usuario and t4.idTipoCliente=t1.tipoCliente and t1.tipoCliente=2 union select t1.idComanda,t1.fechaHora,t1.total,t1.efectivo,t4.clientType,null,t1.free from comanda t1,caja t2,tipocliente t4 where t1.id_caja=t2.id_caja and t2.id_caja=? and t1.id_cliente is null and  t1.tipoCliente=t4.idTipoCliente order by fechaHora desc';
 	const LOAD_MOV = 'SELECT t1.fechaHora,t1.tipo,t1.dinero,t1.descripcion,t3.nombre as categoria,t4.nombre as encargado from movimiento t1,caja t2,categoria t3,guate_bd.usuario t4 where t1.id_caja=t2.id_caja and t2.id_caja=? and t3.id_categoria=t1.id_categoria and t1.idencargado=t4.Id_usuario  order by t1.fechaHora desc';
-	const TOTAL_TICKETS_OLD = 'SELECT sum(t1.total) as totalTickets from comanda t1,caja t2 where t1.id_caja=t2.id_caja and t2.id_caja=? and (t1.estado="cobrado" or t1.estado="facturado")';
+	const TOTAL_TICKETS_OLD = 'SELECT sum(t1.total) as totalTickets from comanda t1,caja t2 where t1.id_caja=t2.id_caja and t2.id_caja=?';
 	const TOTAL_MONEY_MOV_OLD = 'SELECT t1.tipo,sum(t1.dinero) as suma from movimiento t1,caja t2 where t1.id_caja=t2.id_caja and t2.id_caja=? group by tipo';
 	const GET_FONDO_CAJA_OLD = 'SELECT fondoInicial from caja where id_caja=?';
 	const ARE_TIKETS_COBRADOS = 'SELECT t1.idComanda from comanda t1,caja t2 where t1.id_caja=t2.id_caja and t2.estado=1 and (t1.estado="cerrado" or t1.estado="abierta")';
@@ -29,7 +29,7 @@ class Dcaja{
 	const TOTAL_CUENTA = 'select sum(t1.total) as total from comanda t1,caja t2, guate_bd.usuario t3 where t1.id_caja=t2.id_caja and t2.estado=0 and t1.id_cliente=t3.Id_usuario and t1.tipoCliente=2 and t3.Id_usuario=? and month(t2.fechaHoraApertura)=? and year(t2.fechaHoraApertura)=? group by t3.Id_usuario';
 	const GET_PEDIDO = 'select t1.idPlatillo,t1.cantidad,t2.nombre,t1.precio from lineacomanda t1,platillo t2 where idComanda=? and t2.idPlatillo=t1.idPlatillo';
 	const GET_PEDIDO_BAR = 'select t1.idBebida,t1.cantidad,t2.nombre,t1.precio from bar_bd.lineacomanda t1,bar_bd.bebida t2 where idComanda=? and t2.idBebida=t1.idBebida';
-	const GET_MOV_CATEGORIES = 'select * from categoria where id_categoria!=3 and id_categoria!=4';
+	const GET_MOV_CATEGORIES = 'select * from categoria where showcaja=1';
 	const GET_PRECIOS = 'select precioLimitado,precioNormal from bar_bd.bebida where idBebida=?';
 	
 	public function is_caja_open (){
