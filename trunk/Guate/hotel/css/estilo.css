@@ -382,7 +382,7 @@ background-color:#eac995;
 #BoxDiv{
 z-index:400; 
 position:absolute;
-background:url(/img/cal_box_border.gif);
+background:url(/hotel/img/cal_box_border.gif);
 background-repeat:no-repeat;
 width:290px;
 height:105px;
@@ -408,14 +408,14 @@ background-color: #336699;
 
 /*LEFT habitacion de literas*/
 .hab_literas{
-background:url(/img/arrow_d.gif);
+background:url(/hotel/img/arrow_d.gif);
 background-repeat:no-repeat;
 background-position:right;
 cursor: pointer;
 
 }
 .hab_literas2{
-background:url(/img/arrow_r.gif);
+background:url(/hotel/img/arrow_r.gif);
 background-repeat:no-repeat;
 background-position:right;
 cursor: pointer;

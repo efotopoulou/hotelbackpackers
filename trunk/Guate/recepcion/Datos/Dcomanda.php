@@ -6,6 +6,7 @@ class Dcomanda{
 	//idComanda,estado,fechaHora,usuario,efectivo,mesa,tipoCliente,total,id_cliente,id_caja
 	const SET_PLATILLOS = 'INSERT INTO comanda values(?,\'abierta\',NOW(),?,?,?,?,?,?,?)';
 	const SET_COMANDA = 'INSERT INTO comanda values(?,?,NOW(),?,?,?,?,?,?,?)';
+	const SET_COMANDA_VENTA = 'INSERT INTO comanda values(0,null,NOW(),?,?,?,?,?,?)';
 	const GET_ID_CAJA = 'select id_caja from caja where estado=1';
 	const ERASE_LISTA_PLATILLOS = 'DELETE FROM lineacomanda WHERE idComanda=?';
 	const SET_LISTA_PLATILLOS = 'INSERT INTO lineacomanda values (0,?,?,?,?)';
@@ -103,7 +104,7 @@ class Dcomanda{
 		
 		return $result;
 	}
-		public function setComanda($comandaID,$estado,$efectivo,$numMesa, $tipoCliente, $total, $idcliente,$free){
+		public function setComandaVenta($efectivo, $tipoCliente, $total, $idcliente ,$free){
 		$comunication = new ComunicationRecep();
 		$params = array();
 		$PARAMS_TYPES = array ();
@@ -115,9 +116,9 @@ class Dcomanda{
 				$resultc=$idcaja->getRow();
 				$idCaja=$resultc["id_caja"];
 				}}	
-		$PARAMS = array($comandaID,$estado,$efectivo,$numMesa, $tipoCliente, $total, $idcliente, $idCaja, $free);
-		$PARAMS_TYPES = array (ComunicationRecep::$TSTRING,ComunicationRecep::$TSTRING,ComunicationRecep::$TFLOAT,ComunicationRecep::$TINT,ComunicationRecep::$TINT,ComunicationRecep::$TFLOAT,ComunicationRecep::$TINT,ComunicationRecep::$TINT,ComunicationRecep::$TSTRING);
-		$result = $comunication->query(self::SET_COMANDA,$PARAMS,$PARAMS_TYPES);
+		$PARAMS = array($efectivo, $tipoCliente, $total, $idcliente, $idCaja, $free);
+		$PARAMS_TYPES = array (ComunicationRecep::$TFLOAT,ComunicationRecep::$TINT,ComunicationRecep::$TFLOAT,ComunicationRecep::$TINT,ComunicationRecep::$TINT,ComunicationRecep::$TSTRING);
+		$result = $comunication->update(self::SET_COMANDA_VENTA,$PARAMS,$PARAMS_TYPES);
 		
 		return $result;
 	}
