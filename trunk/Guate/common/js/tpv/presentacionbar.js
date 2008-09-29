@@ -1,6 +1,7 @@
         //PRESENTACION
 //Al iniciar la pagina.... ONREADY!!!!!!!
 $(document).ready(function(){
+   $.blockUI({ message: '<h1>Cargando...</h1>' });
    //Se borran algunos campos que se quedan por defecto con el valor que tenian
    $("#total").val("0");
    $("#efectivo").val("");
@@ -9,26 +10,17 @@ $(document).ready(function(){
    $.ajaxSetup({type:"POST"});
    getPlatillosVentaRecepcion("Presentacion/jsonplatventarec.php");
    listaPedidos.iniciar();
+   //restoreHibernar();
+   $.unblockUI();
 });
-
-function guardarComandaId(){
-//  var defaultID = $("#idComanda").val();
-//  var numDefaultID = parseInt(defaultID.substring(1));
-//  main.numDefaultID = numDefaultID;
-main.numDefaultID = $("#idComanda").val();
-//alert(main.numDefaultID);
-if (main.comanda())main.comanda().comandaID=main.numDefaultID.substring(1);
-
-}
-
  
 //-------------------------------------------CLIENTEMOUSEDOWN----------------------------------------//
 //Hay que llamar a esta funcion despues de asignarle el currentMesa
 function clientemousedown(num){
 	clienteScreen.setCorrectColor(num);
-	//if (main.comanda()) actualizarListaProductos(num);
+	if (main.comanda()) actualizarListaProductos(num);
     //Si es cliente mostrar la lista de clientes
-    if (num==3) mostrarListaClientes();
+    if (num==5) mostrarListaTrabajadores();
     if (num==2) mostrarListaTrabajadores();
     if (num==1) askForVolName();
     if (num==4) guardarDatosCliente(undefined,""); 
@@ -37,14 +29,27 @@ function clientemousedown(num){
 //-------------------------------------------ASK FOR THE NAME OF THE VOLUNTEER--------------------//
 //se llama cuando se realiza una cortesia.pide del camarero que ponga el nombre del cliente que se le da comida gratis
 function askForVolName(){
+ desHotkeys();
  $.blockUI({ message: $('#free')});
 }
 //-------------------------------------------PUT FREE DESCRIPTION--------------------//
 function putvoluntario(free){
-main.comanda().free = free;
+if (main.comanda()) main.comanda().free = free;
 clienteScreen.setClienteName(free);
-//$("#clienteTypeInfo").html(free);
 $.unblockUI();
+}
+
+function cancelarCliente(){
+	$.unblockUI();
+	hotkeys();
+	clienteScreen.setClienteName(" ");
+	main.id_cliente=undefined;
+	clienteScreen.setCorrectColor(4);
+	if ( main.comanda() && main.comanda().isAbierta()){
+		main.comanda().id_cliente=undefined;
+		main.comanda().clienteName= undefined;
+		actualizarListaProductos(0);
+	}
 }
 
 //-------------------------------------------CALMOUSEDOWN----------------------------------------//
@@ -58,14 +63,14 @@ function calmousedown(texto,id){
   }
   $("#efectivo").val(main.comanda().efectivo);
   calcularCambio();
- }else if (main.comanda() && main.linia()){
+ }else if (main.comanda() && main.linia() && main.comanda().isAbierta()){
    listaPedidos.calcCantidad(id);
    main.linia().cantidad += texto;
   //Calculando el nuevo precio a mostrar
    calcularPrecio();
   //Calculando TOTAL
   $("#total").val(calcularTotal());
- }else $("#idComanda").val($("#idComanda").val()+texto);
+ }
  changeClass(id);
 }
 
@@ -82,16 +87,13 @@ function platomousedown(plato,platoid,precioN,precioLim,id){
 	  listaPedidos.addComanda();	
 	  main.comanda().currentClientType=main.comandaArray[aux].currentClientType;
 	 }
-	guardarComandaId();
-    clientemousedown(4);
 	}
-	else clienteScreen.setCorrectColor(main.comanda().currentClientType);
+//	else clienteScreen.setCorrectColor(main.comanda().currentClientType);
    main.comanda().numRow+=1;
    var precio=escogePrecio(precioN,precioLim);
    main.comanda().liniasComanda[main.comanda().numRow] = new LiniaComanda(platoid,precio,precio,precioN,precioLim,plato);
    listaPedidos.addPlatillo(main.linia(),"row"+new String(main.currentComanda+new String(main.comanda().numRow)));
    $("#total").val(calcularTotal());
-  // changeClass(id);
 }
 
 //-------------------------------------------BORRARMOUSEDOWN----------------------------------------//
@@ -101,7 +103,7 @@ function borrar(id){
   $("#efectivo").val(main.comanda().efectivo);
   calcularCambio();
  }
-  else if(main.comanda() && main.linia()){
+  else if(main.comanda() && main.linia()&& main.comanda().isAbierta()){
   	if(main.linia().cantidad && main.linia().cantidad.length>1){
      var quantity = main.linia().cantidad.substring(0,main.linia().cantidad.length-1);
      listaPedidos.setCantidad(quantity);
@@ -111,34 +113,27 @@ function borrar(id){
   	//Calculando TOTAL
      $("#total").val(calcularTotal());
   }
-  else { 
-  	var str = $("#idComanda").val();
-    $("#idComanda").val(str.substring(0,str.length-1));
-  }
  changeClass(id);
 }
 //-------------------------------------------EFECTIVOMOUSEDOWN----------------------------------------//
 function efectivo(){
-	if(main.efectivo){
+  if (main.comanda() && main.comanda().isAbierta()){
+/*	if(main.efectivo){
 	 //activa toda la pantalla
 	 $('#arriba_izquierda').unblock(); 
      $('#arriba_derecha').unblock(); 
      $('#abajo_izquierda').unblock();
      $("#CerrarTicket").removeClass("actionbtn");
      $("#CerrarTicket").addClass("closebtn");
-     $("#efectivo").attr({disabled:true}).val("");
      $("#cambio").val("");
-     
-     
 	 main.efectivo=undefined;
-	}else {
+	}else {*/
+	if(!main.efectivo){
 	 //hace focus al input efectivo
-	$("#efectivo").attr({disabled:false}).focus();
 	 //desactiva toda la pantalla menos el input efectivo, la calculadora y el boton borrar
     $('#arriba_izquierda').block({ message: null });
     $('#arriba_derecha').block({ message: null });
     $('#abajo_izquierda').block({ message: null });
-     guardarComandaId();
      main.comanda().id_cliente=main.id_cliente;
 
 	 //activa el boton cerrarticket
@@ -146,17 +141,15 @@ function efectivo(){
 	 $("#CerrarTicket").addClass("actionbtn");
 
 	 main.efectivo=1;
-	}
-   changeClass('Efectivo');
+	} 
+  }
+  changeClass('Efectivo');
 }
 //-------------------------------------------CERRARTIQUETMOUSEDOWN----------------------------------------//
 function cerrarTiquetMouseDown(){
-	//main.comanda().efectivo=$("#efectivo").val();
-	//if($("#efectivo").val()){
 	if (main.efectivo) { 
-	 
-	 //insert la nueva comanda abierta
-	 sendComandaAbierta();
+	 //insert la nueva comanda 
+	 sendComanda();
 	 
     //activa la pantalla
 	$('#arriba_izquierda').unblock(); 
@@ -169,26 +162,26 @@ function cerrarTiquetMouseDown(){
     $("#efectivo").attr({disabled:true}).val("");
     $("#cambio").val("");
     $("#total").val("0");
-    $("#idComanda").val("");
-    var numero = parseInt(main.comanda().comandaID)+1;
-    $("#idComanda").val("B"+numero);
     listaPedidos.fijarComanda();
-    clienteScreen.setClienteName("");
+    clienteScreen.setClienteName(" ");
     main.comanda().estado="cerrado";
-	}else alert("Por favor indroduzca el efectivo!");
+	}
 	changeClass('CerrarTicket');
 }
 //HACER: Mensaje de confirmacion si aun existen comandas abiertas. 
 //-------------------------------------------LIBERAMESAMOUSEDOWN----------------------------------------//
 function liberaMesaMouseDown(id){
-//	if (main.comanda().isAbierta()){
-	// if(confirm('Existe una comanda aun abierta, quieres borrarla?')){
-     //vaciar las lineas de la comanda y liberar la mesa
-     mesaLibre();
-//	 }
- //  }
-   changeClass(id);
+   if (main.comanda()){
+	 if (main.comanda().isAbierta()){
+	  if(confirm('Existe una comanda aun abierta, quieres borrarla?')){
+ //     vaciar las lineas de la comanda y liberar la mesa
+      mesaLibre();
+	  }
+    }else mesaLibre();
+   }
 }
+
+
 
 function borrarLinia(){
 	listaPedidos.removeLine();
@@ -251,37 +244,11 @@ function comprobarOut(id){
  	//alert("hola");
  }	
 }
-function hotkeys(){
-	/*jQuery.hotkeys.add('0',function (){ calmousedown("0","0");changeClass("0")});
-	jQuery.hotkeys.add('1',function (){ calmousedown("1","1");changeClass("1")});
-	jQuery.hotkeys.add('2',function (){ calmousedown("2","2");changeClass("2")});
-	jQuery.hotkeys.add('3',function (){ calmousedown("3","3");changeClass("3")});
-	jQuery.hotkeys.add('4',function (){ calmousedown("4","4");changeClass("4")});
-	jQuery.hotkeys.add('5',function (){ calmousedown("5","5");changeClass("5")});
-	jQuery.hotkeys.add('6',function (){ calmousedown("6","6");changeClass("6")});
-	jQuery.hotkeys.add('7',function (){ calmousedown("7","7");changeClass("7")});
-	jQuery.hotkeys.add('8',function (){ calmousedown("8","8");changeClass("8")});
-	jQuery.hotkeys.add('9',function (){ calmousedown("9","9");changeClass("9")});*/
-	jQuery.hotkeys.add('n0',function (){ calmousedown("0","0");changeClass("0")});
-	jQuery.hotkeys.add('n1',function (){ calmousedown("1","1");changeClass("1")});
-	jQuery.hotkeys.add('n2',function (){ calmousedown("2","2");changeClass("2")});
-	jQuery.hotkeys.add('n3',function (){ calmousedown("3","3");changeClass("3")});
-	jQuery.hotkeys.add('n4',function (){ calmousedown("4","4");changeClass("4")});
-	jQuery.hotkeys.add('n5',function (){ calmousedown("5","5");changeClass("5")});
-	jQuery.hotkeys.add('n6',function (){ calmousedown("6","6");changeClass("6")});
-	jQuery.hotkeys.add('n7',function (){ calmousedown("7","7");changeClass("7")});
-	jQuery.hotkeys.add('n8',function (){ calmousedown("8","8");changeClass("8")});
-	jQuery.hotkeys.add('n9',function (){ calmousedown("9","9");changeClass("9")});
 
-	jQuery.hotkeys.add('backspace',function (){ borrar("Borrar");changeClass("Borrar")});
-	jQuery.hotkeys.add('e',function (){ efectivo();changeClass("Efectivo")});
-	
-	
-}
 //-------------------------------------------sendComandaAbierta----------------------------------------//
-function sendComandaAbierta(){
+function sendComanda(){
  var myJsonMain = JSON.stringify(main.comanda());
-  $.getJSONGuate("jsonsavetpv.php",{ json: myJsonMain,mesa:main.currentMesa}, function(json){
+  $.getJSONGuate("jsonsavetpv.php",{ json: myJsonMain}, function(json){
     if (json["Mensaje"]) {
     	changeClass('Efectivo');
     	efectivo();
@@ -323,7 +290,7 @@ function mostrarListaClientes(){
     caption: "Lista de Clientes",
     hidegrid: false,
     onSelectRow: function(ids) {
-        var id = jQuery("#list2").getSelectedRow();
+        var id = jQuery("#list2").getGridParam('selrow'); 
         var ret = jQuery("#list2").getRowData(id);
         guardarDatosCliente(ret.Id_Cliente,ret.nombre+" "+ret.apellido1+" "+ ret.apellido2);
         $.unblockUI();
@@ -351,7 +318,7 @@ function mostrarListaTrabajadores(){
     caption: "Lista de Trabajadores",
     hidegrid: false,
     onSelectRow: function(ids) {
-        var id = jQuery("#list3").getSelectedRow();
+        var id = jQuery("#list3").getGridParam('selrow'); 
         var ret = jQuery("#list3").getRowData(id);
         guardarDatosCliente(ret.Id_usuario,ret.nombre);
         $.unblockUI();
@@ -368,6 +335,8 @@ function mostrarListaTrabajadores(){
  		case 2: precio=precioLim; break;
  		case 3: precio=precioN; break;
  		case 4: precio=precioN; break;
+ 		case 5: precio=precioLim; break;
+ 		
  	}
  	return precio;
  }
@@ -391,5 +360,5 @@ function mostrarListaTrabajadores(){
  		linia[i].precioN=precio*cantidad;
  	}
  	calcularTotal();
-  	main.pushLiniaComanda(main.currentMesa);
+  	main.pushLiniaComanda();
  }
