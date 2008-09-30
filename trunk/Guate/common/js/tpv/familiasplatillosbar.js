@@ -22,7 +22,7 @@ function crearPlatVenta(json){
 	          "<table style='text-align:center' width='100%' border=0 cellpadding='1' cellspacing='1'><tr  height='40'>";
 	for(var i=0;i<platillos.length;i++){
     	 html +='<td><div class="plat" style="height:100%;background:#A4C1B3" onmousedown="platomousedown(\''+platillos[i]["nombre"]+'\',\''+platillos[i]["idBebida"]+'\','+platillos[i]["precioNormal"]+','+platillos[i]["precioLimitado"]+',this.id)"><table width="100%" height="100%" style="text-align:center;background:#A4C13"><tr><td>'+platillos[i]["nombre"]+'</td></tr></table></div></div></td>';
- 		if (((i%3)==2) && (i+1!=platillos.length)) html +="</tr><tr height='60'>";
+ 		if (((i%3)==2) && (i+1!=platillos.length)) html +="</tr><tr height='40'>";
 	}
 	html +="</tr></table>"+
 	'</div>';

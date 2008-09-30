@@ -1,4 +1,4 @@
-        //PRESENTACION
+//PRESENTACION
 //Al iniciar la pagina.... ONREADY!!!!!!!
 $(document).ready(function(){
    $.blockUI({ message: '<h1>Cargando...</h1>' });
@@ -20,10 +20,10 @@ function clientemousedown(num){
 	clienteScreen.setCorrectColor(num);
 	if (main.comanda()) actualizarListaProductos(num);
     //Si es cliente mostrar la lista de clientes
-    if (num==5) mostrarListaTrabajadores();
-    if (num==2) mostrarListaTrabajadores();
-    if (num==1) askForVolName();
-    if (num==4) guardarDatosCliente(undefined,""); 
+    if (num==5) {mostrarListaTrabajadores();desactivarEfectivo();}
+    if (num==2) {mostrarListaTrabajadores();activarEfectivo();}
+    if (num==1) {askForVolName();desactivarEfectivo();}
+    if (num==4) {guardarDatosCliente(undefined,"");activarEfectivo();} 
    
 }
 //-------------------------------------------ASK FOR THE NAME OF THE VOLUNTEER--------------------//
@@ -76,7 +76,8 @@ function calmousedown(texto,id){
 
 //-------------------------------------------PLATOMOUSEDOWN----------------------------------------//
 function platomousedown(plato,platoid,precioN,precioLim,id){
-	//si esta mesa elegida y no existe, hay Borrarque crearla
+	//si hay un clienttype elegido
+  if(main.currentClient){
 	if (!main.comanda() || 	!main.comanda().isAbierta()){	
 	 var aux = main.currentComanda;
 	 main.currentComanda+=1;
@@ -86,15 +87,15 @@ function platomousedown(plato,platoid,precioN,precioLim,id){
 	 if (main.currentComanda) {
 	  listaPedidos.addComanda();	
 	  main.comanda().currentClientType=main.comandaArray[aux].currentClientType;
-	 }
-	 clientemousedown(4);
+	 }//else  clientemousedown(4);
 	}
-	else clienteScreen.setCorrectColor(main.comanda().currentClientType);
+	clienteScreen.setCorrectColor(main.comanda().currentClientType);
    main.comanda().numRow+=1;
    var precio=escogePrecio(precioN,precioLim);
    main.comanda().liniasComanda[main.comanda().numRow] = new LiniaComanda(platoid,precio,precio,precioN,precioLim,plato);
    listaPedidos.addPlatillo(main.linia(),"row"+new String(main.currentComanda+new String(main.comanda().numRow)));
    $("#total").val(calcularTotal());
+  } else alert('Por favor, elegid primero la el tipo de cliente');
 }
 
 //-------------------------------------------BORRARMOUSEDOWN----------------------------------------//
@@ -129,7 +130,7 @@ function efectivo(){
      $("#cambio").val("");
 	 main.efectivo=undefined;
 	}else {*/
-	if(!main.efectivo){
+	if(!main.efectivo && main.currentClient!=1 && main.currentClient!=5){
 	 //hace focus al input efectivo
 	 //desactiva toda la pantalla menos el input efectivo, la calculadora y el boton borrar
     $('#arriba_izquierda').block({ message: null });
@@ -148,6 +149,11 @@ function efectivo(){
 }
 //-------------------------------------------CERRARTIQUETMOUSEDOWN----------------------------------------//
 function cerrarTiquetMouseDown(){
+//Si los botones de cliente son Credito o Gratis, el cajero no puede apretar el efectivo. Hacemos como si lo hubiese apretado. 
+    if (main.currentClient ==1 || main.currentClient ==5){
+     main.comanda().id_cliente=main.id_cliente;
+     main.efectivo=1;
+    }
 	if (main.efectivo) { 
 	 //insert la nueva comanda 
 	 sendComanda();
@@ -172,14 +178,11 @@ function cerrarTiquetMouseDown(){
 //HACER: Mensaje de confirmacion si aun existen comandas abiertas. 
 //-------------------------------------------LIBERAMESAMOUSEDOWN----------------------------------------//
 function liberaMesaMouseDown(id){
-   if (main.comanda()){
-	 if (main.comanda().isAbierta()){
-	  if(confirm('Existe una comanda aun abierta, quieres borrarla?')){
- //     vaciar las lineas de la comanda y liberar la mesa
-      mesaLibre();
-	  }
-    }else mesaLibre();
-   }
+  if (main.comanda()){
+    if (main.comanda().isAbierta()){
+	  if(confirm('Existe una comanda aun abierta, quieres borrarla?'))  mesaLibre();
+    } else mesaLibre();
+  }
 }
 
 
@@ -196,11 +199,13 @@ function borrarLinia(){
 function mesaLibre(){
   listaPedidos.reiniciar();
   //borra la mesa y cambia el color a azul(o sea que libre)
-  clienteScreen.setBlueColor();
-    //Ponemos el clienttype, el clienteNormal
-  clienteScreen.setCorrectColor(4);
+  //Ponemos el clienttype, el clienteNormal
   clienteScreen.setClienteName("");
   main.id_cliente=undefined;
+  main.comandaArray[main.currentComanda]= undefined;
+  main.currentComanda=-1;
+  clienteScreen.setCorrectColor(4);
+  clienteScreen.setBlueColor();
 }
 
 function calcularPrecio(){
@@ -361,3 +366,15 @@ function mostrarListaTrabajadores(){
  	calcularTotal();
   	main.pushLiniaComanda();
  }
+
+function desactivarEfectivo(){
+ if ($('#Efectivo').hasClass("btnunpress")){
+  $('#Efectivo').removeClass("btnunpress").addClass("btncancelled");
+ } 
+}
+ 
+function activarEfectivo(){
+ if (!$('#Efectivo').hasClass("btnunpress")){
+  $('#Efectivo').addClass("btnunpress").removeClass("btncancelled");
+ }
+}
