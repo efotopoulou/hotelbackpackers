@@ -84,7 +84,7 @@ function platomousedown(plato,platoid,precioN,precioLim,id){
 	 main.currentComanda+=1;
 	 main.comandaArray[main.currentComanda]=new Comanda();
 	 main.comanda().currentClientType = main.currentClient;
-	 guardarDatosCliente(main.idCliente,clienteScreen.getClienteName());
+	 guardarDatosCliente(main.id_cliente,clienteScreen.getClienteName());
 	 if (main.currentComanda) {
 	  listaPedidos.addComanda();	
 	  //main.comanda().currentClientType=main.comandaArray[aux].currentClientType;
@@ -171,7 +171,7 @@ function cerrarTiquetMouseDown(){
     $("#cambio").val("");
     $("#total").val("0");
     listaPedidos.fijarComanda();
-    clienteScreen.setClienteName(" ");
+    //clienteScreen.setClienteName(" ");
     main.comanda().estado="cerrado";
 	}
 	changeClass('CerrarTicket');
