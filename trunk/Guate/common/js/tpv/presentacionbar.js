@@ -17,8 +17,9 @@ $(document).ready(function(){
 //-------------------------------------------CLIENTEMOUSEDOWN----------------------------------------//
 //Hay que llamar a esta funcion despues de asignarle el currentMesa
 function clientemousedown(num){
+    main.id_cliente=undefined;
 	clienteScreen.setCorrectColor(num);
-	if (main.comanda()) actualizarListaProductos(num);
+	if (main.comanda() && main.comanda().isAbierta()) actualizarListaProductos(num);
     //Si es cliente mostrar la lista de clientes
     if (num==5) {mostrarListaTrabajadores();desactivarEfectivo();}
     if (num==2) {mostrarListaTrabajadores();activarEfectivo();}
@@ -34,7 +35,7 @@ function askForVolName(){
 }
 //-------------------------------------------PUT FREE DESCRIPTION--------------------//
 function putvoluntario(free){
-if (main.comanda()) main.comanda().free = free;
+if (main.comanda() && main.comanda().isAbierta()) main.comanda().free = free;
 clienteScreen.setClienteName(free);
 $.unblockUI();
 }
@@ -76,17 +77,17 @@ function calmousedown(texto,id){
 
 //-------------------------------------------PLATOMOUSEDOWN----------------------------------------//
 function platomousedown(plato,platoid,precioN,precioLim,id){
-	//si hay un clienttype elegido
+  //si hay un clienttype elegido
   if(main.currentClient){
-	if (!main.comanda() || 	!main.comanda().isAbierta()){	
+	if (!main.comanda() || !main.comanda().isAbierta()){	
 	 var aux = main.currentComanda;
 	 main.currentComanda+=1;
-	 main.comandaArray[main.currentComanda]= new Comanda();
+	 main.comandaArray[main.currentComanda]=new Comanda();
 	 main.comanda().currentClientType = main.currentClient;
 	 guardarDatosCliente(main.idCliente,clienteScreen.getClienteName());
 	 if (main.currentComanda) {
 	  listaPedidos.addComanda();	
-	  main.comanda().currentClientType=main.comandaArray[aux].currentClientType;
+	  //main.comanda().currentClientType=main.comandaArray[aux].currentClientType;
 	 }//else  clientemousedown(4);
 	}
 	clienteScreen.setCorrectColor(main.comanda().currentClientType);
@@ -345,10 +346,9 @@ function mostrarListaTrabajadores(){
  	return precio;
  }
  function guardarDatosCliente(id, nombre){
- 	//$("#clienteTypeInfo").html(nombre);
  	clienteScreen.setClienteName(nombre);
  	main.id_cliente=id;
- 	if (main.comanda()){
+ 	if (main.comanda() && main.comanda().isAbierta()){
  		main.comanda().clienteName=nombre;
  		main.comanda().id_cliente=id;
  	}
