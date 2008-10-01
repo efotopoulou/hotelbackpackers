@@ -43,9 +43,10 @@ $newmov=$caja->insert_movimiento($totalTipo,$dinero,$description,$categoria,$ide
 $a=$caja->cobrar_ticket($idComanda);	
 if ($a==false) $mensaje->setMensaje("La comanda esta ya esta cobrada y facturada!");
 }else if ($idComDetail){
-$aux = substr($idComDetail,0,1);
-  if ($aux=="B"){$id=substr($idComDetail,1); $pedidos=$caja->get_pedido_bar($id);
-  }else{$pedidos=$caja->get_pedido($idComDetail);}	
+//$aux = substr($idComDetail,0,1);
+//  if ($aux=="B"){$id=substr($idComDetail,1); $pedidos=$caja->get_pedido_bar($id);
+//  }else{$pedidos=$caja->get_pedido($idComDetail);}	
+$pedidos=$caja->get_pedido_bar($idComDetail);
 if ((sizeof($pedidos))>0){
 	  for($i=0;$i<count($pedidos);$i++) {
 	  $pedidosInfo[$i]=array("idPlatillo"=>$pedidos[$i]->idPlatillo,"cantidad"=>$pedidos[$i]->cantidad,"nombre"=>$pedidos[$i]->nombre,"precio"=>$pedidos[$i]->precio);
@@ -77,7 +78,7 @@ $movimientos=$caja->load_movimientos_old($id_caja);
 $tikets=$caja->ld_tickets_old($id_caja);
 if ((sizeof($tikets))>0){
 	  for($i=0;$i<count($tikets);$i++) {
-	  $TicketsInfo[$i]=array("idComanda"=>$tikets[$i]->idComanda,"fechaHora"=>$tikets[$i]->fechaHora,"total"=>$tikets[$i]->total,"efectivo"=>$tikets[$i]->efectivo,"tipoCliente"=>$tikets[$i]->tipoCliente,"nombre"=>$tikets[$i]->nombre,"free"=>$tikets[$i]->free);
+	  $TicketsInfo[$i]=array("idComanda"=>$tikets[$i]->idComanda,"numComanda"=>$tikets[$i]->numComanda,"fechaHora"=>$tikets[$i]->fechaHora,"total"=>$tikets[$i]->total,"efectivo"=>$tikets[$i]->efectivo,"tipoCliente"=>$tikets[$i]->tipoCliente,"nombre"=>$tikets[$i]->nombre,"free"=>$tikets[$i]->free);
 	  }
  }	
 

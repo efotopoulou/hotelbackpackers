@@ -67,7 +67,7 @@ function loadbebidas(json){
   	  var aux="";
   	  $("#bebidasTable").html(" ");
       for(i=0;i<json.BebidasInfo.length;i++) {
-        $("#bebidasTable").append("<tr id=B"+json.BebidasInfo[i].idBebida+" class='Cod"+json.BebidasInfo[i].numBebida+"' onmousedown='changeClass(this.id)'><td width=2%>&nbsp;</td><td width=10% class='codigo'>"+json.BebidasInfo[i].numBebida+"</td><td width=35% class='name'>"+json.BebidasInfo[i].nombre+"</td><td width=10% class='precioN'>"+json.BebidasInfo[i].precioNormal+"</td><td width=10% class='precioL'>"+json.BebidasInfo[i].precioLimitado+"</td><td class='platofam' bgcolor="+json.BebidasInfo[i].color+">"+json.BebidasInfo[i].familia+"</td></tr>");		
+        $("#bebidasTable").append("<tr id=B"+json.BebidasInfo[i].idBebida+" class='Cod"+json.BebidasInfo[i].numBebida+"' onmousedown='changeClass(this.id)'><td width=2%>&nbsp;</td><td width=11% class='codigo'>"+json.BebidasInfo[i].numBebida+"</td><td width=36% class='name'>"+json.BebidasInfo[i].nombre+"</td><td width=10% class='precioN'>"+json.BebidasInfo[i].precioNormal+"</td><td width=11% class='precioL'>"+json.BebidasInfo[i].precioLimitado+"</td><td class='platofam' bgcolor="+json.BebidasInfo[i].color+">"+json.BebidasInfo[i].familia+"</td></tr>");		
         //if (json.BebidasInfo[i].numBebida==codigo)
         }
     }else $("#bebidasTable").html(" ");

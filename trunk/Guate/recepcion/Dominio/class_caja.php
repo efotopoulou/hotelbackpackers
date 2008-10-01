@@ -187,7 +187,7 @@ class caja{
 		$n=0;
 		while($rs->next()){
 		$result=$rs->getRow();
-		$ors[$n] = new CajaComanda($result["idComanda"],$result["fechaHora"],$result["total"],$result["efectivo"],$result["clientType"],$result["nombre"],$result["free"]);
+		$ors[$n] = new CajaComanda($result["idComanda"],$result["numComanda"],$result["fechaHora"],$result["total"],$result["efectivo"],$result["clientType"],$result["nombre"],$result["free"]);
 		$n++;					
 		}
     }else{
@@ -342,7 +342,7 @@ $rs = $gpb->get_pedido_bar($id);
 		$n=0;
 		while($rs->next()){
 		$result=$rs->getRow();
-		$ors[$n] =new Pedido($result["idBebida"],$result["cantidad"],$result["nombre"],$result["precio"]);
+		$ors[$n] =new Pedido($result["numBebida"],$result["cantidad"],$result["nombre"],$result["precio"]);
 		$n++;			
 		}
     }else{

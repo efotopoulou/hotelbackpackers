@@ -236,13 +236,12 @@ function loadPage(json){
   	  var aux="";
   	  $("#ticketsTable").html(" ");
      for(i=0;i<json.TicketsInfo.length;i++) {
-     	var cambio=(parseFloat(json.TicketsInfo[i].efectivo) - parseFloat(json.TicketsInfo[i].total));
-     	var camb=(Math.round(cambio*100)/100);
-     	var nombre ="-";
-     	if(json.TicketsInfo[i].free) nombre=json.TicketsInfo[i].free;
-     	else if(json.TicketsInfo[i].nombre) nombre = json.TicketsInfo[i].nombre;
+     	camb = cambio(json.TicketsInfo[i].efectivo,json.TicketsInfo[i].total);
+     	numComanda=showid(json.TicketsInfo[i].numComanda);
         idCom=json.TicketsInfo[i].idComanda;
-        $("#ticketsTable").append("<tr id="+idCom+"><td class='checkbox' width=2%><input type='checkbox'  onmousedown='changeClass(\""+idCom+"\");'></td><td width=5%><h6>"+idCom+"</h6></td><td width=22%><h6>"+json.TicketsInfo[i].fechaHora+"</h6></td><td width=6%><h6>"+json.TicketsInfo[i].total+"</h6></td><td width=8%><h6>"+json.TicketsInfo[i].efectivo+"</h6></td><td width=8%><h6>"+camb+"</h6></td><td width=7%><h6>"+json.TicketsInfo[i].tipoCliente+"</h6></td><td><h6>"+nombre+"</h6></td></tr>");
+     	nombre = descripcion(json.TicketsInfo[i].free,json.TicketsInfo[i].nombre)
+
+        $("#ticketsTable").append("<tr id="+idCom+"><td class='checkbox' width=2%><input type='checkbox'  onmousedown='changeClass(\""+idCom+"\");'></td><td width=10%><h6>"+numComanda+"</h6></td><td width=22%><h6>"+json.TicketsInfo[i].fechaHora+"</h6></td><td width=6%><h6>"+json.TicketsInfo[i].total+"</h6></td><td width=8%><h6>"+json.TicketsInfo[i].efectivo+"</h6></td><td width=8%><h6>"+camb+"</h6></td><td width=7%><h6>"+json.TicketsInfo[i].tipoCliente+"</h6></td><td><h6>"+nombre+"</h6></td></tr>");
         $("#"+idCom+" td:not(.checkbox)").mousedown(function(e){
            showpedido(this.parentNode.id);
         });
@@ -252,6 +251,23 @@ function loadPage(json){
         //alert(json.TicketsInfo[i].idComanda);		
        }
    }	
+}
+//-------------------------------------------CALCULAR CAMBIO-------------------------------------------------//
+function cambio(efectivo,total){
+var camb1 = (parseFloat(efectivo)-parseFloat(total));
+var camb = 	(Math.round(camb1*100)/100);
+return camb;
+}
+//-------------------------------------------DECIDIR SI VA A APARECER EL NUMCOMANDA-------------------------------------------------//
+function showid(numComanda){
+if (numComanda!= null)	return numComanda;
+else return "";
+}
+//-------------------------------------------DESCRIPCION OF COMANDA-------------------------------------------------//
+function descripcion(free,nombre){
+   if (free) return free;
+   else if (nombre) return nombre;
+   else return "";  	
 }
 //-------------------------------------------CHANGECLASSID-------------------------------------------------//
 function changeClass(id){
@@ -485,21 +501,21 @@ La caja se esta cerrando.Por favor espere.<br />
 
 	<h5 class="titulos">Comandas realizadas en la Recepcion</h5>
 	<table  width=97% cellpadding=0 cellspacing=1>
-    <tr><td width=2%>&nbsp;</td><td width=5%><h6>ID</h6></td><td width=22%><h6><center>Fecha Hora</center></h6></td><td width=6%><h6><h6>Total</h6></h6></td><td width=8%><h6>efectivo</h6></td><td width=8%><h6>cambio</h6></td><td width=10%><h6>Cliente</h6></td><td><h6><center>Descripcion</center></h6></td></tr>
+    <tr><td width=2%>&nbsp;</td><td width=10%><h6>ID</h6></td><td width=22%><h6><center>Fecha Hora</center></h6></td><td width=6%><h6><h6>Total</h6></h6></td><td width=8%><h6>efectivo</h6></td><td width=8%><h6>cambio</h6></td><td width=10%><h6>Cliente</h6></td><td><h6><center>Descripcion</center></h6></td></tr>
     </table>
-  <div style="height:25%;overflow:auto">
+  <div style="height:30%;overflow:auto">
     <table id="ticketsTable" width=97% cellpadding=0 cellspacing=1>
     </table>
    </div>
-  <div style="height:10%;width:100%;overflow:auto">
+  <div style="height:5%;width:100%;overflow:auto">
     <div class="row" align="left">
      <!--<div style="margin-top:20px;margin-left:60px;float:left;width:20%"><span><input type="button" value="Cobrar Tiquet" id="cob" onClick="cobrarTicket();"/></span></div> -->
-     <div style="margin-left:60px;margin-top:20px;width:20%;float:left"><span><input type="button" value="Anular Tiquet" id="an" onClick="anularTicket();"/></span></div>
+     <div style="margin-left:60px;margin-top:5px;width:20%;float:left"><span><input type="button" value="Anular Tiquet" id="an" onClick="anularTicket();"/></span></div>
      <!--<div style="margin-top:20px;width:20%;float:left"><span><input type="button" value="Facturar Tiquet" id="fact" onClick="facturar();"/></span></div> 
      <div style="margin-top:20px;width:20%;float:left"><span><a id="reporte" onClick="reportecaja('html');">Reporte Caja HTML</a></span></div>
      <div style="margin-top:20px;width:20%;float:left"><span><a id="reportexcel" onClick="reportecaja('excel');">Reporte Caja EXCEL</a></span></div>-->
-     <div style="margin-top:20px;width:20%;float:left"><span><input type="button" value="Reporte Caja HTML" id="reporte" onClick="reportecaja('html')"/></span></div>
-     <div style="margin-top:20px;width:20%;float:left"><span><input type="button" value="Reporte Caja EXCEL" id="reporteexcel" onClick="reportecaja('excel')"/></span></div>
+     <div style="margin-top:5px;width:20%;float:left"><span><input type="button" value="Reporte Caja HTML" id="reporte" onClick="reportecaja('html')"/></span></div>
+     <div style="margin-top:5px;width:20%;float:left"><span><input type="button" value="Reporte Caja EXCEL" id="reporteexcel" onClick="reportecaja('excel')"/></span></div>
    </div>
   </div>
 <br/>
