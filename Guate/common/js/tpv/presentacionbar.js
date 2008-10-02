@@ -309,21 +309,22 @@ function mostrarListaTrabajadores(){
   jQuery("#list3").jqGrid({
     url:'Presentacion/jsongrid.php?q=trabajador&nd='+new Date().getTime(),
     datatype: "xml",
-    colNames:['Id_usuario','Id_perfil', 'nombre'],
+    colNames:['perfil', 'nombre', 'id'],
     colModel:[
-        {name:'Id_usuario',index:'Id_usuario', width:100},
-        {name:'Id_perfil',index:'Id_perfil', width:100},
+        {name:'perfil',index:'nombrePerfil', width:100},
         {name:'nombre',index:'nombre', width:100},
+        {name:'id',index:'Id_usuario', width:100},
     ],
     pager: jQuery('#pager3'),
     rowNum:10,
     rowList:[10,20,30],
     imgpath: '/common/css/images',
-    sortname: 'Id_usuario',
+    sortname: 'nombrePerfil',
     viewrecords: true,
     sortorder: "desc",
     caption: "Lista de Trabajadores",
     hidegrid: false,
+    height: "100%",
     onSelectRow: function(ids) {
         var id = jQuery("#list3").getGridParam('selrow'); 
         var ret = jQuery("#list3").getRowData(id);

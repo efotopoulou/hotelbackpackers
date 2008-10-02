@@ -32,7 +32,7 @@ $start = $limit*$page - $limit; // do not put $limit*($page - 1)
 if ($clientType=="cliente"){
 $SQL = "SELECT t1.Id_cliente,t1.nombre,t1.apellido1,t1.apellido2,t1.pasaporte FROM cliente t1,checkin t2,reserva t3 where t2.Id_res=t3.Id_res and t1.Id_cliente=t3.Id_cliente and date(NOW())>=t3.fec_ini and date(NOW())<=t3.fec_fin ORDER BY ".$sidx." ".$sord." LIMIT ? , ?";
 }else{
-$SQL = "SELECT Id_usuario, Id_perfil, nombre FROM usuario ORDER BY ".$sidx." ".$sord." LIMIT ? , ?";
+$SQL = "SELECT  p.nombre as nombrePerfil, u.nombre, u.Id_usuario FROM usuario u, perfil p WHERE p.Id_perfil=u.Id_perfil ORDER BY ".$sidx." ".$sord." LIMIT ? , ?";
 }
 $result = $comunication->query($SQL,array($start,$limit),array(Comunication::$TINT,Comunication::$TINT)); 
 

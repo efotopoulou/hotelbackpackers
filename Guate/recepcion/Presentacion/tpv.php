@@ -126,7 +126,7 @@ Introduzca el razon de la cortesia:<br />
 <div id="TrabajadoresForm" style="display:none">
 <table id="list3" class="scroll" cellpadding="0" cellspacing="0"></table>
 <div id="pager3" class="scroll" style="text-align:center;"></div>
-<div onclick="cancelarCliente()" style="background:#AAA;cursor:pointer">cancelar</div>
+<div style="height:30px"><input type="button" onclick="cancelarCliente()" value="cancelar"></input></div>
 </div>
  <div id="arriba_izquierda" style="width:100%;height:100%">
  <div style="border-bottom:1px solid #AAAAAA;">
