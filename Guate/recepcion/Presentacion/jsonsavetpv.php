@@ -22,6 +22,7 @@ try {
  	if($cantidad==0) $cantidad=1;
  	$comanda->setLineaComanda($idComanda,$lineas[$i]["platoId"],$cantidad, $lineas[$i]["precioN"]);
  }
+$comanda->setComandaCredito($idComanda); 
 }catch (SQLException $e){
 	$aux = $e ->getNativeError();
  $mensaje->setMensaje("Error Desconocido: $aux!");
