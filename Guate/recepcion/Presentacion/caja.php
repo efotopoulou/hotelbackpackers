@@ -241,11 +241,11 @@ function loadPage(json){
         idCom=json.TicketsInfo[i].idComanda;
      	nombre = descripcion(json.TicketsInfo[i].free,json.TicketsInfo[i].nombre)
 
-        $("#ticketsTable").append("<tr id="+idCom+"><td class='checkbox' width=2%><input type='checkbox'  onmousedown='changeClass(\""+idCom+"\");'></td><td width=10%><h6>"+numComanda+"</h6></td><td width=22%><h6>"+json.TicketsInfo[i].fechaHora+"</h6></td><td width=6%><h6>"+json.TicketsInfo[i].total+"</h6></td><td width=8%><h6>"+json.TicketsInfo[i].efectivo+"</h6></td><td width=8%><h6>"+camb+"</h6></td><td width=7%><h6>"+json.TicketsInfo[i].tipoCliente+"</h6></td><td><h6>"+nombre+"</h6></td></tr>");
+        $("#ticketsTable").append("<tr id="+idCom+"><td class='checkbox' width=2%><input type='checkbox'  onmousedown='changeClass(\""+idCom+"\");'></td><td width=10%><h6>"+numComanda+"</h6></td><td width=8%><h6>"+json.TicketsInfo[i].estado+"</h6></td><td width=22%><h6>"+json.TicketsInfo[i].fechaHora+"</h6></td><td width=6%><h6>"+json.TicketsInfo[i].total+"</h6></td><td width=8%><h6>"+json.TicketsInfo[i].efectivo+"</h6></td><td width=8%><h6>"+camb+"</h6></td><td width=7%><h6>"+json.TicketsInfo[i].tipoCliente+"</h6></td><td><h6>"+nombre+"</h6></td></tr>");
         $("#"+idCom+" td:not(.checkbox)").mousedown(function(e){
            showpedido(this.parentNode.id);
         });
-         //if (json.TicketsInfo[i].estado=="cobrado"){$("#"+json.TicketsInfo[i].idComanda).addClass("verde");}
+         if (json.TicketsInfo[i].estado=="cobrado"){$("#"+json.TicketsInfo[i].idComanda).addClass("verde");}
         if (json.TicketsInfo[i].estado=="anulado"){$("#"+json.TicketsInfo[i].idComanda).addClass("redtext");}
          //if (json.TicketsInfo[i].estado=="facturado"){$("#"+json.TicketsInfo[i].idComanda).addClass("orange");}
         //alert(json.TicketsInfo[i].idComanda);		
@@ -501,7 +501,7 @@ La caja se esta cerrando.Por favor espere.<br />
 
 	<h5 class="titulos">Comandas realizadas en la Recepcion</h5>
 	<table  width=97% cellpadding=0 cellspacing=1>
-    <tr><td width=2%>&nbsp;</td><td width=10%><h6>ID</h6></td><td width=22%><h6><center>Fecha Hora</center></h6></td><td width=6%><h6><h6>Total</h6></h6></td><td width=8%><h6>efectivo</h6></td><td width=8%><h6>cambio</h6></td><td width=10%><h6>Cliente</h6></td><td><h6><center>Descripcion</center></h6></td></tr>
+    <tr><td width=2%>&nbsp;</td><td width=10%><h6>ID</h6></td><td width=8%><h6>Estado</h6></td><td width=22%><h6><center>Fecha Hora</center></h6></td><td width=6%><h6><h6>Total</h6></h6></td><td width=8%><h6>efectivo</h6></td><td width=8%><h6>cambio</h6></td><td width=10%><h6>Cliente</h6></td><td><h6><center>Descripcion</center></h6></td></tr>
     </table>
   <div style="height:30%;overflow:auto">
     <table id="ticketsTable" width=97% cellpadding=0 cellspacing=1>

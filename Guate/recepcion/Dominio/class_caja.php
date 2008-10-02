@@ -187,7 +187,7 @@ class caja{
 		$n=0;
 		while($rs->next()){
 		$result=$rs->getRow();
-		$ors[$n] = new CajaComanda($result["idComanda"],$result["numComanda"],$result["fechaHora"],$result["total"],$result["efectivo"],$result["clientType"],$result["nombre"],$result["free"]);
+		$ors[$n] = new CajaComanda($result["idComanda"],$result["numComanda"],$result["estado"],$result["fechaHora"],$result["total"],$result["efectivo"],$result["clientType"],$result["nombre"],$result["free"]);
 		$n++;					
 		}
     }else{
