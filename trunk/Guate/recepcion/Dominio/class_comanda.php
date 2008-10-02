@@ -30,6 +30,11 @@ class comanda{
 			$rs = $dtp->setComandaVenta($efectivo, $tipoCliente, $total, $idcliente ,$free);
 			return $rs;
 		}
+		function setComandaCredito($idComanda){
+			$dtp = new DComanda();
+			$rs = $dtp->setComandaCredito($idComanda);
+			return $rs;
+		}
 		function comandasRestore(){
 			$dtp = new DComanda();
 			$rs = $dtp->comandasRestore();
