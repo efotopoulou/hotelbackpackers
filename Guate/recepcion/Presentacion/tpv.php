@@ -132,10 +132,10 @@ Introduzca el razon de la cortesia:<br />
  <div id="arriba_izquierda" style="width:100%;height:100%">
  <div style="border-bottom:1px solid #AAAAAA;">
   <div id="clienteTypeInfo" style="float:left;padding:7px"></div>
-  <div id="clientpressed1" class="client" style="float:right;cursor:pointer;padding:7px" onmousedown="clientemousedown(1)">Gratis</div> 
-  <div id="clientpressed5" class="client" style="float:right;cursor:pointer;padding:7px" onmousedown="clientemousedown(5)">Cr&eacute;dito</div>
-  <div id="clientpressed2" class="client" style="float:right;cursor:pointer;padding:7px" onmousedown="clientemousedown(2)">Cup&oacute;n</div> 
-  <div id="clientpressed4" class="client" style="float:right;cursor:pointer;padding:7px" onmousedown="clientemousedown(4)">Normal</div>
+  <div id="clientpressed1" class="client" onmousedown="clientemousedown(1)">Gratis</div> 
+  <div id="clientpressed5" class="client" onmousedown="clientemousedown(5)">Cr&eacute;dito</div>
+  <div id="clientpressed2" class="client" onmousedown="clientemousedown(2)">Cup&oacute;n</div> 
+  <div id="clientpressed4" class="client" onmousedown="clientemousedown(4)">Normal</div>
   <div style="clear:both"></div>
  </div>
 <table  width="100%"  border=0 cellpadding="1" cellspacing="1">	
