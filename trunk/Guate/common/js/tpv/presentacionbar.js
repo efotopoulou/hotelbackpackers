@@ -46,6 +46,7 @@ function cancelarCliente(){
 	clienteScreen.setClienteName(" ");
 	main.id_cliente=undefined;
 	clienteScreen.setCorrectColor(4);
+	activarEfectivo();
 	if ( main.comanda() && main.comanda().isAbierta()){
 		main.comanda().id_cliente=undefined;
 		main.comanda().clienteName= undefined;
