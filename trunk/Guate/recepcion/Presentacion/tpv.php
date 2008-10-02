@@ -124,7 +124,7 @@ Introduzca el razon de la cortesia:<br />
 
 <tr height="50%" ><td rowspan=2>
 <div id="TrabajadoresForm" style="display:none">
-<div style="padding:4px">nombre: <input type="text" id="search_cd" onkeydown="doSearch(arguments[0]||event)" /></div>
+<div style="padding:4px">nombre: <input type="text" id="searchNombre" onkeydown="doSearch()" /></div>
 <table id="list3" class="scroll" cellpadding="0" cellspacing="0"></table>
 <div id="pager3" class="scroll" style="text-align:center;"></div>
 <div style="height:30px"><input type="button" onclick="cancelarCliente()" value="cancelar"></input></div>
