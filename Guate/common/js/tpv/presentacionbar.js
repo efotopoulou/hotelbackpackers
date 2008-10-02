@@ -329,7 +329,7 @@ function mostrarListaTrabajadores(){
     onSelectRow: function(ids) {
         var id = jQuery("#list3").getGridParam('selrow'); 
         var ret = jQuery("#list3").getRowData(id);
-        guardarDatosCliente(ret.Id_usuario,ret.nombre);
+        guardarDatosCliente(ret.id,ret.nombre);
         $.unblockUI();
     }
   });
