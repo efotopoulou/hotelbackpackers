@@ -91,6 +91,7 @@ function LineaComandaScreen(){
  }
  
  this.setPrecio = function(newprecio){
+   if (!newprecio) newprecio="0";
    $("#row"+main.currentComanda+main.comanda().numRow +" .precioN").html(newprecio);
  }
  this.removeLine = function(){

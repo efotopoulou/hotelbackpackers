@@ -65,9 +65,9 @@ else{
 while($result->next()){	
     $row=$result->getRow();
 	echo "<row id='". $row["Id_usuario"]."'>"; 
-	echo "<cell>". $row["Id_usuario"]."</cell>";
-	echo "<cell>". $row["Id_perfil"]."</cell>"; 
+	echo "<cell>". $row["nombrePerfil"]."</cell>";
 	echo "<cell>". $row["nombre"]."</cell>"; 
+	echo "<cell>". $row["Id_usuario"]."</cell>"; 
 	echo "</row>"; 
 } 
 }
