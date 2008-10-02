@@ -7,14 +7,25 @@ $sidx = $_GET['sidx']; // get index row - i.e. user click to sort
 $sord = $_GET['sord']; // get the direction 
 $clientType = $_GET['q'];//diferenciar entre la cuenta de un cliente y los trabajadores
 if(!$sidx) $sidx =1; // connect to the database 
+if(isset($_GET["nm_mask"])) 
+ $nm_mask = $_GET['nm_mask']; 
+else $nm_mask = ""; 
+//construct where clause 
+$where = ""; 
+
+if($nm_mask!='') {
+  $where.= " AND u.nombre LIKE '$nm_mask%'";
+  $whereCount.= " WHERE nombre LIKE '$nm_mask%'";	
+}
+
 $comunication = new Comunication();
 
 //$db = mysql_connect($dbhost, $dbuser, $dbpassword) or die("Connection Error: " . mysql_error()); 
 //mysql_select_db($database) or die("Error conecting to db.");
 if ($clientType=="cliente"){
-$rs = $comunication->query("SELECT COUNT(*) AS count FROM cliente",array(),array()); 
+$rs = $comunication->query("SELECT COUNT(*) AS count FROM cliente ".$whereCount,array(),array()); 
 }else{
-$rs = $comunication->query("SELECT COUNT(*) AS count FROM usuario",array(),array()); 
+$rs = $comunication->query("SELECT COUNT(*) AS count FROM recepcion_bd.trabajador ".$whereCount,array(),array()); 
 }
 //$rs = mysql_query("SELECT COUNT(*) AS count FROM invheader a, clients b WHERE a.client_id=b.client_id");
 $rs->next();
@@ -30,10 +41,11 @@ if ($page > $total_pages) $page=$total_pages;
 $start = $limit*$page - $limit; // do not put $limit*($page - 1) 
 //$SQL = "SELECT a.id, a.invdate, b.name, a.amount,a.tax,a.total,a.note FROM invheader a, clients b WHERE a.client_id=b.client_id ORDER BY $sidx $sord LIMIT $start , $limit";
 if ($clientType=="cliente"){
-$SQL = "SELECT t1.Id_cliente,t1.nombre,t1.apellido1,t1.apellido2,t1.pasaporte FROM cliente t1,checkin t2,reserva t3 where t2.Id_res=t3.Id_res and t1.Id_cliente=t3.Id_cliente and date(NOW())>=t3.fec_ini and date(NOW())<=t3.fec_fin ORDER BY ".$sidx." ".$sord." LIMIT ? , ?";
+$SQL = "SELECT t1.Id_cliente,t1.nombre,t1.apellido1,t1.apellido2,t1.pasaporte FROM cliente t1,checkin t2,reserva t3 WHERE t2.Id_res=t3.Id_res and t1.Id_cliente=t3.Id_cliente and date(NOW())>=t3.fec_ini and date(NOW())<=t3.fec_fin ".$where." ORDER BY ".$sidx." ".$sord." LIMIT ? , ?";
 }else{
-$SQL = "SELECT  p.nombre as nombrePerfil, u.nombre, u.Id_usuario FROM usuario u, perfil p WHERE p.Id_perfil=u.Id_perfil ORDER BY ".$sidx." ".$sord." LIMIT ? , ?";
+$SQL = "SELECT idTrabajador, nombre FROM recepcion_bd.trabajador ".$whereCount." ORDER BY ".$sidx." ".$sord." LIMIT ? , ?";
 }
+
 $result = $comunication->query($SQL,array($start,$limit),array(Comunication::$TINT,Comunication::$TINT)); 
 
 //$result = mysql_query( $SQL ) or die("Couldnt execute query.".mysql_error());
@@ -64,10 +76,9 @@ if ($clientType=="cliente"){
 else{
 while($result->next()){	
     $row=$result->getRow();
-	echo "<row id='". $row["Id_usuario"]."'>"; 
-	echo "<cell>". $row["nombrePerfil"]."</cell>";
+	echo "<row id='". $row["idTrabajador"]."'>"; 
+	echo "<cell>". $row["idTrabajador"]."</cell>";
 	echo "<cell>". $row["nombre"]."</cell>"; 
-	echo "<cell>". $row["Id_usuario"]."</cell>"; 
 	echo "</row>"; 
 } 
 }

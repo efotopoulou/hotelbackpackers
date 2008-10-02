@@ -1,5 +1,6 @@
 //PRESENTACION
 //Al iniciar la pagina.... ONREADY!!!!!!!
+var timeoutHnd;
 $(document).ready(function(){
    $.blockUI({ message: '<h1>Cargando...</h1>' });
    //Se borran algunos campos que se quedan por defecto con el valor que tenian
@@ -21,8 +22,8 @@ function clientemousedown(num){
 	clienteScreen.setCorrectColor(num);
 	if (main.comanda() && main.comanda().isAbierta()) actualizarListaProductos(num);
     //Si es cliente mostrar la lista de clientes
-    if (num==5) {mostrarListaTrabajadores();desactivarEfectivo();}
-    if (num==2) {mostrarListaTrabajadores();activarEfectivo();}
+    if (num==5) {desHotkeys();mostrarListaTrabajadores();desactivarEfectivo();}
+    if (num==2) {desHotkeys();mostrarListaTrabajadores();activarEfectivo();}
     if (num==1) {askForVolName();desactivarEfectivo();}
     if (num==4) {guardarDatosCliente(undefined,"");activarEfectivo();} 
    
@@ -301,6 +302,7 @@ function mostrarListaClientes(){
         var id = jQuery("#list2").getGridParam('selrow'); 
         var ret = jQuery("#list2").getRowData(id);
         guardarDatosCliente(ret.Id_Cliente,ret.nombre+" "+ret.apellido1+" "+ ret.apellido2);
+        hotkeys();
         $.unblockUI();
     }
   });
@@ -310,17 +312,16 @@ function mostrarListaTrabajadores(){
   jQuery("#list3").jqGrid({
     url:'Presentacion/jsongrid.php?q=trabajador&nd='+new Date().getTime(),
     datatype: "xml",
-    colNames:['perfil', 'nombre', 'id'],
+    colNames:['id', 'nombre'],
     colModel:[
-        {name:'perfil',index:'nombrePerfil', width:100},
-        {name:'nombre',index:'nombre', width:100},
-        {name:'id',index:'Id_usuario', width:100},
+        {name:'id',index:'idTrabajador', width:50},
+        {name:'nombre',index:'nombre', width:150},
     ],
     pager: jQuery('#pager3'),
     rowNum:10,
     rowList:[10,20,30],
     imgpath: '/common/css/images',
-    sortname: 'nombrePerfil',
+    sortname: 'nombre',
     viewrecords: true,
     sortorder: "desc",
     caption: "Lista de Trabajadores",
@@ -330,10 +331,11 @@ function mostrarListaTrabajadores(){
         var id = jQuery("#list3").getGridParam('selrow'); 
         var ret = jQuery("#list3").getRowData(id);
         guardarDatosCliente(ret.id,ret.nombre);
+        hotkeys();
         $.unblockUI();
     }
   });
-  $.blockUI({ message: $('#TrabajadoresForm'), css:{width:$("#list3").css("width"),height:$("#list3").css("height")} });
+  $.blockUI({ message: $('#TrabajadoresForm'), css:{width:$("#list3").css("width"),height:$("#list3").css("height"),top:"10%"} });
  }
  function cajaCerrada(){
    $("#tablageneraldiv").block({ message: $('#cajaCerrada')}); 	
@@ -379,4 +381,13 @@ function activarEfectivo(){
  if (!$('#Efectivo').hasClass("btnunpress")){
   $('#Efectivo').addClass("btnunpress").removeClass("btncancelled");
  }
+}
+function gridReload(){
+ var nm_mask = jQuery("#searchNombre").val();
+ //Presentacion/jsongrid.php?q=trabajador&nd='+new Date().getTime()
+ jQuery("#list3").setGridParam({url:"Presentacion/jsongrid.php?q=trabajador&nm_mask="+nm_mask,page:1}).trigger("reloadGrid");
+}
+function doSearch(){
+ if(timeoutHnd) clearTimeout(timeoutHnd);
+ timeoutHnd = setTimeout(gridReload,500);
 }
