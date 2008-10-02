@@ -52,7 +52,7 @@ else
 				<li><a href="/recepcion/view.php?page=gestionbebidas">Gestion de Bebidas</a></li>
 				<li><a href="/recepcion/view.php?page=gestionplatillos">Gestion de Platillos</a></li>
 				<li><a href="/recepcion/view.php?page=controldestock">Control de Stock</a></li>
-				
+				<li><a href="/recepcion/view.php?page=cuentausuarios">Cuenta De Usuarios</a></li>
 		    </ul>
 		</li>		
 				

@@ -6,7 +6,7 @@ class Dcomanda{
 	//idComanda,estado,fechaHora,usuario,efectivo,mesa,tipoCliente,total,id_cliente,id_caja
 	const SET_PLATILLOS = 'INSERT INTO comanda values(?,\'abierta\',NOW(),?,?,?,?,?,?,?)';
 	const SET_COMANDA = 'INSERT INTO comanda values(?,?,NOW(),?,?,?,?,?,?,?)';
-	const SET_COMANDA_VENTA = 'INSERT INTO comanda values(0,null,NOW(),?,?,?,?,?,?)';
+	const SET_COMANDA_VENTA = 'INSERT INTO comanda values(0,null,\'cobrado\',NOW(),?,?,?,?,?,?)';
 	const GET_ID_CAJA = 'select id_caja from caja where estado=1';
 	const ERASE_LISTA_PLATILLOS = 'DELETE FROM lineacomanda WHERE idComanda=?';
 	const SET_LISTA_PLATILLOS = 'INSERT INTO lineacomanda values (0,?,?,?,?)';
