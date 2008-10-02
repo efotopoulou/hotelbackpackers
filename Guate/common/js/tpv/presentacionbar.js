@@ -156,7 +156,7 @@ function cerrarTiquetMouseDown(){
      main.comanda().id_cliente=main.id_cliente;
      main.efectivo=1;
     }
-	if (main.efectivo) { 
+	if (main.efectivo && main.comanda() && main.comanda().isAbierta()) { 
 	 //insert la nueva comanda 
 	 sendComanda();
 	 
