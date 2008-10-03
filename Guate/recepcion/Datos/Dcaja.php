@@ -25,8 +25,9 @@ class Dcaja{
 	const GET_FONDO_CAJA_OLD = 'SELECT fondoInicial from caja where id_caja=?';
 	const ARE_TIKETS_COBRADOS = 'SELECT t1.idComanda from comanda t1,caja t2 where t1.id_caja=t2.id_caja and t2.estado=1 and (t1.estado="cerrado" or t1.estado="abierta")';
 	const GET_USUARIOS = 'select Id_usuario,nombre from  guate_bd.usuario';
-	const USUARIOS_COMANDAS = 'select t1.idComanda,t1.idComanda as numComanda,t1.estado,t1.fechaHora,t1.total,t1.efectivo,t4.clientType,t3.nombre from comanda t1,caja t2, guate_bd.usuario t3,tipocliente t4 where t1.id_caja=t2.id_caja and t2.estado=0 and t1.id_cliente=t3.Id_usuario and t1.tipoCliente=2 and t1.tipoCliente=t4.idTipoCliente and t3.Id_usuario=? and month(t2.fechaHoraApertura)=? and year(t2.fechaHoraApertura)=? union select concat("B",t1.idComanda),concat("B",t1.numComanda),t1.estado,t1.fechaHora,t1.total,t1.efectivo,t4.clientType,t3.nombre from bar_bd.comanda t1,bar_bd.caja t2, guate_bd.usuario t3,bar_bd.tipocliente t4 where t1.id_caja=t2.id_caja and t2.estado=0 and t1.id_cliente=t3.Id_usuario and t1.tipoCliente=2 and t1.tipoCliente=t4.idTipoCliente and t3.Id_usuario=? and month(t2.fechaHoraApertura)=? and year(t2.fechaHoraApertura)=?';
-	const TOTAL_CUENTA = 'select sum(t1.total) as total from comanda t1,caja t2, guate_bd.usuario t3 where t1.id_caja=t2.id_caja and t2.estado=0 and t1.id_cliente=t3.Id_usuario and t1.tipoCliente=2 and t3.Id_usuario=? and month(t2.fechaHoraApertura)=? and year(t2.fechaHoraApertura)=? group by t3.Id_usuario';
+	const USUARIOS_COMANDAS = 'select t1.idComanda,t1.numComanda,t1.estado,t1.fechaHora,t5.total,t4.clientType,t3.nombre from comanda t1,caja t2, guate_bd.usuario t3,tipocliente t4,comandacredito t5 where t1.id_caja=t2.id_caja and t2.estado=0 and t1.id_cliente=t3.Id_usuario and t1.tipoCliente=5 and t1.tipoCliente=t4.idTipoCliente and t5.idComanda=t1.idComanda and t3.Id_usuario=? and month(t2.fechaHoraApertura)=? and year(t2.fechaHoraApertura)=?';
+	//const USUARIOS_COMANDAS = 'select t1.idComanda,t1.idComanda as numComanda,t1.estado,t1.fechaHora,t1.total,t1.efectivo,t4.clientType,t3.nombre from comanda t1,caja t2, guate_bd.usuario t3,tipocliente t4 where t1.id_caja=t2.id_caja and t2.estado=0 and t1.id_cliente=t3.Id_usuario and t1.tipoCliente=2 and t1.tipoCliente=t4.idTipoCliente and t3.Id_usuario=? and month(t2.fechaHoraApertura)=? and year(t2.fechaHoraApertura)=? union select concat("B",t1.idComanda),concat("B",t1.numComanda),t1.estado,t1.fechaHora,t1.total,t1.efectivo,t4.clientType,t3.nombre from bar_bd.comanda t1,bar_bd.caja t2, guate_bd.usuario t3,bar_bd.tipocliente t4 where t1.id_caja=t2.id_caja and t2.estado=0 and t1.id_cliente=t3.Id_usuario and t1.tipoCliente=2 and t1.tipoCliente=t4.idTipoCliente and t3.Id_usuario=? and month(t2.fechaHoraApertura)=? and year(t2.fechaHoraApertura)=?';
+	const TOTAL_CUENTA = 'select sum(t4.total) as total from comanda t1,caja t2,guate_bd.usuario t3,comandacredito t4 where t1.id_caja=t2.id_caja and t2.estado=0  and t1.idComanda=t4.idComanda and t1.id_cliente=t3.Id_usuario and t1.tipoCliente=5 and t3.Id_usuario=? and month(t2.fechaHoraApertura)=? and year(t2.fechaHoraApertura)=? group by t3.Id_usuario';
 	const GET_PEDIDO = 'select t1.idPlatillo,t1.cantidad,t2.nombre,t1.precio from lineacomanda t1,platillo t2 where idComanda=? and t2.idPlatillo=t1.idPlatillo';
 	const GET_PEDIDO_BAR = 'select t2.numBebida,t1.cantidad,t2.nombre,t1.precio from lineacomanda t1,bebida t2 where idComanda=? and t2.idBebida=t1.idPlatillo';
 	const GET_MOV_CATEGORIES = 'select * from categoria where showcaja=1';
@@ -152,21 +153,21 @@ class Dcaja{
 	
 	public function cobrar_ticket ($idComanda){
 		$comunication = new ComunicationRecep();
+		//$PARAMS = array($idComanda);
+		//$PARAMS_TYPES = array (ComunicationRecep::$TSTRING);
+		//$estado = $comunication->query(self::ESTADO_COMANDA,$PARAMS,$PARAMS_TYPES);
+		//if ($estado->getRecordCount()>0){
+		//	while($estado->next()){
+		///		$resulte=$estado->getRow();
+		//		$a=$resulte["estado"];
+		//		}}		
+		//if ($a=='facturado') return false;
+		//else{
 		$PARAMS = array($idComanda);
-		$PARAMS_TYPES = array (ComunicationRecep::$TSTRING);
-		$estado = $comunication->query(self::ESTADO_COMANDA,$PARAMS,$PARAMS_TYPES);
-		if ($estado->getRecordCount()>0){
-			while($estado->next()){
-				$resulte=$estado->getRow();
-				$a=$resulte["estado"];
-				}}		
-		if ($a=='facturado') return false;
-		else{
-		$PARAMS = array($idComanda);
-		$PARAMS_TYPES = array (ComunicationRecep::$TSTRING);
+		$PARAMS_TYPES = array (ComunicationRecep::$TINT);
 		$result = $comunication->update(self::COBRAR_TICKET,$PARAMS,$PARAMS_TYPES);
 		return $result;
-		}
+		//}
 	}
 	public function anular_ticket ($idComanda){
 		$comunication = new ComunicationRecep();

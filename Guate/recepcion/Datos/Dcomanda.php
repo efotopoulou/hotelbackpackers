@@ -6,7 +6,7 @@ class Dcomanda{
 	//idComanda,estado,fechaHora,usuario,efectivo,mesa,tipoCliente,total,id_cliente,id_caja
 	const SET_PLATILLOS = 'INSERT INTO comanda values(?,\'abierta\',NOW(),?,?,?,?,?,?,?)';
 	const SET_COMANDA = 'INSERT INTO comanda values(?,?,NOW(),?,?,?,?,?,?,?)';
-	const SET_COMANDA_VENTA = 'INSERT INTO comanda values(0,null,\'cobrado\',NOW(),?,?,?,?,?,?)';
+	const SET_COMANDA_VENTA = 'INSERT INTO comanda values(0,null,?,NOW(),?,?,?,?,?,?)';
 	const GET_USUARIO_SUMA = 'select sum(t2.precioLimitado*t1.cantidad) as suma from lineacomanda t1,bebida t2 where idComanda=? and t2.idBebida=t1.idPlatillo group by idComanda';
 	const SET_COMANDA_USUARIO = 'INSERT INTO comandacredito values(?,?,false)';
 	const GET_ID_CAJA = 'select id_caja from caja where estado=1';
@@ -117,9 +117,11 @@ class Dcomanda{
 			while($idcaja->next()){
 				$resultc=$idcaja->getRow();
 				$idCaja=$resultc["id_caja"];
-				}}	
-		$PARAMS = array($efectivo, $tipoCliente, $total, $idcliente, $idCaja, $free);
-		$PARAMS_TYPES = array (ComunicationRecep::$TFLOAT,ComunicationRecep::$TINT,ComunicationRecep::$TFLOAT,ComunicationRecep::$TINT,ComunicationRecep::$TINT,ComunicationRecep::$TSTRING);
+				}}
+		$estado="cobrado";
+		if($tipoCliente==5)	$estado="credito"; 
+		$PARAMS = array($estado,$efectivo, $tipoCliente, $total, $idcliente, $idCaja, $free);
+		$PARAMS_TYPES = array (ComunicationRecep::$TSTRING,ComunicationRecep::$TFLOAT,ComunicationRecep::$TINT,ComunicationRecep::$TFLOAT,ComunicationRecep::$TINT,ComunicationRecep::$TINT,ComunicationRecep::$TSTRING);
 		$idCom = $comunication->update(self::SET_COMANDA_VENTA,$PARAMS,$PARAMS_TYPES);
 	
 	return $idCom;

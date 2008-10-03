@@ -31,7 +31,7 @@ $(document).ready(function(){
     if (json.UsuariosInfo){
   	$("#usuariosTable").html(" ");
         for(i=0;i<json.UsuariosInfo.length;i++) {
-        $("#usuariosTable").append("<tr id=T"+json.UsuariosInfo[i].Id_usuario+" onmousedown='changeClass(this.id);loadcuenta(this.id);'><td><h4><center>"+json.UsuariosInfo[i].nombre+"</center></h4></td></tr>");		
+        $("#usuariosTable").append("<tr id=T"+json.UsuariosInfo[i].Id_usuario+" onmousedown='changeClassUsuario(this.id);loadcuenta(this.id);'><td><h4><center>"+json.UsuariosInfo[i].nombre+"</center></h4></td></tr>");		
         $("#T"+json.UsuariosInfo[i].Id_usuario).addClass("green");
         }
      }
@@ -59,9 +59,14 @@ $("#month").val("<?php echo($month); ?>");
 </head>
 <script>
 //-------------------------------------------CHANGECLASSID-------------------------------------------------//
-function changeClass(id){
+//function changeClass(id){
+//$("#"+id).toggleClass("amarillo");
+//$("#"+id).toggleClass("redtext");
+//}
+
+
+function changeClassUsuario(id){
 $(".amarillo").toggleClass("amarillo");
-//$(".redtext").toggleClass("redtext");
 btncolor(id);
 }
 function btncolor(id){
@@ -80,14 +85,17 @@ month = $("#month").val();
 $(".total").html("0");
 $.getJSONGuate("Presentacion/jsoncuentausuarios.php",{idusuario:id,year:year,month:month}, function(json){
      json = verificaJSON(json);
-    if (json.TicketsInfo){
+     loadPage(json);
+       });	
+}
+function loadPage(json){
+if (json.TicketsInfo){
   	  $("#ticketsTable").html(" ");
      for(i=0;i<json.TicketsInfo.length;i++) {
-     	var cambio=(parseFloat(json.TicketsInfo[i].efectivo) - parseFloat(json.TicketsInfo[i].total));
-     	var camb=(Math.round(cambio*100)/100);
+     	numComanda=showid(json.TicketsInfo[i].numComanda);
      	idCom=json.TicketsInfo[i].idComanda;
-        $("#ticketsTable").append("<tr id="+idCom+"><td width=2%>&nbsp;</td><td width=5%><h6>"+json.TicketsInfo[i].numComanda+"</h6></td><td width=9%><h6>"+json.TicketsInfo[i].estado+"</h6></td><td width=21%><h6>"+json.TicketsInfo[i].fechaHora+"</h6></td><td width=6%><h6>"+json.TicketsInfo[i].total+"</h6></td><td width=8%><h6>"+json.TicketsInfo[i].efectivo+"</h6></td><td width=8%><h6>"+camb+"</h6></td><td width=7%><h6>"+json.TicketsInfo[i].clientType+"</h6></td><td><h6>"+json.TicketsInfo[i].nombre+"</h6></td></tr>");
-        $("#"+idCom+" td").mousedown(function(e){
+        $("#ticketsTable").append("<tr id="+idCom+"><td class='checkbox' width=2%><input type='checkbox'  onclick='btncolor(\""+idCom+"\");'></td><td width=5%><h6>"+numComanda+"</h6></td><td width=9%><h6>"+json.TicketsInfo[i].estado+"</h6></td><td width=25%><h6>"+json.TicketsInfo[i].fechaHora+"</h6></td><td width=6%><h6>"+json.TicketsInfo[i].total+"</h6></td><td width=10%><h6>"+json.TicketsInfo[i].clientType+"</h6></td><td><h6>"+json.TicketsInfo[i].nombre+"</h6></td></tr>");
+        $("#"+idCom+" td:not(.checkbox)").mousedown(function(e){
            showpedido(this.parentNode.id);
         });
         if (json.TicketsInfo[i].estado=="cobrado"){$("#"+json.TicketsInfo[i].idComanda).addClass("verde");}
@@ -99,14 +107,19 @@ $.getJSONGuate("Presentacion/jsoncuentausuarios.php",{idusuario:id,year:year,mon
         alert("Este mes el usuario no ha consumido nada!");
         }
         if (json.TotalTickets)  $(".total").html(json.TotalTickets);	
-   });	
+	
+}
+//-------------------------------------------DECIDIR SI VA A APARECER EL NUMCOMANDA-------------------------------------------------//
+function showid(numComanda){
+if (numComanda!= null)	return numComanda;
+else return "";
 }
 //-------------------------------------------SHOW PEDIDO---------------------------------------------------//
 function showpedido(id){
     if ($("#ticketsTable tr").hasClass("detail"+id)){
        	$(".detail"+id).remove();
     }else {
-	 $.getJSONGuate("jsongestioncaja.php",{idComDetail:id}, function(json){
+	 $.getJSONGuate("Presentacion/jsongestioncaja.php",{idComDetail:id}, function(json){
       json = verificaJSON(json);
       if (json.pedidosInfo){		
        for(i=0;i<json.pedidosInfo.length;i++) {
@@ -117,6 +130,21 @@ function showpedido(id){
        }
      });
    }
+}
+//-------------------------------------------COBRAR TICKET-------------------------------------------------//
+function cobrarTicket(){
+var idComanda=$("#ticketsTable .amarillo").attr("id");
+var idusuario=$("#usuariosTable .amarillo").attr("id");
+ if(idComanda){ 
+	 $(".amarillo").each(function (){
+	 btncolor(this.id);
+     $.getJSONGuate("Presentacion/jsoncuentausuarios.php",{idComanda:this.id,idusuario:idusuario}, function(json){
+     json = verificaJSON(json);
+     loadPage(json);
+     });
+
+  });
+}else alert("Por favor elige la comanda que desea cobrar!");
 }
 </script>
 <body>
@@ -151,7 +179,7 @@ function showpedido(id){
 
 	<h5 class="titulos">Comandas realizadas</h5>
 	<table  width=97% cellpadding=0 cellspacing=1>
-    <tr><td width=2%>&nbsp;</td><td width=5%><h6>ID</h6></td><td width=9%><h6><center>estado</center></h6></td><td width=21%><h6><center>Fecha Hora</center></h6></td><td width=6%><h6><h6>Total</h6></h6></td><td width=8%><h6>efectivo</h6></td><td width=8%><h6>cambio</h6></td><td width=7%><h6>Cliente</h6></td><td><h6><center>Nombre de Cliente</center></h6></td></tr>
+    <tr><td width=2%>&nbsp;</td><td width=5%><h6>ID</h6></td><td width=9%><h6><center>estado</center></h6></td><td width=25%><h6><center>Fecha Hora</center></h6></td><td width=6%><h6><h6>Total</h6></h6></td><td width=10%><h6>Cliente</h6></td><td><h6><center>Nombre de Cliente</center></h6></td></tr>
     </table>
     <div style="height:60%;overflow:auto">
     <table id="ticketsTable" width=97% cellpadding=0 cellspacing=1>
@@ -160,6 +188,8 @@ function showpedido(id){
     <div class="row" align="left">
       		<div style="width:120px;float:left;margin-top:20px;margin-left:300px"><span><h1>Total:</h1></span></div>
       		<div style="margin-top:20px"><span class="total" style="font-weight:bold;font-size: 12pt">0</span></div>
+   	        <div style="width:120px;float:left;margin-top:20px;margin-left:300px;"><span><input type="button" value="Cobrar Tiquet" id="an" onClick="cobrarTicket();"/></span></div>
+     
    	</div>
 
 </div>
