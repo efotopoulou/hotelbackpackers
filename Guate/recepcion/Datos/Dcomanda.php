@@ -158,11 +158,12 @@ class Dcomanda{
 		$PARAMS = array($comandaID,$platoId,$cantidad,$precio);
 		$PARAMS_TYPES = array (ComunicationRecep::$TSTRING,ComunicationRecep::$TSTRING,ComunicationRecep::$TINT,ComunicationRecep::$TFLOAT);
 		$result = $comunication->update(self::SET_LISTA_PLATILLOS,$PARAMS,$PARAMS_TYPES);
-		$id = $comunication->query(self::GET_LAST_ID,array(),array());
-	    $id->next();
-		$id=$id->getRow();
-		$aux = $id["id"];
-		return $aux;
+		//$id = $comunication->query(self::GET_LAST_ID,array(),array());
+	    //$id->next();
+		//$id=$id->getRow();
+		//$aux = $id["id"];
+		//return $aux;
+		return $result;
 		
 	}
 	public function updateComandaAbierta($comandaID,$efectivo){
@@ -187,7 +188,7 @@ class Dcomanda{
 		$comunication = new ComunicationRecep();
 		$PARAMS = array($idLineaComanda);
 		$PARAMS_TYPES = array (ComunicationRecep::$TINT);
-		$result = $comunication->query(self::SET_COCINA,$PARAMS,$PARAMS_TYPES);
+		$result = $comunication->update(self::SET_COCINA,$PARAMS,$PARAMS_TYPES);
 		return $result;
 	}
 }
