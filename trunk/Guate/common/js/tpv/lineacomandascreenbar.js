@@ -101,5 +101,4 @@ function LineaComandaScreen(){
     $(".currentRow").addClass("fixedRow").removeClass("currentRow");
     $("#precioTotal"+main.currentComanda).addClass("precioFixed");
  }
- 
 }

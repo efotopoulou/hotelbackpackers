@@ -39,6 +39,7 @@ function putvoluntario(free){
 if (main.comanda() && main.comanda().isAbierta()) main.comanda().free = free;
 clienteScreen.setClienteName(free);
 $.unblockUI();
+hotkeys();
 }
 
 function cancelarCliente(){
@@ -178,7 +179,6 @@ function cerrarTiquetMouseDown(){
 	}
 	changeClass('CerrarTicket');
 }
-//HACER: Mensaje de confirmacion si aun existen comandas abiertas. 
 //-------------------------------------------LIBERAMESAMOUSEDOWN----------------------------------------//
 function liberaMesaMouseDown(id){
   if (main.comanda()){
