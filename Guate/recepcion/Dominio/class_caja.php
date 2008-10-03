@@ -281,7 +281,7 @@ $rs = $u->get_usuarios();
 		$n=0;
 		while($rs->next()){
 		$result=$rs->getRow();
-		$ors[$n] = new CuentaUsuario($result["Id_usuario"],$result["nombre"]);
+		$ors[$n] = new CuentaUsuario($result["idTrabajador"],$result["nombre"]);
 		$n++;					
 		}
     }else{
