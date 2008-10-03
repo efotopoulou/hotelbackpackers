@@ -193,8 +193,8 @@ var main = new Main(<?php echo($noMesas); ?>)
 </script>	
 <tr height="50%">
 <?php
-	for($i=0;$i<$noMesas;$i++) {
-		if ($i==round($noMesas/2)){
+	for($i=1;$i<=$noMesas;$i++) {
+		if ($i==(round($noMesas/2)+1)){
 		?>
 		</tr>
 		<tr height="50%">		

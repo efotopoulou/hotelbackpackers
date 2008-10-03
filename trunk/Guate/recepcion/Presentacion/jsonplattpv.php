@@ -8,18 +8,6 @@ $oiko = $_POST['family'];
 $mensaje = new MensajeJSON();
 
 try {
- if ($oiko){
-  $platillos=new platillos();
-  $platillos->get_platillos($oiko);
-  $platos=$platillos->get_pla($oiko);
-  $platosid=$platillos->get_plaid($oiko);
-  $platospreciosN=$platillos->get_plaPrecioNormal($oiko);
-  $platospreciosL=$platillos->get_plaPrecioLimitado($oiko);
-
-  for($i=0;$i<count($platos);$i++) {
-	$platosInfo[$i]=array("nombre"=>$platos[$i],"idPlatillo"=>$platosid[$i],"precioNormal"=>$platospreciosN[$i],"precioLimitado"=>$platospreciosL[$i]);
-  }
- }else{
   $fam=new class_familia();
   $platillos=new platillos();
 
@@ -36,7 +24,6 @@ try {
 	$platosInfo["familias"][$name][$j]=array("nombre"=>$platos[$j],"idPlatillo"=>$platosid[$j],"precioNormal"=>$platospreciosN[$j],"precioLimitado"=>$platospreciosL[$j]);
    }
   }
- }
   $mensaje->setDatos($platosInfo);
 }catch (SQLException $e){
 $mensaje->setError("Error de la BBDD");

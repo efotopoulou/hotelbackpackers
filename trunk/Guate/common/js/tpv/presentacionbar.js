@@ -257,7 +257,7 @@ function comprobarOut(id){
 //-------------------------------------------sendComandaAbierta----------------------------------------//
 function sendComanda(){
  var myJsonMain = JSON.stringify(main.comanda());
-  $.getJSONGuate("Presentacion/jsonsavetpv.php",{ json: myJsonMain}, function(json){
+  $.getJSONGuate("Presentacion/jsonsaveventa.php",{ json: myJsonMain}, function(json){
     if (json["Mensaje"]) {
     	changeClass('Efectivo');
     	efectivo();
