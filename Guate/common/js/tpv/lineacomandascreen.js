@@ -91,6 +91,7 @@ function LineaComandaScreen(){
  }
  
  this.setPrecio = function(newprecio){
+   if (!newprecio) newprecio="0";
    $("#row"+main.mesa().currentComanda+main.comanda().numRow +" .precioN").html(newprecio);
  }
  this.removeLine = function(){
@@ -100,5 +101,4 @@ function LineaComandaScreen(){
     $(".currentRow").addClass("fixedRow").removeClass("currentRow");
     $("#precioTotal"+main.mesa().currentComanda).addClass("precioFixed");
  }
- 
 }

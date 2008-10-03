@@ -1,7 +1,8 @@
 //Clase ClienteScreen
 function ClienteScreen(){
  this.setClienteName = function(name){
-  $("#clienteTypeInfo").html(name);
+   if (!name) name ="";
+   $("#clienteTypeInfo").html(name);
  }
  this.setCorrectColor = function(num){
 	//borrar todos los colores rojos y azules de los botones client

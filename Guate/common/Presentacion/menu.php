@@ -47,7 +47,7 @@ else
 				<?php } ?>
 				<li><a>Opciones Recepcion</a>
 			<ul>
-				<li><a href="/recepcion/view.php?page=tpv">Venta en Recepcion</a></li>
+				<li><a href="/recepcion/view.php?page=ventarecepcion">Venta en Recepcion</a></li>
 				<li><a href="/recepcion/view.php?page=historicocaja">Historico Caja</a></li>
 				<li><a href="/recepcion/view.php?page=gestionbebidas">Gestion de Bebidas</a></li>
 				<li><a href="/recepcion/view.php?page=gestionplatillos">Gestion de Platillos</a></li>
