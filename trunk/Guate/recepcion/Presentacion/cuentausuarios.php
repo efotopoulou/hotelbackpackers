@@ -31,8 +31,8 @@ $(document).ready(function(){
     if (json.UsuariosInfo){
   	$("#usuariosTable").html(" ");
         for(i=0;i<json.UsuariosInfo.length;i++) {
-        $("#usuariosTable").append("<tr id=T"+json.UsuariosInfo[i].Id_usuario+" onmousedown='changeClassUsuario(this.id);loadcuenta(this.id);'><td><h4><center>"+json.UsuariosInfo[i].nombre+"</center></h4></td></tr>");		
-        $("#T"+json.UsuariosInfo[i].Id_usuario).addClass("green");
+        $("#usuariosTable").append("<tr id=T"+json.UsuariosInfo[i].idTrabajador+" onmousedown='changeClassUsuario(this.id);loadcuenta(this.id);'><td><h4><center>"+json.UsuariosInfo[i].nombre+"</center></h4></td></tr>");		
+        $("#T"+json.UsuariosInfo[i].idTrabajador).addClass("green");
         }
      }
    });
@@ -133,17 +133,21 @@ function showpedido(id){
 }
 //-------------------------------------------COBRAR TICKET-------------------------------------------------//
 function cobrarTicket(){
-var idComanda=$("#ticketsTable .amarillo").attr("id");
+var comandas;
+$("#ticketsTable .amarillo").each(function (){
+  if (!comandas) comandas = this.id;
+  else comandas+=","+this.id;
+  btncolor(this.id);
+  
+})
 var idusuario=$("#usuariosTable .amarillo").attr("id");
- if(idComanda){ 
-	 $(".amarillo").each(function (){
-	 btncolor(this.id);
-     $.getJSONGuate("Presentacion/jsoncuentausuarios.php",{idComanda:this.id,idusuario:idusuario}, function(json){
-     json = verificaJSON(json);
-     loadPage(json);
+ if(comandas){ 
+     year = $("#years").val();
+     month = $("#month").val();
+     $.getJSONGuate("Presentacion/jsoncuentausuarios.php",{comandas:comandas,idusuario:idusuario,year:year,month:month}, function(json){
+      json = verificaJSON(json);
+      loadPage(json);
      });
-
-  });
 }else alert("Por favor elige la comanda que desea cobrar!");
 }
 </script>

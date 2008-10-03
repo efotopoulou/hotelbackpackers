@@ -1,10 +1,10 @@
 <?php
 class CuentaUsuario{
-    var $Id_usuario;
+    var $idTrabajador;
     var $nombre;
 	
-	function CuentaUsuario($Id_usuario,$nombre){
-	$this->Id_usuario = $Id_usuario;
+	function CuentaUsuario($idTrabajador,$nombre){
+	$this->idTrabajador = $idTrabajador;
 	$this->nombre = $nombre;
 	}
 }
