@@ -254,7 +254,7 @@ function comprobarOut(id){
  }	
 }
 
-//-------------------------------------------sendComandaAbierta----------------------------------------//
+//-------------------------------------------sendComanda----------------------------------------//
 function sendComanda(){
  var myJsonMain = JSON.stringify(main.comanda());
   $.getJSONGuate("Presentacion/jsonsaveventa.php",{ json: myJsonMain}, function(json){
