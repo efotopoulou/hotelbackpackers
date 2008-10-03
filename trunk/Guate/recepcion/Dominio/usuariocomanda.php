@@ -5,18 +5,15 @@ class UsuarioComanda{
     var $estado;
     var $fechaHora;
     var $total;
-    var $efectivo;
     var $clientType;
     var $nombre;
 	
-	function UsuarioComanda($idComanda,$numComanda,$estado,$fechaHora,$total,$efectivo,$clientType,$nombre){
+	function UsuarioComanda($idComanda,$numComanda,$estado,$fechaHora,$total,$clientType,$nombre){
 	$this->idComanda = $idComanda;
 	$this->numComanda = $numComanda;
 	$this->estado = $estado;
 	$this->fechaHora = $fechaHora;
 	$this->total = $total;
-	$this->efectivo = $efectivo;
-	$this->estado = $estado;
 	$this->clientType= $clientType;
 	$this->nombre = $nombre;
 	}

@@ -7,6 +7,7 @@ $usuario = $_POST['usuario'];
 $idusuario = $_POST['idusuario'];
 $year = $_POST['year'];
 $month = $_POST['month'];
+$idComanda = $_POST['idComanda'];
 
 
 $caja=new caja();
@@ -20,16 +21,16 @@ if ((sizeof($usuarios))>0){
 	  $UsuariosInfo[$i]=array("Id_usuario"=>$usuarios[$i]->Id_usuario,"nombre"=>$usuarios[$i]->nombre);
 	  }
  }	
+}else if($idComanda && $idusuario){
+$iduser = substr($idusuario, 1);
+$a=$caja->cobrar_ticket($idComanda);	
+if ($a==false) $mensaje->setMensaje("La comanda esta ya esta cobrada y facturada!");
+$response = loadtickets($caja,$idusuario,$month,$year);	
+$totalTickets=$caja->total_cuenta($iduser,$month,$year);
 }else if($idusuario){	
 $iduser = substr($idusuario, 1);
-$tikets=$caja->get_usuarios_comandas($iduser,$month,$year);
-if ((sizeof($tikets))>0){
-	  for($i=0;$i<count($tikets);$i++) {
-	  $TicketsInfo[$i]=array("idComanda"=>$tikets[$i]->idComanda,"numComanda"=>$tikets[$i]->numComanda,"estado"=>$tikets[$i]->estado,"fechaHora"=>$tikets[$i]->fechaHora,"total"=>$tikets[$i]->total,"efectivo"=>$tikets[$i]->efectivo,"clientType"=>$tikets[$i]->clientType,"nombre"=>$tikets[$i]->nombre);
-	  }
- }	
-$totalTickets=$caja->total_cuenta($idusuario,$month,$year);
-
+$response = loadtickets($caja,$idusuario,$month,$year);	
+$totalTickets=$caja->total_cuenta($iduser,$month,$year);
 }
 }catch (SQLException $e){
 	$aux = $e ->getNativeError();
@@ -37,10 +38,23 @@ $totalTickets=$caja->total_cuenta($idusuario,$month,$year);
  }
 
 $response["TotalTickets"]=$totalTickets;
-$response["TicketsInfo"]=$TicketsInfo;
 $response["UsuariosInfo"]=$UsuariosInfo;
 
 $mensaje->setDatos($response);
 echo($mensaje->encode());
 ?>	
+<?php
+function loadtickets($caja,$idusuario,$month,$year){
+$iduser = substr($idusuario, 1);
+$tikets=$caja->get_usuarios_comandas($iduser,$month,$year);
+if ((sizeof($tikets))>0){
+	  for($i=0;$i<count($tikets);$i++) {
+	  $TicketsInfo[$i]=array("idComanda"=>$tikets[$i]->idComanda,"numComanda"=>$tikets[$i]->numComanda,"estado"=>$tikets[$i]->estado,"fechaHora"=>$tikets[$i]->fechaHora,"total"=>$tikets[$i]->total,"clientType"=>$tikets[$i]->clientType,"nombre"=>$tikets[$i]->nombre);
+	  }
+ }	
+ $response["TicketsInfo"]=$TicketsInfo;
+ return($response);	
+}
 
+
+?>
