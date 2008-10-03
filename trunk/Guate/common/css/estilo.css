@@ -8,7 +8,7 @@ body{margin:0pt;padding:0pt;}
 .btnbck{background-color:#efcc9a;}//e0edfe
 .btnpress{background:#C3D9FF}
 .btnunpress{background:#eac995}//e0edfe
-.btncancelled{background:#C3D9FF}
+.btncancelled{background:#000000}
 .blueFuerte{background:#efcc9a;color:white}//150cc0
 .liniaBck{background:#E1E7F2}
 .redFuerte{background:red}
@@ -28,7 +28,7 @@ div{margin:0pt;padding:0pt}
 table.tablebtn tr{vertical-align:middle}
 input {border:1px solid #C3D9FF}
 .title{
-background:#E1E7F2 url(images/bg_gradient.gif)  repeat-x scroll 0%;
+background:#eac995;//E1E7F2
 color:#666666;
 font-family:arial,sans-serif;
 font-size:75%;
