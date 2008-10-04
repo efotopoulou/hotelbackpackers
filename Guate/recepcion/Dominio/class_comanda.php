@@ -1,5 +1,4 @@
 <?php
-
 require ($_SERVER['DOCUMENT_ROOT'] . '/recepcion/Datos/Dcomanda.php');
 require ('ComandaRestore.php');
 require ('LiniaComandaRestore.php');
@@ -19,6 +18,7 @@ class comanda{
 		function setComandaAbierta($comandaID, $efectivo,$numMesa, $tipoCliente, $total, $idcliente ,$free){
 			$dtp = new DComanda();
 			$rs = $dtp->set_comandaAbierta($comandaID, $efectivo,$numMesa, $tipoCliente, $total, $idcliente ,$free);
+			return $rs;
 		}
 		function borrarComanda($estado){
 			$dtp = new DComanda();

@@ -29,7 +29,7 @@ class Dcaja{
 	//const USUARIOS_COMANDAS = 'select t1.idComanda,t1.idComanda as numComanda,t1.estado,t1.fechaHora,t1.total,t1.efectivo,t4.clientType,t3.nombre from comanda t1,caja t2, guate_bd.usuario t3,tipocliente t4 where t1.id_caja=t2.id_caja and t2.estado=0 and t1.id_cliente=t3.Id_usuario and t1.tipoCliente=2 and t1.tipoCliente=t4.idTipoCliente and t3.Id_usuario=? and month(t2.fechaHoraApertura)=? and year(t2.fechaHoraApertura)=? union select concat("B",t1.idComanda),concat("B",t1.numComanda),t1.estado,t1.fechaHora,t1.total,t1.efectivo,t4.clientType,t3.nombre from bar_bd.comanda t1,bar_bd.caja t2, guate_bd.usuario t3,bar_bd.tipocliente t4 where t1.id_caja=t2.id_caja and t2.estado=0 and t1.id_cliente=t3.Id_usuario and t1.tipoCliente=2 and t1.tipoCliente=t4.idTipoCliente and t3.Id_usuario=? and month(t2.fechaHoraApertura)=? and year(t2.fechaHoraApertura)=?';
 	const TOTAL_CUENTA = 'select sum(t4.total) as total from comanda t1,caja t2,trabajador t3,comandacredito t4 where t1.id_caja=t2.id_caja and t2.estado=0  and t1.idComanda=t4.idComanda and t1.id_cliente=t3.idTrabajador and t1.tipoCliente=5 and t3.idTrabajador=? and t1.estado="credito" and month(t2.fechaHoraApertura)=? and year(t2.fechaHoraApertura)=? group by t3.idTrabajador';
 	const GET_PEDIDO = 'select t1.idPlatillo,t1.cantidad,t2.nombre,t1.precio from lineacomanda t1,platillo t2 where idComanda=? and t2.idPlatillo=t1.idPlatillo';
-	const GET_PEDIDO_BAR = 'select t2.numBebida,t1.cantidad,t2.nombre,t1.precio from lineacomanda t1,bebida t2 where idComanda=? and t2.idBebida=t1.idPlatillo';
+	const GET_PEDIDO_BAR = 'select t2.numBebida,t1.cantidad,t2.nombre,t1.precio from lineacomanda t1,bebida t2 where idComanda=? and t2.idBebida=t1.idPlatillo union select t2.idPlatillo,t1.cantidad,t2.nombre,t1.precio from lineacomanda t1,platillo t2 where idComanda=? and t2.idPlatillo=t1.idPlatillo';
 	const GET_MOV_CATEGORIES = 'select * from categoria where showcaja=1';
 	const GET_PRECIOS = 'select precioLimitado,precioNormal from bar_bd.bebida where idBebida=?';
 	
@@ -272,8 +272,8 @@ class Dcaja{
 	}
 	public function get_pedido_bar($idComanda){
 	    $comunication = new ComunicationRecep();
-		$PARAMS = array($idComanda);
-		$PARAMS_TYPES = array (ComunicationRecep::$TINT);
+		$PARAMS = array($idComanda,$idComanda);
+		$PARAMS_TYPES = array (ComunicationRecep::$TINT,ComunicationRecep::$TINT);
 		$result = $comunication->query(self::GET_PEDIDO_BAR,$PARAMS,$PARAMS_TYPES);
 		return $result;	
 	 }
