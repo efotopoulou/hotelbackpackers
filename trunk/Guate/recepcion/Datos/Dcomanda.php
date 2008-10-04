@@ -4,9 +4,9 @@ require_once ('ComunicationRecep.php');
 
 class Dcomanda{
 	//idComanda,estado,fechaHora,usuario,efectivo,mesa,tipoCliente,total,id_cliente,id_caja
-	const SET_PLATILLOS = 'INSERT INTO comanda values(?,\'abierta\',NOW(),?,?,?,?,?,?,?)';
+	const SET_PLATILLOS = 'INSERT INTO comanda values(0, ?,\'abierta\',NOW(),?,?,?,?,?,?,?)';
 	const SET_COMANDA = 'INSERT INTO comanda values(?,?,NOW(),?,?,?,?,?,?,?)';
-	const SET_COMANDA_VENTA = 'INSERT INTO comanda values(0,null,?,NOW(),?,?,?,?,?,?)';
+	const SET_COMANDA_VENTA = 'INSERT INTO comanda values(0,null,?,NOW(),?,?,?,?,?,?,null)';
 	const GET_USUARIO_SUMA = 'select sum(t2.precioLimitado*t1.cantidad) as suma from lineacomanda t1,bebida t2 where idComanda=? and t2.idBebida=t1.idPlatillo group by idComanda';
 	const SET_COMANDA_USUARIO = 'INSERT INTO comandacredito values(?,?,false)';
 	const GET_ID_CAJA = 'select id_caja from caja where estado=1';
@@ -100,9 +100,9 @@ class Dcomanda{
 				$resultc=$idcaja->getRow();
 				$idCaja=$resultc["id_caja"];
 				}}	
-		$PARAMS = array($comandaID,$efectivo,$numMesa, $tipoCliente, $total, $idcliente, $idCaja, $free);
-		$PARAMS_TYPES = array (ComunicationRecep::$TSTRING,ComunicationRecep::$TFLOAT,ComunicationRecep::$TINT,ComunicationRecep::$TINT,ComunicationRecep::$TFLOAT,ComunicationRecep::$TINT,ComunicationRecep::$TINT,ComunicationRecep::$TSTRING);
-		$result = $comunication->query(self::SET_PLATILLOS,$PARAMS,$PARAMS_TYPES);
+		$PARAMS = array($comandaID,$efectivo,$tipoCliente, $total, $idcliente, $idCaja, $free,$numMesa);
+		$PARAMS_TYPES = array (ComunicationRecep::$TSTRING,ComunicationRecep::$TFLOAT,ComunicationRecep::$TINT,ComunicationRecep::$TFLOAT,ComunicationRecep::$TINT,ComunicationRecep::$TINT,ComunicationRecep::$TSTRING,ComunicationRecep::$TINT);
+		$result = $comunication->update(self::SET_PLATILLOS,$PARAMS,$PARAMS_TYPES);
 		
 		return $result;
 	}
@@ -125,7 +125,6 @@ class Dcomanda{
 		$idCom = $comunication->update(self::SET_COMANDA_VENTA,$PARAMS,$PARAMS_TYPES);
 	
 	return $idCom;
-	
 	}
 	
 	public function setComandaCredito($idComanda){

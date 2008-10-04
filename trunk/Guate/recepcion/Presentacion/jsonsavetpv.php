@@ -15,14 +15,14 @@ $mesa = json_decode($json, true);
 $mesa["numRow"];
 //idComanda,estado,fechaHora,usuario,efectivo,mesa,tipoCliente,Total
 try {
- $comanda->setComandaAbierta($mesa["comandaID"],$mesa["efectivo"],$mesaNum,$mesa["currentClientType"],$mesa["total"],$mesa["id_cliente"],$mesa["free"]);
+ $comandaId = $comanda->setComandaAbierta($mesa["comandaID"],$mesa["efectivo"],$mesaNum,$mesa["currentClientType"],$mesa["total"],$mesa["id_cliente"],$mesa["free"]);
  //Se borra por si acaso ha desactivado el efectivo y lo vuelve a apretar.
  //$comanda->borrarLineasComanda($mesa["comandaID"]);
  $lineas = $mesa["liniasComanda"];
  for ($i=0;$i<=$mesa["numRow"];$i++){
  	$cantidad = (int)$lineas[$i]["cantidad"];
  	if($cantidad==0) $cantidad=1;
- 	$comanda->setLineaComanda($mesa["comandaID"],$lineas[$i]["platoId"],$cantidad, $lineas[$i]["precioN"]);
+ 	$comanda->setLineaComanda($comandaId,$lineas[$i]["platoId"],$cantidad, $lineas[$i]["precioN"]);
  }
 }catch (SQLException $e){
 	$aux = $e ->getNativeError();
