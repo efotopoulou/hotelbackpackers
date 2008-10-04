@@ -12,7 +12,7 @@ class Dcomanda{
 	const GET_ID_CAJA = 'select id_caja from caja where estado=1';
 	const ERASE_LISTA_PLATILLOS = 'DELETE FROM lineacomanda WHERE idComanda=?';
 	const SET_LISTA_PLATILLOS = 'INSERT INTO lineacomanda values (0,?,?,?,?)';
-	const UPDATE_EFECTIVO_COMANDA = 'UPDATE comanda SET efectivo=?,estado=\'cobrado\' WHERE idComanda=?';
+	const UPDATE_EFECTIVO_COMANDA = 'UPDATE comanda SET efectivo=?,estado=\'cobrado\' WHERE numComanda=? and estado=\'abierta\'';
 	const GET_IDCAJA = 'SELECT * FROM caja WHERE estado=1';
 	const GET_LAST_ID_COMANDA =	'SELECT idComanda FROM comanda c order by fechaHora desc limit 1';
     const ES_COCINA ='select cocina from platillo where idPlatillo=?';

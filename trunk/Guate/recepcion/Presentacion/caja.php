@@ -89,18 +89,20 @@ function abrirCaja(){
 }
 //--------------------------------------------------------ABRIR CAJA----------------------------------------------------------------------//
 function openCaja(fondo){
-$.ajax({
-   type: "POST",
-   url: "Presentacion/jsongestioncaja.php",
-   data: "fondo="+fondo,
- });
- $.unblockUI();
- $("input,textarea").attr({disabled:false});
- $(".fondo").html(fondo);
- $(".supEfectivo").html(fondo);
+
+    $.getJSONGuate("Presentacion/jsongestioncaja.php",{fondo:fondo}, function(json){
+      json = verificaJSON(json);
+      loadPage(json);  
+    });
+   $.unblockUI();
+   $("input,textarea,#categoria").attr({disabled:false});
+   $("#Abr").attr({disabled:true});
+   $(".fondo").html(fondo);
+   $(".supEfectivo").html(fondo);
 }
 function desactivar(){
-$("#efectivo_cerrar,#input_money,#output_money,#categoria,#description,#cob,#an,#fact,#accM,#accV").attr({disabled:true});
+$("#efectivo_cerrar,#input_money,#output_money,#categoria,#description,#cob,#an,#fact,#accM,#accV,#reporteexcel,#reporte,#Cerr").attr({disabled:true});
+$("#Abr").attr({disabled:false});
 }
 
 //--------------------------------------------------------CERRAR CAJA----------------------------------------------------------------------//
@@ -112,7 +114,8 @@ function closeCaja(efectivoCerrar){
       if (!json["Mensaje"]){
        alert("Error,la caja no esta cerrada."); 
 	   } else {alert (json["Mensaje"]);
-              $("#efectivo_cerrar,#input_money,#output_money,#categoria,#description,#cob,#an,#fact,#accM,#accV,#reporteexcel,#reporte").attr({disabled:true});
+              //$("#efectivo_cerrar,#input_money,#output_money,#categoria,#description,#cob,#an,#fact,#accM,#accV,#reporteexcel,#reporte").attr({disabled:true});
+              desactivar();
               }
      $.unblockUI();
     });
@@ -220,7 +223,7 @@ function recargaEstadoCaja(){
 function loadPage(json){
  $(".entrymov").html(json.TotalEntradas);
  $(".exitmov").html(json.TotalSalidas); 
-  var totTickets=redondea(json.TotalTickets);
+ var totTickets=redondea(json.TotalTickets);
  $(".totalTickets").html(totTickets);    
      
      supuestoEfectivo();
@@ -241,7 +244,7 @@ function loadPage(json){
         idCom=json.TicketsInfo[i].idComanda;
      	nombre = descripcion(json.TicketsInfo[i].free,json.TicketsInfo[i].nombre)
 
-        $("#ticketsTable").append("<tr id="+idCom+"><td class='checkbox' width=2%><input type='checkbox'  onmousedown='changeClass(\""+idCom+"\");'></td><td width=10%><h6>"+numComanda+"</h6></td><td width=8%><h6>"+json.TicketsInfo[i].estado+"</h6></td><td width=22%><h6>"+json.TicketsInfo[i].fechaHora+"</h6></td><td width=6%><h6>"+json.TicketsInfo[i].total+"</h6></td><td width=8%><h6>"+json.TicketsInfo[i].efectivo+"</h6></td><td width=8%><h6>"+camb+"</h6></td><td width=7%><h6>"+json.TicketsInfo[i].tipoCliente+"</h6></td><td><h6>"+nombre+"</h6></td></tr>");
+        $("#ticketsTable").append("<tr id="+idCom+"><td class='checkbox' width=2%><input type='checkbox'  onmousedown='changeClass(\""+idCom+"\");'></td><td width=10%><h6>"+numComanda+"</h6></td><td width=8%><h6 class='estadoh6'>"+json.TicketsInfo[i].estado+"</h6></td><td width=15%><h6>"+json.TicketsInfo[i].fechaHora+"</h6></td><td width=6%><h6>"+json.TicketsInfo[i].total+"</h6></td><td width=8%><h6>"+json.TicketsInfo[i].efectivo+"</h6></td><td width=8%><h6>"+camb+"</h6></td><td width=10%><h6>"+json.TicketsInfo[i].tipoCliente+"</h6></td><td><h6>"+nombre+"</h6></td></tr>");
         $("#"+idCom+" td:not(.checkbox)").mousedown(function(e){
            showpedido(this.parentNode.id);
         });
@@ -314,17 +317,22 @@ function showpedido(id){
 //}
 //-------------------------------------------ANULAR TICKET-------------------------------------------------//
 function anularTicket(){
+  var comandas;
+$("#ticketsTable .btnunpress").each(function (){
+  if (!comandas) comandas = this.id;
+  else comandas+=","+this.id;
+  changeClass(this.id);
+  if($("#"+this.id+" .estadoh6").html()=="anulado") alert("Este Tiquet ya esta anulado!");
+})
+  
   var idComanda=$("#ticketsTable .btnunpress").attr("id");
-  if(idComanda){ 
-     $(".btnunpress").each(function () {
+  if(comandas){ 
 	   if(confirm('¿Estas seguro que quieres anular este tiquet?')){
-        $.getJSONGuate("Presentacion/jsongestioncaja.php",{idComandaAnulada:this.id}, function(json){
+        $.getJSONGuate("Presentacion/jsongestioncaja.php",{comandasAnuladas:comandas}, function(json){
         json = verificaJSON(json);
         loadPage(json);
         });
 		}
-		changeClass(this.id);
-	}); 
    }else alert("Por favor elige la comanda que desea anular!");	
 }
 //-------------------------------------------FACTURAR TICKET-------------------------------------------------//
@@ -414,8 +422,8 @@ La caja se esta cerrando.Por favor espere.<br />
 		<div><span class="label"><b><h3>Estado de caja</h3></b></span>
 		<form name="cajaresumen">
 			<div class="row" align="left">
-      		<div style="width:120px;float:left;margin-top:10px"><span>Fondo Inicial:</span></div>
-      		<div style="margin-top:10px"><span class="fondo">0</span></div>
+      		<div style="width:120px;float:left;margin-top:5px"><span>Fondo Inicial:</span></div>
+      		<div style="margin-top:5px"><span class="fondo">0</span></div>
    			</div>
    			<div class="row" align="left">
       		<div style="width:120px;float:left"><span >Total Tiquets:</span></div>
@@ -441,8 +449,8 @@ La caja se esta cerrando.Por favor espere.<br />
 		<div><span class="label"><b><h3>Ingresar o sacar dinero de la caja:</h3></b></span>
 		<form name="cajaInSac">
 			<div class="row" align="left">
-      		<div style="width:120px;float:left;margin-top:20px"><span>Nueva Entrada:</span></div>
-      		<div style="margin-top:20px"><span><input id="input_money" name="inputmoney" type="text" size="25" value=""/></span></div>
+      		<div style="width:120px;float:left;margin-top:10px"><span>Nueva Entrada:</span></div>
+      		<div style="margin-top:10px"><span><input id="input_money" name="inputmoney" type="text" size="25" value=""/></span></div>
    			</div>
    			<div class="row" align="left">
       		<div style="width:120px;float:left;margin-top:10px"><span>Nueva Salida:</span></div>
@@ -482,17 +490,23 @@ La caja se esta cerrando.Por favor espere.<br />
 		<div><span class="label"><b><h3>Cerrar Caja:</h3></b></span>
 		<form name="cajaInSac">
 			<div class="row" align="left">
-      		<div style="width:120px;float:left;margin-top:20px"><span>Efectivo:</span></div>
-      		<div style="margin-top:20px"><span><input id="efectivo_cerrar" name="efectivo_cerrar" type="text" size="25" value=""/></span></div>
+      		<div style="width:120px;float:left;margin-top:5px"><span>Efectivo:</span></div>
+      		<div style="margin-top:5px"><span><input id="efectivo_cerrar" name="efectivo_cerrar" type="text" size="25" value=""/></span></div>
    			</div>
    			<div class="row" align="left">
-      		<div style="width:120px;float:left"><span><input type="button" value="Cerrar" onClick="closeCaja(efectivo_cerrar.value)"/></span></div>
+      		<div style="width:120px;float:left"><span><input type="button" value="Cerrar" id="Cerr" onClick="closeCaja(efectivo_cerrar.value)"/></span></div>
    			</div>
    			<div style="clear:both"></div>
 		</form> 
 		</div>
 		</div>
-
+		
+		
+		<div class="box_amarillo" class="row" style="margin-top:10px;margin-left:10px">
+      		<div style="width:120px;float:left;margin-top:5px"><span><h3>Abrir Caja:</h3></span></div>
+      		<div style="width:120px;float:left"><span><input type="button" value="Abrir Caja" id="Abr" onClick="window.location.reload();"/></span></div>
+   		    <div style="clear:both"></div>
+   		</div>
 
 			
 </div>
@@ -501,7 +515,7 @@ La caja se esta cerrando.Por favor espere.<br />
 
 	<h5 class="titulos">Comandas realizadas en la Recepcion</h5>
 	<table  width=97% cellpadding=0 cellspacing=1>
-    <tr><td width=2%>&nbsp;</td><td width=10%><h6>ID</h6></td><td width=8%><h6>Estado</h6></td><td width=22%><h6><center>Fecha Hora</center></h6></td><td width=6%><h6><h6>Total</h6></h6></td><td width=8%><h6>efectivo</h6></td><td width=8%><h6>cambio</h6></td><td width=10%><h6>Cliente</h6></td><td><h6><center>Descripcion</center></h6></td></tr>
+    <tr><td width=2%>&nbsp;</td><td width=10%><h6>ID</h6></td><td width=8%><h6>Estado</h6></td><td width=15%><h6><center>Fecha Hora</center></h6></td><td width=6%><h6><h6>Total</h6></h6></td><td width=8%><h6>efectivo</h6></td><td width=8%><h6>cambio</h6></td><td width=10%><h6>Cliente</h6></td><td><h6><center>Descripcion</center></h6></td></tr>
     </table>
   <div style="height:30%;overflow:auto">
     <table id="ticketsTable" width=97% cellpadding=0 cellspacing=1>

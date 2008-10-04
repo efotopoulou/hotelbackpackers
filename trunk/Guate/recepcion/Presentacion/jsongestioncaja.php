@@ -12,7 +12,7 @@ $description =  $_POST['description'];
 $categoria =  $_POST['categoria'];
 $idencargado =  $_POST['idencargado'];
 $idComanda = $_POST['idComanda'];
-$idComandaAnulada = $_POST['idComandaAnulada'];
+$comandasAnuladas = $_POST['comandasAnuladas'];
 $idComandafacturada = $_POST['idComandafacturada']; 
 $idComDetail = $_POST['idComDetail'];
 //parametros para informar el control de stock 
@@ -59,8 +59,11 @@ $stock->informar_stock_rest($idproducto,$cantity);
 $caja->insert_venta_recepcion($idproducto,$cantity,$checked,$description,$idencargado);
 
 
-}else if($idComandaAnulada){
-$caja->anular_ticket($idComandaAnulada);	
+}else if($comandasAnuladas){
+  $idComandaAnuladaList = split( ",",$comandasAnuladas);
+  foreach ($idComandaAnuladaList as $value){
+  $caja->anular_ticket($value);	
+  }
 }else if($idComandafacturada){
 $caja->facturar_ticket($idComandafacturada);		
 }
