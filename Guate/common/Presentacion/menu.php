@@ -58,9 +58,9 @@ else
 				
 			</ul>
 			
-		<div id="userdiv" style="width:300px">
+		<div id="userdiv" style="width:190px">
 			<div style="float:left">
-				<select id="selUsers" style="width:120px" onChange="changeId()">
+				<select id="selUsers" onChange="changeId()" style="font-size:10px">
 				<?php echo genera_usuarios($sesion, $usr); ?>
 				</select>
 			</div>
@@ -69,7 +69,7 @@ else
 				<a href="/hotel/view.php?page=login" style="color:#FFFFFF">Salir</a>
 			</div>	
 			<div>
-				<select id="turno" style="float:left;width:120px;margin-left:10px">
+				<select id="turno" style="float:left;margin-left:10px;font-size:10px">
 				<option id="Manana">Manana</option>
 				<option id="Tarde">Tarde</option>
 				</select>
