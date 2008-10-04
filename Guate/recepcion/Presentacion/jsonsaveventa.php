@@ -12,7 +12,7 @@ $mensaje = new MensajeJSON();
 $comandaJson = json_decode($json, true);
 //idComanda,estado,fechaHora,usuario,efectivo,mesa,tipoCliente,Total
 try {
- $idComanda = $comanda->setComandaVenta($comandaJson["efectivo"],$comandaJson["currentClientType"],$comandaJson["total"],$comandaJson["id_cliente"],$comandaJson["free"]);
+  $idComanda = $comanda->setComandaVenta($comandaJson["efectivo"],$comandaJson["currentClientType"],$comandaJson["total"],$comandaJson["id_cliente"],$comandaJson["free"]);
  //Se borra por si acaso ha desactivado el efectivo y lo vuelve a apretar.
  //$comanda->borrarLineasComanda($mesa["comandaID"]);
  $lineas = $comandaJson["liniasComanda"];
