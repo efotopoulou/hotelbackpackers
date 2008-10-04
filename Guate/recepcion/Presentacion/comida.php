@@ -57,6 +57,7 @@ function Main(numMesas){
  this.numDefaultID;
  this.efectivo;
  this.id_cliente;
+ this.free;
  this.calPressedId;
 
 //CREA EFECTO: Pone los valores a 0.

@@ -52,6 +52,7 @@ function askForVolName(){
 //-------------------------------------------PUT FREE DESCRIPTION--------------------//
 function putvoluntario(free){
 if (main.comanda() && main.comanda().isAbierta()) main.comanda().free = free;
+main.free = free;
 clienteScreen.setClienteName(free);
 $.unblockUI();
 hotkeys();
@@ -107,6 +108,7 @@ function platomousedown(plato,platoid,precioN,precioLim,id){
 	 main.mesa().currentComanda+=1;
 	 main.mesa().comanda[main.mesa().currentComanda]= new Comanda();
 	 main.comanda().currentClientType = main.currentClient;
+	 main.comanda().free = main.free;
 	 guardarDatosCliente(main.id_cliente,clienteScreen.getClienteName());
 	 if (main.mesa().currentComanda) {
 	  listaPedidos.addComanda();	
@@ -181,7 +183,7 @@ function efectivo(){
 //-------------------------------------------CERRARTIQUETMOUSEDOWN----------------------------------------//
 function cerrarTiquetMouseDown(){
 //Si los botones de cliente son Credito o Gratis, el cajero no puede apretar el efectivo. Hacemos como si lo hubiese apretado. 
-    if (main.currentClient ==1 || main.currentClient ==5){
+    if ((main.currentClient ==1 || main.currentClient ==5) && main.comanda() && main.comanda().isAbierta()){
      main.comanda().id_cliente=main.id_cliente;
      main.efectivo=1;
     }
