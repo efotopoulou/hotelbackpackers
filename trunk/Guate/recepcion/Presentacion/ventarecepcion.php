@@ -35,6 +35,7 @@ function Main(){
  this.currentClient;
  this.efectivo;
  this.id_cliente;
+ this.free;
  this.calPressedId;
 
 //CREA EFECTO: Pone los valores a 0.
