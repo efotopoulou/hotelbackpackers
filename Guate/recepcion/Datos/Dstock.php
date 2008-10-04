@@ -4,7 +4,7 @@ require_once ('ComunicationRecep.php');
 
 class Dstock{
 	
-	const GET_STOCK = 'select t1.idBebida,t2.numBebida,t2.nombre,t1.stockbar,t1.stockrestaurante,t1.unidadventa from stockbebidas t1,bebida t2 where t2.idBebida=t1.idBebida order by stockrestaurante desc,numbebida';
+	const GET_STOCK = 'select t1.idBebida,t2.numBebida,t3.nombre as familia,t2.nombre,t1.stockbar,t1.stockrestaurante,t1.unidadventa from stockbebidas t1,bebida t2,familiabebida t3 where t2.idBebida=t1.idBebida and t2.id_familia=t3.id_familia order by stockrestaurante desc,t3.nombre';
     const GET_BEBIDA = 'select stockbar,stockrestaurante,unidadventa from stockbebidas where idBebida=?';
 	const ADD_STOCK = 'UPDATE stockbebidas SET stockbar=?,stockrestaurante=?,unidadventa=? where idBebida=?';
     const INFORM_STOCK_BAR = 'UPDATE stockbebidas SET stockbar=? where idBebida=?';

@@ -16,7 +16,7 @@ class stock{
 	       $n=0;
 	     while($rs->next()){
 		$result=$rs->getRow();
-		$ors[$n] = new StockBar($result["idBebida"],$result["numBebida"],$result["nombre"],$result["stockbar"],$result["stockrestaurante"],$result["unidadventa"]);
+		$ors[$n] = new StockBar($result["idBebida"],$result["numBebida"],$result["familia"],$result["nombre"],$result["stockbar"],$result["stockrestaurante"],$result["unidadventa"]);
 		$n++;
 		}														
         }else{

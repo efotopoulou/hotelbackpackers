@@ -16,7 +16,7 @@ table{background:#DDD}
 .verde{background: #ACF0A4}
 .saved{background:#B9FAC4}
 .changedisplay{display:none}
-.sr,.sb,.name,.codigo,.unidad{font-weight:bold;font-size:11px}
+.sr,.sb,.name,.codigo,.unidad,.familia{font-weight:bold;font-size:11px}
 </style>
 	<script src="/common/js/jquery-1.2.3.pack.js"></script>
 	<script src="/common/js/jquery.blockUI.js"></script>
@@ -39,7 +39,8 @@ function preparestock(aux){
   var idbebida=$("#stockTable .verde").attr("id");
   if(idbebida){	
   //recoger los valores que nos interesan	
-  var codigobebida=$("#stockTable .verde .codigo").html();
+   var codigobebida=$("#stockTable .verde .codigo").html();
+   var familia=$("#stockTable .verde .familia").html();
    var namebebida=$("#stockTable .verde .name").html();	
    var bar=$("#stockTable .verde .sb").html();	
    var restaurante=$("#stockTable .verde .sr").html();	
@@ -48,11 +49,12 @@ function preparestock(aux){
   
    $("#numbebida").val(codigobebida);
    $("#namebebida").val(namebebida);
+   $("#familia").val(familia);
    $("#barstock").val(bar);
    $("#restaurantestock").val(restaurante);
    $("#totalstock").val(total);
    $("#unidadventa").val(unidadventa);
-   $("#numbebida,#namebebida,#totalstock,#barstock").attr({disabled:true});
+   $("#numbebida,#namebebida,#totalstock,#barstock,#familia").attr({disabled:true});
   
    changedisplay('b5');
    changedisplay('addstock');
@@ -103,7 +105,7 @@ function loadbebidas(json){
       for(i=0;i<json.stockInfo.length;i++) {
         idStock="B"+json.stockInfo[i].idBebida;
         total=parseInt(json.stockInfo[i].stockrestaurante)+parseInt(json.stockInfo[i].stockbar);
-        $("#stockTable").append("<tr id="+idStock+"><td class='checkbox' width=2%><input type='checkbox' onmousedown='changeClass(\""+idStock+"\");'></td><td width=10% class='codigo'>"+json.stockInfo[i].numBebida+"</td><td width=41% class='name'>"+json.stockInfo[i].nombre+"</h6></td><td width=10% class='sr'>"+json.stockInfo[i].stockrestaurante+"</td><td width=10% class='unidad'>"+json.stockInfo[i].unidadventa+"</td></tr>");	
+        $("#stockTable").append("<tr id="+idStock+"><td class='checkbox' width=2%><input type='checkbox' onmousedown='changeClass(\""+idStock+"\");'></td><td width=10% class='codigo'>"+json.stockInfo[i].numBebida+"</td><td width=15% class='familia'>"+json.stockInfo[i].familia+"</td><td width=41% class='name'>"+json.stockInfo[i].nombre+"</h6></td><td width=10% class='sr'>"+json.stockInfo[i].stockrestaurante+"</td><td width=10% class='unidad'>"+json.stockInfo[i].unidadventa+"</td></tr>");	
         }
         }
 }
@@ -166,7 +168,7 @@ function recuperarventa(){
 	
 	<div>
 	<table cellpadding=0 cellspacing=1>
-    <tr class="titulos1"><td width=12%><h6>Codigo</h6></td><td width=40%><h6><center>Nombre Producto</center></h6></td><td width=10%><h6>Stock Recepcion</h6></td><td width=13%><h6><center>Unidad Venta</center></h6></td></tr>
+    <tr class="titulos1"><td width=12%><h6>Codigo</h6></td><td width=15%><h6>Familia</h6></td><td width=40%><h6><center>Nombre Producto</center></h6></td><td width=10%><h6>Stock Recepcion</h6></td><td width=13%><h6><center>Unidad Venta</center></h6></td></tr>
     </table>
     </div>
   
@@ -187,6 +189,7 @@ function recuperarventa(){
     <table width=97%>
 	<tr><td width=3% bgcolor="#ecf8cb"><img src="../img/flecha_dcha.jpg"></td>
 	<td width=10%><input style="width: 100%" id="numbebida" value="" type="text"/></td>
+	<td width=14%><input style="width: 100%" id="familia" value="" type="text"/></td>
 	<td width=40%><input style="width: 100%" id="namebebida" value="" type="text"/></td>
 	<!-- <td width=10%><input style="width: 100%" id="barstock" value="" type="text"/></td> -->
 	<td width=10%><input style="width: 100%" id="restaurantestock" value="" type="text"/></td>

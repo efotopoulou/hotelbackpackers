@@ -54,7 +54,7 @@ function loadstock($stock){
 	$stockbar = $stock->get_stock();
     if ((sizeof($stockbar))>0){
 	  for($i=0;$i<count($stockbar);$i++) {
-	  $stockInfo[$i]=array("idBebida"=>$stockbar[$i]->idBebida,"numBebida"=>$stockbar[$i]->numBebida,"nombre"=>$stockbar[$i]->nombre,"stockbar"=>$stockbar[$i]->stockbar,"stockrestaurante"=>$stockbar[$i]->stockrestaurante,"unidadventa"=>$stockbar[$i]->unidadventa);
+	  $stockInfo[$i]=array("idBebida"=>$stockbar[$i]->idBebida,"numBebida"=>$stockbar[$i]->numBebida,"familia"=>$stockbar[$i]->familia,"nombre"=>$stockbar[$i]->nombre,"stockrestaurante"=>$stockbar[$i]->stockrestaurante,"unidadventa"=>$stockbar[$i]->unidadventa);
 	  }
 	  $response["stockInfo"]=$stockInfo;
       return($response);
