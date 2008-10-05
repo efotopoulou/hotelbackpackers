@@ -10,9 +10,9 @@ $caja=new caja();
 
 try{
 $totalTickets=$caja->total_tickets_old($id_caja);
-$totalmovimientos=$caja->total_mov_old($id_caja);
-$entrytot = $totalmovimientos->entrada;
-$exittot = $totalmovimientos->salida;
+//$totalmovimientos=$caja->total_mov_old($id_caja);
+//$entrytot = $totalmovimientos->entrada;
+//$exittot = $totalmovimientos->salida;
 $fechaHoraApertura=$reporte->get_fechaHoraApertura($id_caja);
 $fechaHoraCierre=$reporte->get_fechaHoraCierre($id_caja);
 $categorias=$reporte->get_categories();
@@ -20,11 +20,11 @@ $movimientos=$reporte->get_resumen($id_caja);
   if ((sizeof($movimientos))>0){
 	  for($i=0;$i<count($movimientos);$i++) {
 	   $categorias[$movimientos[$i]->categoria][$movimientos[$i]->tipo]=$movimientos[$i]->suma;
+	   $totales[$movimientos[$i]->tipo]+=$movimientos[$i]->suma;
 	   }
 	   $categorias["Adicion Bar Restaurante"]["entrada"]=$totalTickets;
-	   for($i=0;$i<count($movimientos);$i++) {
-	   $categorias[$movimientos[$i]->categoria][$movimientos[$i]->tipo]=$movimientos[$i]->suma;
-	   }
+	   $totales["entrada"]+=$totalTickets;
+	   
   }else $categorias["Adicion Bar Restaurante"]["entrada"]=$totalTickets;
   	
 $reportmov=$reporte->get_reporte($id_caja);
@@ -43,10 +43,9 @@ if ((sizeof($reporttik))>0){
 	$aux = $e ->getNativeError();
     $mensaje->setMensaje("Error Desconocido: $aux!");
  }
-
-$response["TotalEntradas"]=$entrytot + $totalTickets;
-if ($exittot) $response["TotalSalidas"]=$exittot;
-else $response["TotalSalidas"]=0;
+ 
+$response["TotalEntradas"]=$totales["entrada"];
+$response["TotalSalidas"]=$totales["salida"];
 $response["HoraApertura"]=$fechaHoraApertura;
 $response["HoraCierre"]=$fechaHoraCierre;
 $response["Info"]=$categorias;

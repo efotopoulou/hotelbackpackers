@@ -126,13 +126,12 @@ function loadPage(json){
   $("#ticketsTable").html(" ");
   if (json.TicketsInfo){
     for(i=0;i<json.TicketsInfo.length;i++) {
-     var cambio=(parseFloat(json.TicketsInfo[i].efectivo) - parseFloat(json.TicketsInfo[i].total));
-     var camb=(Math.round(cambio*100)/100);
-     var nombre ="-";
-     	if(json.TicketsInfo[i].free) nombre=json.TicketsInfo[i].free;
-     	else if(json.TicketsInfo[i].nombre) nombre = json.TicketsInfo[i].nombre;
-     idCom=json.TicketsInfo[i].idComanda;
-     $("#ticketsTable").append("<tr  id="+idCom+"><td width=2%></td><td width=10%><h6>"+json.TicketsInfo[i].numComanda+"</h6></td><td width=10%><h6>"+json.TicketsInfo[i].estado+"</h6></td><td width=21%><h6>"+json.TicketsInfo[i].fechaHora+"</h6></td><td width=6%><h6>"+json.TicketsInfo[i].total+"</h6></td><td width=8%><h6>"+json.TicketsInfo[i].efectivo+"</h6></td><td width=8%><h6>"+camb+"</h6></td><td width=7%><h6>"+json.TicketsInfo[i].tipoCliente+"</h6></td><td><h6>"+nombre+"</h6></td></tr>");
+        camb = cambio(json.TicketsInfo[i].efectivo,json.TicketsInfo[i].total);
+     	numComanda=showid(json.TicketsInfo[i].numComanda);
+        idCom=json.TicketsInfo[i].idComanda;
+     	nombre = descripcion(json.TicketsInfo[i].free,json.TicketsInfo[i].nombre)
+    
+     $("#ticketsTable").append("<tr  id="+idCom+"><td width=2%></td><td width=10%><h6>"+numComanda+"</h6></td><td width=10%><h6>"+json.TicketsInfo[i].estado+"</h6></td><td width=21%><h6>"+json.TicketsInfo[i].fechaHora+"</h6></td><td width=6%><h6>"+json.TicketsInfo[i].total+"</h6></td><td width=8%><h6>"+json.TicketsInfo[i].efectivo+"</h6></td><td width=8%><h6>"+camb+"</h6></td><td width=7%><h6>"+json.TicketsInfo[i].tipoCliente+"</h6></td><td><h6>"+nombre+"</h6></td></tr>");
       $("#"+idCom+" td:not(.checkbox)").mousedown(function(e){
            showpedido(this.parentNode.id);
         });
@@ -141,6 +140,23 @@ function loadPage(json){
         //alert(json.TicketsInfo[i].idComanda);		
         }
    }	
+}
+//-------------------------------------------CALCULAR CAMBIO-------------------------------------------------//
+function cambio(efectivo,total){
+var camb1 =(parseFloat(efectivo)-parseFloat(total));
+var camb =(Math.round(camb1*100)/100);
+return camb;
+}
+//-------------------------------------------DECIDIR SI VA A APARECER EL NUMCOMANDA-------------------------------------------------//
+function showid(numComanda){
+if (numComanda!= null)	return numComanda;
+else return "";
+}
+//-------------------------------------------DESCRIPCION OF COMANDA-------------------------------------------------//
+function descripcion(free,nombre){
+   if (free) return free;
+   else if (nombre) return nombre;
+   else return "";  	
 }
 //-------------------------------------------CHANGECLASSID-------------------------------------------------//
 function changeClass(id){
