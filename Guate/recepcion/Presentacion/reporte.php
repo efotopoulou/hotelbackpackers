@@ -60,9 +60,9 @@ $caja=new caja();
 
 try{
 $totalTickets=$caja->total_tickets_old($id_caja);
-$totalmovimientos=$caja->total_mov_old($id_caja);
-$entrytot = $totalmovimientos->entrada;
-$exittot = $totalmovimientos->salida;
+//$totalmovimientos=$caja->total_mov_old($id_caja);
+//$entrytot = $totalmovimientos->entrada;
+//$exittot = $totalmovimientos->salida;
 $fechaHoraApertura=$reporte->get_fechaHoraApertura($id_caja);
 $fechaHoraCierre=$reporte->get_fechaHoraCierre($id_caja);
 $categorias=$reporte->get_categories();
@@ -95,9 +95,9 @@ if ((sizeof($reporttik))>0){
     $mensaje->setMensaje("Error Desconocido: $aux!");
  }
 
-$response["TotalEntradas"]=$entrytot + $totalTickets;
-if ($exittot) $response["TotalSalidas"]=$exittot;
-else $response["TotalSalidas"]=0;
+//$response["TotalEntradas"]=$entrytot + $totalTickets;
+//if ($exittot) $response["TotalSalidas"]=$exittot;
+//else $response["TotalSalidas"]=0;
 $response["HoraApertura"]=$fechaHoraApertura;
 $response["HoraCierre"]=$fechaHoraCierre;
 $response["Info"]=$categorias;
