@@ -71,7 +71,7 @@ div.items .item {
 	color:#000;
 	
 }
-div.items .item table tr td,.fam table tr td{
+.fam table tr td,div.plat table tr td{
 	font-size:18px;
 	color:#000;
 }
