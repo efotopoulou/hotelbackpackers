@@ -7,7 +7,7 @@ body{margin:0pt;padding:0pt;}
 .fixedRow, .precioFixed{background-color:orange}
 .btnbck{background-color:#efcc9a;}//e0edfe
 .btnpress{background:#C3D9FF}
-.btnunpress{background:#eac995}//e0edfe
+.btnunpress{background:#eac995}//e0edfe//Hex:EAC995 Dec:234,201,149
 .btncancelled{background:#000000}
 .blueFuerte{background:#efcc9a;color:white}//150cc0
 .liniaBck{background:#E1E7F2}
@@ -68,12 +68,12 @@ div.items .item {
 	text-align:center;
 	cursor:pointer;
 	font-size:20px;
-	color:#ccc;
+	color:#000;
 	
 }
 div.items .item table tr td,.fam table tr td{
-	font-size:20px;
-	color:#ccc;
+	font-size:18px;
+	color:#000;
 }
 /* next / prev buttons */
 div.prev, div.next {

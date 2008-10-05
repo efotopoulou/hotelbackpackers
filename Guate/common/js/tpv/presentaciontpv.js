@@ -24,7 +24,7 @@ function mesamousedown(id){
   
   //Cambiar el color de los botones de ClientType
   if (main.mesa())clienteScreen.setCorrectColor(main.comanda().currentClientType);
-  else clientemousedown(4);
+  else if (!main.currentClient)  clientemousedown(4); 
   if(main.mesas[num]) main.carga(num);
   else main.creaEfecto(num);
  }       
@@ -51,7 +51,7 @@ function askForVolName(){
 }
 //-------------------------------------------PUT FREE DESCRIPTION--------------------//
 function putvoluntario(free){
-if (main.comanda() && main.comanda().isAbierta()) main.comanda().free = free;
+if (main.mesa() && main.comanda() && main.comanda().isAbierta()) main.comanda().free = free;
 main.free = free;
 clienteScreen.setClienteName(free);
 $.unblockUI();
@@ -174,7 +174,7 @@ function efectivo(){
 
 	 main.efectivo=1;
 	 //insert la nueva comanda abierta
-	 sendComandaAbierta();
+	 //sendComandaAbierta();
 	}
   }
    changeClass('Efectivo');
@@ -183,14 +183,16 @@ function efectivo(){
 //-------------------------------------------CERRARTIQUETMOUSEDOWN----------------------------------------//
 function cerrarTiquetMouseDown(){
 //Si los botones de cliente son Credito o Gratis, el cajero no puede apretar el efectivo. Hacemos como si lo hubiese apretado. 
-    if ((main.currentClient ==1 || main.currentClient ==5) && main.comanda() && main.comanda().isAbierta()){
+    if ((main.currentClient ==1 || main.currentClient ==5) && main.mesa() && main.comanda() && main.comanda().isAbierta()){
      main.comanda().id_cliente=main.id_cliente;
      main.efectivo=1;
     }
 	if (main.efectivo && main.mesa() && main.comanda() && main.comanda().isAbierta()) {
-    $.getJSONGuate("Presentacion/jsonupdatetpv.php",{ efectivo: main.comanda().efectivo,id:main.comanda().comandaID}, function(json){
-      json = verificaJSON(json);
-    });
+    //$.getJSONGuate("Presentacion/jsonupdatetpv.php",{ efectivo: main.comanda().efectivo,id:main.comanda().comandaID}, function(json){
+     // json = verificaJSON(json);
+    //});
+	 sendComanda();
+    
 	//activa la pantalla
 	$('#arriba_izquierda').unblock(); 
     $('#arriba_derecha').unblock(); 
@@ -209,6 +211,17 @@ function cerrarTiquetMouseDown(){
 	}
 	changeClass('CerrarTicket');
 }
+function sendComanda(){
+ var myJsonMain = JSON.stringify(main.comanda());
+  $.getJSONGuate("Presentacion/jsonsavetpv.php",{ json: myJsonMain}, function(json){
+    if (json["Mensaje"]) {
+    	changeClass('Efectivo');
+    	efectivo();
+    }
+    json = verificaJSON(json);
+  });
+}
+
 //-------------------------------------------LIBERAMESAMOUSEDOWN----------------------------------------//
 function liberaMesaMouseDown(id){
    if (main.mesa() && main.comanda()){
