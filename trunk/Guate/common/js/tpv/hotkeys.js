@@ -38,21 +38,24 @@ function desHotkeys(){
 function mesaRight(){
   var mesa = 0;
   if (main.currentMesa) mesa=main.currentMesa;
-  if (mesa < (main.numMesas/2)) mesa=(mesa+1)%(main.numMesas/2);
-  else mesa=((mesa+1-main.numMesas/2)%(main.numMesas/2))+(main.numMesas/2);
+  if (mesa == main.numMesas)mesa=(main.numMesas/2)+1;
+  else if (mesa == (main.numMesas/2)) mesa=1;
+  else mesa++;
   mesamousedown("Mesa"+mesa);
 }
 function mesaLeft(){
   var mesa = 0;
   if (main.currentMesa) mesa=main.currentMesa;
-  if (mesa < (main.numMesas/2)) mesa=(mesa-1+(main.numMesas/2))%(main.numMesas/2);
-  else mesa=((mesa-1)%(main.numMesas/2))+(main.numMesas/2);
+  if (mesa==1) mesa=main.numMesas/2;
+  else if (mesa ==((main.numMesas/2)+1)) mesa=main.numMesas;
+  else mesa --;
   mesamousedown("Mesa"+mesa);
 }
 function mesaUpDown(){
   var mesa = 0;
   if (main.currentMesa) mesa=parseInt(main.currentMesa);
-  if (mesa < (main.numMesas/2)) mesa=mesa+(main.numMesas/2);
+  if (mesa == main.numMesas/2) mesa = main.numMesas;
+  else if (mesa < (main.numMesas/2)) mesa=mesa+(main.numMesas/2);
   else mesa=mesa-(main.numMesas/2);
   mesamousedown("Mesa"+mesa);
 }

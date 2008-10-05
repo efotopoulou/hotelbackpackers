@@ -15,9 +15,9 @@ class comanda{
 		public static $ERR=-3;
 		
 		//idComanda,estado,fechaHora,usuario,efectivo,mesa,tipoCliente,Total
-		function setComandaAbierta($comandaID, $efectivo,$numMesa, $tipoCliente, $total, $idcliente ,$free){
+		function setComanda($comandaID, $efectivo,$numMesa, $tipoCliente, $total, $idcliente ,$free){
 			$dtp = new DComanda();
-			$rs = $dtp->set_comandaAbierta($comandaID, $efectivo,$numMesa, $tipoCliente, $total, $idcliente ,$free);
+			$rs = $dtp->set_comanda($comandaID, $efectivo,$numMesa, $tipoCliente, $total, $idcliente ,$free);
 			return $rs;
 		}
 		function borrarComanda($estado){

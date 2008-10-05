@@ -167,6 +167,7 @@ Introduzca el razon de la cortesia:<br />
 <div onclick="cancelarCliente()" style="background:#AAA;cursor:pointer">cancelar</div>
 </div>
 <div id="TrabajadoresForm" style="display:none">
+<div style="padding:4px">nombre: <input type="text" id="searchNombre" onkeydown="doSearch()" /></div>
 <table id="list3" class="scroll" cellpadding="0" cellspacing="0"></table>
 <div id="pager3" class="scroll" style="text-align:center;"></div>
 <div onclick="cancelarCliente()" style="background:#AAA;cursor:pointer">cancelar</div>

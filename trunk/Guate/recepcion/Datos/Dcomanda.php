@@ -1,10 +1,9 @@
 <?php
-
 require_once ('ComunicationRecep.php');
 
 class Dcomanda{
 	//idComanda,estado,fechaHora,usuario,efectivo,mesa,tipoCliente,total,id_cliente,id_caja
-	const SET_PLATILLOS = 'INSERT INTO comanda values(0, ?,\'abierta\',NOW(),?,?,?,?,?,?,?)';
+	const SET_PLATILLOS = 'INSERT INTO comanda values(0, ?,\'cobrado\',NOW(),?,?,?,?,?,?,?)';
 	const SET_COMANDA = 'INSERT INTO comanda values(?,?,NOW(),?,?,?,?,?,?,?)';
 	const SET_COMANDA_VENTA = 'INSERT INTO comanda values(0,null,?,NOW(),?,?,?,?,?,?,null)';
 	const GET_USUARIO_SUMA = 'select sum(t2.precioLimitado*t1.cantidad) as suma from lineacomanda t1,bebida t2 where idComanda=? and t2.idBebida=t1.idPlatillo group by idComanda';
@@ -88,7 +87,7 @@ class Dcomanda{
 		return $a;	
 	}
 	
-	public function set_comandaAbierta($comandaID,$efectivo,$numMesa, $tipoCliente, $total, $idcliente,$free){
+	public function set_comanda($comandaID,$efectivo,$numMesa, $tipoCliente, $total, $idcliente,$free){
 		$comunication = new ComunicationRecep();
 		$params = array();
 		$PARAMS_TYPES = array ();
