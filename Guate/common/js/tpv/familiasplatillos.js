@@ -103,7 +103,7 @@ function crearPlatillosScroll(platillos, color, numPlat){
 	$("#platillosscroll"+numPlat).scrollable({items:'.items',horizontal:true,size:3});
 }
 function crearPlatillosHTML(platillos,color, numPlat){
-    var html ="<div id='platillosscroll"+numPlat+"' class='platscroll' style='height:100%;position:absolute;display:none'>"+
+    var html ="<div id='platillosscroll"+numPlat+"' class='platscroll' style='height:100%;position:absolute'>"+
 	          "<table style='text-align:center' width='100%' height='100%' border=0 cellpadding='1' cellspacing='1'><tr height='50%'>";
 	for(var i=0;i<platillos.length;i++){
 		if (i==Math.round(platillos.length/2)) html +="</tr><tr height='50%'>";
