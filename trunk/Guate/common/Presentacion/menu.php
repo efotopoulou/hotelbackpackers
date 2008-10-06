@@ -77,8 +77,8 @@ else
 			</div>
 			<div style="clear:both"></div>
 		</div>
-			
 </div>
+<div style="clear:both"></div>
 
 <?php
 function genera_usuarios($ses, $usr){
