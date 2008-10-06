@@ -16,7 +16,6 @@ class Dcomanda{
 	const GET_LAST_ID_COMANDA =	'SELECT idComanda FROM comanda c order by fechaHora desc limit 1';
     const ES_COCINA ='select cocina from platillo where idPlatillo=?';
     const SET_COCINA ='insert into cocina values (?,true,null)';
-    const GET_LAST_ID='select auto_increment -1 as id from information_schema.tables where table_schema = \'restaurante_bd\' and table_name = \'lineacomanda\';';
     const EXISTE_COMANDA='select idComanda from comanda where idComanda= ?';
     const RESTORE_COMANDA='SELECT idComanda, efectivo, mesa, tipoCliente, total,id_cliente, free, NULL as clienteName FROM comanda WHERE estado=\'backup\' and (tipoCliente=1 or tipoCliente=4) UNION SELECT c.idComanda, c.efectivo, c.mesa, c.tipoCliente, c.total,c.id_cliente, c.free, CONCAT(cli.nombre, \' \', cli.apellido1, \' \', cli.apellido2) FROM comanda c, guate_bd.cliente cli WHERE estado=\'backup\' and c.tipoCliente=3 and cli.id_cliente = c.id_cliente UNION SELECT c.idComanda, c.efectivo, c.mesa, c.tipoCliente, c.total,c.id_cliente, c.free, u.nombre FROM comanda c, guate_bd.usuario u WHERE estado=\'backup\' and c.tipoCliente=2 and u.Id_usuario = c.id_cliente';
     const GETLINIAS='SELECT lc.idPlatillo,lc.cantidad,lc.precio as precioN, (lc.precio/lc.cantidad) as precioUnidad, p.precioNormal, p.precioLimitado, p.nombre as producto FROM lineacomanda lc, platillo p where lc.idComanda=? and p.idPlatillo=lc.idPlatillo';
@@ -156,11 +155,6 @@ class Dcomanda{
 		$PARAMS = array($comandaID,$platoId,$cantidad,$precio);
 		$PARAMS_TYPES = array (ComunicationRecep::$TSTRING,ComunicationRecep::$TSTRING,ComunicationRecep::$TINT,ComunicationRecep::$TFLOAT);
 		$result = $comunication->update(self::SET_LISTA_PLATILLOS,$PARAMS,$PARAMS_TYPES);
-		//$id = $comunication->query(self::GET_LAST_ID,array(),array());
-	    //$id->next();
-		//$id=$id->getRow();
-		//$aux = $id["id"];
-		//return $aux;
 		return $result;
 		
 	}

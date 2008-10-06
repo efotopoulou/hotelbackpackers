@@ -16,7 +16,7 @@ $xajax->printJavascript('xajax/');
 	
 	<script src="scripts/nav.js"></script>	
 
-	<link href="estilo.css" rel="stylesheet" type="text/css" />
+	<link href="/common/css/estilo.css" rel="stylesheet" type="text/css" />
 
 	<script type="text/javascript">
 	    var GB_ROOT_DIR = "/hotel/scripts/greybox/";
@@ -174,10 +174,10 @@ $xajax->printJavascript('xajax/');
 <?php include($_SERVER['DOCUMENT_ROOT'] . '/common/Presentacion/menu.php'); ?>
 
 	<div id="principal">
-	<h5 class="titulos">Usuarios y Perfiles</h5>		
-	 	<div class="box_amarillo" align="center" style="float: left; height: 155px; width: 435px; margin-top:20px">
+	<h5 class="titulos">Usuarios del Hotel Backpackers</h5>		
+	 	<div class="box_amarillo" align="center" style="float: left; height:50%; width: 435px; margin-top:20px">
 		
-			<div id="EditUsers" style="height:110px;overflow:auto"></div>
+			<div id="EditUsers" style="height:200px;margin-top:20px;overflow:auto"></div>
 			
 			<form id="FormUsers">
 			<table class="t_general">
@@ -202,7 +202,15 @@ $xajax->printJavascript('xajax/');
 			</div>
 		</div>	
 		
-		<div class="box_amarillo" align="center" style="float: left; height: 250px; width: 435px; margin-top:20px">
+		
+			
+	</div>
+
+	<div id="secundario">
+	<h5 class="titulos">Perfiles de los usuarios</h5>
+	
+	
+	<div class="box_amarillo" align="center" style="float: left; height:50%; width: 435px; margin-top:20px">
 		Perfiles Hotel:<br /><br />
 			<form id="FormPerfil">
 			<div id="EditPerfil" style="height200px;overflow:auto"></div>
@@ -219,8 +227,8 @@ $xajax->printJavascript('xajax/');
 				<input type="button" value="Guardar"  style="width:100px" onclick="guardarPerfil()"/>
 				<input type="button" value="Cancelar" style="width:100px" onclick="document.getElementById('perfil_edit').style.display='none'; showButtons('b4', 'b3')"/>	
 			</div>
-
-		Perfiles Restaurante-Bar:<br /><br />
+        <br /><br /><br /><br />
+		Perfiles Recepcion-Restaurante-Bar:<br /><br />
 			<form id="FormPerfilRest">
 			<div id="EditPerfilRest" style="height200px;overflow:auto"></div>
 			<input id="perfil_id_rest" name="perfil_id_rest" type="hidden"  value=""/>
@@ -238,11 +246,9 @@ $xajax->printJavascript('xajax/');
 			</div>
 
 		</div>
-			
-	</div>
-
-	<div id="secundario">
-	<h5 class="titulos">&nbsp;</h5>
+	
+	
+	
 	</div>
 
 </div>

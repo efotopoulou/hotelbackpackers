@@ -308,5 +308,21 @@ require_once ($_SERVER['DOCUMENT_ROOT'] . '/common/Datos/Dsession.php');
 		}
 		return $aux;
  	}
+ 	
+ 	function is_allowed_p_req($p_req){
+ 		$a=false;
+ 		$datos=new Dsession();
+ 		$rs=$datos->is_allowed_p_req($this->id_perfil,$p_req);
+        if ($rs!=null) 
+          if($rs->getRecordCount()>0){
+			while($rs->next()){
+				$result=$rs->getRow();
+				$a=$result["permiso"];
+				}													
+		  }
+	   return $a;	
+ 	}
+ 	
+ 	
  }
 ?>
