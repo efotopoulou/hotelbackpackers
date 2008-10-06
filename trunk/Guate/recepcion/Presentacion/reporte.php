@@ -7,7 +7,6 @@ class getreporte{
 function getdatos($id_caja,$mensaje){
 $reporte=new reporte();
 $caja=new caja();
-
 try{
 $totalTickets=$caja->total_tickets_old($id_caja);
 //$totalmovimientos=$caja->total_mov_old($id_caja);

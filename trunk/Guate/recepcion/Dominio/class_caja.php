@@ -213,16 +213,13 @@ class caja{
  function total_tickets_old($idcaja){
 			$tto = new Dcaja();
 			$rs = $tto->total_tickets_old ($idcaja);
-			
 		if ($rs->getRecordCount()>0){
 			while($rs->next()){
 				$result=$rs->getRow();
 				$a=$result["totalTickets"];
 				}
-																		
-		  }else{
-				$result=null;
-			}
+		}else{$a="0";}
+			if ($a==null)$a="0";
 			return $a;
 		}
 function total_mov_old($idcaja){

@@ -120,7 +120,7 @@ function loadPage(json){
   $("#movimientosTable").html(" ");   
   if (json.MovimientosInfo){
       for(i=0;i<json.MovimientosInfo.length;i++) {
-        $("#movimientosTable").append("<tr id="+i+" onmousedown='changeClass(this.id)><td width=18%><h6>"+json.MovimientosInfo[i].fechaHora+"</h6></td><td width=8%><h6>"+json.MovimientosInfo[i].tipo+"</h6></td><td width=7%><h6>"+json.MovimientosInfo[i].dinero+"</h6></td><td><h6>"+json.MovimientosInfo[i].descripcion+"</h6></td><td width=16%><h6>"+json.MovimientosInfo[i].categoria+"</h6></td><td width=10%><h6>"+json.MovimientosInfo[i].encargado+"</h6></td></tr>");		
+        $("#movimientosTable").append("<tr id=M"+i+" onmousedown='changeClass(this.id)><td width=18%><h6>"+json.MovimientosInfo[i].fechaHora+"</h6></td><td width=8%><h6>"+json.MovimientosInfo[i].tipo+"</h6></td><td width=7%><h6>"+json.MovimientosInfo[i].dinero+"</h6></td><td><h6>"+json.MovimientosInfo[i].descripcion+"</h6></td><td width=16%><h6>"+json.MovimientosInfo[i].categoria+"</h6></td><td width=10%><h6>"+json.MovimientosInfo[i].encargado+"</h6></td></tr>");		
         }
         }
   $("#ticketsTable").html(" ");
