@@ -1,6 +1,6 @@
-<!-- //< ?php
-//require ('../Dominio/class_mesas.php');
-//?> -->
+<?php
+require ($_SERVER['DOCUMENT_ROOT'] . '/recepcion/Dominio/class_mesas.php');
+?>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -30,11 +30,11 @@ table{background:#DDD}
 	<script type="text/javascript">
 //------------------------------------------------------------AL CARGAR LA PAGINA--------------------------------------------------------------//	
 $(document).ready(function(){
-//< ?php
-//$mesas=new mesas();
-//$nummesas=$mesas->get_mesas();
-//?>
-//$("#nummesas").html(<?php echo($nummesas);?>);
+<?php
+$mesas=new mesas();
+$nummesas=$mesas->get_mesas();
+?>
+$("#nummesas").html(<?php echo($nummesas);?>);
 recargaEstadoRestaurante();
 });
 
@@ -249,17 +249,16 @@ function vaciar(){
 <?php include($_SERVER['DOCUMENT_ROOT'] . '/common/Presentacion/menu.php'); ?>
 <div id="principal" style="width:38%;">
 	
-	<!-- comentado porque en la recepcion no necesitamos mesas
 	<h5 class="titulos">Gestion de mesas</h5>
 	
-  <div class="box_amarillo" style="width: 380px; margin-top:20px;margin-left:30px">
+  <div class="box_amarillo" style="margin-top:20px;margin-left:30px">
   <div><span class="label"><b><h3>Mesas:</h3></b></span>
 
 			<div class="row" align="left">
-			<div style="width:340px;float:left;margin-top:10px"><span>El numero actual de mesas que hay en el restaurante es:</span></div>
+			<div style="float:left;margin-top:10px"><span>El numero de mesas que hay en el restaurante es:</span></div>
 			<div  id="nummesas" style="width:30px;float:left;margin-top:10px">0</div>
 			
-      		<div style="width:340px;float:left;margin-top:20px"><span>Introducir el numero de mesas que tiene el restaurante:</span></div>
+      		<div style="width:250px;float:left;margin-top:20px"><span>Introduzca el nuevo numero de mesas:</span></div>
       		<div style="width:30px;float:left;margin-top:20px">
       		  <SELECT id="numeroDeMesas" >
                <OPTION style="width:20px;"></OPTION>
@@ -291,7 +290,7 @@ function vaciar(){
    </div>
    <br>
    <br>
-   -->
+   
    
   <h5 class="titulos">Gestion de familias</h5>
    <div class="box_amarillo" style="height:45%;margin-top:20px;margin-left:30px">

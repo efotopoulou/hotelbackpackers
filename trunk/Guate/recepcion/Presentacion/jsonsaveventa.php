@@ -1,5 +1,6 @@
 <?php
 require ($_SERVER['DOCUMENT_ROOT'] . '/recepcion/Dominio/class_comanda.php');
+include ($_SERVER['DOCUMENT_ROOT'] . '/recepcion/Dominio/class_stock.php');
 require ($_SERVER['DOCUMENT_ROOT'] . '/recepcion/Dominio/MensajeJSON.php');
 //Recoge el parametro y se limpia de contrabarras
  $json = $_POST['json'];
@@ -8,6 +9,7 @@ require ($_SERVER['DOCUMENT_ROOT'] . '/recepcion/Dominio/MensajeJSON.php');
 //Creacion del objeto que inserta en la BD
 $comanda = new Comanda();
 $mensaje = new MensajeJSON();
+$stock = new stock();
  
 $comandaJson = json_decode($json, true);
 //idComanda,estado,fechaHora,usuario,efectivo,mesa,tipoCliente,Total
@@ -21,6 +23,7 @@ try {
  	$cantidad = (int)$lineas[$i]["cantidad"];
  	if($cantidad==0) $cantidad=1;
  	$comanda->setLineaComanda($idComanda,$lineas[$i]["platoId"],$cantidad, $lineas[$i]["precioN"]);
+    $stock->informar_stock_rest($lineas[$i]["platoId"],$cantidad);
  }
  
 $comanda->setComandaCredito($idComanda); 
