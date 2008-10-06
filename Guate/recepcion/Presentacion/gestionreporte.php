@@ -4,7 +4,6 @@ require ($_SERVER['DOCUMENT_ROOT'] . '/recepcion/Dominio/MensajeJSON.php');
 require ($_SERVER['DOCUMENT_ROOT'] . '/recepcion/Presentacion/reporte.php');
 
 $idcaja =  $_POST['idcaja'];
-
 $mensaje = new MensajeJSON();
 if ($idcaja){
 $reporte = new getreporte();

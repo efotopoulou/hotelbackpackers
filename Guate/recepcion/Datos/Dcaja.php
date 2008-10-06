@@ -147,7 +147,6 @@ class Dcaja{
 		$PARAMS = array($idcaja);
 		$PARAMS_TYPES = array (ComunicationRecep::$TINT);
 		$result = $comunication->query(self::TOTAL_TICKETS_OLD,$PARAMS,$PARAMS_TYPES);
-		
 		return $result;
 	}
 	

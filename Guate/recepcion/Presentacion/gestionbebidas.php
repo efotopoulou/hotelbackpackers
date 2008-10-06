@@ -8,7 +8,7 @@
 <style>
 tr{background:#FFF;text-align:right}
 table{background:#DDD}
-.btnpress{background:blue}
+.btnpress{background:#E8C086}
 .saved{background:#B9FAC4}
 .redtext{color:red}
 .changedisplay{display:none}
