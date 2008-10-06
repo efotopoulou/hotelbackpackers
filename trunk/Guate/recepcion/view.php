@@ -12,7 +12,7 @@ $page='';
 if($_GET!=null){
 	$p_req=$_GET['page'];
 	
-	if($sesion->is_allowed_rest($p_req)){
+	if($sesion->is_allowed_p_req($p_req)){
 		$page='Presentacion/'.$p_req.'.php';
 		include($page);
 	}else
