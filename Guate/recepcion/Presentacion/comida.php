@@ -204,7 +204,7 @@ var main = new Main(<?php echo($noMesas); ?>)
 ?>
 <td align="center">
 
-<div class="btn" style="height:80px;width:80px">
+<div class="btn" style="height:60px;width:60px">
 <div class="h1r"><img width="2px" height="1px" src="images/blankdot.gif"/></div>
 <div class="h1f"><img width="2px" height="1px" src="images/blankdot.gif"/></div><div class="btnbck"><img height="1px" src="images/blankdot.gif"/></div>
 <div class="h1r"><img width="1px" height="1px" src="images/blankdot.gif"/></div>
