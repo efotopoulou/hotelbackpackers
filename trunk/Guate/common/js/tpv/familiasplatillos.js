@@ -2,6 +2,8 @@ function getFamilias(){
  $.getJSONGuate("Presentacion/jsonplattpv.php", function(json){
     json = verificaJSON(json);
     crearFamilias(json);
+   	$(".platscroll").css({display:"none"});
+	$("#platillosscroll0").css({display:"block"});
  },false);
 }
 function crearFamilias(json){
