@@ -26,7 +26,7 @@ $xajax->printJavascript('xajax/');
 	<script type="text/javascript" src="scripts/calendar-setup.js"></script>
 
 	<script type="text/javascript">
-	    var GB_ROOT_DIR = "/scripts/greybox/";
+	    var GB_ROOT_DIR = "/hotel/scripts/greybox/";
 	</script>
 	
 	<script type="text/javascript" src="scripts/greybox/AJS.js"></script>

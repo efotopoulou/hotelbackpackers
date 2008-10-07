@@ -8,6 +8,7 @@ $idusuario = $_POST['idusuario'];
 $year = $_POST['year'];
 $month = $_POST['month'];
 $comandas = $_POST['comandas'];
+$nombreEmpleado = $_POST['nombreEmpleado'];
 
 
 $caja=new caja();
@@ -15,25 +16,22 @@ $mensaje = new MensajeJSON();
 
 try{
 if ($usuario){
-$usuarios=$caja->get_usuarios();
-if ((sizeof($usuarios))>0){
-	  for($i=0;$i<count($usuarios);$i++) {
-	  $UsuariosInfo[$i]=array("idTrabajador"=>$usuarios[$i]->idTrabajador,"nombre"=>$usuarios[$i]->nombre);
-	  }
- }	
+$response = loadusuarios($caja);	
 }else if($comandas && $idusuario){
 $comandasList = split( ",",$comandas);
 $iduser = substr($idusuario, 1);
 foreach ($comandasList as $value){
  $a=$caja->cobrar_ticket($value);
 }	
-//if ($a==false) $mensaje->setMensaje("La comanda esta ya esta cobrada y facturada!");
 $response = loadtickets($caja,$idusuario,$month,$year);	
 $totalTickets=$caja->total_cuenta($iduser,$month,$year);
 }else if($idusuario){	
 $iduser = substr($idusuario, 1);
 $response = loadtickets($caja,$idusuario,$month,$year);	
 $totalTickets=$caja->total_cuenta($iduser,$month,$year);
+}else if($nombreEmpleado){
+$caja->set_usuario($nombreEmpleado);
+$response = loadusuarios($caja);		
 }
 }catch (SQLException $e){
 	$aux = $e ->getNativeError();
@@ -41,7 +39,6 @@ $totalTickets=$caja->total_cuenta($iduser,$month,$year);
  }
 
 $response["TotalTickets"]=$totalTickets;
-$response["UsuariosInfo"]=$UsuariosInfo;
 
 $mensaje->setDatos($response);
 echo($mensaje->encode());
@@ -58,6 +55,14 @@ if ((sizeof($tikets))>0){
  $response["TicketsInfo"]=$TicketsInfo;
  return($response);	
 }
-
-
+function loadusuarios($caja){
+$usuarios=$caja->get_usuarios();
+if ((sizeof($usuarios))>0){
+	  for($i=0;$i<count($usuarios);$i++) {
+	  $UsuariosInfo[$i]=array("idTrabajador"=>$usuarios[$i]->idTrabajador,"nombre"=>$usuarios[$i]->nombre);
+	  }
+ }
+ $response["UsuariosInfo"]=$UsuariosInfo;
+ return($response);		
+}
 ?>

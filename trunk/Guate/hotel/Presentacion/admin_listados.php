@@ -21,7 +21,7 @@ require ($_SERVER['DOCUMENT_ROOT'] . '/hotel/Dominio/class_listado.php');
 	<link href="estilo.css" rel="stylesheet" type="text/css" />
 
 	<script type="text/javascript">
-	    var GB_ROOT_DIR = "/scripts/greybox/";
+	    var GB_ROOT_DIR = "/hotel/scripts/greybox/";
 	</script>
 	
 	<script type="text/javascript" src="scripts/greybox/AJS.js"></script>
@@ -49,20 +49,20 @@ require ($_SERVER['DOCUMENT_ROOT'] . '/hotel/Dominio/class_listado.php');
 				if(document.getElementById("f_date_c").value.length>0 && document.getElementById("f_date_c1").value.length>0 && document.getElementById("horaini").value.length>0 && document.getElementById("horafin").value.length>0){
 					var f1=document.getElementById("f_date_c").value+"/"+document.getElementById("horaini").value+":"+document.getElementById("minini").value;
 					var f2=document.getElementById("f_date_c1").value+"/"+document.getElementById("horafin").value+":"+document.getElementById("minfin").value;;
-					return GB_showCenter('Listado', '/view.php?page=slgrid&mode=view&id='+idLastSelected+'&f1='+f1+'&f2='+f2,450, 800);
+					return GB_showCenter('Listado', '/hotel/view.php?page=slgrid&mode=view&id='+idLastSelected+'&f1='+f1+'&f2='+f2,450, 800);
 				}
 				else
-					GB_showCenter('Error', '/view.php?page=message_box&opc='+class_id+'&result='+err_hora,100,300);
+					GB_showCenter('Error', '/hotel/view.php?page=message_box&opc='+class_id+'&result='+err_hora,100,300);
 			}
 			else{
 				
 				if(document.getElementById("f_date_c").value.length>0 && document.getElementById("f_date_c1").value.length>0){
 					var f1=document.getElementById("f_date_c").value+"/"+document.getElementById("horaini").value+":"+document.getElementById("minini").value;
 					var f2=document.getElementById("f_date_c1").value+"/"+document.getElementById("horafin").value+":"+document.getElementById("minfin").value;
-					return GB_showCenter('Listado', '/view.php?page=slgrid&mode=view&id='+idLastSelected+'&f1='+f1+'&f2='+f2,450, 800);
+					return GB_showCenter('Listado', '/hotel/view.php?page=slgrid&mode=view&id='+idLastSelected+'&f1='+f1+'&f2='+f2,450, 800);
 				}
 				else
-					return GB_showCenter('Listado', '/view.php?page=slgrid&mode=view&id='+idLastSelected,450, 800);		
+					return GB_showCenter('Listado', '/hotel/view.php?page=slgrid&mode=view&id='+idLastSelected,450, 800);		
 			}
 			
 			
@@ -73,10 +73,10 @@ require ($_SERVER['DOCUMENT_ROOT'] . '/hotel/Dominio/class_listado.php');
 			if(document.getElementById("f_date_c").value.length>0 && document.getElementById("f_date_c1").value.length>0){
 				var f1=document.getElementById("f_date_c").value+"/"+document.getElementById("horaini").value+":"+document.getElementById("minini").value;
 				var f2=document.getElementById("f_date_c1").value+"/"+document.getElementById("horafin").value+":"+document.getElementById("minfin").value;;
-				return GB_showCenter('Listado', '/view.php?page=slgrid&mode=view&id=caja&f1='+f1+'&f2='+f2,450, 800);
+				return GB_showCenter('Listado', '/hotel/view.php?page=slgrid&mode=view&id=caja&f1='+f1+'&f2='+f2,450, 800);
 			}
 			else{
-				return GB_showCenter('Listado', '/view.php?page=slgrid&mode=view&id=caja',450, 800);
+				return GB_showCenter('Listado', '/hotel/view.php?page=slgrid&mode=view&id=caja',450, 800);
 			}
 		}
 		

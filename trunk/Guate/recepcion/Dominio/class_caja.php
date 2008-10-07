@@ -286,6 +286,12 @@ $rs = $u->get_usuarios();
 	    }
 	return $ors;		
 }
+
+function set_usuario($nombreEmpleado){
+  $u = new Dcaja();
+  $rs = $u->set_usuario($nombreEmpleado);
+}
+
 function get_usuarios_comandas($idusuario,$month,$year){
 $uc = new Dcaja();
 $rs = $uc->get_usuarios_comandas ($idusuario,$month,$year);
