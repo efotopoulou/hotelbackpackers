@@ -49,6 +49,7 @@ else
 				<li><a>Opciones Recepcion</a>
 			<ul>
 <?php if($allowedRest["ventarecepcion"]){ ?><li><a href="/recepcion/view.php?page=ventarecepcion">Venta en Recepcion</a></li><?php } ?>
+<?php if($allowedRest["bebida"]){ ?><li><a href="/recepcion/view.php?page=bebida">Bebida</a></li><?php } ?>
 <?php if($allowedRest["comida"]){ ?><li><a href="/recepcion/view.php?page=comida">Comida</a></li><?php } ?>
 <?php if($allowedRest["historicocaja"]){ ?><li><a href="/recepcion/view.php?page=historicocaja">Historico Caja</a></li><?php } ?>
 <?php if($allowedRest["gestionbebidas"]){ ?><li><a href="/recepcion/view.php?page=gestionbebidas">Gestion de Bebidas</a></li><?php } ?>
