@@ -18,7 +18,7 @@ class bebidas{
 		private $idPlatillo;
 		
 		
-		function get_bebidas($familia){
+	/*	function get_bebidas($familia){
 			$dtp = new Dbebidas();
 			$rs = $dtp->get_bebidas($familia);
 			
@@ -42,7 +42,7 @@ class bebidas{
 			}
 			return $rs->getRecordCount();
 						
-		}
+		}*/
 		
         function get_info_bebidas(){
         $dtp = new Dbebidas();
@@ -70,7 +70,7 @@ class bebidas{
 	       $n=0;
 	     while($rs->next()){
 		$result=$rs->getRow();
-		$fam = new BebidasBar($result["idBebida"],$result["numBebida"],$result["nombre"],$result["precioLimitado"],$result["precioNormal"],$result["color"],$result["familiabar"]);
+		$fam = new BebidasBar($result["idBebida"],$result["nombre"],$result["precioLimitado"],$result["precioNormal"],$result["color"],$result["familiabar"]);
 		$a[$n]=$fam;
 		$n++;
 		}														
