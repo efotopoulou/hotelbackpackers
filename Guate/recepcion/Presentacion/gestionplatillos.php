@@ -270,12 +270,6 @@ function vaciar(){
  	           <OPTION>12</OPTION>
  	           <OPTION>14</OPTION>
  	           <OPTION>16</OPTION>
- 	           <OPTION>18</OPTION>
- 	           <OPTION>20</OPTION>
- 	           <OPTION>26</OPTION>
- 	           <OPTION>30</OPTION>
- 	           <OPTION>40</OPTION>
- 	           <OPTION>50</OPTION>
              </SELECT>
            </div>
    		   </div>

@@ -18,6 +18,7 @@ table{background:#DDD}
 .green{background: #c1d673}
 .amarillo{background: #F1F873}
 .yellow{background: #FAF2BE}
+.changedisplay{display:none}
 </style>
 	<script src="/common/js/jquery-1.2.3.pack.js"></script>
 	<script src="/common/js/jquery.blockUI.js"></script>
@@ -151,13 +152,21 @@ var idusuario=$("#usuariosTable .amarillo").attr("id");
      });
 }else alert("Por favor elige la comanda que desea cobrar!");
 }
+//------------------------------------------CHANGE DISPLAY--------------------------------------------------------//
+function changedisplay(Seccion){ 
+    $("#"+Seccion).toggleClass("changedisplay");
+}
+//-------------------------------------------CREAR CUENTA-------------------------------------------------//
+function crear_cuenta(){
+	
+}
 </script>
 <body>
 <?php include($_SERVER['DOCUMENT_ROOT'] . '/common/Presentacion/menu.php'); ?>
 <div id="principalesCj">
 	
 	<div class="box_amarillo" style="width:200px; margin-top:30px;margin-left:100px">
-	<div><span class="label"><b><h3>Usuarios:</h3></b></span>
+	<div><span class="label"><b><h3>Empleados:</h3></b></span>
 	<br><br>
 	  <div style="height:40%;overflow:auto">
       <table id="usuariosTable" width=97% cellpadding=0 cellspacing=1>
@@ -166,7 +175,7 @@ var idusuario=$("#usuariosTable .amarillo").attr("id");
 	</div>
 	</div>
 	
-	<div class="box_amarillo" style="width:200px;margin-top:40px;margin-left:100px;">
+	<div class="box_amarillo" style="width:200px;margin-top:15px;margin-left:100px;">
 	<table style="margin-left:25px;"><tr>
 	<td class="green"><h6><center>Anos</center></h6><center><select id="years"></select></center></td>
      <td class="green"><h6><center>Meses</center></h6>
@@ -176,6 +185,27 @@ var idusuario=$("#usuariosTable .amarillo").attr("id");
 	 </select></center>
      </td>
      </tr></table>
+	</div>
+	
+	<div class="box_amarillo" style="width:200px; margin-top:15px;margin-left:100px">
+	 <div><span class="label"><b><h3>Gestion de Empleados:</h3></b></span>
+	     
+	     <div id="b5" style="float:left; margin-top:5px;">			
+	           <div style="margin-top:5px;width:50%;float:left"><span><input type="button" value="crear cuenta" id="reporte" onClick="changedisplay('b6');changedisplay('b5');"/></span></div>
+               <div style="margin-top:5px;width:50%;float:left"><span><input type="button" value="Eliminar cuenta" id="reporteexcel" onClick="reportecaja('excel')"/></span></div>
+         </div>
+	     
+	     
+	     <div id="b6" style="float:left; margin-top:5px;" class="changedisplay">			
+			   <div class="row" align="left">
+      		     <div style="margin-top:5px"><span>Nombre:</span><span><input id="nombreEmpleado" type="text" size="20" value=""/></span></div>
+   			     <input type="button" value="Guardar" style="margin-top:5px;margin-left:20px" onClick="crear_cuenta();"/>
+                 <input type="button" value="Cancelar" style="margin-top:5px;margin-left:10px" onClick="changedisplay('b5');changedisplay('b6');"/>	
+		       </div>
+      </div>
+	
+	 <div style="clear:both"></div>
+	 </div>
 	</div>
 		
 </div>
