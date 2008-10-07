@@ -9,13 +9,12 @@ $reporte=new reporte();
 $caja=new caja();
 try{
 $totalTickets=$caja->total_tickets_old($id_caja);
-//$totalmovimientos=$caja->total_mov_old($id_caja);
-//$entrytot = $totalmovimientos->entrada;
-//$exittot = $totalmovimientos->salida;
 $fechaHoraApertura=$reporte->get_fechaHoraApertura($id_caja);
 $fechaHoraCierre=$reporte->get_fechaHoraCierre($id_caja);
 $categorias=$reporte->get_categories();
 $movimientos=$reporte->get_resumen($id_caja);
+  $totales["entrada"]=0;
+  $totales["salida"]=0;
   if ((sizeof($movimientos))>0){
 	  for($i=0;$i<count($movimientos);$i++) {
 	   $categorias[$movimientos[$i]->categoria][$movimientos[$i]->tipo]=$movimientos[$i]->suma;

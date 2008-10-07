@@ -13,7 +13,7 @@ class Dcomanda{
 	const SET_LISTA_PLATILLOS = 'INSERT INTO lineacomanda values (0,?,?,?,?)';
 	const UPDATE_EFECTIVO_COMANDA = 'UPDATE comanda SET efectivo=?,estado=\'cobrado\' WHERE numComanda=? and estado=\'abierta\'';
 	const GET_IDCAJA = 'SELECT * FROM caja WHERE estado=1';
-	const GET_LAST_ID_COMANDA =	'SELECT idComanda FROM comanda c order by fechaHora desc limit 1';
+	const GET_LAST_ID_COMANDA =	'SELECT numComanda FROM comanda c where numComanda is not null order by fechaHora desc limit 1';
     const ES_COCINA ='select cocina from platillo where idPlatillo=?';
     const SET_COCINA ='insert into cocina values (?,true,null)';
     const EXISTE_COMANDA='select idComanda from comanda where idComanda= ?';
@@ -65,7 +65,7 @@ class Dcomanda{
         if ($idcaja->getRecordCount()>0){
 			while($idcaja->next()){
 				$resultc=$idcaja->getRow();
-				$a=$resultc["idComanda"];
+				$a=$resultc["numComanda"];
 				}
 		}	
 		return $a;
