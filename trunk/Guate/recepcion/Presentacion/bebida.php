@@ -141,7 +141,7 @@ function LiniaComanda(platoid,precioN,precioUni,precioNormal,precioLimitado,prod
 }
 </script>
 </head>
-<body onresize="resize()" 
+<body <!--onresize="resize()"--> 
 <?php
 $openOrClose=new caja();
 $estadocaja=$openOrClose->estado_caja();
