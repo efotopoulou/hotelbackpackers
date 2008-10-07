@@ -101,6 +101,12 @@ function Main(numMesas){
  this.linia = function(){
   return this.comanda().liniasComanda[this.comanda().numRow];
  }
+ this.comandaAbierta = function(){
+ 	return this.mesa() && this.comanda() && this.comanda().isAbierta();
+ }
+ this.currentCom = function(){
+ 	return this.mesa().currentComanda();
+ }
 }
 
 function Comanda(){
@@ -135,7 +141,7 @@ function LiniaComanda(platoid,precioN,precioUni,precioNormal,precioLimitado,prod
 }
 </script>
 </head>
-<body onUnload="sendMain()"
+<body onresize="resize()" 
 <?php
 $openOrClose=new caja();
 $estadocaja=$openOrClose->estado_caja();

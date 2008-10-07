@@ -19,8 +19,8 @@ require ($_SERVER['DOCUMENT_ROOT'] . '/recepcion/Dominio/class_caja.php');
 		<script src="/common/js/jquery.corner.js"></script>
 		<script src="/common/js/json.js"></script>
 		<script src="/common/js/guate.js"></script>
-		<script src="/common/js/tpv/lineacomandascreenbar.js"></script>
-		<script src="/common/js/tpv/boxizquierdaarribabar.js"></script>
+		<script src="/common/js/tpv/lineacomandascreen.js"></script>
+		<script src="/common/js/tpv/boxizquierdaarriba.js"></script>
 		<script src="/common/js/tpv/familiasplatillosbar.js"></script>
 		<script src="/common/js/tpv/presentacionbar.js"></script>
 		<script src="/common/js/tpv/hotkeysbar.js"></script>
@@ -64,6 +64,13 @@ function Main(){
  this.linia = function(){
   return this.comanda().liniasComanda[this.comanda().numRow];
  }
+  this.comandaAbierta = function(){
+ 	return this.comanda() && this.comanda().isAbierta();
+ }
+ this.currentCom = function(){
+ 	return this.currentComanda;
+ }
+ 
 }
 
 function Comanda(){

@@ -39,10 +39,7 @@ function LineaComandaScreen(){
   }
 
   this.addPlatillo = function(platillo, id){
-//    if(main.comanda().numRow==0) this.addTotal("0");
-//    if(main.comanda().numRow==0)$("#mytable"+main.mesa().currentComanda).after(precioOnComanda(main.mesa().currentComanda,"0"));
     $("#lista"+this.actualComanda).append(this.platilloHtml(platillo,"currentRow", id));
-//        $("#arriba_derecha").window.scrollTo(0,10);
     var objDiv = document.getElementById("arriba_derecha");
     objDiv.scrollTop = objDiv.scrollHeight;
   }
@@ -76,10 +73,10 @@ function LineaComandaScreen(){
    this.actualComanda = -1;
  }
  this.getCantidad = function(){
-   return $("#row"+main.mesa().currentComanda+main.comanda().numRow +" .can").html();
+   return $("#row"+main.currentCom()+main.comanda().numRow +" .can").html();
  }
  this.setCantidad = function(newCan){
-   $("#row"+main.mesa().currentComanda+main.comanda().numRow +" .can").html(newCan);
+   $("#row"+main.currentCom()+main.comanda().numRow +" .can").html(newCan);
  }
  this.calcCantidad = function(newCan){
   if(main.linia().cantidad){
@@ -92,13 +89,13 @@ function LineaComandaScreen(){
  
  this.setPrecio = function(newprecio){
    if (!newprecio) newprecio="0";
-   $("#row"+main.mesa().currentComanda+main.comanda().numRow +" .precioN").html(newprecio);
+   $("#row"+main.currentCom()+main.comanda().numRow +" .precioN").html(newprecio);
  }
  this.removeLine = function(){
-   $("#row"+main.mesa().currentComanda+main.comanda().numRow).remove();
+   $("#row"+main.currentCom()+main.comanda().numRow).remove();
  }
  this.fijarComanda = function(){
     $(".currentRow").addClass("fixedRow").removeClass("currentRow");
-    $("#precioTotal"+main.mesa().currentComanda).addClass("precioFixed");
+    $("#precioTotal"+main.currentCom()).addClass("precioFixed");
  }
 }
