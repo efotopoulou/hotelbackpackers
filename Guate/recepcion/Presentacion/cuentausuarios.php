@@ -29,13 +29,7 @@ table{background:#DDD}
 $(document).ready(function(){
   $.getJSONGuate("Presentacion/jsoncuentausuarios.php",{usuario:"yes"}, function(json){
      json = verificaJSON(json);
-    if (json.UsuariosInfo){
-  	$("#usuariosTable").html(" ");
-        for(i=0;i<json.UsuariosInfo.length;i++) {
-        $("#usuariosTable").append("<tr id=T"+json.UsuariosInfo[i].idTrabajador+" onmousedown='changeClassUsuario(this.id);loadcuenta(this.id);'><td><h4><center>"+json.UsuariosInfo[i].nombre+"</center></h4></td></tr>");		
-        $("#T"+json.UsuariosInfo[i].idTrabajador).addClass("green");
-        }
-     }
+   loadusuarios(json);
    });
    
   <?php
@@ -60,12 +54,6 @@ $("#month").val("<?php echo($month); ?>");
 </head>
 <script>
 //-------------------------------------------CHANGECLASSID-------------------------------------------------//
-//function changeClass(id){
-//$("#"+id).toggleClass("amarillo");
-//$("#"+id).toggleClass("redtext");
-//}
-
-
 function changeClassUsuario(id){
 $(".amarillo").toggleClass("amarillo");
 btncolor(id);
@@ -78,6 +66,16 @@ $("#"+id).toggleClass("amarillo");
 function redondea(num){
 	parseFloat(num);
 	return (Math.round(num*100)/100);
+}
+//-------------------------------------------LOAD USUARIOS----------------------------------------------------------//
+function loadusuarios(json){
+	if (json.UsuariosInfo){
+  	$("#usuariosTable").html(" ");
+        for(i=0;i<json.UsuariosInfo.length;i++) {
+        $("#usuariosTable").append("<tr id=T"+json.UsuariosInfo[i].idTrabajador+" onmousedown='changeClassUsuario(this.id);loadcuenta(this.id);'><td><h4><center>"+json.UsuariosInfo[i].nombre+"</center></h4></td></tr>");		
+        $("#T"+json.UsuariosInfo[i].idTrabajador).addClass("green");
+        }
+     }
 }
 //-------------------------------------------LOAD CUENTA----------------------------------------------------------//
 function loadcuenta(id){
@@ -158,7 +156,29 @@ function changedisplay(Seccion){
 }
 //-------------------------------------------CREAR CUENTA-------------------------------------------------//
 function crear_cuenta(){
-	
+var nombreEmpleado= $("#nombreEmpleado").val();
+  if(confirm('Estas seguro que quieres crear una nueva cuenta?')){
+     $.getJSONGuate("Presentacion/jsoncuentausuarios.php",{nombreEmpleado:nombreEmpleado}, function(json){
+      json = verificaJSON(json);
+      loadusuarios(json);
+      $("#ticketsTable").html(" ");
+      $("#total").html("0");
+      $("#nombreEmpleado").val("");
+      changedisplay('b5');changedisplay('b6');
+     });
+  }
+}
+//-------------------------------------------ELIMINAR CUENTA-------------------------------------------------//
+function eliminar_cuenta(){
+var id_delete=$("#usuariosTable .amarillo").attr("id");
+  if(confirm('Estas seguro que quieres eleminar esta cuenta?')){
+     $.getJSONGuate("Presentacion/jsoncuentausuarios.php",{id_delete:id_delete}, function(json){
+      json = verificaJSON(json);
+      loadusuarios(json);
+      $("#ticketsTable").html(" ");
+      $("#total").html("0");
+     });
+  }
 }
 </script>
 <body>
@@ -192,7 +212,7 @@ function crear_cuenta(){
 	     
 	     <div id="b5" style="float:left; margin-top:5px;">			
 	           <div style="margin-top:5px;width:50%;float:left"><span><input type="button" value="crear cuenta" id="reporte" onClick="changedisplay('b6');changedisplay('b5');"/></span></div>
-               <div style="margin-top:5px;width:50%;float:left"><span><input type="button" value="Eliminar cuenta" id="reporteexcel" onClick="reportecaja('excel')"/></span></div>
+               <!--<div style="margin-top:5px;width:50%;float:left"><span><input type="button" value="Eliminar cuenta" id="reporteexcel" onClick="eliminar_cuenta();"/></span></div> -->
          </div>
 	     
 	     
