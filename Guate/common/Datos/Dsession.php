@@ -8,7 +8,7 @@ class Dsession{
 	const GET_PERFIL_REST_ALL = 'SELECT p.id_perfil, gp.nombre, p.id_pagina, rp.nombre as nombrepagina, p.permiso FROM recepcion_bd.perfilpagina p, guate_bd.perfil gp, recepcion_bd.pagina rp where p.id_perfil = gp.id_perfil and rp.id_pagina = p.id_pagina';
     const GET_PAGINA_REST_ALL = 'SELECT nombre FROM  recepcion_bd.pagina';	
 
-	const GET_PERFIL_REST = 'SELECT p.id_perfil, rp.nombre as nombrepagina, p.permiso FROM perfilpagina p,pagina rp where p.id_perfil = ? and rp.id_pagina = p.id_pagina';
+	const GET_PERFIL_REST = 'SELECT p.id_perfil, rp.nombre as nombrepagina, p.permiso FROM recepcion_bd.perfilpagina p,recepcion_bd.pagina rp where p.id_perfil = ? and rp.id_pagina = p.id_pagina';
 
 	const GET_PERFIL_BY_ID = 'SELECT * FROM perfil WHERE Id_perfil=?';
 	

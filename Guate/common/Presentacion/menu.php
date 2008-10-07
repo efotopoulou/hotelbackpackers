@@ -1,8 +1,9 @@
 <?php
 include($_SERVER['DOCUMENT_ROOT'] . '/hotel/Dominio/class_usuario.php');
 $usr=new usuario();
-if ($sesion)
+if ($sesion){
 	$allowed=$sesion->is_allowed('admin_menu');
+	$allowedRest=$sesion->is_allowed_rest();}
 else
 	exit();
 ?>
@@ -43,17 +44,17 @@ else
 						<li><a href="/common/phpMyBackupPro/">Backup</a></li>
 					</ul>
 				</li>
-				<li><a href="/recepcion/view.php?page=caja">Caja</a></li>
 				<?php } ?>
+<?php if($allowedRest["caja"]){ ?><li><a href="/recepcion/view.php?page=caja">Caja</a></li><?php } ?>
 				<li><a>Opciones Recepcion</a>
 			<ul>
-				<li><a href="/recepcion/view.php?page=ventarecepcion">Venta en Recepcion</a></li>
-				<li><a href="/recepcion/view.php?page=comida">Comida</a></li>
-				<li><a href="/recepcion/view.php?page=historicocaja">Historico Caja</a></li>
-				<li><a href="/recepcion/view.php?page=gestionbebidas">Gestion de Bebidas</a></li>
-				<li><a href="/recepcion/view.php?page=gestionplatillos">Gestion de Platillos</a></li>
-				<li><a href="/recepcion/view.php?page=controldestock">Control de Stock</a></li>
-				<li><a href="/recepcion/view.php?page=cuentausuarios">Cuenta De Usuarios</a></li>
+<?php if($allowedRest["ventarecepcion"]){ ?><li><a href="/recepcion/view.php?page=ventarecepcion">Venta en Recepcion</a></li><?php } ?>
+<?php if($allowedRest["comida"]){ ?><li><a href="/recepcion/view.php?page=comida">Comida</a></li><?php } ?>
+<?php if($allowedRest["historicocaja"]){ ?><li><a href="/recepcion/view.php?page=historicocaja">Historico Caja</a></li><?php } ?>
+<?php if($allowedRest["gestionbebidas"]){ ?><li><a href="/recepcion/view.php?page=gestionbebidas">Gestion de Bebidas</a></li><?php } ?>
+<?php if($allowedRest["gestionplatillos"]){ ?><li><a href="/recepcion/view.php?page=gestionplatillos">Gestion de Platillos</a></li><?php } ?>
+<?php if($allowedRest["controlstock"]){ ?><li><a href="/recepcion/view.php?page=controldestock">Control de Stock</a></li><?php } ?>
+<?php if($allowedRest["cuentausuarios"]){ ?><li><a href="/recepcion/view.php?page=cuentausuarios">Cuenta De Usuarios</a></li><?php } ?>
 		    </ul>
 		</li>		
 				

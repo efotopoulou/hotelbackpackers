@@ -24,8 +24,8 @@ function ClienteScreen(){
 	//borrar todos los colores rojos y azules de los botones client
 	this.setNoColor();
 	
-	//si existe la mesa, poner el boton rojo y el current client se pone a num, sino azul 
-	if (main.mesa() && main.comanda() && main.comanda().isAbierta()) {
+	//si existe la mesa o comanda, poner el boton rojo y el current client se pone a num, sino azul 
+	if (main.comandaAbierta()) {
 		this.setRed(num);
 		main.comanda().currentClientType=num;
 	}
