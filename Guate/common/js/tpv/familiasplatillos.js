@@ -6,6 +6,14 @@ function getFamilias(){
 	$("#platillosscroll0").css({display:"block"});
  },false);
 }
+function getFamiliasBeb(){
+ $.getJSONGuate("Presentacion/jsonbebtpv.php", function(json){
+    json = verificaJSON(json);
+    crearFamilias(json);
+   	$(".platscroll").css({display:"none"});
+	$("#platillosscroll0").css({display:"block"});
+ },false);
+}
 function crearFamilias(json){
  var familias = new Array();
  var colores = new Array();

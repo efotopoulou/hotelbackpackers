@@ -62,6 +62,24 @@ class bebidas{
         return $a;				
 		}
 		
+        function get_bebidas($name){
+        $dtp = new Dbebidas();
+        $rs = $dtp->get_bebidas($name);
+			
+          if ($rs->getRecordCount()>0){
+	       $n=0;
+	     while($rs->next()){
+		$result=$rs->getRow();
+		$fam = new BebidasBar($result["idBebida"],$result["numBebida"],$result["nombre"],$result["precioLimitado"],$result["precioNormal"],$result["color"],$result["familiabar"]);
+		$a[$n]=$fam;
+		$n++;
+		}														
+        }else{
+	    $result=null;
+			}
+        return $a;				
+		}
+
 		function is_family_free($idfamilia){
 			$ffr = new Dbebidas();
 			$rs = $ffr->is_family_free($idfamilia);
