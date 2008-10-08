@@ -25,7 +25,7 @@ require ($_SERVER['DOCUMENT_ROOT'] . '/recepcion/Dominio/class_caja.php');
 		<script src="/common/js/tpv/familiasplatillos.js"></script>
 		<script src="/common/js/tpv/hotkeys.js"></script>
 		<script src="/common/js/tpv/commonpresentacion.js"></script>
-		<script src="/common/js/tpv/presentacionbar.js"></script>
+		<script src="/common/js/tpv/presentacionbeb.js"></script>
 		
 		
 		
@@ -103,7 +103,7 @@ function Main(numMesas){
  	return this.mesa() && this.comanda() && this.comanda().isAbierta();
  }
  this.currentCom = function(){
- 	return this.mesa().currentComanda();
+ 	return this.mesa().currentComanda;
  }
 }
 

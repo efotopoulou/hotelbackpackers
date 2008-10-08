@@ -151,7 +151,7 @@ if ($estadocaja==0){
 <?php 
 }else {?>
 <body>
-<?php}?>
+<?php } ?>
 <!--onresize="resize()"-->
 <?php include($_SERVER['DOCUMENT_ROOT'] . '/common/Presentacion/menu.php'); ?>
 <div style="height:94%;margin:0pt;padding:0pt">
