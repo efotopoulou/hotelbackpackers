@@ -22,9 +22,27 @@ require ($_SERVER['DOCUMENT_ROOT'] . '/recepcion/Dominio/class_caja.php');
 		<script src="/common/js/tpv/lineacomandascreen.js"></script>
 		<script src="/common/js/tpv/boxizquierdaarriba.js"></script>
 		<script src="/common/js/tpv/familiasplatillosbar.js"></script>
+		<script src="/common/js/tpv/commonpresentacion.js"></script>
 		<script src="/common/js/tpv/presentacionbar.js"></script>
 		<script src="/common/js/tpv/hotkeysbar.js"></script>
 <script>
+//PRESENTACION
+//Al iniciar la pagina.... ONREADY!!!!!!!
+var timeoutHnd;
+$(document).ready(function(){
+   $.blockUI({ message: '<h1>Cargando...</h1>' });
+   //Se borran algunos campos que se quedan por defecto con el valor que tenian
+   $("#total").val("0");
+   $("#efectivo").val("");
+   $("#cambio").val("");
+   hotkeys();
+   $.ajaxSetup({type:"POST"});
+   getPlatillosVentaRecepcion("Presentacion/jsonplatventarec.php");
+   listaPedidos.iniciar();
+   //restoreHibernar();
+   $.unblockUI();
+});
+ 
 // CLASES DE DOMINIO  
 //Clase Main
 function Main(){
