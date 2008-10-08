@@ -24,7 +24,8 @@ require ($_SERVER['DOCUMENT_ROOT'] . '/recepcion/Dominio/class_caja.php');
 		<script src="/common/js/tpv/boxizquierdaarriba.js"></script>
 		<script src="/common/js/tpv/familiasplatillos.js"></script>
 		<script src="/common/js/tpv/hotkeys.js"></script>
-		<script src="/common/js/tpv/presentaciontpv.js"></script>
+		<script src="/common/js/tpv/commonpresentacion.js"></script>
+		<script src="/common/js/tpv/presentacionbar.js"></script>
 		
 		
 		
@@ -37,9 +38,9 @@ $(document).ready(function(){
    $("#total").val("0");
    $("#efectivo").val("");
    $("#cambio").val("");
-   $("#idComanda").val("<?php $comanda=new comanda();echo $estadocaja=$comanda->getNextMaxIdComanda();?>");
+   //$("#idComanda").val("<?php $comanda=new comanda();echo $estadocaja=$comanda->getNextMaxIdComanda();?>");
    hotkeys();
-   getFamilias();
+   getFamiliasBeb();
    listaPedidos.iniciar();
 //   restoreHibernar();
    $.unblockUI();
@@ -63,8 +64,6 @@ function Main(numMesas){
 //CREA EFECTO: Pone los valores a 0.
  this.creaEfecto = function (numMesa) {
   $("#total").val("0");
-  if (!main.numDefaultID) main.numDefaultID=parseInt($("#idComanda").val().substring(1));
-  $("#idComanda").val("R"+main.numDefaultID);
   listaPedidos.reiniciar();
   }
   
@@ -89,7 +88,6 @@ function Main(numMesas){
  //    }     
  	}
    $("#total").val(calcularTotal());
-   $("#idComanda").val(main.comanda().comandaID);
    clienteScreen.setClienteName(main.comanda().clienteName);
  }
  this.mesa = function(){
@@ -141,15 +139,16 @@ function LiniaComanda(platoid,precioN,precioUni,precioNormal,precioLimitado,prod
 }
 </script>
 </head>
-<body <!--onresize="resize()"--> 
 <?php
 $openOrClose=new caja();
 $estadocaja=$openOrClose->estado_caja();
 if ($estadocaja==0){
 ?>
-onload="cajaCerrada()"
-<?php }?>
->
+<body onload="cajaCerrada()">
+<?php 
+}else {?>
+<body>
+<?php } ?>
 <?php include($_SERVER['DOCUMENT_ROOT'] . '/common/Presentacion/menu.php'); ?>
 <div style="height:94%;margin:0pt;padding:0pt">
 <div id="cajaCerrada" style="display:none">la caja esta cerrada<br /><a href="view.php?page=caja">Abrir caja</a></div>
