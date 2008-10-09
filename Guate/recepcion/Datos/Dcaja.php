@@ -9,7 +9,8 @@ class Dcaja{
 	const GET_FONDO_CAJA = 'SELECT fondoInicial from caja where estado=1';
 	const GET_ID_CAJA = 'select id_caja from caja where estado=1';
 	const CLOSE_CAJA = 'UPDATE caja SET estado=0,fechaHoraCierre=NOW(), EfectivoCerrar=? where caja.estado=1';
-	const INS_MOV = 'INSERT INTO movimiento VALUES(NOW(),?,?,?,?,?,?)';
+	const INS_MOV = 'INSERT INTO movimiento VALUES(0,NOW(),?,?,?,?,?,?)';
+	const NAME_USER = 'select nombre from trabajador where idTrabajador=?';
 	const TOTAL_MONEY_MOV = 'SELECT t1.tipo,sum(t1.dinero) as suma from movimiento t1,caja t2 where t1.id_caja=t2.id_caja and t2.estado=1 group by tipo';
 	const TOTAL_TICKETS = 'SELECT sum(t1.total) as totalTickets from comanda t1,caja t2 where t1.id_caja=t2.id_caja and t2.estado=1 and t1.estado!="anulado" ';
 	const COBRAR_TICKET = 'UPDATE comanda SET estado="cobrado" where idComanda=?';
@@ -95,6 +96,19 @@ class Dcaja{
 		$result = $comunication->update(self::INS_MOV,$params,$PARAMS_INSERT);
 		
 		return $result;
+	}
+	
+	public function nameUser($iduser){
+	    $comunication = new ComunicationRecep();
+		$params = array($iduser);
+		$PARAMS_TYPES = array (ComunicationRecep::$TINT);
+		$name = $comunication->query(self::NAME_USER,$params,$PARAMS_TYPES);
+		if ($name->getRecordCount()>0){
+			while($name->next()){
+				$resultc=$name->getRow();
+				$a=$resultc["nombre"];
+				}}
+		return $a;	
 	}
 	
 	public function insert_venta_recepcion($idproducto,$cantity,$checked,$description,$idencargado){
