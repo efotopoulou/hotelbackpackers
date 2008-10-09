@@ -295,7 +295,6 @@ function set_usuario($nombreEmpleado){
 function get_usuarios_comandas($idusuario,$month,$year){
 $uc = new Dcaja();
 $rs = $uc->get_usuarios_comandas ($idusuario,$month,$year);
-//echo($rs->getRecordCount());
 	if($rs->getRecordCount()>0){ 
 		$n=0;
 		while($rs->next()){

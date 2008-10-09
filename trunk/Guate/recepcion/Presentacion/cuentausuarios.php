@@ -133,22 +133,26 @@ function showpedido(id){
 //-------------------------------------------COBRAR TICKET-------------------------------------------------//
 function cobrarTicket(){
 var comandas;
+var cobradas=false;
 $("#ticketsTable .amarillo").each(function (){
   if (!comandas) comandas = this.id;
   else comandas+=","+this.id;
   btncolor(this.id);
-  if($("#"+this.id+" .estadoh6").html()=="cobrado") alert("Este Tiquet ya esta cobrado!");
+  if($("#"+this.id+" .estadoh6").html()=="cobrado") cobradas=true;
 })
 
-var idusuario=$("#usuariosTable .amarillo").attr("id");
- if(comandas){ 
+ if (cobradas)alert("Algun ticket que has elegido esta ya cobrado!");
+ else {
+  var idusuario=$("#usuariosTable .amarillo").attr("id");
+   if(comandas){ 
      year = $("#years").val();
      month = $("#month").val();
      $.getJSONGuate("Presentacion/jsoncuentausuarios.php",{comandas:comandas,idusuario:idusuario,year:year,month:month}, function(json){
       json = verificaJSON(json);
       loadPage(json);
      });
-}else alert("Por favor elige la comanda que desea cobrar!");
+   }else alert("Por favor elige la comanda que desea cobrar!");
+  }
 }
 //------------------------------------------CHANGE DISPLAY--------------------------------------------------------//
 function changedisplay(Seccion){ 
