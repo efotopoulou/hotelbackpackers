@@ -119,6 +119,11 @@ class caja{
 			$rs = $datos->insert_venta_recepcion($idproducto,$cantity,$checked,$description,$idencargado);
 		}
 		
+		function insertmovcredito($dinero,$description,$categoria,$idempleado,$idencargado){
+			$datos = new Dcaja();
+			$datos->insertmovcredito($dinero,$description,$categoria,$idempleado,$idencargado);
+		}
+		
 		
 		function total_mov(){
 			$mvcj = new Dcaja();
@@ -310,6 +315,21 @@ $rs = $uc->get_usuarios_comandas ($idusuario,$month,$year);
 		$result=null;
 	    }
 	return $ors;			
+}
+function get_usuarios_movimientos ($idusuario,$month,$year){
+$uc = new Dcaja();
+$rs = $uc->get_usuarios_movimientos ($idusuario,$month,$year);
+	if($rs->getRecordCount()>0){ 
+		$n=0;
+		while($rs->next()){
+		$result=$rs->getRow();
+		$ors[$n] =new CajaMovimiento($result["id_movimiento"],$result["fechaHora"],$result["tipo"],$result["dinero"],$result["descripcion"],$result["categoria"],$result["encargado"]);
+		$n++;			
+		}
+    }else{
+		$result=null;
+	    }
+	return $ors;	
 }
 function total_cuenta($idusuario,$month,$year){
 $tot = new Dcaja();

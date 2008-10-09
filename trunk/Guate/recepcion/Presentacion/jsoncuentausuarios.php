@@ -9,15 +9,22 @@ $year = $_POST['year'];
 $month = $_POST['month'];
 $comandas = $_POST['comandas'];
 $nombreEmpleado = $_POST['nombreEmpleado'];
-
+$dinero=$_POST['dinero'];
+$description=$_POST['description'];
+$categoria=$_POST['categoria'];
+$idempleado=$_POST['idempleado'];
+$idencargado=$_POST['idencargado'];
 
 $caja=new caja();
 $mensaje = new MensajeJSON();
 
 try{
+//al cargar la pagina cargamos la lista de los usuarios
 if ($usuario){
 $response = loadusuarios($caja);	
-}else if($comandas && $idusuario){
+}
+//cobrar un tiquet.despues lo insertamos como movumiento en la caja.despues cargamos los tiquets y los movimientos
+else if($comandas && $idusuario){
 $comandasList = split( ",",$comandas);
 $iduser = substr($idusuario, 1);
 $a=0;
@@ -27,14 +34,24 @@ foreach ($comandasList as $value){
 $onoma=$caja->nameUser($iduser);
 $caja->insert_movimiento("entrada",$a,"Cobrado Credito ".$onoma,9,$iduser);
 $response = loadtickets($caja,$idusuario,$month,$year);	
+$response+=loadmovimientos($caja,$idusuario,$month,$year);	
 $totalTickets=$caja->total_cuenta($iduser,$month,$year);
-}else if($idusuario){	
+}
+//cargamos de nuevo los tiquets y los movimientos del mes corespondiente para el usuario elegido
+else if($idusuario){	
 $iduser = substr($idusuario, 1);
 $response = loadtickets($caja,$idusuario,$month,$year);	
+$response+=loadmovimientos($caja,$idusuario,$month,$year);	
 $totalTickets=$caja->total_cuenta($iduser,$month,$year);
-}else if($nombreEmpleado){
+}
+//añadimos un nuevo usuario y cargamos de nuevo la lista de los usuarios
+else if($nombreEmpleado){
 $caja->set_usuario($nombreEmpleado);
 $response = loadusuarios($caja);		
+}else if($categoria){
+$idemp = substr($idempleado, 1);
+$caja->insertmovcredito($dinero,$description,$categoria,$idemp,$idencargado);
+$response = loadmovimientos($caja,$idusuario,$month,$year);	
 }
 }catch (SQLException $e){
 	$aux = $e ->getNativeError();
@@ -56,6 +73,17 @@ if ((sizeof($tikets))>0){
 	  }
  }	
  $response["TicketsInfo"]=$TicketsInfo;
+ return($response);	
+}
+function loadmovimientos($caja,$idusuario,$month,$year){
+$iduser = substr($idusuario, 1);
+$movimientos=$caja->get_usuarios_movimientos($iduser,$month,$year);
+if ((sizeof($movimientos))>0){
+	  for($i=0;$i<count($movimientos);$i++) {
+	  $MovimientosInfo[$i]=array("id_movimiento"=>$movimientos[$i]->id_movimiento,"fechaHora"=>$movimientos[$i]->fechaHora,"tipo"=>$movimientos[$i]->tipo,"dinero"=>$movimientos[$i]->dinero,"descripcion"=>$movimientos[$i]->descripcion,"categoria"=>$movimientos[$i]->categoria,"encargado"=>$movimientos[$i]->encargado);
+	  }
+ }	
+ $response["MovimientosInfo"]=$MovimientosInfo;
  return($response);	
 }
 function loadusuarios($caja){
