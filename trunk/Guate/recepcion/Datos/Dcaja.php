@@ -17,6 +17,7 @@ class Dcaja{
 	const COBRAR_TICKET = 'UPDATE comanda SET estado="cobrado" where idComanda=?';
 	const ESTADO_COMANDA = 'select estado from comanda where idComanda=?';
 	const ANULAR_TICKET = 'UPDATE comanda SET estado="anulado" where idComanda=?';
+	const ANULAR_MOVIMIENTO = 'UPDATE movimiento SET tipo="anulado" where id_movimiento=?';
 	const FACTURAR_TICKET = 'UPDATE comanda SET estado="facturado" where idComanda=?';
 	const FIND_CAJA = 'select id_caja,fechaHoraApertura,fechaHoraCierre,fondoInicial,EfectivoCerrar from caja where fechaHoraApertura <= ? and  fechaHoraApertura >= ?';
 	const FIND_ONE_CAJA = 'select id_caja,fechaHoraApertura,fechaHoraCierre,fondoInicial,EfectivoCerrar from caja where id_caja=?';
@@ -201,6 +202,14 @@ class Dcaja{
 		
 		return $result;
 	
+	}
+	public function anular_movimiento ($idMovimiento){
+		$comunication = new ComunicationRecep();
+		$PARAMS = array($idMovimiento);
+		$PARAMS_TYPES = array (ComunicationRecep::$TINT);
+		$result = $comunication->update(self::ANULAR_MOVIMIENTO,$PARAMS,$PARAMS_TYPES);
+		
+		return $result;
 	}
 	public function facturar_ticket($idComanda){
 		$comunication = new ComunicationRecep();

@@ -86,6 +86,13 @@ class caja{
 		
 		return $rs;
 		}
+		function anular_movimiento($idMovimiento){
+		$antc = new Dcaja();
+		$rs = $antc->anular_movimiento($idMovimiento);
+		
+		return $rs;
+		}
+
 		function facturar_ticket($idComanda){
 		$ftc = new Dcaja();
 		$rs = $ftc->facturar_ticket($idComanda);
