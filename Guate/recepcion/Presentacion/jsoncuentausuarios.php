@@ -20,9 +20,11 @@ $response = loadusuarios($caja);
 }else if($comandas && $idusuario){
 $comandasList = split( ",",$comandas);
 $iduser = substr($idusuario, 1);
+$a=0;
 foreach ($comandasList as $value){
- $caja->cobrar_ticket($value);
-}	
+ $a+=$caja->cobrar_ticket($value);
+}
+$caja->insert_movimiento("entrada",$a,"Cobrado Credito".nameUser($iduser),$categoria,$idencargado);
 $response = loadtickets($caja,$idusuario,$month,$year);	
 $totalTickets=$caja->total_cuenta($iduser,$month,$year);
 }else if($idusuario){	

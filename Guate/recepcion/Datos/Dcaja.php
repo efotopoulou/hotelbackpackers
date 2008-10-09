@@ -33,6 +33,7 @@ class Dcaja{
 	const GET_PEDIDO_BAR = 'select t2.numBebida,t1.cantidad,t2.nombre,t1.precio from lineacomanda t1,bebida t2 where idComanda=? and t2.idBebida=t1.idPlatillo union select t2.idPlatillo,t1.cantidad,t2.nombre,t1.precio from lineacomanda t1,platillo t2 where idComanda=? and t2.idPlatillo=t1.idPlatillo';
 	const GET_MOV_CATEGORIES = 'select * from categoria where showcaja=1';
 	const GET_PRECIOS = 'select precioLimitado,precioNormal from bar_bd.bebida where idBebida=?';
+	const TOTAL_COMANDA_CREDITO = 'select total from comandacredito where idComanda=?';
 	
 	public function is_caja_open (){
 		$comunication = new ComunicationRecep();
@@ -153,21 +154,18 @@ class Dcaja{
 	
 	public function cobrar_ticket ($idComanda){
 		$comunication = new ComunicationRecep();
-		//$PARAMS = array($idComanda);
-		//$PARAMS_TYPES = array (ComunicationRecep::$TSTRING);
-		//$estado = $comunication->query(self::ESTADO_COMANDA,$PARAMS,$PARAMS_TYPES);
-		//if ($estado->getRecordCount()>0){
-		//	while($estado->next()){
-		///		$resulte=$estado->getRow();
-		//		$a=$resulte["estado"];
-		//		}}		
-		//if ($a=='facturado') return false;
-		//else{
+		$PARAMS = array($idComanda);
+		$PARAMS_TYPES = array (ComunicationRecep::$TINT);
+		$estado = $comunication->query(self::TOTAL_COMANDA_CREDITO,$PARAMS,$PARAMS_TYPES);
+		if ($estado->getRecordCount()>0){
+			while($estado->next()){
+				$resulte=$estado->getRow();
+				$a=$resulte["total"];
+				}}		
 		$PARAMS = array($idComanda);
 		$PARAMS_TYPES = array (ComunicationRecep::$TINT);
 		$result = $comunication->update(self::COBRAR_TICKET,$PARAMS,$PARAMS_TYPES);
-		return $result;
-		//}
+		return $a;
 	}
 	public function anular_ticket ($idComanda){
 		$comunication = new ComunicationRecep();
