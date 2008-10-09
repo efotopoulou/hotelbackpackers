@@ -11,6 +11,7 @@ class Dcaja{
 	const CLOSE_CAJA = 'UPDATE caja SET estado=0,fechaHoraCierre=NOW(), EfectivoCerrar=? where caja.estado=1';
 	const INS_MOV = 'INSERT INTO movimiento VALUES(0,NOW(),?,?,?,?,?,?)';
 	const NAME_USER = 'select nombre from trabajador where idTrabajador=?';
+	const INS_MOV_CREDITO = 'INSERT INTO movimientocredito VALUES(?,?,?,0)';
 	const TOTAL_MONEY_MOV = 'SELECT t1.tipo,sum(t1.dinero) as suma from movimiento t1,caja t2 where t1.id_caja=t2.id_caja and t2.estado=1 group by tipo';
 	const TOTAL_TICKETS = 'SELECT sum(t1.total) as totalTickets from comanda t1,caja t2 where t1.id_caja=t2.id_caja and t2.estado=1 and t1.estado!="anulado" ';
 	const COBRAR_TICKET = 'UPDATE comanda SET estado="cobrado" where idComanda=?';
@@ -27,6 +28,7 @@ class Dcaja{
 	const ARE_TIKETS_COBRADOS = 'SELECT t1.idComanda from comanda t1,caja t2 where t1.id_caja=t2.id_caja and t2.estado=1 and (t1.estado="cerrado" or t1.estado="abierta")';
 	const GET_USUARIOS = 'select idTrabajador,nombre from trabajador';
 	const USUARIOS_COMANDAS = 'select t1.idComanda,t1.numComanda,t1.estado,t1.fechaHora,t5.total,t4.clientType,t3.nombre from comanda t1,caja t2,trabajador t3,tipocliente t4,comandacredito t5 where t1.id_caja=t2.id_caja and t1.id_cliente=t3.idTrabajador and t1.tipoCliente=5 and t1.tipoCliente=t4.idTipoCliente and t5.idComanda=t1.idComanda and t3.idTrabajador=? and month(t2.fechaHoraApertura)=? and year(t2.fechaHoraApertura)=?';
+	const USUARIOS_MOV = 'select t1.id_movimiento,t1.fechaHora,t1.tipo,t2.dinero,t1.descripcion,t4.nombre as categoria,t5.nombre as encargado from movimiento t1,movimientocredito t2,trabajador t3,categoria t4,guate_bd.usuario t5 where t1.id_movimiento=t2.id_movimiento and t3.idTrabajador=t2.id_usuario and t4.id_categoria=t1.id_categoria and t5.Id_usuario=t1.idencargado and t2.id_usuario=? and month(t1.fechaHora)=? and year(t1.fechaHora)=?';
 	const SET_USUARIO = 'INSERT INTO trabajador VALUES(0,?)';
 	//const USUARIOS_COMANDAS = 'select t1.idComanda,t1.idComanda as numComanda,t1.estado,t1.fechaHora,t1.total,t1.efectivo,t4.clientType,t3.nombre from comanda t1,caja t2, guate_bd.usuario t3,tipocliente t4 where t1.id_caja=t2.id_caja and t2.estado=0 and t1.id_cliente=t3.Id_usuario and t1.tipoCliente=2 and t1.tipoCliente=t4.idTipoCliente and t3.Id_usuario=? and month(t2.fechaHoraApertura)=? and year(t2.fechaHoraApertura)=? union select concat("B",t1.idComanda),concat("B",t1.numComanda),t1.estado,t1.fechaHora,t1.total,t1.efectivo,t4.clientType,t3.nombre from bar_bd.comanda t1,bar_bd.caja t2, guate_bd.usuario t3,bar_bd.tipocliente t4 where t1.id_caja=t2.id_caja and t2.estado=0 and t1.id_cliente=t3.Id_usuario and t1.tipoCliente=2 and t1.tipoCliente=t4.idTipoCliente and t3.Id_usuario=? and month(t2.fechaHoraApertura)=? and year(t2.fechaHoraApertura)=?';
 	const TOTAL_CUENTA = 'select sum(t4.total) as total from comanda t1,caja t2,trabajador t3,comandacredito t4 where t1.id_caja=t2.id_caja and t2.estado=0  and t1.idComanda=t4.idComanda and t1.id_cliente=t3.idTrabajador and t1.tipoCliente=5 and t3.idTrabajador=? and t1.estado="credito" and month(t2.fechaHoraApertura)=? and year(t2.fechaHoraApertura)=? group by t3.idTrabajador';
@@ -96,6 +98,16 @@ class Dcaja{
 		$result = $comunication->update(self::INS_MOV,$params,$PARAMS_INSERT);
 		
 		return $result;
+	}
+	public function insertmovcredito($dinero,$description,$categoria,$idempleado,$idencargado){
+	$comunication = new ComunicationRecep();
+	$name=$this->nameUser($idempleado);
+	$idMov=$this->insert_movimiento("credito",0,$name.": ".$description,$categoria,$idencargado);	
+	
+	    $params = array($idMov,$dinero,$idempleado);
+		$PARAMS_TYPES = array (ComunicationRecep::$TINT,ComunicationRecep::$TFLOAT,ComunicationRecep::$TINT);
+		$idcaja = $comunication->query(self::INS_MOV_CREDITO,$params,$PARAMS_TYPES);
+		
 	}
 	
 	public function nameUser($iduser){
@@ -268,6 +280,15 @@ class Dcaja{
 		$result = $comunication->query(self::USUARIOS_COMANDAS,$PARAMS,$PARAMS_TYPES);
 		return $result;
 	}
+	
+	public function get_usuarios_movimientos ($idusuario,$month,$year){
+		$comunication = new ComunicationRecep();
+		$PARAMS = array($idusuario,$month,$year);
+		$PARAMS_TYPES = array (ComunicationRecep::$TINT,ComunicationRecep::$TINT,ComunicationRecep::$TINT);
+		$result = $comunication->query(self::USUARIOS_MOV,$PARAMS,$PARAMS_TYPES);
+		return $result;
+	}
+
 	public function set_usuario($nombreEmpleado){
 		$comunication = new ComunicationRecep();
 		$PARAMS = array($nombreEmpleado);

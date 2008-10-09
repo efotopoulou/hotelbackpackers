@@ -32,7 +32,15 @@ $(document).ready(function(){
    loadusuarios(json);
    });
    
-  <?php
+ <?php
+$caja=new caja();
+$categoria=$caja-> get_categories();
+for($i=0;$i<count($categoria);$i++) {
+?>
+	$("#categoria").append("<option value='<?php echo($categoria[$i]->id_categoria); ?>'><?php echo($categoria[$i]->nombre); ?></option>");
+
+<?php }  
+  
   $anyos=new estadisticas();
   $year=$anyos->yearsCaja();
   for($i=0;$i<count($year);$i++) {
@@ -105,8 +113,22 @@ if (json.TicketsInfo){
         $("#ticketsTable").html(" ");
         alert("Este mes el usuario no ha consumido nada!");
         }
-        if (json.TotalTickets)  $(".total").html(json.TotalTickets);	
-	
+        
+        if (json.MovimientosInfo){
+  	  $("#movimientosTable").html(" ");
+      for(i=0;i<json.MovimientosInfo.length;i++) {
+     	idMov=json.MovimientosInfo[i].id_movimiento;
+        $("#movimientosTable").append("<tr id="+idMov+"><td class='checkbox' width=2%><input type='checkbox'  onclick='btncolor(\""+idMov+"\");'></td><td width=18%><h6>"+json.MovimientosInfo[i].fechaHora+"</h6></td><td width=8%><h6>"+json.MovimientosInfo[i].tipo+"</h6></td><td width=10%><h6>"+json.MovimientosInfo[i].dinero+"</h6></td><td><h6>"+json.MovimientosInfo[i].descripcion+"</h6></td><td><h6>"+json.MovimientosInfo[i].categoria+"</h6></td><td><h6>"+json.MovimientosInfo[i].encargado+"</h6></td></tr>");
+        
+        }
+        }else{
+        $("#movimientosTable").html(" ");
+        alert("Este mes el usuario no ha consumido nada!");
+        }
+        
+        
+        
+        if (json.TotalTickets)  $(".total").html(json.TotalTickets);
 }
 //-------------------------------------------DECIDIR SI VA A APARECER EL NUMCOMANDA-------------------------------------------------//
 function showid(numComanda){
@@ -184,6 +206,34 @@ var id_delete=$("#usuariosTable .amarillo").attr("id");
      });
   }
 }
+//--------------------------------------------------------INSERT MOVIMIENTO A CREDITO--------------------------------------------------------//
+function insertMovimiento(entrada,description,categoria){
+var idempleado=$("#usuariosTable .amarillo").attr("id");
+if (description && categoria){
+ if (parseFloat(entrada) && idempleado ) {
+  var dinero=parseFloat(entrada);
+  var description=description;
+  var categoria=categoria;
+  insertmovcredito(dinero,description,categoria,idempleado);
+ }else alert("Introduce correctamente el movimiento!Elige el empleado que te interesa!");
+} else  alert("Tienes que introducir una descripcion!");
+
+
+//vaciar los campos usados
+$("#input_money").val("");
+$("#description").val("");
+$("#categoria").val(1);
+}//--------------------------------------------------------CALL GESTION CAJA--------------------------------------------------------//
+function insertmovcredito(dinero,description,categoria,idempleado){
+  if(confirm('�Estas seguro que quieres realizar este credito?')){
+  var idencargado =$("#selUsers").val();
+  $.getJSONGuate("Presentacion/jsoncuentausuarios.php",{dinero:dinero,description:description,categoria:categoria,idempleado:idempleado,idencargado:idencargado}, function(json){
+     json = verificaJSON(json);
+     //loadPage(json);
+   });
+  alert("La caja esta informada sobre este moviemiento!");
+  }
+}
 </script>
 <body>
 <?php include($_SERVER['DOCUMENT_ROOT'] . '/common/Presentacion/menu.php'); ?>
@@ -233,7 +283,31 @@ var id_delete=$("#usuariosTable .amarillo").attr("id");
 	<div style="clear:both"></div> 
 	
 
-    
+    <div class="box_amarillo" style="margin-top:10px;margin-left:10px">
+		<div><span class="label"><b><h3>Anadir Credito:</h3></b></span>
+		<form name="cajaInSac">
+			<div class="row" align="left">
+      		<div style="width:120px;float:left;margin-top:10px"><span>Entrada:</span></div>
+      		<div style="margin-top:10px"><span><input id="input_money" name="inputmoney" type="text" size="25" value=""/></span></div>
+   			</div>
+   			<div class="row" align="left">
+      		<div style="width:120px;float:left;margin-top:10px"><span>categoria:</span></div>
+      		<div style="margin-top:10px"><span><select id="categoria"></select></span></div>
+   			</div>
+   			<div class="row" align="left">
+   				<div id="noreception">
+   				<div style="width:120px;float:left;margin-top:10px"><span>Description:</span></div>
+   				<textarea id="description" style="float:left;margin-top:10px"></textarea>
+   				
+   				<div style="clear:both"></div>
+      		    <div style="width:120px;float:left;margin-left:150px;margin-top:10px"><span><input type="button" value="Acceptar" id="accM" onClick="insertMovimiento(input_money.value,description.value,categoria.value)"/></span></div>
+   				</div>
+   				
+   			</div>
+   			<div style="clear:both"></div>
+		</form> 
+		</div>
+		</div>
 		
 </div>
 
@@ -243,7 +317,7 @@ var id_delete=$("#usuariosTable .amarillo").attr("id");
 	<table  width=97% cellpadding=0 cellspacing=1>
     <tr><td width=2%>&nbsp;</td><td width=5%><h6>ID</h6></td><td width=9%><h6><center>estado</center></h6></td><td width=25%><h6><center>Fecha Hora</center></h6></td><td width=6%><h6><h6>Total</h6></h6></td><td width=10%><h6>Cliente</h6></td><td><h6><center>Nombre de Cliente</center></h6></td></tr>
     </table>
-    <div style="height:30%;overflow:auto">
+    <div style="height:50%;overflow:auto">
     <table id="ticketsTable" width=97% cellpadding=0 cellspacing=1>
     </table>
     </div>
@@ -251,10 +325,10 @@ var id_delete=$("#usuariosTable .amarillo").attr("id");
    	
    	<h5 class="titulos">Movimientos a Credito realizados</h5>
 	<table  width=97% cellpadding=0 cellspacing=1>
-    <tr><td width=2%>&nbsp;</td><td width=5%><h6>ID</h6></td><td width=9%><h6><center>estado</center></h6></td><td width=25%><h6><center>Fecha Hora</center></h6></td><td width=6%><h6><h6>Total</h6></h6></td><td width=10%><h6>Cliente</h6></td><td><h6><center>Nombre de Cliente</center></h6></td></tr>
+    <tr><td width=18%><h6><center>Fecha Hora</center></h6></td><td width=8%><h6>tipo</h6></td><td width=7%><h6>dinero</h6></td><td><h6><center>descripcion</center></h6></td><td width=16%><h6>categoria</h6></td><td width=10%><h6>encargado</h6></td></tr>
     </table>
-    <div style="height:40%;overflow:auto">
-    <table id="ticketsTable" width=97% cellpadding=0 cellspacing=1>
+    <div style="height:20%;overflow:auto">
+    <table id="movimientosTable" width=97% cellpadding=0 cellspacing=1>
     </table>
     </div>
     <div class="row" align="left" style="height:10%;overflow:auto">
