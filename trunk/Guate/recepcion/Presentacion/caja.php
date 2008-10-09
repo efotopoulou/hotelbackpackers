@@ -232,7 +232,8 @@ function loadPage(json){
   	  
   	  $("#movimientosTable").html(" ");
       for(i=0;i<json.MovimientosInfo.length;i++) {
-        $("#movimientosTable").append("<tr><td width=18%><h6>"+json.MovimientosInfo[i].fechaHora+"</h6></td><td width=8%><h6>"+json.MovimientosInfo[i].tipo+"</h6></td><td width=7%><h6>"+json.MovimientosInfo[i].dinero+"</h6></td><td><h6>"+json.MovimientosInfo[i].descripcion+"</h6></td><td width=16%><h6>"+json.MovimientosInfo[i].categoria+"</h6></td><td width=10%><h6>"+json.MovimientosInfo[i].encargado+"</h6></td></tr>");		
+        idMov=json.MovimientosInfo[i].idmovimiento;
+        $("#movimientosTable").append("<tr id=M"+idMov+" onmousedown='changeClass(this.id)><td width=18%><h6>"+json.MovimientosInfo[i].fechaHora+"</h6></td><td width=8%><h6>"+json.MovimientosInfo[i].tipo+"</h6></td><td width=7%><h6>"+json.MovimientosInfo[i].dinero+"</h6></td><td><h6>"+json.MovimientosInfo[i].descripcion+"</h6></td><td width=16%><h6>"+json.MovimientosInfo[i].categoria+"</h6></td><td width=10%><h6>"+json.MovimientosInfo[i].encargado+"</h6></td></tr>");		
         }
         }
    if (json.TicketsInfo){
@@ -244,7 +245,7 @@ function loadPage(json){
         idCom=json.TicketsInfo[i].idComanda;
      	nombre = descripcion(json.TicketsInfo[i].free,json.TicketsInfo[i].nombre)
 
-        $("#ticketsTable").append("<tr id="+idCom+"><td class='checkbox' width=2%><input type='checkbox'  onmousedown='changeClass(\""+idCom+"\");'></td><td width=10%><h6>"+numComanda+"</h6></td><td width=8%><h6 class='estadoh6'>"+json.TicketsInfo[i].estado+"</h6></td><td width=17%><h6>"+json.TicketsInfo[i].fechaHora+"</h6></td><td width=6%><h6>"+json.TicketsInfo[i].total+"</h6></td><td width=8%><h6>"+json.TicketsInfo[i].efectivo+"</h6></td><td width=8%><h6>"+camb+"</h6></td><td width=10%><h6>"+json.TicketsInfo[i].tipoCliente+"</h6></td><td><h6>"+nombre+"</h6></td></tr>");
+        $("#ticketsTable").append("<tr id="+idCom+"><td class='checkbox' width=2%><input type='checkbox'  onclick='changeClass(\""+idCom+"\");'></td><td width=10%><h6>"+numComanda+"</h6></td><td width=8%><h6 class='estadoh6'>"+json.TicketsInfo[i].estado+"</h6></td><td width=17%><h6>"+json.TicketsInfo[i].fechaHora+"</h6></td><td width=6%><h6>"+json.TicketsInfo[i].total+"</h6></td><td width=8%><h6>"+json.TicketsInfo[i].efectivo+"</h6></td><td width=8%><h6>"+camb+"</h6></td><td width=10%><h6>"+json.TicketsInfo[i].tipoCliente+"</h6></td><td><h6>"+nombre+"</h6></td></tr>");
         $("#"+idCom+" td:not(.checkbox)").mousedown(function(e){
            showpedido(this.parentNode.id);
         });
