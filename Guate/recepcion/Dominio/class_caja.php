@@ -109,7 +109,11 @@ class caja{
 			$datos = new Dcaja();
 			$rs = $datos->insert_movimiento($tipo,$dinero,$descripcion,$categoria,$idencargado);
 		}
-		
+		function nameUser($iduser){
+		    $datos = new Dcaja();
+			$rs = $datos->nameUser($iduser);
+			return $rs;
+		}
 		function insert_venta_recepcion($idproducto,$cantity,$checked,$description,$idencargado){
 			$datos = new Dcaja();
 			$rs = $datos->insert_venta_recepcion($idproducto,$cantity,$checked,$description,$idencargado);

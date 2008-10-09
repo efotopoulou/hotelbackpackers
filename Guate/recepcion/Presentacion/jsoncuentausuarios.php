@@ -24,7 +24,8 @@ $a=0;
 foreach ($comandasList as $value){
  $a+=$caja->cobrar_ticket($value);
 }
-$caja->insert_movimiento("entrada",$a,"Cobrado Credito".nameUser($iduser),$categoria,$idencargado);
+$onoma=$caja->nameUser($iduser);
+$caja->insert_movimiento("entrada",$a,"Cobrado Credito ".$onoma,9,$iduser);
 $response = loadtickets($caja,$idusuario,$month,$year);	
 $totalTickets=$caja->total_cuenta($iduser,$month,$year);
 }else if($idusuario){	
