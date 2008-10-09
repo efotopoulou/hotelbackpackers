@@ -187,11 +187,10 @@ var id_delete=$("#usuariosTable .amarillo").attr("id");
 </script>
 <body>
 <?php include($_SERVER['DOCUMENT_ROOT'] . '/common/Presentacion/menu.php'); ?>
-<div id="principalesCj">
+<div id="principalesCj" style="width:39%" >
 	
-	<div class="box_amarillo" style="width:200px; margin-top:30px;margin-left:100px">
+	<div class="box_amarillo" style="width:50%; margin-top:5px;float:right">
 	<div><span class="label"><b><h3>Empleados:</h3></b></span>
-	<br><br>
 	  <div style="height:40%;overflow:auto">
       <table id="usuariosTable" width=97% cellpadding=0 cellspacing=1>
       </table>
@@ -199,10 +198,10 @@ var id_delete=$("#usuariosTable .amarillo").attr("id");
 	</div>
 	</div>
 	
-	<div class="box_amarillo" style="width:200px;margin-top:15px;margin-left:100px;">
-	<table style="margin-left:25px;"><tr>
-	<td class="green"><h6><center>Anos</center></h6><center><select id="years"></select></center></td>
-     <td class="green"><h6><center>Meses</center></h6>
+	<div class="box_amarillo" style="width:35%;margin-top:40px;float:left">
+	<table style="margin-left:20px;"><tr>
+	<td class="green"><h6><center>Anos</center></h6><center><select id="years"></select></center></td></tr>
+    <tr><td class="green"><h6><center>Meses</center></h6>
      <center><select id='month'>
      <option value='1'>Enero</option><option value='2'>Febrero</option><option value='3'>Marzo</option><option value='4'>Abril</option><option value='5'>Mayo</option><option value='6'>Junio</option><option value='7'>Julio</option><option value='8'>Agosto</option>	
 	 <option value='9'>Septiembre</option><option value='10'>Octubre</option><option value='11'>Noviembre</option><option value='12'>Diciembre</option>
@@ -210,8 +209,8 @@ var id_delete=$("#usuariosTable .amarillo").attr("id");
      </td>
      </tr></table>
 	</div>
-	
-	<div class="box_amarillo" style="width:200px; margin-top:15px;margin-left:100px">
+		
+	<div class="box_amarillo" style="width:35%; margin-top:15px;float:left">
 	 <div><span class="label"><b><h3>Gestion de Empleados:</h3></b></span>
 	     
 	     <div id="b5" style="float:left; margin-top:5px;">			
@@ -228,28 +227,42 @@ var id_delete=$("#usuariosTable .amarillo").attr("id");
 		       </div>
       </div>
 	
-	 <div style="clear:both"></div>
+	 <div style="clear:both"></div> 
 	 </div>
 	</div>
+	<div style="clear:both"></div> 
+	
+
+    
 		
 </div>
 
-<div id="secundarioesCj">
+<div id="secundarioesCj" style="width:60%">
 
-	<h5 class="titulos">Comandas realizadas</h5>
+	<h5 class="titulos">Comandas a Credito realizadas</h5>
 	<table  width=97% cellpadding=0 cellspacing=1>
     <tr><td width=2%>&nbsp;</td><td width=5%><h6>ID</h6></td><td width=9%><h6><center>estado</center></h6></td><td width=25%><h6><center>Fecha Hora</center></h6></td><td width=6%><h6><h6>Total</h6></h6></td><td width=10%><h6>Cliente</h6></td><td><h6><center>Nombre de Cliente</center></h6></td></tr>
     </table>
-    <div style="height:60%;overflow:auto">
+    <div style="height:30%;overflow:auto">
     <table id="ticketsTable" width=97% cellpadding=0 cellspacing=1>
     </table>
     </div>
-    <div class="row" align="left">
-      		<div style="width:120px;float:left;margin-top:20px;margin-left:300px"><span><h1>Total:</h1></span></div>
-      		<div style="margin-top:20px"><span class="total" style="font-weight:bold;font-size: 12pt">0</span></div>
-   	        <div style="width:120px;float:left;margin-top:20px;margin-left:300px;"><span><input type="button" value="Cobrar Tiquet" id="an" onClick="cobrarTicket();"/></span></div>
-     
+   	
+   	
+   	<h5 class="titulos">Movimientos a Credito realizados</h5>
+	<table  width=97% cellpadding=0 cellspacing=1>
+    <tr><td width=2%>&nbsp;</td><td width=5%><h6>ID</h6></td><td width=9%><h6><center>estado</center></h6></td><td width=25%><h6><center>Fecha Hora</center></h6></td><td width=6%><h6><h6>Total</h6></h6></td><td width=10%><h6>Cliente</h6></td><td><h6><center>Nombre de Cliente</center></h6></td></tr>
+    </table>
+    <div style="height:40%;overflow:auto">
+    <table id="ticketsTable" width=97% cellpadding=0 cellspacing=1>
+    </table>
+    </div>
+    <div class="row" align="left" style="height:10%;overflow:auto">
+      		<div style="width:120px;float:left;margin-left:100px"><span><h1>Total:</h1></span></div>
+      		<div><span class="total" style="font-weight:bold;font-size: 12pt">0</span><span style="margin-left:100px"><input type="button" value="Cobrar Tiquet" id="an" onClick="cobrarTicket();"/></span></div>
+   		<div style="clear:both"></div>
    	</div>
+   
 
 </div>
 <br/>
