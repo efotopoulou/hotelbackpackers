@@ -73,7 +73,7 @@ $id_caja=$caja->get_id_caja ();
 $movimientos=$caja->load_movimientos_old($id_caja);
  if ((sizeof($movimientos))>0){
 	  for($i=0;$i<count($movimientos);$i++) {
-	  $movimientoInfo[$i]=array("fechaHora"=>$movimientos[$i]->fechaHora,"tipo"=>$movimientos[$i]->tipo,"dinero"=>$movimientos[$i]->dinero,"descripcion"=>$movimientos[$i]->descripcion,"categoria"=>$movimientos[$i]->categoria,"encargado"=>$movimientos[$i]->encargado);
+	  $movimientoInfo[$i]=array("idmovimiento"=>$movimientos[$i]->id_movimiento,"fechaHora"=>$movimientos[$i]->fechaHora,"tipo"=>$movimientos[$i]->tipo,"dinero"=>$movimientos[$i]->dinero,"descripcion"=>$movimientos[$i]->descripcion,"categoria"=>$movimientos[$i]->categoria,"encargado"=>$movimientos[$i]->encargado);
 	  }
  }	
 $tikets=$caja->ld_tickets_old($id_caja);
