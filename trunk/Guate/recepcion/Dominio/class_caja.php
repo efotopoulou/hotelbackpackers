@@ -202,7 +202,7 @@ class caja{
 		$n=0;
 		while($rs->next()){
 		$result=$rs->getRow();
-		$ors[$n] = new CajaMovimiento($result["fechaHora"],$result["tipo"],$result["dinero"],$result["descripcion"],$result["categoria"],$result["encargado"]);
+		$ors[$n] = new CajaMovimiento($result["id_movimiento"],$result["fechaHora"],$result["tipo"],$result["dinero"],$result["descripcion"],$result["categoria"],$result["encargado"]);
 		$n++;					
 		}
     }else{
@@ -317,7 +317,7 @@ if ($rs->getRecordCount()>0){
 				$a=$result["total"];
 				}													
 		  }else{
-				$result=null;
+				$a="0";
 			}
 			return $a;	
 }

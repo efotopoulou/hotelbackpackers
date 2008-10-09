@@ -21,7 +21,7 @@ $response = loadusuarios($caja);
 $comandasList = split( ",",$comandas);
 $iduser = substr($idusuario, 1);
 foreach ($comandasList as $value){
- $a=$caja->cobrar_ticket($value);
+ $caja->cobrar_ticket($value);
 }	
 $response = loadtickets($caja,$idusuario,$month,$year);	
 $totalTickets=$caja->total_cuenta($iduser,$month,$year);
