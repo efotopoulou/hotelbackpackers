@@ -234,7 +234,7 @@ function loadPage(json){
       for(i=0;i<json.MovimientosInfo.length;i++) {
         idMov=json.MovimientosInfo[i].idmovimiento;
         $("#movimientosTable").append("<tr id=M"+idMov+"><td class='checkbox' width=2%><input type='checkbox'  onclick='changeClass(\"M"+idMov+"\");'></td><td width=18%><h6>"+json.MovimientosInfo[i].fechaHora+"</h6></td><td width=8%><h6>"+json.MovimientosInfo[i].tipo+"</h6></td><td width=7%><h6>"+json.MovimientosInfo[i].dinero+"</h6></td><td><h6>"+json.MovimientosInfo[i].descripcion+"</h6></td><td width=16%><h6>"+json.MovimientosInfo[i].categoria+"</h6></td><td width=10%><h6>"+json.MovimientosInfo[i].encargado+"</h6></td></tr>");
-        if(json.MovimientosInfo[i].tipo)$("#"+idMov).css({ textDecoration:"line-through"});		
+        if(json.MovimientosInfo[i].tipo=="anulado")$("#M"+idMov).css({ textDecoration:"line-through"});		
         }
         }
    if (json.TicketsInfo){
