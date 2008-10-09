@@ -233,7 +233,8 @@ function loadPage(json){
   	  $("#movimientosTable").html(" ");
       for(i=0;i<json.MovimientosInfo.length;i++) {
         idMov=json.MovimientosInfo[i].idmovimiento;
-        $("#movimientosTable").append("<tr id=M"+idMov+" onmousedown='changeClass(this.id)><td width=18%><h6>"+json.MovimientosInfo[i].fechaHora+"</h6></td><td width=8%><h6>"+json.MovimientosInfo[i].tipo+"</h6></td><td width=7%><h6>"+json.MovimientosInfo[i].dinero+"</h6></td><td><h6>"+json.MovimientosInfo[i].descripcion+"</h6></td><td width=16%><h6>"+json.MovimientosInfo[i].categoria+"</h6></td><td width=10%><h6>"+json.MovimientosInfo[i].encargado+"</h6></td></tr>");		
+        $("#movimientosTable").append("<tr id=M"+idMov+"><td class='checkbox' width=2%><input type='checkbox'  onclick='changeClass(\"M"+idMov+"\");'></td><td width=18%><h6>"+json.MovimientosInfo[i].fechaHora+"</h6></td><td width=8%><h6>"+json.MovimientosInfo[i].tipo+"</h6></td><td width=7%><h6>"+json.MovimientosInfo[i].dinero+"</h6></td><td><h6>"+json.MovimientosInfo[i].descripcion+"</h6></td><td width=16%><h6>"+json.MovimientosInfo[i].categoria+"</h6></td><td width=10%><h6>"+json.MovimientosInfo[i].encargado+"</h6></td></tr>");
+        if(json.MovimientosInfo[i].tipo)$("#"+idMov).css({ textDecoration:"line-through"});		
         }
         }
    if (json.TicketsInfo){
@@ -249,6 +250,7 @@ function loadPage(json){
         $("#"+idCom+" td:not(.checkbox)").mousedown(function(e){
            showpedido(this.parentNode.id);
         });
+         if(json.TicketsInfo[i].estado=="anulado")$("#"+idCom).css({ textDecoration:"line-through"});
          if (json.TicketsInfo[i].estado=="cobrado"){$("#"+json.TicketsInfo[i].idComanda).addClass("verde");}
         if (json.TicketsInfo[i].estado=="anulado"){$("#"+json.TicketsInfo[i].idComanda).addClass("redtext");}
          //if (json.TicketsInfo[i].estado=="facturado"){$("#"+json.TicketsInfo[i].idComanda).addClass("orange");}
@@ -318,24 +320,42 @@ function showpedido(id){
 //}
 //-------------------------------------------ANULAR TICKET-------------------------------------------------//
 function anularTicket(){
+ if(confirm('¿Estas seguro que quieres anular estos tiquets?')){
   var comandas;
-$("#ticketsTable .btnunpress").each(function (){
-  if (!comandas) comandas = this.id;
-  else comandas+=","+this.id;
-  changeClass(this.id);
-  if($("#"+this.id+" .estadoh6").html()=="anulado") alert("Este Tiquet ya esta anulado!");
-})
-  
-  var idComanda=$("#ticketsTable .btnunpress").attr("id");
+  $("#ticketsTable .btnunpress").each(function (){
+   var id = this.id;
+   if (!comandas) comandas = id;
+   else comandas+=","+id;
+   changeClass(id);
+  });
+
   if(comandas){ 
-	   if(confirm('Â¿Estas seguro que quieres anular este tiquet?')){
-        $.getJSONGuate("Presentacion/jsongestioncaja.php",{comandasAnuladas:comandas}, function(json){
-        json = verificaJSON(json);
-        loadPage(json);
-        });
-		}
-   }else alert("Por favor elige la comanda que desea anular!");	
+   $.getJSONGuate("Presentacion/jsongestioncaja.php",{comandasAnuladas:comandas}, function(json){
+    json = verificaJSON(json);
+    loadPage(json);
+   });
+  }else alert("Por favor elige la comanda que desea anular!");
+ }
 }
+//-------------------------------------------ANULAR MOVIMIENTO-------------------------------------------------//
+function anularMovimiento(){
+ if(confirm('¿Estas seguro que quieres anular estos tiquets?')){
+  var movimientos;
+  $("#movimientosTable .btnunpress").each(function (){
+   var id = this.id;
+   if (!movimientos) movimientos = id;
+   else movimientos+=","+id;
+   changeClass(id);
+  });
+  if(movimientos){ 
+   $.getJSONGuate("Presentacion/jsongestioncaja.php",{movimientosAnulados:movimientos}, function(json){
+    json = verificaJSON(json);
+    loadPage(json);
+   });
+  }else alert("Por favor elige el movimiento que desea anular!");
+ }
+}
+
 //-------------------------------------------FACTURAR TICKET-------------------------------------------------//
 //function facturar(){
 //  var idComanda=$("#ticketsTable .btnunpress").attr("id");
@@ -548,6 +568,7 @@ La caja se esta cerrando.Por favor espere.<br />
     <div style="height:40%;overflow:auto">
      <table id="movimientosTable" width=98% cellpadding=0 cellspacing=1></table>
     </div>
+    <div style="margin-left:60px;margin-top:5px;width:20%;float:left"><span><input type="button" value="Anular Movimiento" id="am" onClick="anularMovimiento();"/></span></div>
 </div>
 <br/>
 

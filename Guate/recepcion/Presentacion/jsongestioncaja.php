@@ -13,6 +13,7 @@ $categoria =  $_POST['categoria'];
 $idencargado =  $_POST['idencargado'];
 $idComanda = $_POST['idComanda'];
 $comandasAnuladas = $_POST['comandasAnuladas'];
+$movimientosAnulados = $_POST['movimientosAnulados'];
 $idComandafacturada = $_POST['idComandafacturada']; 
 $idComDetail = $_POST['idComDetail'];
 //parametros para informar el control de stock 
@@ -62,6 +63,12 @@ else if($comandasAnuladas){
   foreach ($idComandaAnuladaList as $value){
   $caja->anular_ticket($value);	
   }
+}else if($movimientosAnulados){
+ $idMovimientoAnuladaList = split( ",",$movimientosAnulados);
+   foreach ($idMovimientoAnuladaList as $value){
+   	$mov=substr($value,1);
+   	$caja->anular_movimiento($mov);
+   }
 }else if($idComandafacturada){
 $caja->facturar_ticket($idComandafacturada);		
 }
