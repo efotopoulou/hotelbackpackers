@@ -118,7 +118,7 @@ if (json.TicketsInfo){
   	  $("#movimientosTable").html(" ");
       for(i=0;i<json.MovimientosInfo.length;i++) {
      	idMov=json.MovimientosInfo[i].id_movimiento;
-        $("#movimientosTable").append("<tr id="+idMov+"><td class='checkbox' width=2%><input type='checkbox'  onclick='btncolor(\""+idMov+"\");'></td><td width=18%><h6>"+json.MovimientosInfo[i].fechaHora+"</h6></td><td width=8%><h6>"+json.MovimientosInfo[i].tipo+"</h6></td><td width=10%><h6>"+json.MovimientosInfo[i].dinero+"</h6></td><td><h6>"+json.MovimientosInfo[i].descripcion+"</h6></td><td><h6>"+json.MovimientosInfo[i].categoria+"</h6></td><td><h6>"+json.MovimientosInfo[i].encargado+"</h6></td></tr>");
+        $("#movimientosTable").append("<tr id="+idMov+"><td class='checkbox' width=2%><input type='checkbox'  onclick='btncolor(\""+idMov+"\");'></td><td width=18%><h6>"+json.MovimientosInfo[i].fechaHora+"</h6></td><td width=8%><h6>"+json.MovimientosInfo[i].tipo+"</h6></td><td width=10%><h6>"+json.MovimientosInfo[i].dinero+"</h6></td><td><h6>"+json.MovimientosInfo[i].descripcion+"</h6></td><td><h6>"+json.MovimientosInfo[i].categoria+"</h6></td><td width=10%><h6>"+json.MovimientosInfo[i].encargado+"</h6></td></tr>");
         
         }
         }else{
@@ -225,11 +225,13 @@ $("#description").val("");
 $("#categoria").val(1);
 }//--------------------------------------------------------CALL GESTION CAJA--------------------------------------------------------//
 function insertmovcredito(dinero,description,categoria,idempleado){
+  year = $("#years").val();
+  month = $("#month").val();
   if(confirm('�Estas seguro que quieres realizar este credito?')){
   var idencargado =$("#selUsers").val();
-  $.getJSONGuate("Presentacion/jsoncuentausuarios.php",{dinero:dinero,description:description,categoria:categoria,idempleado:idempleado,idencargado:idencargado}, function(json){
+  $.getJSONGuate("Presentacion/jsoncuentausuarios.php",{dinero:dinero,description:description,categoria:categoria,idempleado:idempleado,idencargado:idencargado,month:month,year:year}, function(json){
      json = verificaJSON(json);
-     //loadPage(json);
+     loadPage(json);
    });
   alert("La caja esta informada sobre este moviemiento!");
   }
@@ -325,7 +327,7 @@ function insertmovcredito(dinero,description,categoria,idempleado){
    	
    	<h5 class="titulos">Movimientos a Credito realizados</h5>
 	<table  width=97% cellpadding=0 cellspacing=1>
-    <tr><td width=18%><h6><center>Fecha Hora</center></h6></td><td width=8%><h6>tipo</h6></td><td width=7%><h6>dinero</h6></td><td><h6><center>descripcion</center></h6></td><td width=16%><h6>categoria</h6></td><td width=10%><h6>encargado</h6></td></tr>
+    <tr><td width=20%><h6><center>Fecha Hora</center></h6></td><td width=8%><h6>tipo</h6></td><td width=9%><h6>dinero</h6></td><td><h6><center>descripcion</center></h6></td><td width=14%><h6>categoria</h6></td><td width=10%><h6>encargado</h6></td></tr>
     </table>
     <div style="height:20%;overflow:auto">
     <table id="movimientosTable" width=97% cellpadding=0 cellspacing=1>

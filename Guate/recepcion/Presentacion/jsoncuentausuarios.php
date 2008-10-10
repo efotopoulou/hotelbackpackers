@@ -48,10 +48,13 @@ $totalTickets=$caja->total_cuenta($iduser,$month,$year);
 else if($nombreEmpleado){
 $caja->set_usuario($nombreEmpleado);
 $response = loadusuarios($caja);		
-}else if($categoria){
+}
+//insertar un nuevo movimiento como credito.en la caja y en la cuenta de usuarios
+else if($categoria){
 $idemp = substr($idempleado, 1);
 $caja->insertmovcredito($dinero,$description,$categoria,$idemp,$idencargado);
-$response = loadmovimientos($caja,$idusuario,$month,$year);	
+$response = loadtickets($caja,$idempleado,$month,$year);	
+$response+= loadmovimientos($caja,$idempleado,$month,$year);	
 }
 }catch (SQLException $e){
 	$aux = $e ->getNativeError();
