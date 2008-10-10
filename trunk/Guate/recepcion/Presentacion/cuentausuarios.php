@@ -111,7 +111,6 @@ if (json.TicketsInfo){
         }
         }else{
         $("#ticketsTable").html(" ");
-        alert("Este mes el usuario no ha consumido nada!");
         }
         
         if (json.MovimientosInfo){
@@ -123,10 +122,9 @@ if (json.TicketsInfo){
         }
         }else{
         $("#movimientosTable").html(" ");
-        alert("Este mes el usuario no ha consumido nada!");
         }
         
-        
+        if (!json.MovimientosInfo && !json.TicketsInfo) alert("Este mes el usuario no ha consumido nada!");
         
         if (json.TotalTickets)  $(".total").html(json.TotalTickets);
 }
