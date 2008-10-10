@@ -100,13 +100,13 @@ if (json.TicketsInfo){
   	  $("#ticketsTable").html(" ");
      for(i=0;i<json.TicketsInfo.length;i++) {
      	numComanda=showid(json.TicketsInfo[i].numComanda);
-     	idCom=json.TicketsInfo[i].idComanda;
+     	idCom="T"+json.TicketsInfo[i].idComanda;
         $("#ticketsTable").append("<tr id="+idCom+"><td class='checkbox' width=2%><input type='checkbox'  onclick='btncolor(\""+idCom+"\");'></td><td width=5%><h6>"+numComanda+"</h6></td><td width=9% class='estado'><h6 class='estadoh6'>"+json.TicketsInfo[i].estado+"</h6></td><td width=25%><h6>"+json.TicketsInfo[i].fechaHora+"</h6></td><td width=6%><h6>"+json.TicketsInfo[i].total+"</h6></td><td width=10%><h6>"+json.TicketsInfo[i].clientType+"</h6></td><td><h6>"+json.TicketsInfo[i].nombre+"</h6></td></tr>");
         $("#"+idCom+" td:not(.checkbox)").mousedown(function(e){
            showpedido(this.parentNode.id);
         });
-        if (json.TicketsInfo[i].estado=="cobrado"){$("#"+json.TicketsInfo[i].idComanda).addClass("verde");}
-        if (json.TicketsInfo[i].estado=="anulado"){$("#"+json.TicketsInfo[i].idComanda).addClass("redtext");}
+        if (json.TicketsInfo[i].estado=="cobrado"){$("#T"+json.TicketsInfo[i].idComanda).addClass("verde");}
+        if (json.TicketsInfo[i].estado=="anulado"){$("#T"+json.TicketsInfo[i].idComanda).addClass("redtext");}
         //alert(json.TicketsInfo[i].idComanda);		
         }
         }else{
@@ -117,7 +117,7 @@ if (json.TicketsInfo){
         if (json.MovimientosInfo){
   	  $("#movimientosTable").html(" ");
       for(i=0;i<json.MovimientosInfo.length;i++) {
-     	idMov=json.MovimientosInfo[i].id_movimiento;
+     	idMov="M"+json.MovimientosInfo[i].id_movimiento;
         $("#movimientosTable").append("<tr id="+idMov+"><td class='checkbox' width=2%><input type='checkbox'  onclick='btncolor(\""+idMov+"\");'></td><td width=18%><h6>"+json.MovimientosInfo[i].fechaHora+"</h6></td><td width=8%><h6>"+json.MovimientosInfo[i].tipo+"</h6></td><td width=10%><h6>"+json.MovimientosInfo[i].dinero+"</h6></td><td><h6>"+json.MovimientosInfo[i].descripcion+"</h6></td><td><h6>"+json.MovimientosInfo[i].categoria+"</h6></td><td width=10%><h6>"+json.MovimientosInfo[i].encargado+"</h6></td></tr>");
         
         }
@@ -140,7 +140,8 @@ function showpedido(id){
     if ($("#ticketsTable tr").hasClass("detail"+id)){
        	$(".detail"+id).remove();
     }else {
-	 $.getJSONGuate("Presentacion/jsongestioncaja.php",{idComDetail:id}, function(json){
+	 var idComDetail=id.substring(1);
+	 $.getJSONGuate("Presentacion/jsongestioncaja.php",{idComDetail:idComDetail}, function(json){
       json = verificaJSON(json);
       if (json.pedidosInfo){		
        for(i=0;i<json.pedidosInfo.length;i++) {
@@ -157,6 +158,7 @@ function cobrarTicket(){
 var comandas;
 var cobradas=false;
 $("#ticketsTable .amarillo").each(function (){
+  alert(this.id);
   if (!comandas) comandas = this.id;
   else comandas+=","+this.id;
   btncolor(this.id);
@@ -169,7 +171,8 @@ $("#ticketsTable .amarillo").each(function (){
    if(comandas){ 
      year = $("#years").val();
      month = $("#month").val();
-     $.getJSONGuate("Presentacion/jsoncuentausuarios.php",{comandas:comandas,idusuario:idusuario,year:year,month:month}, function(json){
+     var idencargado =$("#selUsers").val();
+     $.getJSONGuate("Presentacion/jsoncuentausuarios.php",{comandas:comandas,idusuario:idusuario,idencargado:idencargado,year:year,month:month}, function(json){
       json = verificaJSON(json);
       loadPage(json);
      });

@@ -29,10 +29,11 @@ $comandasList = split( ",",$comandas);
 $iduser = substr($idusuario, 1);
 $a=0;
 foreach ($comandasList as $value){
- $a+=$caja->cobrar_ticket($value);
+ $val= substr($value, 1);
+ $a+=$caja->cobrar_ticket($val);
 }
 $onoma=$caja->nameUser($iduser);
-$caja->insert_movimiento("entrada",$a,"Cobrado Credito ".$onoma,9,$iduser);
+$caja->insert_movimiento("entrada",$a,"Cobrado Credito ".$onoma,9,$idencargado);
 $response = loadtickets($caja,$idusuario,$month,$year);	
 $response+=loadmovimientos($caja,$idusuario,$month,$year);	
 $totalTickets=$caja->total_cuenta($iduser,$month,$year);
@@ -72,7 +73,8 @@ $iduser = substr($idusuario, 1);
 $tikets=$caja->get_usuarios_comandas($iduser,$month,$year);
 if ((sizeof($tikets))>0){
 	  for($i=0;$i<count($tikets);$i++) {
-	  $TicketsInfo[$i]=array("idComanda"=>$tikets[$i]->idComanda,"numComanda"=>$tikets[$i]->numComanda,"estado"=>$tikets[$i]->estado,"fechaHora"=>$tikets[$i]->fechaHora,"total"=>$tikets[$i]->total,"clientType"=>$tikets[$i]->clientType,"nombre"=>$tikets[$i]->nombre);
+	  if ($tikets[$i]->cobrado) $estado="cobrado"; else $estado="credito";
+	  $TicketsInfo[$i]=array("idComanda"=>$tikets[$i]->idComanda,"numComanda"=>$tikets[$i]->numComanda,"estado"=>$estado,"fechaHora"=>$tikets[$i]->fechaHora,"total"=>$tikets[$i]->total,"clientType"=>$tikets[$i]->clientType,"nombre"=>$tikets[$i]->nombre);
 	  }
  }	
  $response["TicketsInfo"]=$TicketsInfo;

@@ -315,7 +315,7 @@ $rs = $uc->get_usuarios_comandas ($idusuario,$month,$year);
 		$n=0;
 		while($rs->next()){
 		$result=$rs->getRow();
-		$ors[$n] =new usuariocomanda($result["idComanda"],$result["numComanda"],$result["estado"],$result["fechaHora"],$result["total"],$result["clientType"],$result["nombre"]);
+		$ors[$n] =new usuariocomanda($result["idComanda"],$result["numComanda"],$result["cobrado"],$result["fechaHora"],$result["total"],$result["clientType"],$result["nombre"]);
 		$n++;			
 		}
     }else{
