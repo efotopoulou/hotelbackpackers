@@ -1,8 +1,12 @@
 <?php
 require ($_SERVER['DOCUMENT_ROOT'] . '/recepcion/Dominio/class_caja.php');
 include ($_SERVER['DOCUMENT_ROOT'] . '/recepcion/Dominio/class_stock.php');
-?>
 
+$admin = "disabled='true'";
+if ($sesion){
+	if ($sesion->is_allowed('admin_menu')) $admin=" ";
+}
+?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -545,7 +549,9 @@ La caja se esta cerrando.Por favor espere.<br />
   <div style="height:5%;width:100%;overflow:auto">
     <div class="row" align="left">
      <!--<div style="margin-top:20px;margin-left:60px;float:left;width:20%"><span><input type="button" value="Cobrar Tiquet" id="cob" onClick="cobrarTicket();"/></span></div> -->
-     <div style="margin-left:60px;margin-top:5px;width:20%;float:left"><span><input type="button" value="Anular Tiquet" id="an" onClick="anularTicket();"/></span></div>
+     
+	     <div style="margin-left:60px;margin-top:5px;width:20%;float:left"><span><input <?php echo $admin ?> type="button" value="Anular Tiquet" id="an" onClick="anularTicket();"/></span></div>
+	     
      <!--<div style="margin-top:20px;width:20%;float:left"><span><input type="button" value="Facturar Tiquet" id="fact" onClick="facturar();"/></span></div> 
      <div style="margin-top:20px;width:20%;float:left"><span><a id="reporte" onClick="reportecaja('html');">Reporte Caja HTML</a></span></div>
      <div style="margin-top:20px;width:20%;float:left"><span><a id="reportexcel" onClick="reportecaja('excel');">Reporte Caja EXCEL</a></span></div>-->
@@ -568,7 +574,7 @@ La caja se esta cerrando.Por favor espere.<br />
     <div style="height:40%;overflow:auto">
      <table id="movimientosTable" width=98% cellpadding=0 cellspacing=1></table>
     </div>
-    <div style="margin-left:60px;margin-top:5px;width:20%;float:left"><span><input type="button" value="Anular Movimiento" id="am" onClick="anularMovimiento();"/></span></div>
+    <div style="margin-left:60px;margin-top:5px;width:20%;float:left"><span><input <?php echo $admin ?>  type="button" value="Anular Movimiento" id="am" onClick="anularMovimiento();"/></span></div>
 </div>
 <br/>
 

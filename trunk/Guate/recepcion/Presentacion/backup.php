@@ -1,7 +1,7 @@
 <?php
 // This code was created by phpMyBackupPro v.2.1 
 // http://www.phpMyBackupPro.net
-$_POST['db']=array("guate_bd", "recepcion_bd", );
+$_POST['db']=array("guate_bd", "recepcion_bd" );
 $_POST['tables']="on";
 $_POST['data']="on";
 $_POST['drop']="on";
