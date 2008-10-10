@@ -117,8 +117,13 @@ if (json.TicketsInfo){
   	  $("#movimientosTable").html(" ");
       for(i=0;i<json.MovimientosInfo.length;i++) {
      	idMov="M"+json.MovimientosInfo[i].id_movimiento;
-        $("#movimientosTable").append("<tr id="+idMov+"><td class='checkbox' width=2%><input type='checkbox'  onclick='btncolor(\""+idMov+"\");'></td><td width=18%><h6>"+json.MovimientosInfo[i].fechaHora+"</h6></td><td width=8%><h6>"+json.MovimientosInfo[i].tipo+"</h6></td><td width=10%><h6>"+json.MovimientosInfo[i].dinero+"</h6></td><td><h6>"+json.MovimientosInfo[i].descripcion+"</h6></td><td><h6>"+json.MovimientosInfo[i].categoria+"</h6></td><td width=10%><h6>"+json.MovimientosInfo[i].encargado+"</h6></td></tr>");
-        
+        $("#movimientosTable").append("<tr id="+idMov+"><td class='checkbox' width=2%><input type='checkbox'  onclick='btncolor(\""+idMov+"\");'></td><td width=18%><h6>"+json.MovimientosInfo[i].fechaHora+"</h6></td><td width=8%><h6 class='tipoh6'>"+json.MovimientosInfo[i].tipo+"</h6></td><td width=10%><h6>"+json.MovimientosInfo[i].dinero+"</h6></td><td><h6>"+json.MovimientosInfo[i].descripcion+"</h6></td><td><h6>"+json.MovimientosInfo[i].categoria+"</h6></td><td width=10%><h6>"+json.MovimientosInfo[i].encargado+"</h6></td></tr>");
+          if(json.MovimientosInfo[i].tipo=="anulado"){
+        	$("#"+idMov).css({ textDecoration:"line-through"});
+        	$("#"+idMov).addClass("redtext");
+          }	
+          if(json.MovimientosInfo[i].tipo=="cobrado") $("#"+idMov).addClass("verde");
+          	
         }
         }else{
         $("#movimientosTable").html(" ");
@@ -162,19 +167,27 @@ $("#ticketsTable .amarillo").each(function (){
   btncolor(this.id);
   if($("#"+this.id+" .estadoh6").html()=="cobrado") cobradas=true;
 })
+var movs;
+$("#movimientosTable .amarillo").each(function (){
+  alert(this.id);
+  if (!movs) movs = this.id;
+  else movs+=","+this.id;
+  btncolor(this.id);
+  if($("#"+this.id+" .tipoh6").html()=="cobrado") cobradas=true;
+})
 
- if (cobradas)alert("Algun ticket que has elegido esta ya cobrado!");
+ if (cobradas)alert("Algun ticket o movimiento que has elegido esta ya cobrado!");
  else {
   var idusuario=$("#usuariosTable .amarillo").attr("id");
-   if(comandas){ 
+   if(comandas || movs){ 
      year = $("#years").val();
      month = $("#month").val();
      var idencargado =$("#selUsers").val();
-     $.getJSONGuate("Presentacion/jsoncuentausuarios.php",{comandas:comandas,idusuario:idusuario,idencargado:idencargado,year:year,month:month}, function(json){
+     $.getJSONGuate("Presentacion/jsoncuentausuarios.php",{comandas:comandas,movs:movs,idusuario:idusuario,idencargado:idencargado,year:year,month:month}, function(json){
       json = verificaJSON(json);
       loadPage(json);
      });
-   }else alert("Por favor elige la comanda que desea cobrar!");
+   }else alert("Por favor elige la comanda o el movimiento que desea cobrar!");
   }
 }
 //------------------------------------------CHANGE DISPLAY--------------------------------------------------------//

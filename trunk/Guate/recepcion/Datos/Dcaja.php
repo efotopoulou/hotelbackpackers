@@ -15,8 +15,13 @@ class Dcaja{
 	const TOTAL_MONEY_MOV = 'SELECT t1.tipo,sum(t1.dinero) as suma from movimiento t1,caja t2 where t1.id_caja=t2.id_caja and t2.estado=1 group by tipo';
 	const TOTAL_TICKETS = 'SELECT sum(t1.total) as totalTickets from comanda t1,caja t2 where t1.id_caja=t2.id_caja and t2.estado=1 and t1.estado!="anulado" ';
 	const COBRAR_TICKET = 'UPDATE comandacredito SET cobrado=1 where idComanda=?';
+	const COBRAR_MOVIMENTO = 'UPDATE movimientocredito SET cobrado=1 where id_movimiento=?';
 	const ESTADO_COMANDA = 'select estado from comanda where idComanda=?';
+    const ESTADO_TIQUET = 'select estado from comanda where idComanda=?';
+	const DELETE_CREDITO_TIQUET = 'delete from comandacredito where idComanda=?';
 	const ANULAR_TICKET = 'UPDATE comanda SET estado="anulado" where idComanda=?';
+	const ESTADO_MOVIMIENTO = 'select tipo from movimiento where id_movimiento=?';
+	const DELETE_CREDITO = 'delete from movimientocredito where id_movimiento=?';
 	const ANULAR_MOVIMIENTO = 'UPDATE movimiento SET tipo="anulado" where id_movimiento=?';
 	const FACTURAR_TICKET = 'UPDATE comanda SET estado="facturado" where idComanda=?';
 	const FIND_CAJA = 'select id_caja,fechaHoraApertura,fechaHoraCierre,fondoInicial,EfectivoCerrar from caja where fechaHoraApertura <= ? and  fechaHoraApertura >= ?';
@@ -29,7 +34,7 @@ class Dcaja{
 	const ARE_TIKETS_COBRADOS = 'SELECT t1.idComanda from comanda t1,caja t2 where t1.id_caja=t2.id_caja and t2.estado=1 and (t1.estado="cerrado" or t1.estado="abierta")';
 	const GET_USUARIOS = 'select idTrabajador,nombre from trabajador';
 	const USUARIOS_COMANDAS = 'select t1.idComanda,t1.numComanda,t5.cobrado,t1.fechaHora,t5.total,t4.clientType,t3.nombre from comanda t1,caja t2,trabajador t3,tipocliente t4,comandacredito t5 where t1.id_caja=t2.id_caja and t1.id_cliente=t3.idTrabajador and t1.tipoCliente=5 and t1.tipoCliente=t4.idTipoCliente and t5.idComanda=t1.idComanda and t3.idTrabajador=? and month(t2.fechaHoraApertura)=? and year(t2.fechaHoraApertura)=?';
-	const USUARIOS_MOV = 'select t1.id_movimiento,t1.fechaHora,t1.tipo,t2.dinero,t1.descripcion,t4.nombre as categoria,t5.nombre as encargado from movimiento t1,movimientocredito t2,trabajador t3,categoria t4,guate_bd.usuario t5 where t1.id_movimiento=t2.id_movimiento and t3.idTrabajador=t2.id_usuario and t4.id_categoria=t1.id_categoria and t5.Id_usuario=t1.idencargado and t2.id_usuario=? and month(t1.fechaHora)=? and year(t1.fechaHora)=? order by t1.fechaHora desc';
+	const USUARIOS_MOV = 'select t1.id_movimiento,t1.fechaHora,t2.cobrado as tipo,t2.dinero,t1.descripcion,t4.nombre as categoria,t5.nombre as encargado from movimiento t1,movimientocredito t2,trabajador t3,categoria t4,guate_bd.usuario t5 where t1.id_movimiento=t2.id_movimiento and t3.idTrabajador=t2.id_usuario and t4.id_categoria=t1.id_categoria and t5.Id_usuario=t1.idencargado and t2.id_usuario=? and month(t1.fechaHora)=? and year(t1.fechaHora)=? order by t1.fechaHora desc';
 	const SET_USUARIO = 'INSERT INTO trabajador VALUES(0,?)';
 	//const USUARIOS_COMANDAS = 'select t1.idComanda,t1.idComanda as numComanda,t1.estado,t1.fechaHora,t1.total,t1.efectivo,t4.clientType,t3.nombre from comanda t1,caja t2, guate_bd.usuario t3,tipocliente t4 where t1.id_caja=t2.id_caja and t2.estado=0 and t1.id_cliente=t3.Id_usuario and t1.tipoCliente=2 and t1.tipoCliente=t4.idTipoCliente and t3.Id_usuario=? and month(t2.fechaHoraApertura)=? and year(t2.fechaHoraApertura)=? union select concat("B",t1.idComanda),concat("B",t1.numComanda),t1.estado,t1.fechaHora,t1.total,t1.efectivo,t4.clientType,t3.nombre from bar_bd.comanda t1,bar_bd.caja t2, guate_bd.usuario t3,bar_bd.tipocliente t4 where t1.id_caja=t2.id_caja and t2.estado=0 and t1.id_cliente=t3.Id_usuario and t1.tipoCliente=2 and t1.tipoCliente=t4.idTipoCliente and t3.Id_usuario=? and month(t2.fechaHoraApertura)=? and year(t2.fechaHoraApertura)=?';
 	const TOTAL_CUENTA = 'select sum(total) as total from(select sum(t4.total) as total from comanda t1,caja t2,trabajador t3,comandacredito t4 where t1.id_caja=t2.id_caja  and t1.idComanda=t4.idComanda and t1.id_cliente=t3.idTrabajador and t1.tipoCliente=5 and t3.idTrabajador=? and t4.cobrado=0 and month(t2.fechaHoraApertura)=? and year(t2.fechaHoraApertura)=? group by t3.idTrabajador union select sum(t1.dinero) as total from movimientocredito t1,movimiento t2 where t1.id_movimiento=t2.id_movimiento and t1.cobrado=0 and t1.id_usuario=? and month(t2.fechaHora)=? and year(t2.fechaHora)=?)as total';
@@ -38,6 +43,8 @@ class Dcaja{
 	const GET_MOV_CATEGORIES = 'select * from categoria where showcaja=1';
 	const GET_PRECIOS = 'select precioLimitado,precioNormal from bar_bd.bebida where idBebida=?';
 	const TOTAL_COMANDA_CREDITO = 'select total from comandacredito where idComanda=?';
+	const TOTAL_MOV_CREDITO ='select dinero from movimientocredito where id_movimiento=?';
+	
 	
 	public function is_caja_open (){
 		$comunication = new ComunicationRecep();
@@ -194,17 +201,59 @@ class Dcaja{
 		$result = $comunication->update(self::COBRAR_TICKET,$PARAMS,$PARAMS_TYPES);
 		return $a;
 	}
+	public function	cobrar_movimiento_credito($idmov){
+		$comunication = new ComunicationRecep();
+		$PARAMS = array($idmov);
+		$PARAMS_TYPES = array (ComunicationRecep::$TINT);
+		$estado = $comunication->query(self::TOTAL_MOV_CREDITO,$PARAMS,$PARAMS_TYPES);
+		if ($estado->getRecordCount()>0){
+			while($estado->next()){
+				$resulte=$estado->getRow();
+				$a=$resulte["dinero"];
+				}}		
+		$PARAMS = array($idmov);
+		$PARAMS_TYPES = array (ComunicationRecep::$TINT);
+		$result = $comunication->update(self::COBRAR_MOVIMENTO,$PARAMS,$PARAMS_TYPES);
+		return $a;
+		
+	}
 	public function anular_ticket ($idComanda){
 		$comunication = new ComunicationRecep();
 		$PARAMS = array($idComanda);
-		$PARAMS_TYPES = array (ComunicationRecep::$TSTRING);
-		$result = $comunication->update(self::ANULAR_TICKET,$PARAMS,$PARAMS_TYPES);
+		$PARAMS_TYPES = array (ComunicationRecep::$TINT);
+		$result = $comunication->query(self::ESTADO_TIQUET,$PARAMS,$PARAMS_TYPES);
+		if ($result->getRecordCount()>0){
+			while($result->next()){
+				$resulte=$result->getRow();
+				$a=$resulte["estado"];
+				}}		
+		if ($a=="credito"){
+		$PARAMS = array($idComanda);
+		$PARAMS_TYPES = array (ComunicationRecep::$TINT);
+		$comunication->update(self::DELETE_CREDITO_TIQUET,$PARAMS,$PARAMS_TYPES);	
+		}
+		$PARAMS = array($idComanda);
+		$PARAMS_TYPES = array (ComunicationRecep::$TINT);
+		$rs = $comunication->update(self::ANULAR_TICKET,$PARAMS,$PARAMS_TYPES);
 		
-		return $result;
+		return $rs;
 	
 	}
 	public function anular_movimiento ($idMovimiento){
 		$comunication = new ComunicationRecep();
+		$PARAMS = array($idMovimiento);
+		$PARAMS_TYPES = array (ComunicationRecep::$TINT);
+		$result = $comunication->query(self::ESTADO_MOVIMIENTO,$PARAMS,$PARAMS_TYPES);
+		if ($result->getRecordCount()>0){
+			while($result->next()){
+				$resulte=$result->getRow();
+				$a=$resulte["tipo"];
+				}}		
+		if ($a=="credito"){
+		$PARAMS = array($idMovimiento);
+		$PARAMS_TYPES = array (ComunicationRecep::$TINT);
+		$comunication->update(self::DELETE_CREDITO,$PARAMS,$PARAMS_TYPES);	
+		}
 		$PARAMS = array($idMovimiento);
 		$PARAMS_TYPES = array (ComunicationRecep::$TINT);
 		$result = $comunication->update(self::ANULAR_MOVIMIENTO,$PARAMS,$PARAMS_TYPES);
