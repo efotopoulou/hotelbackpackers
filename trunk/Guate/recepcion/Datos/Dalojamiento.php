@@ -6,7 +6,7 @@ class Dalojamiento{
 	
 	const SELECT_CHECKIN = 'select t1.importe_pagado,t3.nombre,t3.apellido1,t3.apellido2,(DATEDIFF(date(t2.fec_fin),date(t2.fec_ini))+1) as noches,t5.descripcion from guate_bd.checkin t1,guate_bd.reserva t2,guate_bd.cliente t3,guate_bd.alojamiento t4,guate_bd.alojamiento_tipo t5 where t1.Id_res=t2.Id_res and t1.Id_checkin=? and t2.Id_cliente=t3.Id_cliente  and t2.Id_aloj=t4.Id_aloj and t4.Id_tipo=t5.Id_tipo';
 	const GET_ID_CAJA = 'select id_caja from caja where estado=1';
-	const INS_MOV = 'INSERT INTO movimiento VALUES(NOW(),?,?,?,?,?,?)';
+	const INS_MOV = 'INSERT INTO movimiento VALUES(0,NOW(),?,?,?,?,?,?)';
 	const ERROR = 'INSERT INTO error VALUES(?,2,NOW())';
 	
 	function insert_checkinmov($idcheck,$idencargado){
