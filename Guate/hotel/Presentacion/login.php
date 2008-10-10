@@ -19,7 +19,7 @@ if($_POST!=null){
 	if($sesion->validar_perfil($id_perfil, $pass)){		
 		$sesion->set_id_usuario($id);
 		if($ser=="Restaurante") $onload="Restaurante/Presentacion/view.php?page=tpv";
-		if($ser=="Bar") $onload="bar/Presentacion/view.php?page=tpv";
+		if($ser=="Backup") $onload="/common/phpMyBackupPro/";
 		$redir=true;
 		
 		$log=new log();
@@ -92,8 +92,8 @@ else{
 			
 			<tr><td colspan=2>
 			 <input type="button" value="Hotel" onClick="formsubmit(this.value)"/>
-			 <input type="button" style="margin-left:30px" value="Restaurante" onClick="formsubmit(this.value)"/>
-			 <input type="button" style="margin-left:30px" value="Bar" onClick="formsubmit(this.value)"/></td>
+			 <input type="button" style="margin-left:30px" value="Rest." onClick="formsubmit(this.value)"/>
+			 <input type="button" style="margin-left:30px" value="Backup" onClick="formsubmit(this.value)"/></td>
 			</tr>
 		</table>
 		<input id="id_usr" name="id_usr" type="hidden"  value="<?php echo $id ?>"/>
