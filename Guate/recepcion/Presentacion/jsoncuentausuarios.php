@@ -8,6 +8,7 @@ $idusuario = $_POST['idusuario'];
 $year = $_POST['year'];
 $month = $_POST['month'];
 $comandas = $_POST['comandas'];
+$movs = $_POST['movs'];
 $nombreEmpleado = $_POST['nombreEmpleado'];
 $dinero=$_POST['dinero'];
 $description=$_POST['description'];
@@ -24,13 +25,18 @@ if ($usuario){
 $response = loadusuarios($caja);	
 }
 //cobrar un tiquet.despues lo insertamos como movumiento en la caja.despues cargamos los tiquets y los movimientos
-else if($comandas && $idusuario){
-$comandasList = split( ",",$comandas);
+else if($comandas || $movs){
 $iduser = substr($idusuario, 1);
+$comandasList = split( ",",$comandas);
 $a=0;
 foreach ($comandasList as $value){
  $val= substr($value, 1);
  $a+=$caja->cobrar_ticket($val);
+}
+$movsList = split( ",",$movs);
+foreach ($movsList as $value){
+ $val= substr($value, 1);
+ $a+=$caja->cobrar_movimiento_credito($val);
 }
 $onoma=$caja->nameUser($iduser);
 $caja->insert_movimiento("entrada",$a,"Cobrado Credito ".$onoma,9,$idencargado);
@@ -55,7 +61,8 @@ else if($categoria){
 $idemp = substr($idempleado, 1);
 $caja->insertmovcredito($dinero,$description,$categoria,$idemp,$idencargado);
 $response = loadtickets($caja,$idempleado,$month,$year);	
-$response+= loadmovimientos($caja,$idempleado,$month,$year);	
+$response+= loadmovimientos($caja,$idempleado,$month,$year);
+$totalTickets=$caja->total_cuenta($idemp,$month,$year);	
 }
 }catch (SQLException $e){
 	$aux = $e ->getNativeError();
@@ -85,7 +92,8 @@ $iduser = substr($idusuario, 1);
 $movimientos=$caja->get_usuarios_movimientos($iduser,$month,$year);
 if ((sizeof($movimientos))>0){
 	  for($i=0;$i<count($movimientos);$i++) {
-	  $MovimientosInfo[$i]=array("id_movimiento"=>$movimientos[$i]->id_movimiento,"fechaHora"=>$movimientos[$i]->fechaHora,"tipo"=>$movimientos[$i]->tipo,"dinero"=>$movimientos[$i]->dinero,"descripcion"=>$movimientos[$i]->descripcion,"categoria"=>$movimientos[$i]->categoria,"encargado"=>$movimientos[$i]->encargado);
+	  if ($movimientos[$i]->tipo) $tipo="cobrado"; else $tipo="credito";
+	  $MovimientosInfo[$i]=array("id_movimiento"=>$movimientos[$i]->id_movimiento,"fechaHora"=>$movimientos[$i]->fechaHora,"tipo"=>$tipo,"dinero"=>$movimientos[$i]->dinero,"descripcion"=>$movimientos[$i]->descripcion,"categoria"=>$movimientos[$i]->categoria,"encargado"=>$movimientos[$i]->encargado);
 	  }
  }	
  $response["MovimientosInfo"]=$MovimientosInfo;

@@ -238,9 +238,12 @@ function loadPage(json){
       for(i=0;i<json.MovimientosInfo.length;i++) {
         idMov=json.MovimientosInfo[i].idmovimiento;
         $("#movimientosTable").append("<tr id=M"+idMov+"><td class='checkbox' width=2%><input type='checkbox'  onclick='changeClass(\"M"+idMov+"\");'></td><td width=18%><h6>"+json.MovimientosInfo[i].fechaHora+"</h6></td><td width=8%><h6>"+json.MovimientosInfo[i].tipo+"</h6></td><td width=7%><h6>"+json.MovimientosInfo[i].dinero+"</h6></td><td><h6>"+json.MovimientosInfo[i].descripcion+"</h6></td><td width=16%><h6>"+json.MovimientosInfo[i].categoria+"</h6></td><td width=10%><h6>"+json.MovimientosInfo[i].encargado+"</h6></td></tr>");
-        if(json.MovimientosInfo[i].tipo=="anulado")$("#M"+idMov).css({ textDecoration:"line-through"});		
-        }
-        }
+        if(json.MovimientosInfo[i].tipo=="anulado"){
+        	$("#M"+idMov).css({ textDecoration:"line-through"});
+        	$("#M"+idMov).addClass("redtext");
+        }		
+      }
+  }
    if (json.TicketsInfo){
   	  var aux="";
   	  $("#ticketsTable").html(" ");
@@ -571,7 +574,7 @@ La caja se esta cerrando.Por favor espere.<br />
      <table  width=96% cellpadding=0 cellspacing=1>
       <tr><td width=18%><h6><center>Fecha Hora</center></h6></td><td width=8%><h6>tipo</h6></td><td width=7%><h6>dinero</h6></td><td><h6><center>descripcion</center></h6></td><td width=16%><h6>categoria</h6></td><td width=10%><h6>encargado</h6></td></tr>
      </table>
-    <div style="height:40%;overflow:auto">
+    <div style="height:35%;overflow:auto">
      <table id="movimientosTable" width=98% cellpadding=0 cellspacing=1></table>
     </div>
     <div style="margin-left:60px;margin-top:5px;width:20%;float:left"><span><input <?php echo $admin ?>  type="button" value="Anular Movimiento" id="am" onClick="anularMovimiento();"/></span></div>
