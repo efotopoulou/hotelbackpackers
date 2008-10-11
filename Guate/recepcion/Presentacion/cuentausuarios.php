@@ -80,7 +80,7 @@ function loadusuarios(json){
 	if (json.UsuariosInfo){
   	$("#usuariosTable").html(" ");
         for(i=0;i<json.UsuariosInfo.length;i++) {
-        $("#usuariosTable").append("<tr id=T"+json.UsuariosInfo[i].idTrabajador+" onmousedown='changeClassUsuario(this.id);loadcuenta(this.id);'><td><h4><center>"+json.UsuariosInfo[i].nombre+"</center></h4></td></tr>");		
+        $("#usuariosTable").append("<tr id=T"+json.UsuariosInfo[i].idTrabajador+" onmousedown='changeClassUsuario(this.id);loadcuenta(this.id);'><td><h4><center class='onomataki'>"+json.UsuariosInfo[i].nombre+"</center></h4></td></tr>");		
         $("#T"+json.UsuariosInfo[i].idTrabajador).addClass("green");
         }
      }
@@ -237,7 +237,8 @@ if (description && categoria){
 $("#input_money").val("");
 $("#description").val("");
 $("#categoria").val(1);
-}//--------------------------------------------------------CALL GESTION CAJA--------------------------------------------------------//
+}
+//--------------------------------------------------------CALL GESTION CAJA--------------------------------------------------------//
 function insertmovcredito(dinero,description,categoria,idempleado){
   year = $("#years").val();
   month = $("#month").val();
@@ -249,6 +250,14 @@ function insertmovcredito(dinero,description,categoria,idempleado){
    });
   alert("La caja esta informada sobre este moviemiento!");
   }
+}
+//--------------------------------------------------------IMPRIMIR CUENTA--------------------------------------------------------//
+function imprimircuenta(){
+    years =$("#years").val();
+	month =$("#month option:selected").html();
+	nameempleado=$("#usuariosTable .amarillo .onomataki").html();
+	alert(nameempleado);
+    document.location="Presentacion/imprimircuenta.php?month="+month+"&years="+years;
 }
 </script>
 <body>
@@ -349,7 +358,10 @@ function insertmovcredito(dinero,description,categoria,idempleado){
     </div>
     <div class="row" align="left" style="height:10%;overflow:auto">
       		<div style="width:120px;float:left;margin-left:100px"><span><h1>Total:</h1></span></div>
-      		<div><span class="total" style="font-weight:bold;font-size: 12pt">0</span><span style="margin-left:100px"><input type="button" value="Cobrar Tiquet" id="an" onClick="cobrarTicket();"/></span></div>
+      		<div><span class="total" style="font-weight:bold;font-size: 12pt">0</span>
+      		<span style="margin-left:100px"><input type="button" value="Cobrar" id="an" onClick="cobrarTicket();"/></span>
+      		<span style="margin-left:50px"><input type="button" value="Imprimir Cuenta" id="an" onClick="imprimircuenta();"/></span>
+      		</div>
    		<div style="clear:both"></div>
    	</div>
    

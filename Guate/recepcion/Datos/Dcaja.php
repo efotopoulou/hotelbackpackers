@@ -11,6 +11,7 @@ class Dcaja{
 	const CLOSE_CAJA = 'UPDATE caja SET estado=0,fechaHoraCierre=NOW(), EfectivoCerrar=? where caja.estado=1';
 	const INS_MOV = 'INSERT INTO movimiento VALUES(0,NOW(),?,?,?,?,?,?)';
 	const NAME_USER = 'select nombre from trabajador where idTrabajador=?';
+	const NAME_ENCARGADO = 'select nombre from guate_bd.usuario where Id_usuario=?';
 	const INS_MOV_CREDITO = 'INSERT INTO movimientocredito VALUES(?,?,?,0)';
 	const TOTAL_MONEY_MOV = 'SELECT t1.tipo,sum(t1.dinero) as suma from movimiento t1,caja t2 where t1.id_caja=t2.id_caja and t2.estado=1 group by tipo';
 	const TOTAL_TICKETS = 'SELECT sum(t1.total) as totalTickets from comanda t1,caja t2 where t1.id_caja=t2.id_caja and t2.estado=1 and t1.estado!="anulado" ';
@@ -130,6 +131,20 @@ class Dcaja{
 				}}
 		return $a;	
 	}
+	
+	public function nameEncargado($iduser){
+	    $comunication = new ComunicationRecep();
+		$params = array($iduser);
+		$PARAMS_TYPES = array (ComunicationRecep::$TINT);
+		$name = $comunication->query(self::NAME_ENCARGADO,$params,$PARAMS_TYPES);
+		if ($name->getRecordCount()>0){
+			while($name->next()){
+				$resultc=$name->getRow();
+				$a=$resultc["nombre"];
+				}}
+		return $a;	
+	}
+	
 	
 	public function insert_venta_recepcion($idproducto,$cantity,$checked,$description,$idencargado){
 		$comunication = new ComunicationRecep();

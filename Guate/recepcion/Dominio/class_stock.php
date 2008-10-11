@@ -71,7 +71,7 @@ class stock{
 	       $n=0;
 	     while($rs->next()){
 		$result=$rs->getRow();
-		$ors[$n] = new VentaTurno($result["numBebida"],$result["nombre"],$result["suma"],$result["clientType"]);
+		$ors[$n] = new VentaTurno($result["numBebida"],$result["nombre"],$result["suma"]);
 		$n++;
 		}														
         }else{

@@ -47,6 +47,8 @@ $objPHPExcel->getProperties()->setTitle("Caja report");
 
 $turno =  $_GET['turno'];
 $encargado =  $_GET['encargado'];
+//$caja=new caja();
+//$nombre = $caja->nameEncargado($encargado);
 
 // Set fonts
 $objPHPExcel->getActiveSheet()->getStyle('A1')->getFont()->setSize(20);

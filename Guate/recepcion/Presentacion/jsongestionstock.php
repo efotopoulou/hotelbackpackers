@@ -32,7 +32,7 @@ $response["recuperarVentas"]=$rvc;
 $ventas=$stock->venta_turno();
   if ((sizeof($ventas))>0){
 	  for($i=0;$i<count($ventas);$i++) {
-	  $ventasInfo[$i]=array("numBebida"=>$ventas[$i]->numBebida,"nombre"=>$ventas[$i]->nombre,"suma"=>$ventas[$i]->suma, "clientType"=>$ventas[$i]->clientType);
+	  $ventasInfo[$i]=array("numBebida"=>$ventas[$i]->numBebida,"nombre"=>$ventas[$i]->nombre,"suma"=>$ventas[$i]->suma);
 	  }
    }
 }else if($recuperarventa){

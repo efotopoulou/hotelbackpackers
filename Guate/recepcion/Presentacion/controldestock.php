@@ -132,9 +132,9 @@ function ventadeturno(){
     if (json.recuperarVentas==1) $("#rlv").attr({disabled:true});
     if (json.ventasInfo){
   	   $("#VentasTable").html(" ");
-  	   $("#VentasTable").append("<tr><td width=20%><h5>id</h5></td><td><h5>nombre</h5></td><td width=20%><h5>cant.</h5></td><td width=20%><h5>tipo</h5></td></tr>");	
+  	   $("#VentasTable").append("<tr><td width=20%><h5>id</h5></td><td><h5>nombre</h5></td><td width=20%><h5>cant.</h5></td></tr>");	
        for(i=0;i<json.ventasInfo.length;i++) {
-        $("#VentasTable").append("<tr><td width=20%><h6>"+json.ventasInfo[i].numBebida+"</h6></td><td><h6>"+json.ventasInfo[i].nombre+"</h6></td><td width=20%><h6>"+json.ventasInfo[i].suma+"</h6></td><td width=20%><h6>"+json.ventasInfo[i].clientType+"</h6></td></tr>");	
+        $("#VentasTable").append("<tr><td width=20%><h6>"+json.ventasInfo[i].numBebida+"</h6></td><td><h6>"+json.ventasInfo[i].nombre+"</h6></td><td width=20%><h6>"+json.ventasInfo[i].suma+"</h6></td></tr>");	
         }
     }
   });
