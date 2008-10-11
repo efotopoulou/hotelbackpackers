@@ -131,14 +131,14 @@ function insertMovimiento(entrada,salida,description,categoria){
 if (description && categoria){
  if (parseFloat(entrada)) {
   var tipo="entrada";
-  var dinero=parseFloat(entrada);
+  var dinero=redondea(entrada);
   var description=description;
   var categoria=categoria;
   callGestionCaja(tipo,dinero,description,categoria);
  }
  else if (parseFloat(salida)){
   var tipo="salida";
-  var dinero=parseFloat(salida);
+  var dinero=redondea(salida);
   var description=description;
   var categoria=categoria;
   callGestionCaja(tipo,dinero,description,categoria);
@@ -192,8 +192,8 @@ function callGestionCaja(tipo,dinero,description,categoria){
   var idencargado =$("#selUsers").val();
   $.getJSONGuate("Presentacion/jsongestioncaja.php",{tipo:tipo,dinero:dinero,description:description,categoria:categoria,idencargado:idencargado}, function(json){
      json = verificaJSON(json);
-     $(".entrymov").html(json.TotalEntradas);
-     $(".exitmov").html(json.TotalSalidas); 
+     $(".entrymov").html(redondea(json.TotalEntradas));
+     $(".exitmov").html(redondea(json.TotalSalidas)); 
      supuestoEfectivo();
      loadPage(json);
    });
@@ -212,7 +212,7 @@ function supuestoEfectivo(){
 	if($(".exitmov").html()) totalSalidas=parseFloat($(".exitmov").html());
 	if($(".totalTickets").html()) totalTickets=parseFloat($(".totalTickets").html());
 	 
-	var supEfectivo =(fondo+totalEntradas+totalTickets-totalSalidas);
+	var supEfectivo =redondea(fondo+totalEntradas+totalTickets-totalSalidas);
 	$(".supEfectivo").html(supEfectivo);
 	aux = $(".totalTickets").html();
 }
@@ -225,8 +225,8 @@ function recargaEstadoCaja(){
 }
 //-------------------------------------------LOAD PAGE----------------------------------------------------------//
 function loadPage(json){
- $(".entrymov").html(json.TotalEntradas);
- $(".exitmov").html(json.TotalSalidas); 
+ $(".entrymov").html(redondea(json.TotalEntradas));
+ $(".exitmov").html(redondea(json.TotalSalidas)); 
  var totTickets=redondea(json.TotalTickets);
  $(".totalTickets").html(totTickets);    
      
@@ -237,7 +237,7 @@ function loadPage(json){
   	  $("#movimientosTable").html(" ");
       for(i=0;i<json.MovimientosInfo.length;i++) {
         idMov=json.MovimientosInfo[i].idmovimiento;
-        $("#movimientosTable").append("<tr id=M"+idMov+"><td class='checkbox' width=2%><input type='checkbox'  onclick='changeClass(\"M"+idMov+"\");'></td><td width=18%><h6>"+json.MovimientosInfo[i].fechaHora+"</h6></td><td width=8%><h6>"+json.MovimientosInfo[i].tipo+"</h6></td><td width=7%><h6>"+json.MovimientosInfo[i].dinero+"</h6></td><td><h6>"+json.MovimientosInfo[i].descripcion+"</h6></td><td width=16%><h6>"+json.MovimientosInfo[i].categoria+"</h6></td><td width=10%><h6>"+json.MovimientosInfo[i].encargado+"</h6></td></tr>");
+        $("#movimientosTable").append("<tr id=M"+idMov+"><td class='checkbox' width=2%><input type='checkbox'  onclick='changeClass(\"M"+idMov+"\");'></td><td width=18%><h6>"+json.MovimientosInfo[i].fechaHora+"</h6></td><td width=8%><h6>"+json.MovimientosInfo[i].tipo+"</h6></td><td width=8%><h6>"+json.MovimientosInfo[i].dinero+"</h6></td><td><h6>"+json.MovimientosInfo[i].descripcion+"</h6></td><td width=16%><h6>"+json.MovimientosInfo[i].categoria+"</h6></td><td width=10%><h6>"+json.MovimientosInfo[i].encargado+"</h6></td></tr>");
         if(json.MovimientosInfo[i].tipo=="anulado"){
         	$("#M"+idMov).css({ textDecoration:"line-through"});
         	$("#M"+idMov).addClass("redtext");
@@ -259,9 +259,7 @@ function loadPage(json){
         });
          if(json.TicketsInfo[i].estado=="anulado")$("#"+idCom).css({ textDecoration:"line-through"});
          if (json.TicketsInfo[i].estado=="cobrado"){$("#"+json.TicketsInfo[i].idComanda).addClass("verde");}
-        if (json.TicketsInfo[i].estado=="anulado"){$("#"+json.TicketsInfo[i].idComanda).addClass("redtext");}
-         //if (json.TicketsInfo[i].estado=="facturado"){$("#"+json.TicketsInfo[i].idComanda).addClass("orange");}
-        //alert(json.TicketsInfo[i].idComanda);		
+        if (json.TicketsInfo[i].estado=="anulado"){$("#"+json.TicketsInfo[i].idComanda).addClass("redtext");}	
        }
    }	
 }
@@ -397,7 +395,7 @@ $("#efectivo_cerrar,#input_money,#output_money,#categoria,#description,#cob,#an,
 //-------------------------------------------REPORTE CAJA (HTML - EXCEL)-------------------------------------------------//
 function reportecaja(type){
 	turno =$("#turno").val();
-	user =$("#selUsers").val();
+	user =$("#selUsers option:selected").html();
    if(type=="html") document.location="Presentacion/reportehtml.php?turno="+turno+"&encargado="+user;
    if(type=="excel") document.location="Presentacion/reportexcel.php?turno="+turno+"&encargado="+user;
 }
@@ -572,7 +570,7 @@ La caja se esta cerrando.Por favor espere.<br />
 
      <h5 class="titulos">Movimientos realizados</h5>
      <table  width=96% cellpadding=0 cellspacing=1>
-      <tr><td width=18%><h6><center>Fecha Hora</center></h6></td><td width=8%><h6>tipo</h6></td><td width=7%><h6>dinero</h6></td><td><h6><center>descripcion</center></h6></td><td width=16%><h6>categoria</h6></td><td width=10%><h6>encargado</h6></td></tr>
+      <tr><td width=2%>&nbsp;</td><td width=18%><h6><center>Fecha Hora</center></h6></td><td width=8%><h6>tipo</h6></td><td width=8%><h6>dinero</h6></td><td><h6><center>descripcion</center></h6></td><td width=16%><h6>categoria</h6></td><td width=10%><h6>encargado</h6></td></tr>
      </table>
     <div style="height:35%;overflow:auto">
      <table id="movimientosTable" width=98% cellpadding=0 cellspacing=1></table>

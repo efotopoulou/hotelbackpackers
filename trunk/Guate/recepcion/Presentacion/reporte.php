@@ -20,10 +20,14 @@ $movimientos=$reporte->get_resumen($id_caja);
 	   $categorias[$movimientos[$i]->categoria][$movimientos[$i]->tipo]=$movimientos[$i]->suma;
 	   $totales[$movimientos[$i]->tipo]+=$movimientos[$i]->suma;
 	   }
-	   $categorias["Adicion Bar Restaurante"]["entrada"]=$totalTickets;
+	   $categorias["Venta en recepcion"]["salida"]=$categorias["Venta en recepcion"]["entrada"];
+	   //porque el dinero de la venta de recepcion entra y sale de la caja
+	   $totales["salida"]+=$categorias["Venta en recepcion"]["entrada"];
 	   $totales["entrada"]+=$totalTickets;
 	   
-  }else $categorias["Adicion Bar Restaurante"]["entrada"]=$totalTickets;
+  }
+  
+   $categorias["Adicion Bar Restaurante"]["entrada"]=$totalTickets;
   	
 $reportmov=$reporte->get_reporte($id_caja);
 if ((sizeof($reportmov))>0){
@@ -69,11 +73,10 @@ $movimientos=$reporte->get_resumen($id_caja);
 	  for($i=0;$i<count($movimientos);$i++) {
 	   $categorias[$movimientos[$i]->categoria][$movimientos[$i]->tipo]=$movimientos[$i]->suma;
 	   }
-	   $categorias["Adicion Bar Restaurante"]["entrada"]=$totalTickets;
-	   for($i=0;$i<count($movimientos);$i++) {
-	   $categorias[$movimientos[$i]->categoria][$movimientos[$i]->tipo]=$movimientos[$i]->suma;
-	   }
-  }else $categorias["Adicion Bar Restaurante"]["entrada"]=$totalTickets;	
+	  $categorias["Venta en recepcion"]["salida"]=$categorias["Venta en recepcion"]["entrada"];   
+  }
+  
+   $categorias["Adicion Bar Restaurante"]["entrada"]=$totalTickets;	
     	
 $reportmov=$reporte->get_reporte($id_caja);
 $ReportDetails = array();

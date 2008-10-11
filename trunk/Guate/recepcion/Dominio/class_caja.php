@@ -125,6 +125,12 @@ class caja{
 			$rs = $datos->nameUser($iduser);
 			return $rs;
 		}
+		
+		function nameEncargado($iduser){
+		    $datos = new Dcaja();
+			$rs = $datos->nameEncargado($iduser);
+			return $rs;	
+		}
 		function insert_venta_recepcion($idproducto,$cantity,$checked,$description,$idencargado){
 			$datos = new Dcaja();
 			$rs = $datos->insert_venta_recepcion($idproducto,$cantity,$checked,$description,$idencargado);

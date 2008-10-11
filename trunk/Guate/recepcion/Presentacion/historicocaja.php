@@ -190,7 +190,7 @@ function showpedido(id){
 //-------------------------------------------REPORTE CAJA (HTML - EXCEL)-------------------------------------------------//
 function reportecaja(type){
 	turno =$("#turno").val();
-	user =$("#selUsers").val();
+	user =$("#selUsers option:selected").html();
 	var id_caja=$("#cajasTable .btnunpress").attr("id");
    if(type=="html") document.location="Presentacion/reportehtml.php?turno="+turno+"&encargado="+user+"&idcaja="+id_caja;
    if(type=="excel") document.location="Presentacion/reportexcel.php?turno="+turno+"&encargado="+user+"&idcaja="+id_caja;
