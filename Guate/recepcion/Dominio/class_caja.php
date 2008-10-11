@@ -83,6 +83,7 @@ class caja{
 		function cobrar_movimiento_credito($idmov){
 		$cbtc = new Dcaja();
 		$rs = $cbtc->cobrar_movimiento_credito($idmov);
+		return $rs;
 		}
 		function anular_ticket($idComanda){
 		$antc = new Dcaja();
