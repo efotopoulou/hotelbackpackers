@@ -169,7 +169,6 @@ $("#ticketsTable .amarillo").each(function (){
 })
 var movs;
 $("#movimientosTable .amarillo").each(function (){
-  alert(this.id);
   if (!movs) movs = this.id;
   else movs+=","+this.id;
   btncolor(this.id);
