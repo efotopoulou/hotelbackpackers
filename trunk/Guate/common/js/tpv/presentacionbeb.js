@@ -196,3 +196,7 @@ function restoreHibernar(){
   	main.pushLiniaComanda(main.currentMesa);
  }
  
+function calcularCambio(){
+	$("#cambio").val(redondea(main.comanda().efectivo-main.comanda().totalPropina));
+}
+ 

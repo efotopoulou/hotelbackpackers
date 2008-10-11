@@ -87,7 +87,7 @@ function calmousedown(texto,id){
   //Calculando el nuevo precio a mostrar
    calcularPrecio();
   //Calculando TOTAL
-  $("#total").val(calcularTotal());
+  calcularTotal();
  }
  changeClass(id);
 }
@@ -106,7 +106,7 @@ function borrar(id){
      calcularPrecio();
   	}else borrarLinia();
   	//Calculando TOTAL
-     $("#total").val(calcularTotal());
+     calcularTotal();
   }
  changeClass(id);
 }
@@ -127,9 +127,6 @@ function calcularPrecio(){
 }
 function redondea(num){
 	return (Math.round(num*100)/100);
-}
-function calcularCambio(){
-	$("#cambio").val(redondea(main.comanda().efectivo-main.comanda().total));
 }
 function changeClass(id){
  $("#"+id).toggleClass("btnpress");

@@ -27,7 +27,7 @@ function platomousedown(plato,platoid,precioN,precioLim,id){
    var precio=escogePrecio(precioN,precioLim);
    main.comanda().liniasComanda[main.comanda().numRow] = new LiniaComanda(platoid,precio,precio,precioN,precioLim,plato);
    listaPedidos.addPlatillo(main.linia(),"row"+new String(main.mesa().currentComanda+new String(main.comanda().numRow)));
-   $("#total").val(calcularTotal());
+   calcularTotal();
  }else alert('Por favor, elegid primero la mesa que os interesa');
 
 }
@@ -87,9 +87,9 @@ function cerrarTiquetMouseDown(){
     $("#efectivo").val("");
     $("#efectivo").attr({disabled:true}).val("");
     $("#cambio").val("");
-    $("#total").val("0");
     $("#idComanda").val("R"+main.numDefaultID);
     listaPedidos.fijarComanda();
+    alert("hola");
     clienteScreen.setClienteName("");
     main.comanda().estado="cerrado";
 	}
@@ -139,7 +139,7 @@ function calcularTotal(){
      });
      precioTotal=redondea(precioTotal);
      main.comanda().total=precioTotal;
-     $("#precioTotal"+main.currentCom()).html(""+precioTotal);
+     main.comanda().totalPropina=listaPedidos.modifyTotal(precioTotal);
 	}
     return precioTotal;
 }
@@ -198,4 +198,8 @@ function restoreHibernar(){
  	calcularTotal();
   	main.pushLiniaComanda(main.currentMesa);
  }
+ 
+ function calcularCambio(){
+	$("#cambio").val(redondea(main.comanda().efectivo-main.comanda().totalPropina));
+}
  
