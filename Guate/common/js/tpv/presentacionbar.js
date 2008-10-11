@@ -153,3 +153,7 @@ function sendMain(){
  	calcularTotal();
   	main.pushLiniaComanda();
  }
+function calcularCambio(){
+	$("#cambio").val(redondea(main.comanda().efectivo-main.comanda().totalPropina));
+}
+ 
