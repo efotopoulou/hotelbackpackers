@@ -89,10 +89,6 @@ function liberaMesaMouseDown(id){
     } else mesaLibre();
   }
 }
-
-
-
-
 function mesaLibre(){
   listaPedidos.reiniciar();
   //borra la mesa y cambia el color a azul(o sea que libre)
@@ -113,11 +109,12 @@ function calcularTotal(){
      });
      precioTotal=redondea(precioTotal);
      main.comanda().total=precioTotal;
-     $("#precioTotal"+main.currentComanda).html(""+precioTotal);
+     listaPedidos.modifyTotal(precioTotal);
+     //$("#precioTotal"+main.currentComanda).html(""+precioTotal);
+     
 	}
     return precioTotal;
 }
-
 
 //-------------------------------------------sendComanda----------------------------------------//
 function sendComanda(){
@@ -154,6 +151,6 @@ function sendMain(){
   	main.pushLiniaComanda();
  }
 function calcularCambio(){
-	$("#cambio").val(redondea(main.comanda().efectivo-main.comanda().totalPropina));
+	$("#cambio").val(redondea(main.comanda().efectivo-main.comanda().total));
 }
  

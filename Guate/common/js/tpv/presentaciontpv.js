@@ -89,7 +89,6 @@ function cerrarTiquetMouseDown(){
     $("#cambio").val("");
     $("#idComanda").val("R"+main.numDefaultID);
     listaPedidos.fijarComanda();
-    alert("hola");
     clienteScreen.setClienteName("");
     main.comanda().estado="cerrado";
 	}
@@ -123,6 +122,7 @@ function mesaLibre(){
   mesaScreen.setBlueColor();
   //$("#mesa"+main.currentMesa).toggleClass("blueFuerte").toggleClass("btnunpress").toggleClass("orange").toggleClass("redFuerte");
   main.mesa().currentComanda=-1;
+  listaPedidos.modifyTotal("0");
   main.mesas[main.currentMesa]= undefined;
     //Ponemos el clienttype, el clienteNormal
   clienteScreen.setCorrectColor(4);
