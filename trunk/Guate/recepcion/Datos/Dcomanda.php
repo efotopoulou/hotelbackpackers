@@ -126,7 +126,7 @@ class Dcomanda{
 	return $idCom;
 	}
 	
-	public function setComandaCredito($idComanda){
+	public function setComandaCredito($idComanda,$procedencia){
 	    $comunication = new ComunicationRecep();
 	    $PARAMS = array($idComanda);
 		$PARAMS_TYPES = array (ComunicationRecep::$TINT);
@@ -137,8 +137,8 @@ class Dcomanda{
 				$resultc=$total->getRow();
 				$suma=$resultc["suma"];
 				}}	
-		$PARAMS = array($idComanda,$suma);
-		$PARAMS_TYPES = array (ComunicationRecep::$TINT,ComunicationRecep::$TFLOAT);
+		$PARAMS = array($idComanda,$suma,$procedencia);
+		$PARAMS_TYPES = array (ComunicationRecep::$TINT,ComunicationRecep::$TFLOAT,ComunicationRecep::$TSTRING);
 		$result = $comunication->update(self::SET_COMANDA_USUARIO,$PARAMS,$PARAMS_TYPES);
 	}
 	public function setComandaCreditoComida($idComanda){

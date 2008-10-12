@@ -25,7 +25,7 @@ try {
  	$comanda->setLineaComanda($idComanda,$lineas[$i]["platoId"],$cantidad, $lineas[$i]["precioN"]);
     $stock->informar_stock_rest($lineas[$i]["platoId"],$cantidad);
  }
-if ($comandaJson["currentClientType"]==5)$comanda->setComandaCredito($idComanda); 
+if ($comandaJson["currentClientType"]==5)$comanda->setComandaCredito($idComanda,"HR"); 
 }catch (SQLException $e){
 	$aux = $e ->getNativeError();
  $mensaje->setMensaje("Error Desconocido: $aux!");

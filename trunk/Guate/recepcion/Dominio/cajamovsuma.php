@@ -2,6 +2,7 @@
 class CajaMovSuma{
     var $entrada;
     var $salida;
+    var $ventaR;
    
 	function CajaMovSuma(){
 	$this->entrada = "0";
@@ -12,6 +13,9 @@ class CajaMovSuma{
 	}
 	function setSalida($salida){
 		$this->salida=$salida;
+	}
+	function setVentaR($ventaR){
+		$this->ventaR=$ventaR;
 	}
 	
 }

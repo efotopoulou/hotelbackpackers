@@ -201,21 +201,25 @@ function callGestionCaja(tipo,dinero,description,categoria){
   }
 //}
 }
-//-------------------------------------------SUPUESTO EFECTIVO-------------------------------------------------//
+//-------------------------------------------SUPUESTO EFECTIVO Y CORTE-------------------------------------------------//
 function supuestoEfectivo(){
 	var totalEntradas=0;
 	var totalSalidas=0;
 	var totalTickets=0;
+	var ventaR=0;
 	
 	var fondo=parseFloat($(".fondo").html());
 	if($(".entrymov").html()) totalEntradas=parseFloat($(".entrymov").html());
 	if($(".exitmov").html()) totalSalidas=parseFloat($(".exitmov").html());
 	if($(".totalTickets").html()) totalTickets=parseFloat($(".totalTickets").html());
+	if($(".totventarecepcion").html()) ventaR=parseFloat($(".totventarecepcion").html());
 	 
 	var supEfectivo =redondea(fondo+totalEntradas+totalTickets-totalSalidas);
 	$(".supEfectivo").html(supEfectivo);
-	aux = $(".totalTickets").html();
+	$(".corte").html(supEfectivo-ventaR);
+	//aux = $(".totalTickets").html();
 }
+//-------------------------------------------recargaEstadoCaja-------------------------------------------
 //pedir de la bd los datos de los movimientos y Tickets y ponerlos a la tabla de la pantalla
 function recargaEstadoCaja(){
  $.getJSONGuate("Presentacion/jsongestioncaja.php", function(json){
@@ -227,6 +231,7 @@ function recargaEstadoCaja(){
 function loadPage(json){
  $(".entrymov").html(redondea(json.TotalEntradas));
  $(".exitmov").html(redondea(json.TotalSalidas)); 
+ $(".totventarecepcion").html(redondea(json.VentaR)); 
  var totTickets=redondea(json.TotalTickets);
  $(".totalTickets").html(totTickets);    
      
@@ -451,21 +456,20 @@ La caja se esta cerrando.Por favor espere.<br />
       		<div style="width:120px;float:left;margin-top:5px"><span>Fondo Inicial:</span></div>
       		<div style="margin-top:5px"><span class="fondo">0</span></div>
    			</div>
-   			<div class="row" align="left">
-      		<div style="width:120px;float:left"><span >Total Tiquets:</span></div>
-      		<div><span class="totalTickets">0</span></div>
+   		
+   		    <div class="row" align="left">
+      		<div style="width:120px;float:left"><span>Venta recepcion:</span></div>
+      		<div><span class="totventarecepcion">0</span></div>
    			</div>
-   			<div class="row" align="left">
-      		<div style="width:120px;float:left"><span>Total Endradas:</span></div>
-      		<div><span class="entrymov">0</span></div>
-   			</div>
-   			<div class="row" align="left">
-      		<div style="width:120px;float:left"><span>Total Salidas:</span></div>
-      		<div><span class="exitmov">0</span></div>
-   			</div>
+   			
    			<div class="row" align="left">
       		<div style="width:120px;float:left"><span>Supuesto Efectivo:</span></div>
       		<div><span class="supEfectivo">0</span></div>
+   			</div>
+   			
+   			<div class="row" align="left">
+      		<div style="width:120px;float:left"><span>Dinero del corte:</span></div>
+      		<div><span class="corte">0</span></div>
    			</div>
 		</form> 
 		</div>
@@ -494,17 +498,6 @@ La caja se esta cerrando.Por favor espere.<br />
    				<div style="clear:both"></div>
       		    <div style="width:120px;float:left;margin-left:150px;margin-top:10px"><span><input type="button" value="Acceptar" id="accM" onClick="insertMovimiento(input_money.value,output_money.value,description.value,categoria.value)"/></span></div>
    				</div>
-   				
-   				<!-- <div class="changedisplay" id="reception">
-   				<center><table class="box_amarillo">
-                <tr><td><h6>Producto:</h6></td><td><select id="productoreception"></select></td></tr>
-                <tr><td><h6>Cantidad:</h6></td><td><input type="text" style="width:100%" id="cantity" value="1"/></td></tr>
-                <tr><td><h6>Descuento:</h6></td><td class='checkbox' width=2%><center><input type='checkbox' id="preciolimitado"></center></td></tr>
-                </table></center>
-   				
-   				<div style="clear:both"></div>
-      		    <div style="width:120px;float:left;margin-left:150px;margin-top:10px"><span><input type="button" value="Acceptar" id="accV" onClick="insertVentaReception(cantity.value,productoreception.value)"/></span></div>
-   				</div> -->
    				
    			</div>
    			<div style="clear:both"></div>
@@ -553,11 +546,14 @@ La caja se esta cerrando.Por favor espere.<br />
      
 	     <div style="margin-left:60px;margin-top:5px;width:20%;float:left"><span><input <?php echo $admin ?> type="button" value="Anular Tiquet" id="an" onClick="anularTicket();"/></span></div>
 	     
-     <!--<div style="margin-top:20px;width:20%;float:left"><span><input type="button" value="Facturar Tiquet" id="fact" onClick="facturar();"/></span></div> 
-     <div style="margin-top:20px;width:20%;float:left"><span><a id="reporte" onClick="reportecaja('html');">Reporte Caja HTML</a></span></div>
-     <div style="margin-top:20px;width:20%;float:left"><span><a id="reportexcel" onClick="reportecaja('excel');">Reporte Caja EXCEL</a></span></div>-->
      <div style="margin-top:5px;width:20%;float:left"><span><input type="button" value="Reporte Caja HTML" id="reporte" onClick="reportecaja('html')"/></span></div>
      <div style="margin-top:5px;width:20%;float:left"><span><input type="button" value="Reporte Caja EXCEL" id="reporteexcel" onClick="reportecaja('excel')"/></span></div>
+     
+
+      		<div style="margin-top:5px;float:left"><span>Total Comandas:</span><span class="totalTickets">0</span></div>
+      	
+
+   
    </div>
   </div>
 <br/>
@@ -576,6 +572,10 @@ La caja se esta cerrando.Por favor espere.<br />
      <table id="movimientosTable" width=98% cellpadding=0 cellspacing=1></table>
     </div>
     <div style="margin-left:60px;margin-top:5px;width:20%;float:left"><span><input <?php echo $admin ?>  type="button" value="Anular Movimiento" id="am" onClick="anularMovimiento();"/></span></div>
+    
+    <div style="margin-top:5px;float:left"><span >Total Entradas:</span><span class="entrymov">0</span></div>  		
+    <div style="margin-top:5px;margin-left:25px;float:left"><span>Total Salidas:</span><span class="exitmov">0</span></div>
+      		
 </div>
 <br/>
 

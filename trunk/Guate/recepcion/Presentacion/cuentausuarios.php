@@ -252,11 +252,21 @@ function insertmovcredito(dinero,description,categoria,idempleado){
 }
 //--------------------------------------------------------IMPRIMIR CUENTA--------------------------------------------------------//
 function imprimircuenta(){
-    years =$("#years").val();
-	month =$("#month option:selected").html();
 	nameempleado=$("#usuariosTable .amarillo .onomataki").html();
-	alert(nameempleado);
-    document.location="Presentacion/imprimircuenta.php?month="+month+"&years="+years;
+	idemp=$("#usuariosTable .amarillo").attr("id");
+    document.location="Presentacion/imprimircuenta.php?name="+nameempleado+"&id="+idemp;
+}
+//--------------------------------------------------------PAGAR CREDITO--------------------------------------------------------//
+function pagarcredito(){
+ idempleado=$("#usuariosTable .amarillo").attr("id");
+ var money= $("#money").val();	
+ var idencargado =$("#selUsers").val();
+ if(confirm('�Estas seguro que quieres realizar este movimiento?')){
+  $.getJSONGuate("Presentacion/jsoncuentausuarios.php",{money:money,idempleado:idempleado,idencargado:idencargado}, function(json){
+     json = verificaJSON(json);
+     loadPage(json);
+   });
+ }
 }
 </script>
 <body>
@@ -270,18 +280,6 @@ function imprimircuenta(){
       </table>
       </div>
 	</div>
-	</div>
-	
-	<div class="box_amarillo" style="width:35%;margin-top:40px;float:left">
-	<table style="margin-left:20px;"><tr>
-	<td class="green"><h6><center>Anos</center></h6><center><select id="years"></select></center></td></tr>
-    <tr><td class="green"><h6><center>Meses</center></h6>
-     <center><select id='month'>
-     <option value='1'>Enero</option><option value='2'>Febrero</option><option value='3'>Marzo</option><option value='4'>Abril</option><option value='5'>Mayo</option><option value='6'>Junio</option><option value='7'>Julio</option><option value='8'>Agosto</option>	
-	 <option value='9'>Septiembre</option><option value='10'>Octubre</option><option value='11'>Noviembre</option><option value='12'>Diciembre</option>
-	 </select></center>
-     </td>
-     </tr></table>
 	</div>
 		
 	<div class="box_amarillo" style="width:35%; margin-top:15px;float:left">
@@ -333,13 +331,20 @@ function imprimircuenta(){
 		</div>
 		</div>
 		
+		<div class="box_amarillo" style="margin-top:15px;">
+	    <div><span class="label"><h3>Cobrar Credito:</h3><span><input id="money" type="text"/></span><span style="margin-left:20px"><input type="button" value="Acceptar" id="accM" onClick="pagarcredito();"/></span></span>
+	    </div>
+	    </div>
+	<div style="clear:both"></div> 
+		
+		
 </div>
 
 <div id="secundarioesCj" style="width:60%">
 
 	<h5 class="titulos">Comandas a Credito realizadas</h5>
 	<table  width=97% cellpadding=0 cellspacing=1>
-    <tr><td width=2%>&nbsp;</td><td width=5%><h6>ID</h6></td><td width=9%><h6><center>estado</center></h6></td><td width=25%><h6><center>Fecha Hora</center></h6></td><td width=6%><h6><h6>Total</h6></h6></td><td width=10%><h6>Cliente</h6></td><td><h6><center>Nombre de Cliente</center></h6></td></tr>
+    <tr><td width=2%>&nbsp;</td><td width=5%><h6>ID</h6></td><td width=9%><h6><center>estado</center></h6></td><td width=25%><h6><center>Fecha Hora</center></h6></td><td width=6%><h6>Total</h6></td><td width=10%><h6>Cliente</h6></td><td><h6><center>Nombre de Cliente</center></h6></td></tr>
     </table>
     <div style="height:50%;overflow:auto">
     <table id="ticketsTable" width=97% cellpadding=0 cellspacing=1>
@@ -358,7 +363,7 @@ function imprimircuenta(){
     <div class="row" align="left" style="height:10%;overflow:auto">
       		<div style="width:120px;float:left;margin-left:100px"><span><h1>Total:</h1></span></div>
       		<div><span class="total" style="font-weight:bold;font-size: 12pt">0</span>
-      		<span style="margin-left:100px"><input type="button" value="Cobrar" id="an" onClick="cobrarTicket();"/></span>
+      		<!--<span style="margin-left:100px"><input type="button" value="Cobrar" id="an" onClick="cobrarTicket();"/></span> -->
       		<span style="margin-left:50px"><input type="button" value="Imprimir Cuenta" id="an" onClick="imprimircuenta();"/></span>
       		</div>
    		<div style="clear:both"></div>
