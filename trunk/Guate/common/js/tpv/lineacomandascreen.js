@@ -65,8 +65,10 @@ function LineaComandaScreen(){
   }
 
   this.modifyTotal = function(precio){
-  	 $("#precioTotal"+this.actualComanda).html(precio);
-  }
+  	 $("#precioTotal"+this.actualComanda).html(""+precio);
+  	 $("#total").val(precio);
+  	 return precio;
+  	 }
   
   this.vaciar = function(){
    $("#arriba_derecha").html("");

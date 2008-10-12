@@ -1,8 +1,6 @@
 <?php
 require ($_SERVER['DOCUMENT_ROOT'] . '/recepcion/Dominio/class_caja.php');
-require ($_SERVER['DOCUMENT_ROOT'] . '/recepcion/Dominio/class_cocina.php');
 require ($_SERVER['DOCUMENT_ROOT'] . '/recepcion/Dominio/MensajeJSON.php');
-//include ($_SERVER['DOCUMENT_ROOT'] . '/recepcion/Dominio/class_stock.php');
 
 $fondo = $_POST['fondo'];
 $efectivoCerrar = $_POST['efectivo'];
@@ -53,11 +51,7 @@ if ((sizeof($pedidos))>0){
 	  $pedidosInfo[$i]=array("idPlatillo"=>$pedidos[$i]->idPlatillo,"cantidad"=>$pedidos[$i]->cantidad,"nombre"=>$pedidos[$i]->nombre,"precio"=>$pedidos[$i]->precio);
 	  }
  }	
-}//else if($idproducto){
-//$stock = new stock();
-//$stock->informar_stock_rest($idproducto,$cantity);
-//$caja->insert_venta_recepcion($idproducto,$cantity,$checked,$description,$idencargado);
-//}
+}
 else if($comandasAnuladas){
   $idComandaAnuladaList = split( ",",$comandasAnuladas);
   foreach ($idComandaAnuladaList as $value){

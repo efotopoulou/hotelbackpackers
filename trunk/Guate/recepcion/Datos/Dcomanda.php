@@ -15,7 +15,7 @@ class Dcomanda{
 	const GET_IDCAJA = 'SELECT * FROM caja WHERE estado=1';
 	const GET_LAST_ID_COMANDA =	'SELECT numComanda FROM comanda c where numComanda is not null order by fechaHora desc limit 1';
     const ES_COCINA ='select cocina from platillo where idPlatillo=?';
-    const SET_COCINA ='insert into cocina values (?,true,null)';
+    const SET_COCINA ='insert into restbar_bd.cocina values (?,true,null)';
     const EXISTE_COMANDA='select idComanda from comanda where idComanda= ?';
     const RESTORE_COMANDA='SELECT idComanda, efectivo, mesa, tipoCliente, total,id_cliente, free, NULL as clienteName FROM comanda WHERE estado=\'backup\' and (tipoCliente=1 or tipoCliente=4) UNION SELECT c.idComanda, c.efectivo, c.mesa, c.tipoCliente, c.total,c.id_cliente, c.free, CONCAT(cli.nombre, \' \', cli.apellido1, \' \', cli.apellido2) FROM comanda c, guate_bd.cliente cli WHERE estado=\'backup\' and c.tipoCliente=3 and cli.id_cliente = c.id_cliente UNION SELECT c.idComanda, c.efectivo, c.mesa, c.tipoCliente, c.total,c.id_cliente, c.free, u.nombre FROM comanda c, guate_bd.usuario u WHERE estado=\'backup\' and c.tipoCliente=2 and u.Id_usuario = c.id_cliente';
     const GETLINIAS='SELECT lc.idPlatillo,lc.cantidad,lc.precio as precioN, (lc.precio/lc.cantidad) as precioUnidad, p.precioNormal, p.precioLimitado, p.nombre as producto FROM lineacomanda lc, platillo p where lc.idComanda=? and p.idPlatillo=lc.idPlatillo';

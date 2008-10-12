@@ -14,8 +14,6 @@ require ($_SERVER['DOCUMENT_ROOT'] . '/recepcion/Dominio/class_caja.php');
 		<script src="/common/js/jquery.blockUI.js"></script>
 		<script src="/common/js/jquery.jqGrid.js"></script>
 		<script src="/common/js/jquery.hotkeys.js"></script>
-		<!--<script src="/common/js/jquery.mousewheel.js"></script>
-		<script src="/common/js/jquery.scrollable.js"></script>-->
 		<script src="/common/js/jquery.corner.js"></script>
 		<script src="/common/js/json.js"></script>
 		<script src="/common/js/guate.js"></script>
