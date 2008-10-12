@@ -30,14 +30,14 @@ class comanda{
 			$rs = $dtp->setComandaVenta($efectivo, $tipoCliente, $total, $idcliente ,$free);
 			return $rs;
 		}
-		function setComandaCredito($idComanda){
+		function setComandaCredito($idComanda,$procedencia){
 			$dtp = new DComanda();
-			$rs = $dtp->setComandaCredito($idComanda);
+			$rs = $dtp->setComandaCredito($idComanda,$procedencia);
 			return $rs;
 		}
-		function setComandaCreditoComida($idComanda){
+		function setComandaCreditoComida($idComanda,$procedencia){
 			$dtp = new DComanda();
-			$rs = $dtp->setComandaCreditoComida($idComanda);
+			$rs = $dtp->setComandaCreditoComida($idComanda,$procedencia);
 			return $rs;
 		}
 
