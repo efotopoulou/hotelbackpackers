@@ -51,7 +51,11 @@ if ((sizeof($pedidos))>0){
 	  $pedidosInfo[$i]=array("idPlatillo"=>$pedidos[$i]->idPlatillo,"cantidad"=>$pedidos[$i]->cantidad,"nombre"=>$pedidos[$i]->nombre,"precio"=>$pedidos[$i]->precio);
 	  }
  }	
-}
+}//else if($idproducto){
+//$stock = new stock();
+//$stock->informar_stock_rest($idproducto,$cantity);
+//$caja->insert_venta_recepcion($idproducto,$cantity,$checked,$description,$idencargado);
+//}
 else if($comandasAnuladas){
   $idComandaAnuladaList = split( ",",$comandasAnuladas);
   foreach ($idComandaAnuladaList as $value){
@@ -84,13 +88,17 @@ if ((sizeof($tikets))>0){
 	  }
  }	
 
-$totalmovimientos=$caja->total_mov();	
-$entrytot=$caja->get_entrada();
-$exittot=$caja->get_salida();
+$totalmovimientos=$caja->total_mov_old($id_caja);	
+$entrytot = $totalmovimientos->entrada;
+$exittot = $totalmovimientos->salida;
+$ventaR = $totalmovimientos->ventaR;
+//$entrytot=$caja->get_entrada();
+//$exittot=$caja->get_salida();
 $totalTickets=$caja->total_tickets();
 $response["TotalTickets"]=$totalTickets;
 $response["TotalEntradas"]=$entrytot;
 $response["TotalSalidas"]=$exittot;
+$response["VentaR"]=$ventaR;
 $response["MovimientosInfo"]=$movimientoInfo;
 $response["TicketsInfo"]=$TicketsInfo;
 $response["pedidosInfo"]=$pedidosInfo;

@@ -120,7 +120,15 @@ class caja{
 		function insert_movimiento($tipo,$dinero,$descripcion,$categoria,$idencargado){
 			$datos = new Dcaja();
 			$rs = $datos->insert_movimiento($tipo,$dinero,$descripcion,$categoria,$idencargado);
+			return $rs;
 		}
+		
+		function insert_mov_credito($idMov,$money,$iduser,$cobrado){
+			$datos = new Dcaja();
+			$rs = $datos->insert_mov_credito($idMov,$money,$iduser,$cobrado);
+			return $rs;
+		}
+		
 		function nameUser($iduser){
 		    $datos = new Dcaja();
 			$rs = $datos->nameUser($iduser);
@@ -137,28 +145,23 @@ class caja{
 			$rs = $datos->insert_venta_recepcion($idproducto,$cantity,$checked,$description,$idencargado);
 		}
 		
-		function insertmovcredito($dinero,$description,$categoria,$idempleado,$idencargado){
-			$datos = new Dcaja();
-			$datos->insertmovcredito($dinero,$description,$categoria,$idempleado,$idencargado);
-		}
 		
-		
-		function total_mov(){
-			$mvcj = new Dcaja();
-			$rs = $mvcj->total_money_mov();
-		    $i=0;
-				if($rs->getRecordCount()>0){
-					$rs->next();
-					do{
-					$result=$rs->getRow();
-					$this->totalTipo[$i]=$result["tipo"];
-					$this->totalmov[$i]=$result["suma"];
-					$i++;
-					}while($rs->next());					
-					return $rs->getRecordCount();	
-				}
-			return 0;
-		}
+		//function total_mov(){
+		//	$mvcj = new Dcaja();
+		//	$rs = $mvcj->total_money_mov();
+		 //   $i=0;
+		//		if($rs->getRecordCount()>0){
+		//			$rs->next();
+		//			do{
+		//			$result=$rs->getRow();
+		//			$this->totalTipo[$i]=$result["tipo"];
+		//			$this->totalmov[$i]=$result["suma"];
+		//			$i++;
+		//			}while($rs->next());					
+		//			return $rs->getRecordCount();	
+		//		}
+		//	return 0;
+		//}
 		
 		function total_tickets(){
 			$fcj = new Dcaja();
@@ -257,12 +260,10 @@ function total_mov_old($idcaja){
 		while($rs->next()){
 		$result=$rs->getRow();
 		if ($result["tipo"]=="entrada") $cms->setEntrada($result["suma"]); 
-		else $cms->setSalida($result["suma"]);			
+		else if ($result["tipo"]=="salida") $cms->setSalida($result["suma"]);	
+		else if ($result["tipo"]=="ventaR")	$cms->setVentaR($result["suma"]);
 		}
-    }else{
-		$result=null;
-	    }
-	return $cms;	
+    }return $cms;	
 }	
 
 function get_fondo_caja_old($idcaja){
@@ -319,9 +320,9 @@ function set_usuario($nombreEmpleado){
   $rs = $u->set_usuario($nombreEmpleado);
 }
 
-function get_usuarios_comandas($idusuario,$month,$year){
+function get_usuarios_comandas($idusuario){
 $uc = new Dcaja();
-$rs = $uc->get_usuarios_comandas ($idusuario,$month,$year);
+$rs = $uc->get_usuarios_comandas ($idusuario);
 	if($rs->getRecordCount()>0){ 
 		$n=0;
 		while($rs->next()){
@@ -334,9 +335,9 @@ $rs = $uc->get_usuarios_comandas ($idusuario,$month,$year);
 	    }
 	return $ors;			
 }
-function get_usuarios_movimientos ($idusuario,$month,$year){
+function get_usuarios_movimientos ($idusuario){
 $uc = new Dcaja();
-$rs = $uc->get_usuarios_movimientos ($idusuario,$month,$year);
+$rs = $uc->get_usuarios_movimientos ($idusuario);
 	if($rs->getRecordCount()>0){ 
 		$n=0;
 		while($rs->next()){
@@ -349,9 +350,9 @@ $rs = $uc->get_usuarios_movimientos ($idusuario,$month,$year);
 	    }
 	return $ors;	
 }
-function total_cuenta($idusuario,$month,$year){
+function total_cuenta($idusuario){
 $tot = new Dcaja();
-$rs = $tot->total_cuenta($idusuario,$month,$year);
+$rs = $tot->total_cuenta($idusuario);
 if ($rs->getRecordCount()>0){
 			while($rs->next()){
 				$result=$rs->getRow();
