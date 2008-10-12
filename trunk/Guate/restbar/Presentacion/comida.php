@@ -31,7 +31,6 @@ require ($_SERVER['DOCUMENT_ROOT'] . '/recepcion/Dominio/class_caja.php');
 		
 <script>
 //PRESENTACION
-var timeoutHnd;
 //Al iniciar la pagina.... ONREADY!!!!!!!
 $(document).ready(function(){
    $.blockUI({ message: '<h1>Cargando...</h1>' });
@@ -180,7 +179,7 @@ Introduzca el razon de la cortesia:<br />
 <div style="padding:4px">nombre: <input type="text" id="searchNombre" onkeydown="doSearch()" /></div>
 <table id="list3" class="scroll" cellpadding="0" cellspacing="0"></table>
 <div id="pager3" class="scroll" style="text-align:center;"></div>
-<div style="height:30px"><input type="button" onclick="cancelarCliente()" value="cancelar"></input></div>
+<div onclick="cancelarCliente()" style="background:#AAA;cursor:pointer">cancelar</div>
 </div>
  <div id="arriba_izquierda" style="width:100%;height:100%">
  <div style="border-bottom:1px solid #AAAAAA;">

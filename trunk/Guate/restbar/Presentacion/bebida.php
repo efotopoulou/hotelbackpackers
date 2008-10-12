@@ -20,27 +20,27 @@ require ($_SERVER['DOCUMENT_ROOT'] . '/recepcion/Dominio/class_caja.php');
 		<script src="/common/js/jquery.corner.js"></script>
 		<script src="/common/js/json.js"></script>
 		<script src="/common/js/guate.js"></script>
-		<script src="/common/js/tpv/lineacomandascreencomida.js"></script>
+		<script src="/common/js/tpv/lineacomandascreen.js"></script>
 		<script src="/common/js/tpv/boxizquierdaarriba.js"></script>
 		<script src="/common/js/tpv/familiasplatillos.js"></script>
 		<script src="/common/js/tpv/hotkeys.js"></script>
 		<script src="/common/js/tpv/commonpresentacion.js"></script>
-		<script src="/common/js/tpv/presentaciontpv.js"></script>
+		<script src="/common/js/tpv/presentacionbeb.js"></script>
 		
 		
 		
 <script>
 //PRESENTACION
-var timeoutHnd;
 //Al iniciar la pagina.... ONREADY!!!!!!!
 $(document).ready(function(){
    $.blockUI({ message: '<h1>Cargando...</h1>' });
    //Se borran algunos campos que se quedan por defecto con el valor que tenian
+   $("#total").val("0");
    $("#efectivo").val("");
    $("#cambio").val("");
-   $("#idComanda").val("<?php $comanda=new comanda();echo $estadocaja=$comanda->getNextMaxIdComanda();?>");
+   //$("#idComanda").val("<?php $comanda=new comanda();echo $estadocaja=$comanda->getNextMaxIdComanda();?>");
    hotkeys();
-   getFamilias();
+   getFamiliasBeb();
    listaPedidos.iniciar();
 //   restoreHibernar();
    $.unblockUI();
@@ -63,9 +63,7 @@ function Main(numMesas){
 
 //CREA EFECTO: Pone los valores a 0.
  this.creaEfecto = function (numMesa) {
-  listaPedidos.modifyTotal("0");
-  if (!main.numDefaultID) main.numDefaultID=parseInt($("#idComanda").val().substring(1));
-  $("#idComanda").val("R"+main.numDefaultID);
+  $("#total").val("0");
   listaPedidos.reiniciar();
   }
   
@@ -89,8 +87,7 @@ function Main(numMesas){
       listaPedidos.modifyTotal(this.mesas[numMesa].comanda[j].total);
  //    }     
  	}
-   calcularTotal()
-   $("#idComanda").val(main.comanda().comandaID);
+   $("#total").val(calcularTotal());
    clienteScreen.setClienteName(main.comanda().clienteName);
  }
  this.mesa = function(){
@@ -117,7 +114,6 @@ function Comanda(){
   this.comandaID="";
   this.efectivo="";
   this.total="";
-  this.totalPropina="";
   this.clienteName="";
   this.id_cliente="";
   this.free="";
@@ -153,7 +149,6 @@ if ($estadocaja==0){
 }else {?>
 <body>
 <?php } ?>
-<!--onresize="resize()"-->
 <?php include($_SERVER['DOCUMENT_ROOT'] . '/common/Presentacion/menu.php'); ?>
 <div style="height:94%;margin:0pt;padding:0pt">
 <div id="cajaCerrada" style="display:none">la caja esta cerrada<br /><a href="view.php?page=caja">Abrir caja</a></div>
@@ -180,7 +175,7 @@ Introduzca el razon de la cortesia:<br />
 <div style="padding:4px">nombre: <input type="text" id="searchNombre" onkeydown="doSearch()" /></div>
 <table id="list3" class="scroll" cellpadding="0" cellspacing="0"></table>
 <div id="pager3" class="scroll" style="text-align:center;"></div>
-<div style="height:30px"><input type="button" onclick="cancelarCliente()" value="cancelar"></input></div>
+<div onclick="cancelarCliente()" style="background:#AAA;cursor:pointer">cancelar</div>
 </div>
  <div id="arriba_izquierda" style="width:100%;height:100%">
  <div style="border-bottom:1px solid #AAAAAA;">

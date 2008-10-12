@@ -35,6 +35,12 @@ class comanda{
 			$rs = $dtp->setComandaCredito($idComanda);
 			return $rs;
 		}
+		function setComandaCreditoComida($idComanda){
+			$dtp = new DComanda();
+			$rs = $dtp->setComandaCreditoComida($idComanda);
+			return $rs;
+		}
+
 		function comandasRestore(){
 			$dtp = new DComanda();
 			$rs = $dtp->comandasRestore();
