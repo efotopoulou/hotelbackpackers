@@ -69,9 +69,9 @@ function LineaComandaScreen(){
   this.modifyTotal = function(precio){
      var propina = this.calcularPropina(precio);
      var totalpropina = parseInt(parseInt(precio)+parseInt(propina));
-  	 $("#precioTotal"+this.actualComanda).html(precio);
-  	 $("#propina"+this.actualComanda).html(propina);
-  	 $("#TotalPropina"+this.actualComanda).html(totalpropina);
+  	 $("#precioTotal"+this.actualComanda).html(""+precio);
+  	 $("#propina"+this.actualComanda).html(""+propina);
+  	 $("#TotalPropina"+this.actualComanda).html(""+totalpropina);
   	 $("#total").val(totalpropina);
   	 return totalpropina;
   }
@@ -108,6 +108,10 @@ function LineaComandaScreen(){
     $("#TotalPropina"+main.currentCom()).addClass("precioFixed");
  }
  this.calcularPropina = function(precio){
-    return (parseInt(precio/10));
+ var propina =0;
+  if(main.comandaAbierta()&& main.comanda().currentClientType!=2){
+   propina = parseInt(precio/10);
+  }    
+  return propina;
  }
 }
