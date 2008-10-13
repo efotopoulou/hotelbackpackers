@@ -1,8 +1,8 @@
 <?php
 require ($_SERVER['DOCUMENT_ROOT'] . '/recepcion/Dominio/class_familia.php');
-require ($_SERVER['DOCUMENT_ROOT'] . '/recepcion/Dominio/class_comanda.php');
+require ($_SERVER['DOCUMENT_ROOT'] . '/restbar/Dominio/class_comanda.php');
 require ($_SERVER['DOCUMENT_ROOT'] . '/recepcion/Dominio/class_mesas.php');
-require ($_SERVER['DOCUMENT_ROOT'] . '/recepcion/Dominio/class_caja.php');
+require ($_SERVER['DOCUMENT_ROOT'] . '/restbar/Dominio/class_caja.php');
 ?>
 <html lang="en" dir="ltr">
 	<head>
@@ -167,7 +167,7 @@ if ($estadocaja==0){
 <body>
 <?php } ?>
 <!--onresize="resize()"-->
-<?php include($_SERVER['DOCUMENT_ROOT'] . '/common/Presentacion/menu.php'); ?>
+<?php include($_SERVER['DOCUMENT_ROOT'] . '/common/Presentacion/menuRestBar.php'); ?>
 <div style="height:94%;margin:0pt;padding:0pt">
 <div id="cajaCerrada" style="display:none">la caja esta cerrada<br /><a href="view.php?page=caja">Abrir caja</a></div>
 
