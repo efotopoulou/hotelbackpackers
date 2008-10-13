@@ -84,7 +84,8 @@ function Main(numMesas){
 	  for (var i=0;i<this.mesas[numMesa].comanda[j].liniasComanda.length;i++){
 //	 	if (j<(this.mesas[numMesa].comanda.length-1)) listaPedidos.addPlatilloFijo(this.mesas[numMesa].comanda[j].liniasComanda[i]);
 	 	if (!this.mesas[numMesa].comanda[j].isAbierta()) listaPedidos.addPlatilloFijo(this.mesas[numMesa].comanda[j].liniasComanda[i]);
-	 	else listaPedidos.addPlatillo(this.mesas[numMesa].comanda[j].liniasComanda[i], "row"+new String(j)+new String(i));			
+	 	else listaPedidos.addPlatillo(this.mesas[numMesa].comanda[j].liniasComanda[i], "row"+new String(j)+new String(i));
+	 	if (this.mesas[numMesa].comanda[j].isCocina())listaPedidos.mensajeCocina("Pedido en Cocina"); 
  	  }
       listaPedidos.modifyTotal(this.mesas[numMesa].comanda[j].total);
  //    }     
