@@ -24,13 +24,14 @@ require ($_SERVER['DOCUMENT_ROOT'] . '/recepcion/Dominio/class_caja.php');
 		<script src="/common/js/tpv/boxizquierdaarriba.js"></script>
 		<script src="/common/js/tpv/familiasplatillos.js"></script>
 		<script src="/common/js/tpv/hotkeys.js"></script>
-		<script src="/common/js/tpv/commonpresentacion.js"></script>
+	<!--<script src="/common/js/tpv/commonpresentacion.js"></script>-->
 		<script src="/common/js/tpv/presentaciontpv.js"></script>
 		
 		
 		
 <script>
 //PRESENTACION
+var timeoutHnd;
 //Al iniciar la pagina.... ONREADY!!!!!!!
 $(document).ready(function(){
    $.blockUI({ message: '<h1>Cargando...</h1>' });
@@ -83,7 +84,8 @@ function Main(numMesas){
 	  for (var i=0;i<this.mesas[numMesa].comanda[j].liniasComanda.length;i++){
 //	 	if (j<(this.mesas[numMesa].comanda.length-1)) listaPedidos.addPlatilloFijo(this.mesas[numMesa].comanda[j].liniasComanda[i]);
 	 	if (!this.mesas[numMesa].comanda[j].isAbierta()) listaPedidos.addPlatilloFijo(this.mesas[numMesa].comanda[j].liniasComanda[i]);
-	 	else listaPedidos.addPlatillo(this.mesas[numMesa].comanda[j].liniasComanda[i], "row"+new String(j)+new String(i));			
+	 	else listaPedidos.addPlatillo(this.mesas[numMesa].comanda[j].liniasComanda[i], "row"+new String(j)+new String(i));
+	 	if (this.mesas[numMesa].comanda[j].isCocina())listaPedidos.mensajeCocina("Pedido en Cocina"); 
  	  }
       listaPedidos.modifyTotal(this.mesas[numMesa].comanda[j].total);
  //    }     
@@ -104,6 +106,12 @@ function Main(numMesas){
  this.comandaAbierta = function(){
  	return this.mesa() && this.comanda() && this.comanda().isAbierta();
  }
+ this.comandaCocina = function(){
+ 	return this.mesa() && this.comanda() && this.comanda().isCocina();
+ }
+ this.comandaCerrada = function(){
+ 	return this.mesa() && this.comanda() && this.comanda().isCerrada();
+ }
  this.currentCom = function(){
  	return this.mesa().currentComanda;
  }
@@ -123,6 +131,12 @@ function Comanda(){
   this.estado="abierta";
   this.isAbierta = function(){
   	return (this.estado =="abierta");
+  }
+  this.isCocina = function(){
+  	return (this.estado =="cocina");
+  }
+  this.isCerrada = function(){
+  	return (this.estado =="cerrado");
   }
 }
 
@@ -179,7 +193,7 @@ Introduzca el razon de la cortesia:<br />
 <div style="padding:4px">nombre: <input type="text" id="searchNombre" onkeydown="doSearch()" /></div>
 <table id="list3" class="scroll" cellpadding="0" cellspacing="0"></table>
 <div id="pager3" class="scroll" style="text-align:center;"></div>
-<div onclick="cancelarCliente()" style="background:#AAA;cursor:pointer">cancelar</div>
+<div style="height:30px"><input type="button" onclick="cancelarCliente()" value="cancelar"></input></div>
 </div>
  <div id="arriba_izquierda" style="width:100%;height:100%">
  <div style="border-bottom:1px solid #AAAAAA;">
@@ -277,14 +291,14 @@ var main = new Main(<?php echo($noMesas); ?>)
 <td><input id="total" type="text" border=0 disabled=true style="width:100%;text-align:center;font-family:Arial,sans-serif;font-size:30px"/></td>
 <td><input id="efectivo" type="text" disabled=true style="width:100%;text-align:center;font-family:Arial,sans-serif;font-size:30px"/></td>
 <td><input id="cambio" type="text" disabled=true style="width:100%;text-align:center;font-family:Arial,sans-serif;font-size:30px"/></td></tr>
-    <!--BOTON BORRAR-->
+    <!--BOTON COCINA-->
 <tr><td height="50%">
 <div class="btn notcalcbtntop">
 <div class="h1r"><img width="2px" height="1px" src="images/blankdot.gif"/></div>
 <div class="h1f"><img width="2px" height="1px" src="images/blankdot.gif"/></div><div class="btnbck"><img height="1px" src="images/blankdot.gif"/></div>
 <div class="h1r"><img width="1px" height="1px" src="images/blankdot.gif"/></div>
 <div class="h1f"><img width="1px" height="1px" src="images/blankdot.gif"/></div><div class="btnbck"><img height="1px" src="images/blankdot.gif"/></div>
-<table class="tablebtn" cellspacing=0><tr><td  id="Borrar" class="actionbtn btnunpress" align="center" onmousedown="borrar(this.id)" onmouseup="changeClass(this.id)">Borrar</td></tr></table>
+<table class="tablebtn" cellspacing=0><tr><td  id="Cocina" class="actionbtn btnunpress" align="center" onmousedown="cocina(this.id)" onmouseup="changeClass(this.id)">Cocina</td></tr></table>
 <div class="h1r"><img width="1px" height="1px" src="images/blankdot.gif"/></div>
 <div class="h1f"><img width="1px" height="1px" src="images/blankdot.gif"/></div><div class="btnbck"><img height="1px" src="im ages/blankdot.gif"/></div>
 <div class="h1r"><img width="2px" height="1px" src="images/blankdot.gif"/></div>
@@ -463,17 +477,35 @@ var main = new Main(<?php echo($noMesas); ?>)
 <div class="h1f"><img width="2px" height="1px" src="images/blankdot.gif"/></div><div class="btnbck"><img height="1px" src="images/blankdot.gif"/></div>
 </td></tr>
 <tr>
-<!--BOTON LIBERAR MESA-->
-<td height="50%"><div class="btn">
+<!--BOTON BORRAR-->
+<td height="50%">
+<table width="100%" height="100%"><tr><td>
+<div class="btn">
 <div class="h1r"><img width="2px" height="1px" src="images/blankdot.gif"/></div>
 <div class="h1f"><img width="2px" height="1px" src="images/blankdot.gif"/></div><div class="btnbck"><img height="1px" src="images/blankdot.gif"/></div>
 <div class="h1r"><img width="1px" height="1px" src="images/blankdot.gif"/></div>
 <div class="h1f"><img width="1px" height="1px" src="images/blankdot.gif"/></div><div class="btnbck"><img height="1px" src="images/blankdot.gif"/></div>
-<table class="tablebtn" cellspacing=0><tr><td  id="LiberarMesa" class="actionbtn btnunpress" align="center" onmousedown="liberaMesaMouseDown(this.id)" onmouseup="changeClass(this.id)" onmouseout="comprobarOut(this.id)">Liberar Mesa</td></tr></table>
+<table class="tablebtn" cellspacing=0><tr><td  id="Borrar" class="actionbtn btnunpress" align="center" onmousedown="borrar(this.id)" onmouseup="changeClass(this.id)">Borrar</td></tr></table>
 <div class="h1r"><img width="1px" height="1px" src="images/blankdot.gif"/></div>
 <div class="h1f"><img width="1px" height="1px" src="images/blankdot.gif"/></div><div class="btnbck"><img height="1px" src="images/blankdot.gif"/></div>
 <div class="h1r"><img width="2px" height="1px" src="images/blankdot.gif"/></div>
-<div class="h1f"><img width="2px" height="1px" src="images/blankdot.gif"/></div><div class="btnbck"><img height="1px" src="images/blankdot.gif"/></div></td>
+<div class="h1f"><img width="2px" height="1px" src="images/blankdot.gif"/></div><div class="btnbck"><img height="1px" src="images/blankdot.gif"/></div>
+</td></tr>
+<tr><td>
+<!--BOTON LIBERAR MESA-->
+<div class="btn">
+<div class="h1r"><img width="2px" height="1px" src="images/blankdot.gif"/></div>
+<div class="h1f"><img width="2px" height="1px" src="images/blankdot.gif"/></div><div class="btnbck"><img height="1px" src="images/blankdot.gif"/></div>
+<div class="h1r"><img width="1px" height="1px" src="images/blankdot.gif"/></div>
+<div class="h1f"><img width="1px" height="1px" src="images/blankdot.gif"/></div><div class="btnbck"><img height="1px" src="images/blankdot.gif"/></div>
+<table class="tablebtn" cellspacing=0><tr><td  id="LiberarMesa" class="actionbtn btnunpress" align="center" onmousedown="liberaMesaMouseDown(this.id)" onmouseup="changeClass(this.id)" onmouseout="comprobarOut(this.id)">Liberar</td></tr></table>
+<div class="h1r"><img width="1px" height="1px" src="images/blankdot.gif"/></div>
+<div class="h1f"><img width="1px" height="1px" src="images/blankdot.gif"/></div><div class="btnbck"><img height="1px" src="images/blankdot.gif"/></div>
+<div class="h1r"><img width="2px" height="1px" src="images/blankdot.gif"/></div>
+<div class="h1f"><img width="2px" height="1px" src="images/blankdot.gif"/></div><div class="btnbck"><img height="1px" src="images/blankdot.gif"/></div>
+</td></tr>
+</table>
+</td>
 <!--BOTON CERRAR TICKET-->
 <td height="50%"><div id="divCerrar" class="btn">
 <div class="h1r"><img width="2px" height="1px" src="images/blankdot.gif"/></div>

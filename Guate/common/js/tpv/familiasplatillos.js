@@ -1,5 +1,5 @@
 function getFamilias(){
- $.getJSONGuate("Presentacion/jsonplattpv.php", function(json){
+ $.getJSONGuate("/recepcion/Presentacion/jsonplattpv.php", function(json){
     json = verificaJSON(json);
     crearFamilias(json);
    	$(".platscroll").css({display:"none"});

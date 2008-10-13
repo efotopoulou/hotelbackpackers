@@ -1,6 +1,6 @@
 <?php
 
-require ('../Datos/Dplatillos.php');
+require ($_SERVER['DOCUMENT_ROOT'] . '/recepcion/Datos/Dplatillos.php');
 
 class platillos{
 		private $pla;
