@@ -38,8 +38,8 @@ class Dcaja{
 	const USUARIOS_MOV = 'select t1.id_movimiento,t1.fechaHora,t2.cobrado as tipo,t2.dinero,t1.descripcion,t4.nombre as categoria,t5.nombre as encargado from movimiento t1,movimientocredito t2,trabajador t3,categoria t4,guate_bd.usuario t5 where t1.id_movimiento=t2.id_movimiento and t3.idTrabajador=t2.id_usuario and t4.id_categoria=t1.id_categoria and t5.Id_usuario=t1.idencargado and t2.id_usuario=? order by t1.fechaHora desc';
 	const SET_USUARIO = 'INSERT INTO trabajador VALUES(0,?,?)';
 	const TOTAL_CUENTA = 'select sum(total) as total from(select sum(t4.total) as total from comanda t1,caja t2,trabajador t3,comandacredito t4 where t1.id_caja=t2.id_caja  and t1.idComanda=t4.idComanda and t1.id_cliente=t3.idTrabajador and t1.tipoCliente=5 and t3.idTrabajador=? and t4.cobrado=0 group by t3.idTrabajador union select sum(t1.dinero) as total from movimientocredito t1,movimiento t2 where t1.id_movimiento=t2.id_movimiento and t1.id_usuario=?)as total';
-	const GET_PEDIDO = 'select t1.idPlatillo,t1.cantidad,t2.nombre,t1.precio from lineacomanda t1,platillo t2 where idComanda=? and t2.idPlatillo=t1.idPlatillo';
-	const GET_PEDIDO_BAR = 'select t1.idLineaComanda,t2.numBebida,t1.cantidad,t2.nombre,t1.precio from lineacomanda t1,bebida t2 where idComanda=? and t2.idBebida=t1.idPlatillo union select t1.idLineaComanda,t2.idPlatillo,t1.cantidad,t2.nombre,t1.precio from lineacomanda t1,platillo t2 where idComanda=? and t2.idPlatillo=t1.idPlatillo';
+	const GET_PEDIDO = 'select t1.idLineaComanda,t2.idPlatillo,t1.cantidad,t2.nombre,t1.precio from lineacomanda t1,platillo t2 where idComanda=? and t2.idPlatillo=t1.idPlatillo';
+	const GET_PEDIDO_BAR = 'select t1.idLineaComanda,t2.numBebida,t1.cantidad,t2.nombre,t1.precio from lineacomanda t1,bebida t2 where idComanda=? and t2.idBebida=t1.idPlatillo ';
 	const GET_MOV_CATEGORIES = 'select * from categoria where showcaja=1';
 	const GET_PRECIOS = 'select precioLimitado,precioNormal from bar_bd.bebida where idBebida=?';
 	const TOTAL_COMANDA_CREDITO = 'select total from comandacredito where idComanda=?';

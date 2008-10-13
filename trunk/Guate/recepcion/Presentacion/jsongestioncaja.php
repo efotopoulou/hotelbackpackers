@@ -15,10 +15,11 @@ $comandasAnuladas = $_POST['comandasAnuladas'];
 $movimientosAnulados = $_POST['movimientosAnulados'];
 $idComandafacturada = $_POST['idComandafacturada']; 
 $idComDetail = $_POST['idComDetail'];
+$numcomanda = $_POST['numcomanda'];
 //parametros para informar el control de stock 
 $idproducto = $_POST['idproducto']; 
-$cantity = $_POST['cantity'];
-$checked = $_POST['checked']; 
+
+
 
 $caja=new caja();
 $mensaje = new MensajeJSON();
@@ -43,20 +44,15 @@ $newmov=$caja->insert_movimiento($totalTipo,$dinero,$description,$categoria,$ide
 $a=$caja->cobrar_ticket($idComanda);	
 if ($a==false) $mensaje->setMensaje("La comanda esta ya esta cobrada y facturada!");
 }else if ($idComDetail){
-//$aux = substr($idComDetail,0,1);
-//  if ($aux=="B"){$id=substr($idComDetail,1); $pedidos=$caja->get_pedido_bar($id);
-//  }else{$pedidos=$caja->get_pedido($idComDetail);}	
-$pedidos=$caja->get_pedido_bar($idComDetail);
+  if ($numcomanda=="") $pedidos=$caja->get_pedido_bar($idComDetail);
+  else $pedidos=$caja->get_pedido($idComDetail);	
+
 if ((sizeof($pedidos))>0){
 	  for($i=0;$i<count($pedidos);$i++) {
 	  $pedidosInfo[$i]=array("idPlatillo"=>$pedidos[$i]->idPlatillo,"cantidad"=>$pedidos[$i]->cantidad,"nombre"=>$pedidos[$i]->nombre,"precio"=>$pedidos[$i]->precio);
 	  }
  }	
-}//else if($idproducto){
-//$stock = new stock();
-//$stock->informar_stock_rest($idproducto,$cantity);
-//$caja->insert_venta_recepcion($idproducto,$cantity,$checked,$description,$idencargado);
-//}
+}
 else if($comandasAnuladas){
   $idComandaAnuladaList = split( ",",$comandasAnuladas);
   foreach ($idComandaAnuladaList as $value){
