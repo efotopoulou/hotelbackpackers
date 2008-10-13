@@ -315,9 +315,9 @@ $rs = $u->get_usuarios();
 	return $ors;		
 }
 
-function set_usuario($nombreEmpleado){
+function set_usuario($nombreEmpleado,$cliente){
   $u = new Dcaja();
-  $rs = $u->set_usuario($nombreEmpleado);
+  $rs = $u->set_usuario($nombreEmpleado,$cliente);
 }
 
 function get_usuarios_comandas($idusuario){

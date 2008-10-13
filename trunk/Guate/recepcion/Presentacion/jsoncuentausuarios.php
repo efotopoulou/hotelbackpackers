@@ -5,10 +5,8 @@ require ($_SERVER['DOCUMENT_ROOT'] . '/recepcion/Dominio/MensajeJSON.php');
 
 $usuario = $_POST['usuario'];
 $idusuario = $_POST['idusuario'];
-$year = $_POST['year'];
-$month = $_POST['month'];
-$comandas = $_POST['comandas'];
-$movs = $_POST['movs'];
+//$comandas = $_POST['comandas'];
+//$movs = $_POST['movs'];
 $nombreEmpleado = $_POST['nombreEmpleado'];
 $dinero=$_POST['dinero'];
 $money=$_POST['money'];
@@ -16,6 +14,7 @@ $description=$_POST['description'];
 $categoria=$_POST['categoria'];
 $idempleado=$_POST['idempleado'];
 $idencargado=$_POST['idencargado'];
+$tipo=$_POST['tipo'];
 
 $caja=new caja();
 $mensaje = new MensajeJSON();
@@ -44,7 +43,7 @@ $totalTickets=$caja->total_cuenta($iduser);
 }
 //añadimos un nuevo usuario y cargamos de nuevo la lista de los usuarios--OK
 else if($nombreEmpleado){
-$caja->set_usuario($nombreEmpleado);
+$caja->set_usuario($nombreEmpleado,$tipo);
 $response = loadusuarios($caja);		
 }
 //insertar un nuevo movimiento como credito.en la caja y en la cuenta de usuarios--OK

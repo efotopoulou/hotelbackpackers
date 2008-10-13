@@ -114,10 +114,12 @@ if (json.TicketsInfo){
         }
         
         if (json.MovimientosInfo){
+  	  var pagado=0;
   	  $("#movimientosTable").html(" ");
       for(i=0;i<json.MovimientosInfo.length;i++) {
      	idMov="M"+json.MovimientosInfo[i].id_movimiento;
         $("#movimientosTable").append("<tr id="+idMov+"><td class='checkbox' width=2%><input type='checkbox'  onclick='btncolor(\""+idMov+"\");'></td><td width=18%><h6>"+json.MovimientosInfo[i].fechaHora+"</h6></td><td width=8%><h6 class='tipoh6'>"+json.MovimientosInfo[i].tipo+"</h6></td><td width=10%><h6>"+json.MovimientosInfo[i].dinero+"</h6></td><td><h6>"+json.MovimientosInfo[i].descripcion+"</h6></td><td><h6>"+json.MovimientosInfo[i].categoria+"</h6></td><td width=10%><h6>"+json.MovimientosInfo[i].encargado+"</h6></td></tr>");
+          if (json.MovimientosInfo[i].dinero<0) pagado+=parseFloat(json.MovimientosInfo[i].dinero);
           if(json.MovimientosInfo[i].tipo=="anulado"){
         	$("#"+idMov).css({ textDecoration:"line-through"});
         	$("#"+idMov).addClass("redtext");
@@ -125,10 +127,11 @@ if (json.TicketsInfo){
           if(json.MovimientosInfo[i].tipo=="cobrado") $("#"+idMov).addClass("verde");
           	
         }
+         $(".pagado").html(Math.abs(pagado));
         }else{
         $("#movimientosTable").html(" ");
         }
-        
+       
         if (!json.MovimientosInfo && !json.TicketsInfo) alert("Este mes el usuario no ha consumido nada!");
         
         if (json.TotalTickets)  $(".total").html(json.TotalTickets);
@@ -196,8 +199,9 @@ function changedisplay(Seccion){
 //-------------------------------------------CREAR CUENTA-------------------------------------------------//
 function crear_cuenta(){
 var nombreEmpleado= $("#nombreEmpleado").val();
+var tipo= $("#tipo").val();
   if(confirm('Estas seguro que quieres crear una nueva cuenta?')){
-     $.getJSONGuate("Presentacion/jsoncuentausuarios.php",{nombreEmpleado:nombreEmpleado}, function(json){
+     $.getJSONGuate("Presentacion/jsoncuentausuarios.php",{nombreEmpleado:nombreEmpleado,tipo:tipo}, function(json){
       json = verificaJSON(json);
       loadusuarios(json);
       $("#ticketsTable").html(" ");
@@ -253,8 +257,9 @@ function insertmovcredito(dinero,description,categoria,idempleado){
 //--------------------------------------------------------IMPRIMIR CUENTA--------------------------------------------------------//
 function imprimircuenta(){
 	nameempleado=$("#usuariosTable .amarillo .onomataki").html();
+	pagado=$(".pagado").html();
 	idemp=$("#usuariosTable .amarillo").attr("id");
-    document.location="Presentacion/imprimircuenta.php?name="+nameempleado+"&id="+idemp;
+    document.location="Presentacion/imprimircuenta.php?name="+nameempleado+"&id="+idemp+"&pagado="+pagado;
 }
 //--------------------------------------------------------PAGAR CREDITO--------------------------------------------------------//
 function pagarcredito(){
@@ -282,18 +287,21 @@ function pagarcredito(){
 	</div>
 	</div>
 		
-	<div class="box_amarillo" style="width:35%; margin-top:15px;float:left">
-	 <div><span class="label"><b><h3>Gestion de Empleados:</h3></b></span>
+	<div class="box_amarillo" style="width:36%; margin-top:15px;float:left">
+	 <div><span class="label"><b><h3>Gestion Empleados:</h3></b></span>
 	     
 	     <div id="b5" style="float:left; margin-top:5px;">			
-	           <div style="margin-top:5px;width:50%;float:left"><span><input type="button" value="crear cuenta" id="reporte" onClick="changedisplay('b6');changedisplay('b5');"/></span></div>
+	           <div style="margin-top:5px;margin-left:20px;width:50%;float:left"><span><input type="button" value="crear cuenta" id="reporte" onClick="changedisplay('b6');changedisplay('b5');"/></span></div>
                <!--<div style="margin-top:5px;width:50%;float:left"><span><input type="button" value="Eliminar cuenta" id="reporteexcel" onClick="eliminar_cuenta();"/></span></div> -->
          </div>
 	     
 	     
 	     <div id="b6" style="float:left; margin-top:5px;" class="changedisplay">			
 			   <div class="row" align="left">
-      		     <div style="margin-top:5px"><span>Nombre:</span><span><input id="nombreEmpleado" type="text" size="20" value=""/></span></div>
+      		     <table class="green">
+      		     <tr class="green"><td><h6>Nombre:</h6></td><td><input id="nombreEmpleado" type="text" size="10" value=""/></td></tr>
+   			     <tr class="green"><td><h6>Tipo:</h6></td><td><select id="tipo"><option value="0">Empleado</option><option value="1">Cliente</option></select></td></tr>
+   			     </table>
    			     <input type="button" value="Guardar" style="margin-top:5px;margin-left:20px" onClick="crear_cuenta();"/>
                  <input type="button" value="Cancelar" style="margin-top:5px;margin-left:10px" onClick="changedisplay('b5');changedisplay('b6');"/>	
 		       </div>
@@ -356,16 +364,16 @@ function pagarcredito(){
 	<table  width=97% cellpadding=0 cellspacing=1>
     <tr><td width=20%><h6><center>Fecha Hora</center></h6></td><td width=8%><h6>tipo</h6></td><td width=9%><h6>dinero</h6></td><td><h6><center>descripcion</center></h6></td><td width=14%><h6>categoria</h6></td><td width=10%><h6>encargado</h6></td></tr>
     </table>
-    <div style="height:20%;overflow:auto">
+    <div style="height:26%;overflow:auto">
     <table id="movimientosTable" width=97% cellpadding=0 cellspacing=1>
     </table>
     </div>
-    <div class="row" align="left" style="height:10%;overflow:auto">
-      		<div style="width:120px;float:left;margin-left:100px"><span><h1>Total:</h1></span></div>
-      		<div><span class="total" style="font-weight:bold;font-size: 12pt">0</span>
-      		<!--<span style="margin-left:100px"><input type="button" value="Cobrar" id="an" onClick="cobrarTicket();"/></span> -->
-      		<span style="margin-left:50px"><input type="button" value="Imprimir Cuenta" id="an" onClick="imprimircuenta();"/></span>
-      		</div>
+    <div class="row" align="left" style="height:5%;overflow:auto">
+      <div style="margin-left:50px;width:120px;float:left;"><span style="font-weight:bold;font-size: 13pt">Total:</span><span class="total" style="font-weight:bold;font-size: 12pt">0</span></div>
+      <div style="margin-left:50px;width:120px;float:left;"><span style="font-weight:bold;font-size: 13pt">Pagado:</span><span class="pagado" style="font-weight:bold;font-size: 12pt">0</span></div>
+      <div style="margin-left:50px;width:120px;float:left;"><input type="button" value="Imprimir Cuenta" id="an" onClick="imprimircuenta();"/></span></div>
+      		
+      		
    		<div style="clear:both"></div>
    	</div>
    
