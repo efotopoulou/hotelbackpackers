@@ -36,7 +36,7 @@ function platomousedown(plato,platoid,precioN,precioLim,id){
 
 //-------------------------------------------EFECTIVOMOUSEDOWN----------------------------------------//
 function efectivo(){
-  if (main.mesa() && main.comanda() && !main.comanda().isCerrada()){
+  if (main.mesa() && main.comanda() && main.comandaCocina()){
 	if(!main.efectivo && main.currentClient!=1 && main.currentClient!=5){
 	 //hace focus al input efectivo
 	 //desactiva toda la pantalla menos el input efectivo, la calculadora y el boton borrar
@@ -59,13 +59,12 @@ function efectivo(){
 //-------------------------------------------CERRARTIQUETMOUSEDOWN----------------------------------------//
 function cerrarTiquetMouseDown(){
 //Si los botones de cliente son Credito o Gratis, el cajero no puede apretar el efectivo. Hacemos como si lo hubiese apretado. 
-    if ((main.currentClient ==1 || main.currentClient ==5) && main.comandaAbierta()){
+    if ((main.currentClient ==1 || main.currentClient ==5) && main.comandaCocina()){
      main.comanda().id_cliente=main.id_cliente;
      main.efectivo=1;
     }
-	if (main.efectivo && main.mesa() && main.comanda() && main.comanda().isAbierta()) {
+	if (main.efectivo && main.comandaCocina()) {
 	 sendComanda();
-    
 	//activa la pantalla
 	$('#arriba_izquierda').unblock(); 
     $('#arriba_derecha').unblock(); 
@@ -78,6 +77,7 @@ function cerrarTiquetMouseDown(){
     $("#cambio").val("");
     $("#idComanda").val("R"+main.numDefaultID);
     listaPedidos.fijarComanda();
+    listaPedidos.mensajeCocina("Comanda Cerrada");
     clienteScreen.setClienteName("");
     main.comanda().estado="cerrado";
 	}
@@ -99,8 +99,11 @@ function liberaMesaMouseDown(id){
    if (main.mesa() && main.comanda()){
 	 if (main.comanda().isAbierta()){
 	  if(confirm('Existe una comanda aun abierta, quieres borrarla?')) mesaLibre();
+    }else if (main.comanda().isCocina()){
+      if(confirm('Existe una comanda enviada en la cocina, quieres borrarla?')) mesaLibre();
     }else mesaLibre();
    }
+   changeClass(id);
 }
 //-------------------------------------------COCINA----------------------------------------//
 function cocina(id){
@@ -181,7 +184,6 @@ function restoreHibernar(){
     		listaPedidos.setCantidad(liniaAux["cantidad"]);
     		calmousedown(liniaAux["cantidad"]);
     	}
-    	//alert(comandaAux["tipoCliente"]);
     }
   },false);
 }
@@ -236,6 +238,7 @@ function mesamousedown(id){
 //-------------------------------------------CLIENTEMOUSEDOWN----------------------------------------//
 //Hay que llamar a esta funcion despues de asignarle el currentMesa
 function clientemousedown(num){
+ if (!main.comandaCocina()){
 	main.id_cliente=undefined;
 	clienteScreen.setCorrectColor(num);
 	if (main.comandaAbierta()) actualizarListaProductos(num);
@@ -243,7 +246,8 @@ function clientemousedown(num){
     if (num==5) {desHotkeys();mostrarListaTrabajadores();desactivarEfectivo();}
     if (num==2) {desHotkeys();mostrarListaTrabajadores();activarEfectivo();}
     if (num==1) {askForVolName();desactivarEfectivo();}
-    if (num==4) {guardarDatosCliente(undefined,"");activarEfectivo();} 
+    if (num==4) {guardarDatosCliente(undefined,"");activarEfectivo();}
+  } 
 }
 
 //-------------------------------------------ASK FOR THE NAME OF THE VOLUNTEER--------------------//
