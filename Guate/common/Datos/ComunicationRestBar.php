@@ -14,7 +14,7 @@ require_once ($_SERVER['DOCUMENT_ROOT'] .'/common/creole/Creole.php');
  * TODO: comprovaci�n de errores y que no salten (@funcion)
  */
 
-class ComunicationRecep{
+class ComunicationRestBar{
 
 	//	PARAMETROS PARA LA CONEXI�N
 	const PHPTYPE = 'mysqli';

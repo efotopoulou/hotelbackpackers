@@ -25,7 +25,7 @@ try {
  	if($cantidad==0) $cantidad=1;
  	$comanda->setLineaComanda($comandaId,$lineas[$i]["platoId"],$cantidad, $lineas[$i]["precioN"]);
  }
-if ($mesa["currentClientType"]==5)$comanda->setComandaCreditoComida($comandaId);
+if ($mesa["currentClientType"]==5)$comanda->setComandaCreditoComida($comandaId,"HR");
 }catch (SQLException $e){
 	$aux = $e ->getNativeError();
  $mensaje->setMensaje("Error Desconocido: $aux!");

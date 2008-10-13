@@ -17,6 +17,7 @@ $mesa["numRow"];
 //idComanda,estado,fechaHora,usuario,efectivo,mesa,tipoCliente,Total
 try {
  		$comandaId = $comanda->setComanda($mesa["comandaID"],$mesa["efectivo"],$mesaNum,$mesa["currentClientType"],$mesa["totalPropina"],$mesa["id_cliente"],$mesa["free"]);
+ 		echo ("ComandaId:".$comandaId);
  //Se borra por si acaso ha desactivado el efectivo y lo vuelve a apretar.
  //$comanda->borrarLineasComanda($mesa["comandaID"]);
  $lineas = $mesa["liniasComanda"];
@@ -25,7 +26,7 @@ try {
  	if($cantidad==0) $cantidad=1;
  	$comanda->setLineaComanda($comandaId,$lineas[$i]["platoId"],$cantidad, $lineas[$i]["precioN"]);
  }
-if ($mesa["currentClientType"]==5)$comanda->setComandaCreditoComida($comandaId);
+if ($mesa["currentClientType"]==5)$comanda->setComandaCreditoComida($comandaId, "RB");
 }catch (SQLException $e){
 	$aux = $e ->getNativeError();
  $mensaje->setMensaje("Error Desconocido: $aux!");
