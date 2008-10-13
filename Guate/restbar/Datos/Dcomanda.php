@@ -212,14 +212,6 @@ class Dcomanda{
 		
 		return $result;
 	}
-	public function setLineaComanda($comandaID,$platoId,$cantidad,$precio){
-		$comunication = new ComunicationRecep();
-		$PARAMS = array($comandaID,$platoId,$cantidad,$precio);
-		$PARAMS_TYPES = array (ComunicationRecep::$TSTRING,ComunicationRecep::$TSTRING,ComunicationRecep::$TINT,ComunicationRecep::$TFLOAT);
-		$result = $comunication->update(self::SET_LISTA_PLATILLOS,$PARAMS,$PARAMS_TYPES);
-		return $result;
-		
-	}
 	public function updateComandaAbierta($comandaID,$efectivo){
 		$comunication = new ComunicationRecep();
 		$PARAMS = array($efectivo,$comandaID);
