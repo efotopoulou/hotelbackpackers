@@ -60,9 +60,9 @@ function LineaComandaScreen(){
   var propina = this.calcularPropina(precio);
   	 var html ='<div id="total'+this.actualComanda+'"><div style="float:right;width:80px;height:1px;background:#000;margin-right:15px"></div>'+
   	           '<table style="text-align:center;clear:right" width=97% border=0 cellpadding=0 cellspacing=1>'+
-  	           '<tr><td>&nbsp;</td><td width=20%>SubTot.<span id="precioTotal'+this.actualComanda+'" style="font-weight:bold">'+precio+'</span>'+
-  	           '</td></tr><tr><td>&nbsp;</td><td width=20%>Prop.<span  id="propina'+this.actualComanda+'" style="font-weight:bold">'+propina+'</span></td></tr>'+
-  	           '<tr><td>&nbsp;</td><td width=20%>Tot.<span id="TotalPropina'+this.actualComanda+'" style="font-weight:bold">'+(parseInt(parseInt(precio)+parseInt(propina)))+'</span></td></tr></table></div>';
+  	           '<tr><td id="mensajeCocina" rowspan=3>&nbsp;</td><td width=20%>SubTot.<span id="precioTotal'+this.actualComanda+'" style="font-weight:bold">'+precio+'</span>'+
+  	           '</td></tr><tr><td width=20%>Prop.<span  id="propina'+this.actualComanda+'" style="font-weight:bold">'+propina+'</span></td></tr>'+
+  	           '<tr><td width=20%>Tot.<span id="TotalPropina'+this.actualComanda+'" style="font-weight:bold">'+(parseInt(parseInt(precio)+parseInt(propina)))+'</span></td></tr></table></div>';
    $("#comanda"+this.actualComanda).after(html);
   }
 
@@ -113,5 +113,8 @@ function LineaComandaScreen(){
    propina = parseInt(precio/10);
   }    
   return propina;
+ }
+ this.mensajeCocina=function(men){
+  $("#total"+main.currentCom()+" #mensajeCocina").html(men);
  }
 }
