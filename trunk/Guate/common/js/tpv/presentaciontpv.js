@@ -376,7 +376,7 @@ function activarEfectivo(){
 function gridReload(){
  var nm_mask = jQuery("#searchNombre").val();
  //Presentacion/jsongrid.php?q=trabajador&nd='+new Date().getTime()
- jQuery("#list3").setGridParam({url:"Presentacion/jsongrid.php?q=trabajador&nm_mask="+nm_mask,page:1}).trigger("reloadGrid");
+ jQuery("#list3").setGridParam({url:"/recepcion/Presentacion/jsongrid.php?q=trabajador&nm_mask="+nm_mask,page:1}).trigger("reloadGrid");
 }
 function doSearch(){
  if(timeoutHnd) clearTimeout(timeoutHnd);
@@ -405,7 +405,7 @@ function doSearch(){
  //-------------------------------------------MOSTRAR LISTA DE CLIENTES Y TRABAJADORES------------------//
 function mostrarListaClientes(){
   jQuery("#list2").jqGrid({
-    url:'jsongrid.php?q=cliente&nd='+new Date().getTime(),
+    url:'/recepcion/Presentacion/jsongrid.php?q=cliente&nd='+new Date().getTime(),
     datatype: "xml",
     colNames:['Id','Nombre', 'Apellido1', 'Apellido2','Pasaporte'],
     colModel:[
@@ -435,7 +435,7 @@ function mostrarListaClientes(){
  }
 function mostrarListaTrabajadores(){
   jQuery("#list3").jqGrid({
-    url:'Presentacion/jsongrid.php?q=trabajador&nd='+new Date().getTime(),
+    url:'/recepcion/Presentacion/jsongrid.php?q=trabajador&nd='+new Date().getTime(),
     datatype: "xml",
     colNames:['id', 'nombre'],
     colModel:[
