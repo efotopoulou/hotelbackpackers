@@ -258,11 +258,11 @@ function loadPage(json){
         idCom=json.TicketsInfo[i].idComanda;
      	nombre = descripcion(json.TicketsInfo[i].free,json.TicketsInfo[i].nombre)
 
-        $("#ticketsTable").append("<tr id="+idCom+"><td class='checkbox' width=2%><input type='checkbox'  onclick='changeClass(\""+idCom+"\");'></td><td width=10%><h6>"+numComanda+"</h6></td><td width=8%><h6 class='estadoh6'>"+json.TicketsInfo[i].estado+"</h6></td><td width=17%><h6>"+json.TicketsInfo[i].fechaHora+"</h6></td><td width=6%><h6>"+json.TicketsInfo[i].total+"</h6></td><td width=8%><h6>"+json.TicketsInfo[i].efectivo+"</h6></td><td width=8%><h6>"+camb+"</h6></td><td width=10%><h6>"+json.TicketsInfo[i].tipoCliente+"</h6></td><td><h6>"+nombre+"</h6></td></tr>");
-        alert(numComanda);
+        $("#ticketsTable").append("<tr id="+idCom+"><td class='checkbox' width=2%><input type='checkbox'  onclick='changeClass(\""+idCom+"\");'></td><td width=10%><h6 class='numcomand'>"+numComanda+"</h6></td><td width=8%><h6 class='estadoh6'>"+json.TicketsInfo[i].estado+"</h6></td><td width=17%><h6>"+json.TicketsInfo[i].fechaHora+"</h6></td><td width=6%><h6>"+json.TicketsInfo[i].total+"</h6></td><td width=8%><h6>"+json.TicketsInfo[i].efectivo+"</h6></td><td width=8%><h6>"+camb+"</h6></td><td width=10%><h6>"+json.TicketsInfo[i].tipoCliente+"</h6></td><td><h6>"+nombre+"</h6></td></tr>");
+    
         $("#"+idCom+" td:not(.checkbox)").mousedown(function(e){
-           alert(numComanda);
-           showpedido(this.parentNode.id,numComanda);
+           var num=$("#"+this.parentNode.id+" .numcomand").html();
+           showpedido(this.parentNode.id,num);
         });
          if(json.TicketsInfo[i].estado=="anulado")$("#"+idCom).css({ textDecoration:"line-through"});
          if (json.TicketsInfo[i].estado=="cobrado"){$("#"+json.TicketsInfo[i].idComanda).addClass("verde");}
@@ -299,11 +299,11 @@ function redondea(num){
 }
 //-------------------------------------------SHOW PEDIDO---------------------------------------------------//
 function showpedido(id,numcomanda){
-    alert(numcomanda);
+    //alert(numcomanda);
     if ($("#ticketsTable tr").hasClass("detail"+id)){
        	$(".detail"+id).remove();
     }else {
-	 $.getJSONGuate("Presentacion/jsongestioncaja.php",{idComDetail:id}, function(json){
+	 $.getJSONGuate("Presentacion/jsongestioncaja.php",{idComDetail:id,numcomanda:numcomanda}, function(json){
       json = verificaJSON(json);
       if (json.pedidosInfo){		
        for(i=0;i<json.pedidosInfo.length;i++) {
