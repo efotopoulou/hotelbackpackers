@@ -23,11 +23,11 @@ else
 <div id="header-bar">
 	<!-- navigation -->
 	<ul id="navigation">
-<?php if($allowedRest["caja"]){ ?><li><a href="/restbar/view.php?page=cajaRest">Caja</a></li><?php } ?>
-<?php if($allowedRest["bebida"]){ ?><li><a href="/restbar/view.php?page=bebidaRest">Bebida</a></li><?php } ?>
-<?php if($allowedRest["comida"]){ ?><li><a href="/restbar/view.php?page=comidaRest">Comida</a></li><?php } ?>
-<?php if($allowedRest["historicocaja"]){ ?><li><a href="/restbar/view.php?page=historicocajaRest">Historico Caja</a></li><?php } ?>
-<?php if($allowedRest["controlstock"]){ ?><li><a href="/restbar/view.php?page=controldestockRest">Control de Stock</a></li><?php } ?>
+<?php if($allowedRest["cajaRest"]){ ?><li><a href="/restbar/view.php?page=cajaRest">Caja</a></li><?php } ?>
+<?php if($allowedRest["bebidaRest"]){ ?><li><a href="/restbar/view.php?page=bebidaRest">Bebida</a></li><?php } ?>
+<?php if($allowedRest["comidaRest"]){ ?><li><a href="/restbar/view.php?page=comidaRest">Comida</a></li><?php } ?>
+<?php if($allowedRest["historicocajaRest"]){ ?><li><a href="/restbar/view.php?page=historicocajaRest">Historico Caja</a></li><?php } ?>
+<?php if($allowedRest["controldestockRest"]){ ?><li><a href="/restbar/view.php?page=controldestockRest">Control de Stock</a></li><?php } ?>
 				
 			</ul>
 			
