@@ -1,6 +1,5 @@
 <?php
-require ($_SERVER['DOCUMENT_ROOT'] . '/recepcion/Dominio/class_caja.php');
-include ($_SERVER['DOCUMENT_ROOT'] . '/recepcion/Dominio/class_stock.php');
+require ($_SERVER['DOCUMENT_ROOT'] . '/restbar/Dominio/class_caja.php');
 
 $admin = "disabled='true'";
 if ($sesion){
@@ -43,14 +42,6 @@ for($i=0;$i<count($categoria);$i++) {
 
 <?php } ?>
 $(".fondo").html(<?php echo($fondoc);?>);
-<?php 
-$stock=new stock();
-$stockreception = $stock->get_stockreception();
- for($i=0;$i<count($stockreception);$i++) {
-?>
-	$("#productoreception").append("<option value='<?php echo($stockreception[$i]->idBebida); ?>'><?php echo($stockreception[$i]->numBebida);?>: <?php echo($stockreception[$i]->nombre); ?></option>");
-
-<?php } ?>
 recargaEstadoCaja();
 $("#efectivo_cerrar").val("0").attr({disabled:false});
 $("#output_money").attr({disabled:false});
@@ -421,7 +412,7 @@ if ($estadocaja==0){
 onload="abrirCaja()"
 <?php }?>
 >
-<?php include($_SERVER['DOCUMENT_ROOT'] . '/common/Presentacion/menu.php'); ?>
+<?php include($_SERVER['DOCUMENT_ROOT'] . '/common/Presentacion/menuRestBar.php'); ?>
 <div  id="cajaCerrada" style="display:none;margin:0 auto;text-align:center;">
 Introduzca el fondo que va a poner en la caja<br />
 Fondo: <input type="text" id="fondo" name="fondo"/><br />

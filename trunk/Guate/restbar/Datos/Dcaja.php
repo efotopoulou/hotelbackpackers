@@ -10,40 +10,39 @@ class Dcaja{
 	const GET_ID_CAJA = 'select id_caja from caja where estado=1';
 	const CLOSE_CAJA = 'UPDATE caja SET estado=0,fechaHoraCierre=NOW(), EfectivoCerrar=? where caja.estado=1';
 	const INS_MOV = 'INSERT INTO movimiento VALUES(0,NOW(),?,?,?,?,?,?)';
-	const NAME_USER = 'select nombre from trabajador where idTrabajador=?';
+	const NAME_USER = 'select nombre from recepcion_bd.trabajador where idTrabajador=?';
 	const NAME_ENCARGADO = 'select nombre from guate_bd.usuario where Id_usuario=?';
-	const INS_MOVCREDITO = 'INSERT INTO movimientocredito VALUES(?,?,?,?)';
+	const INS_MOVCREDITO = 'INSERT INTO recepcion_bd.movimientocredito VALUES(?,?,?,?)';
 	//const TOTAL_MONEY_MOV = 'SELECT t1.tipo,sum(t1.dinero) as suma from movimiento t1,caja t2 where t1.id_caja=t2.id_caja and t2.estado=1 group by tipo';
 	const TOTAL_TICKETS = 'SELECT sum(t1.total) as totalTickets from comanda t1,caja t2 where t1.id_caja=t2.id_caja and t2.estado=1 and t1.estado!="anulado" ';
-	const COBRAR_TICKET = 'UPDATE comandacredito SET cobrado=1 where idComanda=?';
-	const COBRAR_MOVIMENTO = 'UPDATE movimientocredito SET cobrado=1 where id_movimiento=?';
+	const COBRAR_TICKET = 'UPDATE recepcion_bd.comandacredito SET cobrado=1 where idComanda=?';
+	//const COBRAR_MOVIMENTO = 'UPDATE recepcion_bd.movimientocredito SET cobrado=1 where id_movimiento=?';
 	const ESTADO_COMANDA = 'select estado from comanda where idComanda=?';
     const ESTADO_TIQUET = 'select estado from comanda where idComanda=?';
 	const DELETE_CREDITO_TIQUET = 'delete from comandacredito where idComanda=?';
 	const ANULAR_TICKET = 'UPDATE comanda SET estado="anulado" where idComanda=?';
 	const ESTADO_MOVIMIENTO = 'select tipo from movimiento where id_movimiento=?';
-	const DELETE_CREDITO = 'delete from movimientocredito where id_movimiento=?';
+	//const DELETE_CREDITO = 'delete from movimientocredito where id_movimiento=?';
 	const ANULAR_MOVIMIENTO = 'UPDATE movimiento SET tipo="anulado" where id_movimiento=?';
-	const FACTURAR_TICKET = 'UPDATE comanda SET estado="facturado" where idComanda=?';
+	//const FACTURAR_TICKET = 'UPDATE comanda SET estado="facturado" where idComanda=?';
 	const FIND_CAJA = 'select id_caja,fechaHoraApertura,fechaHoraCierre,fondoInicial,EfectivoCerrar from caja where fechaHoraApertura <= ? and  fechaHoraApertura >= ?';
 	const FIND_ONE_CAJA = 'select id_caja,fechaHoraApertura,fechaHoraCierre,fondoInicial,EfectivoCerrar from caja where id_caja=?';
-	const LOAD_TICKETS = 'select t1.idComanda,t1.numComanda,t1.estado,concat(DATE_FORMAT(t1.fechaHora,"%d/%m")," ",TIME_FORMAT(t1.fechaHora,"%H:%i:%s")) as fechaHora,t1.total,t1.efectivo,t4.clientType,concat(t3.nombre," ",t3.apellido1," ", t3.apellido2) as nombre,null as free from comanda t1,caja t2, guate_bd.cliente t3,tipocliente t4 where t1.id_caja=t2.id_caja and t2.id_caja=? and t1.id_cliente=t3.Id_cliente and t4.idTipoCliente=t1.tipoCliente and t1.tipoCliente=3 union select t1.idComanda,t1.numComanda,t1.estado,concat(DATE_FORMAT(t1.fechaHora,"%d/%m")," ",TIME_FORMAT(t1.fechaHora,"%H:%i:%s")) as fechaHora,t1.total,t1.efectivo,t4.clientType,t3.nombre,null as free from comanda t1,caja t2,trabajador t3,tipocliente t4 where t1.id_caja=t2.id_caja and t2.id_caja=? and t1.id_cliente=t3.idTrabajador and t4.idTipoCliente=t1.tipoCliente and (t1.tipoCliente=2 or t1.tipoCliente=5) union select t1.idComanda,t1.numComanda,t1.estado,concat(DATE_FORMAT(t1.fechaHora,"%d/%m")," ",TIME_FORMAT(t1.fechaHora,"%H:%i:%s")) as fechaHora,t1.total,t1.efectivo,t4.clientType,null,t1.free from comanda t1,caja t2,tipocliente t4 where t1.id_caja=t2.id_caja and t2.id_caja=? and t1.id_cliente is null and  t1.tipoCliente=t4.idTipoCliente order by fechaHora desc';
-	const LOAD_MOV = 'SELECT t1.id_movimiento,t1.fechaHora,t1.tipo,t1.dinero,t1.descripcion,t3.nombre as categoria,t4.nombre as encargado from movimiento t1,caja t2,categoria t3,guate_bd.usuario t4 where t1.id_caja=t2.id_caja and t2.id_caja=? and t3.id_categoria=t1.id_categoria and t1.idencargado=t4.Id_usuario  order by t1.fechaHora desc';
+	const LOAD_TICKETS = 'select t1.idComanda,t1.numComanda,t1.estado,concat(DATE_FORMAT(t1.fechaHora,"%d/%m")," ",TIME_FORMAT(t1.fechaHora,"%H:%i:%s")) as fechaHora,t1.total,t1.efectivo,t4.clientType,concat(t3.nombre," ",t3.apellido1," ", t3.apellido2) as nombre,null as free from comanda t1,caja t2, guate_bd.cliente t3,recepcion_bd.tipocliente t4 where t1.id_caja=t2.id_caja and t2.id_caja=? and t1.id_cliente=t3.Id_cliente and t4.idTipoCliente=t1.tipoCliente and t1.tipoCliente=3 union select t1.idComanda,t1.numComanda,t1.estado,concat(DATE_FORMAT(t1.fechaHora,"%d/%m")," ",TIME_FORMAT(t1.fechaHora,"%H:%i:%s")) as fechaHora,t1.total,t1.efectivo,t4.clientType,t3.nombre,null as free from comanda t1,caja t2,recepcion_bd.trabajador t3,recepcion_bd.tipocliente t4 where t1.id_caja=t2.id_caja and t2.id_caja=? and t1.id_cliente=t3.idTrabajador and t4.idTipoCliente=t1.tipoCliente and (t1.tipoCliente=2 or t1.tipoCliente=5) union select t1.idComanda,t1.numComanda,t1.estado,concat(DATE_FORMAT(t1.fechaHora,"%d/%m")," ",TIME_FORMAT(t1.fechaHora,"%H:%i:%s")) as fechaHora,t1.total,t1.efectivo,t4.clientType,null,t1.free from comanda t1,caja t2,recepcion_bd.tipocliente t4 where t1.id_caja=t2.id_caja and t2.id_caja=? and t1.id_cliente is null and  t1.tipoCliente=t4.idTipoCliente order by fechaHora desc';
+	const LOAD_MOV = 'SELECT t1.id_movimiento,t1.fechaHora,t1.tipo,t1.dinero,t1.descripcion,t3.nombre as categoria,t4.nombre as encargado from movimiento t1,caja t2,recepcion_bd.categoria t3,guate_bd.usuario t4 where t1.id_caja=t2.id_caja and t2.id_caja=? and t3.id_categoria=t1.id_categoria and t1.idencargado=t4.Id_usuario  order by t1.fechaHora desc';
 	const TOTAL_TICKETS_OLD = 'SELECT sum(t1.total) as totalTickets from comanda t1,caja t2 where t1.id_caja=t2.id_caja and t2.id_caja=? and t1.estado!="anulado" and t1.numComanda is not null';
-	const TOTAL_MONEY_MOV_OLD = 'SELECT t1.tipo,sum(t1.dinero) as suma from movimiento t1,caja t2 where t1.id_caja=t2.id_caja and t2.id_caja=? group by tipo union SELECT "ventaR" as tipo,sum(t1.total) as suma from comanda t1,caja t2,categoria t3 where t1.id_caja=t2.id_caja and t2.id_caja=? and t3.id_categoria=8 and t1.estado!="anulado" and t1.numComanda is null group by t3.nombre';
+	const TOTAL_MONEY_MOV_OLD = 'SELECT t1.tipo,sum(t1.dinero) as suma from movimiento t1,caja t2 where t1.id_caja=t2.id_caja and t2.id_caja=? group by tipo union SELECT "ventaR" as tipo,sum(t1.total) as suma from comanda t1,caja t2,recepcion_bd.categoria t3 where t1.id_caja=t2.id_caja and t2.id_caja=? and t3.id_categoria=8 and t1.estado!="anulado" and t1.numComanda is null group by t3.nombre';
 	const GET_FONDO_CAJA_OLD = 'SELECT fondoInicial from caja where id_caja=?';
-	const ARE_TIKETS_COBRADOS = 'SELECT t1.idComanda from comanda t1,caja t2 where t1.id_caja=t2.id_caja and t2.estado=1 and (t1.estado="cerrado" or t1.estado="abierta")';
-	const GET_USUARIOS = 'select idTrabajador,nombre from trabajador';
-	const USUARIOS_COMANDAS = 'select t1.idComanda,t1.numComanda,t5.cobrado,t1.fechaHora,t5.total,t4.clientType,t3.nombre from comanda t1,caja t2,trabajador t3,tipocliente t4,comandacredito t5 where t1.id_caja=t2.id_caja and t1.id_cliente=t3.idTrabajador and t1.tipoCliente=5 and t1.tipoCliente=t4.idTipoCliente and t5.idComanda=t1.idComanda and t3.idTrabajador=?';
-	const USUARIOS_MOV = 'select t1.id_movimiento,t1.fechaHora,t2.cobrado as tipo,t2.dinero,t1.descripcion,t4.nombre as categoria,t5.nombre as encargado from movimiento t1,movimientocredito t2,trabajador t3,categoria t4,guate_bd.usuario t5 where t1.id_movimiento=t2.id_movimiento and t3.idTrabajador=t2.id_usuario and t4.id_categoria=t1.id_categoria and t5.Id_usuario=t1.idencargado and t2.id_usuario=? order by t1.fechaHora desc';
-	const SET_USUARIO = 'INSERT INTO trabajador VALUES(0,?,?)';
-	const TOTAL_CUENTA = 'select sum(total) as total from(select sum(t4.total) as total from comanda t1,caja t2,trabajador t3,comandacredito t4 where t1.id_caja=t2.id_caja  and t1.idComanda=t4.idComanda and t1.id_cliente=t3.idTrabajador and t1.tipoCliente=5 and t3.idTrabajador=? and t4.cobrado=0 group by t3.idTrabajador union select sum(t1.dinero) as total from movimientocredito t1,movimiento t2 where t1.id_movimiento=t2.id_movimiento and t1.id_usuario=?)as total';
+	//const ARE_TIKETS_COBRADOS = 'SELECT t1.idComanda from comanda t1,caja t2 where t1.id_caja=t2.id_caja and t2.estado=1 and (t1.estado="cerrado" or t1.estado="abierta")';
+	//const GET_USUARIOS = 'select idTrabajador,nombre from recepcion_bd.trabajador';
+	//const USUARIOS_COMANDAS = 'select t1.idComanda,t1.numComanda,t5.cobrado,t1.fechaHora,t5.total,t4.clientType,t3.nombre from comanda t1,caja t2,trabajador t3,tipocliente t4,comandacredito t5 where t1.id_caja=t2.id_caja and t1.id_cliente=t3.idTrabajador and t1.tipoCliente=5 and t1.tipoCliente=t4.idTipoCliente and t5.idComanda=t1.idComanda and t3.idTrabajador=?';
+	//const USUARIOS_MOV = 'select t1.id_movimiento,t1.fechaHora,t2.cobrado as tipo,t2.dinero,t1.descripcion,t4.nombre as categoria,t5.nombre as encargado from movimiento t1,movimientocredito t2,trabajador t3,categoria t4,guate_bd.usuario t5 where t1.id_movimiento=t2.id_movimiento and t3.idTrabajador=t2.id_usuario and t4.id_categoria=t1.id_categoria and t5.Id_usuario=t1.idencargado and t2.id_usuario=? order by t1.fechaHora desc';
+	//const SET_USUARIO = 'INSERT INTO trabajador VALUES(0,?,?)';
+	//const TOTAL_CUENTA = 'select sum(total) as total from(select sum(t4.total) as total from comanda t1,caja t2,trabajador t3,comandacredito t4 where t1.id_caja=t2.id_caja  and t1.idComanda=t4.idComanda and t1.id_cliente=t3.idTrabajador and t1.tipoCliente=5 and t3.idTrabajador=? and t4.cobrado=0 group by t3.idTrabajador union select sum(t1.dinero) as total from movimientocredito t1,movimiento t2 where t1.id_movimiento=t2.id_movimiento and t1.id_usuario=?)as total';
 	const GET_PEDIDO = 'select t1.idLineaComanda,t2.idPlatillo,t1.cantidad,t2.nombre,t1.precio from lineacomanda t1,platillo t2 where idComanda=? and t2.idPlatillo=t1.idPlatillo';
 	const GET_PEDIDO_BAR = 'select t1.idLineaComanda,t2.numBebida,t1.cantidad,t2.nombre,t1.precio from lineacomanda t1,bebida t2 where idComanda=? and t2.idBebida=t1.idPlatillo ';
-	const GET_MOV_CATEGORIES = 'select * from categoria where showcaja=1';
-	const GET_PRECIOS = 'select precioLimitado,precioNormal from bar_bd.bebida where idBebida=?';
-	const TOTAL_COMANDA_CREDITO = 'select total from comandacredito where idComanda=?';
-	const TOTAL_MOV_CREDITO ='select dinero from movimientocredito where id_movimiento=?';
+	const GET_MOV_CATEGORIES = 'select * from recepcion_bd.categoria where showcaja=1';
+	//const TOTAL_COMANDA_CREDITO = 'select total from comandacredito where idComanda=?';
+	//const TOTAL_MOV_CREDITO ='select dinero from movimientocredito where id_movimiento=?';
 	
 	
 	public function is_caja_open (){
@@ -142,45 +141,6 @@ class Dcaja{
 	}
 	
 	
-	public function insert_venta_recepcion($idproducto,$cantity,$checked,$description,$idencargado){
-		$comunication = new ComunicationRestBar();
-		//encontramos el id de la caja abierta
-		$params = array();
-		$PARAMS_TYPES = array ();
-		$idcaja = $comunication->query(self::GET_ID_CAJA,$params,$PARAMS_TYPES);
-		if ($idcaja->getRecordCount()>0){
-			while($idcaja->next()){
-				$resultc=$idcaja->getRow();
-				$a=$resultc["id_caja"];
-				}}
-		//buscamos el precio del dicho pedido		
-		$params = array($idproducto);
-		$PARAMS_TYPES = array (ComunicationRestBar::$TINT);
-		$precios = $comunication->query(self::GET_PRECIOS,$params,$PARAMS_TYPES);
-		if ($precios->getRecordCount()>0){
-			while($precios->next()){
-				$resultp=$precios->getRow();
-				$precioL=$resultp["precioLimitado"];
-				$precioN=$resultp["precioNormal"];
-				}}
-		if($checked==0) $preciofinal=$precioN*$cantity;
-		else	$preciofinal=$precioL*$cantity;
-
-		$params = array($a,"entrada",$preciofinal,$cantity." de ".$description,8,$idencargado);
-		$PARAMS_INSERT = array(ComunicationRestBar::$TINT,ComunicationRestBar::$TSTRING,ComunicationRestBar::$TFLOAT,ComunicationRestBar::$TSTRING,ComunicationRestBar::$TSTRING,ComunicationRestBar::$TINT);
-		$result = $comunication->update(self::INS_MOV,$params,$PARAMS_INSERT);
-		
-		return $result;
-	}
-			
-	//public function total_money_mov (){
-	//	$comunication = new ComunicationRestBar();
-	//	$PARAMS = array();
-	//	$PARAMS_TYPES = array ();
-	//	$result = $comunication->query(self::TOTAL_MONEY_MOV,$PARAMS,$PARAMS_TYPES);
-		
-	//	return $result;
-	//}
 	public function total_tickets (){
 		$comunication = new ComunicationRestBar();
 		$PARAMS = array();
