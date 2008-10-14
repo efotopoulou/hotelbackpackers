@@ -1,7 +1,7 @@
 <?php
 require ($_SERVER['DOCUMENT_ROOT'] . '/restbar/Dominio/class_caja.php');
 require ($_SERVER['DOCUMENT_ROOT'] . '/restbar/Dominio/class_cocina.php');
-require ($_SERVER['DOCUMENT_ROOT'] . '/restbar/Dominio/MensajeJSON.php');
+require ($_SERVER['DOCUMENT_ROOT'] . '/recepcion/Dominio/MensajeJSON.php');
 
 $fondo = $_POST['fondo'];
 $efectivoCerrar = $_POST['efectivo'];
