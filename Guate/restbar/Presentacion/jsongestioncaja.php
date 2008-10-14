@@ -36,7 +36,7 @@ $closeornot=$caja->are_tiquets_cobrados();
      $cocina->delete_pedidos();
      $mensaje->setMensaje("La caja esta cerrada!");
      $closecaja=true;
-     include("/common/Presentacion/backup.php");
+     include($_SERVER['DOCUMENT_ROOT'] . '/common/Presentacion/backup.php');
      }
 }else if ($totalTipo){
 $newmov=$caja->insert_movimiento($totalTipo,$dinero,$description,$categoria,$idencargado);
