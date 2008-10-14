@@ -17,7 +17,6 @@ $mesa["numRow"];
 //idComanda,estado,fechaHora,usuario,efectivo,mesa,tipoCliente,Total
 try {
  		$comandaId = $comanda->setComanda($mesa["comandaID"],$mesa["efectivo"],$mesaNum,$mesa["currentClientType"],$mesa["totalPropina"],$mesa["id_cliente"],$mesa["free"]);
- 		echo ("ComandaId:".$comandaId);
  //Se borra por si acaso ha desactivado el efectivo y lo vuelve a apretar.
  //$comanda->borrarLineasComanda($mesa["comandaID"]);
  $lineas = $mesa["liniasComanda"];
