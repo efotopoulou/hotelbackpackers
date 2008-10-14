@@ -54,7 +54,7 @@ else
 <?php if($allowedRest["historicocaja"]){ ?><li><a href="/recepcion/view.php?page=historicocaja">Historico Caja</a></li><?php } ?>
 <?php if($allowedRest["gestionbebidas"]){ ?><li><a href="/recepcion/view.php?page=gestionbebidas">Gestion de Bebidas</a></li><?php } ?>
 <?php if($allowedRest["gestionplatillos"]){ ?><li><a href="/recepcion/view.php?page=gestionplatillos">Gestion de Platillos</a></li><?php } ?>
-<?php if($allowedRest["controlstock"]){ ?><li><a href="/recepcion/view.php?page=controldestock">Control de Stock</a></li><?php } ?>
+<?php if($allowedRest["controldestock"]){ ?><li><a href="/recepcion/view.php?page=controldestock">Control de Stock</a></li><?php } ?>
 <?php if($allowedRest["cuentausuarios"]){ ?><li><a href="/recepcion/view.php?page=cuentausuarios">Cuenta De Usuarios</a></li><?php } ?>
 		    </ul>
 		</li>		

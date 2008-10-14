@@ -18,7 +18,7 @@ if($_POST!=null){
 		
 	if($sesion->validar_perfil($id_perfil, $pass)){		
 		$sesion->set_id_usuario($id);
-		if($ser=="Rest.") $onload="/restbar/view.php?page=comida";
+		if($ser=="Rest.") $onload="/restbar/view.php?page=comidaRest";
 		if($ser=="Backup") $onload="/common/phpMyBackupPro/";
 		$redir=true;
 		
