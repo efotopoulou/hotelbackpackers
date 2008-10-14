@@ -142,36 +142,7 @@ class Dcaja{
 	}
 	
 	
-	public function insert_venta_recepcion($idproducto,$cantity,$checked,$description,$idencargado){
-		$comunication = new ComunicationRecep();
-		//encontramos el id de la caja abierta
-		$params = array();
-		$PARAMS_TYPES = array ();
-		$idcaja = $comunication->query(self::GET_ID_CAJA,$params,$PARAMS_TYPES);
-		if ($idcaja->getRecordCount()>0){
-			while($idcaja->next()){
-				$resultc=$idcaja->getRow();
-				$a=$resultc["id_caja"];
-				}}
-		//buscamos el precio del dicho pedido		
-		$params = array($idproducto);
-		$PARAMS_TYPES = array (ComunicationRecep::$TINT);
-		$precios = $comunication->query(self::GET_PRECIOS,$params,$PARAMS_TYPES);
-		if ($precios->getRecordCount()>0){
-			while($precios->next()){
-				$resultp=$precios->getRow();
-				$precioL=$resultp["precioLimitado"];
-				$precioN=$resultp["precioNormal"];
-				}}
-		if($checked==0) $preciofinal=$precioN*$cantity;
-		else	$preciofinal=$precioL*$cantity;
 
-		$params = array($a,"entrada",$preciofinal,$cantity." de ".$description,8,$idencargado);
-		$PARAMS_INSERT = array(ComunicationRecep::$TINT,ComunicationRecep::$TSTRING,ComunicationRecep::$TFLOAT,ComunicationRecep::$TSTRING,ComunicationRecep::$TSTRING,ComunicationRecep::$TINT);
-		$result = $comunication->update(self::INS_MOV,$params,$PARAMS_INSERT);
-		
-		return $result;
-	}
 			
 	//public function total_money_mov (){
 	//	$comunication = new ComunicationRecep();

@@ -140,29 +140,6 @@ class caja{
 			$rs = $datos->nameEncargado($iduser);
 			return $rs;	
 		}
-		function insert_venta_recepcion($idproducto,$cantity,$checked,$description,$idencargado){
-			$datos = new Dcaja();
-			$rs = $datos->insert_venta_recepcion($idproducto,$cantity,$checked,$description,$idencargado);
-		}
-		
-		
-		//function total_mov(){
-		//	$mvcj = new Dcaja();
-		//	$rs = $mvcj->total_money_mov();
-		 //   $i=0;
-		//		if($rs->getRecordCount()>0){
-		//			$rs->next();
-		//			do{
-		//			$result=$rs->getRow();
-		//			$this->totalTipo[$i]=$result["tipo"];
-		//			$this->totalmov[$i]=$result["suma"];
-		//			$i++;
-		//			}while($rs->next());					
-		//			return $rs->getRecordCount();	
-		//		}
-		//	return 0;
-		//}
-		
 		function total_tickets(){
 			$fcj = new Dcaja();
 			$rs = $fcj->total_tickets ();
