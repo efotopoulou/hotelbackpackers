@@ -29,7 +29,7 @@ class Dcomanda{
     const BORRAR_LINEA_COMANDA='DELETE FROM lineacomanda WHERE idComanda IN (SELECT idComanda FROM comanda WHERE estado=?)';
 
 	public function set_comanda($comandaID,$efectivo,$numMesa, $tipoCliente, $total, $idcliente,$free){
-		$comunication = new ComunicationRecep();
+		$comunication = new ComunicationRestBar();
 		$params = array();
 		$PARAMS_TYPES = array ();
 		$idcaja = $comunication->query(self::GET_ID_CAJA,$params,$PARAMS_TYPES);
@@ -41,24 +41,24 @@ class Dcomanda{
 				$idCaja=$resultc["id_caja"];
 				}}	
 		$PARAMS = array($comandaID,$efectivo,$tipoCliente, $total, $idcliente, $idCaja, $free,$numMesa);
-		$PARAMS_TYPES = array (ComunicationRecep::$TSTRING,ComunicationRecep::$TFLOAT,ComunicationRecep::$TINT,ComunicationRecep::$TFLOAT,ComunicationRecep::$TINT,ComunicationRecep::$TINT,ComunicationRecep::$TSTRING,ComunicationRecep::$TINT);
+		$PARAMS_TYPES = array (ComunicationRestBar::$TSTRING,ComunicationRestBar::$TFLOAT,ComunicationRestBar::$TINT,ComunicationRestBar::$TFLOAT,ComunicationRestBar::$TINT,ComunicationRestBar::$TINT,ComunicationRestBar::$TSTRING,ComunicationRestBar::$TINT);
 		$result = $comunication->update(self::SET_PLATILLOS,$PARAMS,$PARAMS_TYPES);
 		
 		return $result;
 	}
 	
 	public function setLineaComanda($comandaID,$platoId,$cantidad,$precio){
-		$comunication = new ComunicationRecep();
+		$comunication = new ComunicationRestBar();
 		$PARAMS = array($comandaID,$platoId,$cantidad,$precio);
-		$PARAMS_TYPES = array (ComunicationRecep::$TSTRING,ComunicationRecep::$TSTRING,ComunicationRecep::$TINT,ComunicationRecep::$TFLOAT);
+		$PARAMS_TYPES = array (ComunicationRestBar::$TSTRING,ComunicationRestBar::$TSTRING,ComunicationRestBar::$TINT,ComunicationRestBar::$TFLOAT);
 		$result = $comunication->update(self::SET_LISTA_PLATILLOS,$PARAMS,$PARAMS_TYPES);
 		return $result;
 		
 	}
 	public function esCocina($idPlatillo){
-		$comunication = new ComunicationRecep();
+		$comunication = new ComunicationRestBar();
 		$PARAMS = array($idPlatillo);
-		$PARAMS_TYPES = array (ComunicationRecep::$TSTRING);
+		$PARAMS_TYPES = array (ComunicationRestBar::$TSTRING);
 		$result = $comunication->query(self::ES_COCINA,$PARAMS,$PARAMS_TYPES);
 		$result->next();
 		$result=$result->getRow();
@@ -66,16 +66,16 @@ class Dcomanda{
 		return $aux;
 	}
 	public function setCocina($idLineaComanda){
-		$comunication = new ComunicationRecep();
+		$comunication = new ComunicationRestBar();
 		$PARAMS = array($idLineaComanda);
-		$PARAMS_TYPES = array (ComunicationRecep::$TINT);
+		$PARAMS_TYPES = array (ComunicationRestBar::$TINT);
 		$result = $comunication->update(self::SET_COCINA,$PARAMS,$PARAMS_TYPES);
 		return $result;
 	}
 	public function setComandaCreditoComida($idComanda,$procedencia){
-	    $comunication = new ComunicationRecep();
+	    $comunication = new ComunicationRestBar();
 	    $PARAMS = array($idComanda);
-		$PARAMS_TYPES = array (ComunicationRecep::$TINT);
+		$PARAMS_TYPES = array (ComunicationRestBar::$TINT);
 		$total = $comunication->query(self::GET_USUARIO_SUMA_PLATILLO,$PARAMS,$PARAMS_TYPES);
 		
 		if ($total->getRecordCount()>0){
@@ -84,7 +84,7 @@ class Dcomanda{
 				$suma=$resultc["suma"];
 				}}	
 		$PARAMS = array($idComanda,$suma,$procedencia);
-		$PARAMS_TYPES = array (ComunicationRecep::$TINT,ComunicationRecep::$TFLOAT,ComunicationRecep::$TSTRING);
+		$PARAMS_TYPES = array (ComunicationRestBar::$TINT,ComunicationRestBar::$TFLOAT,ComunicationRestBar::$TSTRING);
 		$result = $comunication->update(self::SET_COMANDA_USUARIO,$PARAMS,$PARAMS_TYPES);
 	}
 
@@ -93,32 +93,32 @@ class Dcomanda{
 
    
     public function borrarComanda($estado){
-	 	$comunication = new ComunicationRecep();
+	 	$comunication = new ComunicationRestBar();
 		$params = array($estado);
-		$PARAMS_TYPES = array (ComunicationRecep::$TSTRING);
+		$PARAMS_TYPES = array (ComunicationRestBar::$TSTRING);
 		$comanda = $comunication->query(self::BORRAR_LINEA_COMANDA,$params,$PARAMS_TYPES);
 		$comanda = $comunication->query(self::BORRAR_COMANDA,$params,$PARAMS_TYPES);
 		return $comanda;
 	}
 	public function comandasRestore(){
-	 	$comunication = new ComunicationRecep();
+	 	$comunication = new ComunicationRestBar();
 		$params = array();
 		$PARAMS_TYPES = array ();
 		$comanda = $comunication->query(self::RESTORE_COMANDA,$params,$PARAMS_TYPES);
 		return $comanda;
 	}
 	public function getLiniasComanda($idComanda){
-	 	$comunication = new ComunicationRecep();
+	 	$comunication = new ComunicationRestBar();
 		$params = array($idComanda);
-		$PARAMS_TYPES = array (ComunicationRecep::$TSTRING);
+		$PARAMS_TYPES = array (ComunicationRestBar::$TSTRING);
 		$liniaComanda = $comunication->query(self::GETLINIAS,$params,$PARAMS_TYPES);
 		return $liniaComanda;
 	}
 
 	public function existeIdComanda($idComanda){
-	 	$comunication = new ComunicationRecep();
+	 	$comunication = new ComunicationRestBar();
 		$params = array($idComanda);
-		$PARAMS_TYPES = array (ComunicationRecep::$TSTRING);
+		$PARAMS_TYPES = array (ComunicationRestBar::$TSTRING);
 		$idcomanda = $comunication->query(self::EXISTE_COMANDA,$params,$PARAMS_TYPES);
 		$return = false;
         if ($idcomanda->getRecordCount()>0){
@@ -128,7 +128,7 @@ class Dcomanda{
 	}
 		
 	public function getNextMaxIdComanda(){
-	 	$comunication = new ComunicationRecep();
+	 	$comunication = new ComunicationRestBar();
 		$params = array();
 		$PARAMS_TYPES = array ();
 		$idcaja = $comunication->query(self::GET_LAST_ID_COMANDA,$params,$PARAMS_TYPES);
@@ -142,7 +142,7 @@ class Dcomanda{
 	}
 
 	public function getIdCaja(){
-	 	$comunication = new ComunicationRecep();
+	 	$comunication = new ComunicationRestBar();
 		$params = array();
 		$PARAMS_TYPES = array ();
 		$idcaja = $comunication->query(self::GET_ID_CAJA,$params,$PARAMS_TYPES);
@@ -157,7 +157,7 @@ class Dcomanda{
 	}
 	
 		public function setComandaVenta($efectivo, $tipoCliente, $total, $idcliente ,$free){
-		$comunication = new ComunicationRecep();
+		$comunication = new ComunicationRestBar();
 		$params = array();
 		$PARAMS_TYPES = array ();
 		$idcaja = $comunication->query(self::GET_ID_CAJA,$params,$PARAMS_TYPES);
@@ -171,16 +171,16 @@ class Dcomanda{
 		$estado="cobrado";
 		if($tipoCliente==5)	$estado="credito"; 
 		$PARAMS = array($estado,$efectivo, $tipoCliente, $total, $idcliente, $idCaja, $free);
-		$PARAMS_TYPES = array (ComunicationRecep::$TSTRING,ComunicationRecep::$TFLOAT,ComunicationRecep::$TINT,ComunicationRecep::$TFLOAT,ComunicationRecep::$TINT,ComunicationRecep::$TINT,ComunicationRecep::$TSTRING);
+		$PARAMS_TYPES = array (ComunicationRestBar::$TSTRING,ComunicationRestBar::$TFLOAT,ComunicationRestBar::$TINT,ComunicationRestBar::$TFLOAT,ComunicationRestBar::$TINT,ComunicationRestBar::$TINT,ComunicationRestBar::$TSTRING);
 		$idCom = $comunication->update(self::SET_COMANDA_VENTA,$PARAMS,$PARAMS_TYPES);
 	
 	return $idCom;
 	}
 	
 	public function setComandaCredito($idComanda,$procedencia){
-	    $comunication = new ComunicationRecep();
+	    $comunication = new ComunicationRestBar();
 	    $PARAMS = array($idComanda);
-		$PARAMS_TYPES = array (ComunicationRecep::$TINT);
+		$PARAMS_TYPES = array (ComunicationRestBar::$TINT);
 		$eorc = $comunication->query(self::EMP_OR_CLIENT,$PARAMS,$PARAMS_TYPES);
 	    if ($eorc->getRecordCount()>0){
 			while($eorc->next()){
@@ -188,7 +188,7 @@ class Dcomanda{
 				$aux=$resultc["cliente"];
 				}}	
 	    $PARAMS = array($idComanda);
-		$PARAMS_TYPES = array (ComunicationRecep::$TINT);
+		$PARAMS_TYPES = array (ComunicationRestBar::$TINT);
 		if ($aux==1) $total = $comunication->query(self::GET_CLIENTE_SUMA,$PARAMS,$PARAMS_TYPES);
 		else if ($aux==0) $total = $comunication->query(self::GET_USUARIO_SUMA,$PARAMS,$PARAMS_TYPES);
 		
@@ -198,24 +198,24 @@ class Dcomanda{
 				$suma=$resultc["suma"];
 				}}	
 		$PARAMS = array($idComanda,$suma,$procedencia);
-		$PARAMS_TYPES = array (ComunicationRecep::$TINT,ComunicationRecep::$TFLOAT,ComunicationRecep::$TSTRING);
+		$PARAMS_TYPES = array (ComunicationRestBar::$TINT,ComunicationRestBar::$TFLOAT,ComunicationRestBar::$TSTRING);
 		$result = $comunication->update(self::SET_COMANDA_USUARIO,$PARAMS,$PARAMS_TYPES);
 	}
 
 
 	
 	public function borrarLineasComanda($comandaID){
-		$comunication = new ComunicationRecep();
+		$comunication = new ComunicationRestBar();
 		$PARAMS = array($comandaID);
-		$PARAMS_TYPES = array (ComunicationRecep::$TSTRING);
+		$PARAMS_TYPES = array (ComunicationRestBar::$TSTRING);
 		$result = $comunication->query(self::ERASE_LISTA_PLATILLOS,$PARAMS,$PARAMS_TYPES);
 		
 		return $result;
 	}
 	public function updateComandaAbierta($comandaID,$efectivo){
-		$comunication = new ComunicationRecep();
+		$comunication = new ComunicationRestBar();
 		$PARAMS = array($efectivo,$comandaID);
-		$PARAMS_TYPES = array (ComunicationRecep::$TSTRING,ComunicationRecep::$TSTRING);
+		$PARAMS_TYPES = array (ComunicationRestBar::$TSTRING,ComunicationRestBar::$TSTRING);
 		$result = $comunication->query(self::UPDATE_EFECTIVO_COMANDA,$PARAMS,$PARAMS_TYPES);
 		
 		return $result;

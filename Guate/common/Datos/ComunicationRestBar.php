@@ -171,7 +171,7 @@ class ComunicationRestBar{
 	 }
     public function guardarError($sqle){
           try{
-			$this->update("INSERT INTO error values (?,1,NOW())",array($sqle->toString().$sqle->getFile().$sqle->getLine()),array(ComunicationRecep::$TSTRING));
+			$this->update("INSERT INTO error values (?,1,NOW())",array($sqle->toString().$sqle->getFile().$sqle->getLine()),array(ComunicationRestBar::$TSTRING));
           }catch(Exception $e){
           	echo("ERROR EN LA BASE DE DATOS!!!!!!!!!!");
           }
