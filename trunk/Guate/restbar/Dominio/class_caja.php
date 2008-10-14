@@ -1,6 +1,6 @@
 <?php
 
-require ($_SERVER['DOCUMENT_ROOT'] . '/recepcion/Datos/Dcaja.php');
+require ($_SERVER['DOCUMENT_ROOT'] . '/restbar/Datos/Dcaja.php');
 require ($_SERVER['DOCUMENT_ROOT'] . '/recepcion/Dominio/findcaja.php');
 require ($_SERVER['DOCUMENT_ROOT'] . '/recepcion/Dominio/cajacomanda.php');
 require ($_SERVER['DOCUMENT_ROOT'] . '/recepcion/Dominio/usuariocomanda.php');
