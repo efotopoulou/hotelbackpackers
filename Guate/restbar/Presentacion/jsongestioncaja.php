@@ -1,6 +1,6 @@
 <?php
 require ($_SERVER['DOCUMENT_ROOT'] . '/restbar/Dominio/class_caja.php');
-//require ($_SERVER['DOCUMENT_ROOT'] . '/restbar/Dominio/class_cocina.php');
+require ($_SERVER['DOCUMENT_ROOT'] . '/restbar/Dominio/class_cocina.php');
 require ($_SERVER['DOCUMENT_ROOT'] . '/recepcion/Dominio/MensajeJSON.php');
 
 $fondo = $_POST['fondo'];
@@ -28,16 +28,16 @@ try{
 if ($fondo){
 $open=$caja->open_caja($fondo);
 }else if ($efectivoCerrar){
-$closeornot=$caja->are_tiquets_cobrados();	
-    if ((sizeof($closeornot))>0) $mensaje->setMensaje("No puedes cerrar la caja.Hay comandas que no son cobradas!");
-    else{
+//$closeornot=$caja->are_tiquets_cobrados();	
+//    if ((sizeof($closeornot))>0) $mensaje->setMensaje("No puedes cerrar la caja.Hay comandas que no son cobradas!");
+//    else{
      $close=$caja->close_caja($efectivoCerrar);
      $cocina = new cocina();
      $cocina->delete_pedidos();
      $mensaje->setMensaje("La caja esta cerrada!");
      $closecaja=true;
      include($_SERVER['DOCUMENT_ROOT'] . '/common/Presentacion/backup.php');
-     }
+ //    }
 }else if ($totalTipo){
 $newmov=$caja->insert_movimiento($totalTipo,$dinero,$description,$categoria,$idencargado);
 }else if($idComanda){

@@ -86,9 +86,9 @@ class caja{
 		return $rs;
 		}
 		function anular_ticket($idComanda){
+		$id = substr($idComanda, 1);
 		$antc = new Dcaja();
-		$rs = $antc->anular_ticket($idComanda);
-		
+		$rs = $antc->anular_ticket($id );
 		return $rs;
 		}
 		function anular_movimiento($idMovimiento){
