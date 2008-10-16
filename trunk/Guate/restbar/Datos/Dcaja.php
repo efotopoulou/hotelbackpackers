@@ -19,7 +19,7 @@ class Dcaja{
 	//const COBRAR_MOVIMENTO = 'UPDATE recepcion_bd.movimientocredito SET cobrado=1 where id_movimiento=?';
 	const ESTADO_COMANDA = 'select estado from comanda where idComanda=?';
     const ESTADO_TIQUET = 'select estado from comanda where idComanda=?';
-	const DELETE_CREDITO_TIQUET = 'delete from comandacredito where idComanda=?';
+	const DELETE_CREDITO_TIQUET = 'delete from recepcion_bd.comandacredito where procedencia="RB" idComanda=? ';
 	const ANULAR_TICKET = 'UPDATE comanda SET estado="anulado" where idComanda=?';
 	const ESTADO_MOVIMIENTO = 'select tipo from movimiento where id_movimiento=?';
 	//const DELETE_CREDITO = 'delete from movimientocredito where id_movimiento=?';
@@ -198,6 +198,7 @@ class Dcaja{
 				$resulte=$result->getRow();
 				$a=$resulte["estado"];
 				}}		
+		//hay que anular el credito desde la recepcion_bd
 		if ($a=="credito"){
 		$PARAMS = array($idComanda);
 		$PARAMS_TYPES = array (ComunicationRestBar::$TINT);
@@ -287,14 +288,14 @@ class Dcaja{
 		
 		return $result;
 	}
-	public function are_tiquets_cobrados (){
-		$comunication = new ComunicationRestBar();
-		$PARAMS = array();
-		$PARAMS_TYPES = array ();
-		$result = $comunication->query(self::ARE_TIKETS_COBRADOS,$PARAMS,$PARAMS_TYPES);
+	//public function are_tiquets_cobrados (){
+	//	$comunication = new ComunicationRestBar();
+	//	$PARAMS = array();
+	//	$PARAMS_TYPES = array ();
+	//	$result = $comunication->query(self::ARE_TIKETS_COBRADOS,$PARAMS,$PARAMS_TYPES);
 		
-		return $result;
-	}
+	//	return $result;
+	//}
 	public function get_usuarios (){
 		$comunication = new ComunicationRestBar();
 		$PARAMS = array();

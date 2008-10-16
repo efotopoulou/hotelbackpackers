@@ -307,22 +307,6 @@ function showpedido(id,numcomanda){
      });
    }
 }
-//-------------------------------------------COBRAR TICKET-------------------------------------------------//
-//function cobrarTicket(){
- //var idComanda=$("#ticketsTable .btnunpress").attr("id");
- //var estado=$("#ticketsTable .btnunpress .estado").html();
- //if(idComanda){ 
-//	 $(".btnunpress").each(function (){
-	 //if(estado!="<h6>facturado</h6>"){
-//	 changeClass(this.id);
- //    $.getJSONGuate("Presentacion/jsongestioncaja.php",{idComanda:this.id}, function(json){
- //    json = verificaJSON(json);
- //    loadPage(json);
-  //   });
-     //}else alert("La comanda esa no puede ser facturada!");
- // });
-//}else alert("Por favor elige la comanda que desea cobrar!");
-//}
 //-------------------------------------------ANULAR TICKET-------------------------------------------------//
 function anularTicket(){
  if(confirm('¿Estas seguro que quieres anular estos tiquets?')){
