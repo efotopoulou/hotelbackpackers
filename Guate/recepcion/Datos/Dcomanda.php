@@ -6,11 +6,16 @@ class Dcomanda{
 	const SET_PLATILLOS = 'INSERT INTO comanda values(0, ?,\'cobrado\',NOW(),?,?,?,?,?,?,?)';
 	const SET_COMANDA = 'INSERT INTO comanda values(?,?,NOW(),?,?,?,?,?,?,?)';
 	const SET_COMANDA_VENTA = 'INSERT INTO comanda values(0,null,?,NOW(),?,?,?,?,?,?,null)';
+	
 	const GET_USUARIO_SUMA = 'select sum(t2.precioLimitado*t1.cantidad) as suma from lineacomanda t1,bebida t2 where idComanda=? and t2.idBebida=t1.idPlatillo group by idComanda';
 	const GET_CLIENTE_SUMA = 'select sum(t2.precioNormal*t1.cantidad) as suma from lineacomanda t1,bebida t2 where idComanda=? and t2.idBebida=t1.idPlatillo group by idComanda';
 	const GET_USUARIO_SUMA_PLATILLO = 'select sum(t2.precioLimitado*t1.cantidad) as suma from lineacomanda t1,platillo t2 where idComanda=? and t2.idPlatillo=t1.idPlatillo group by idComanda';
+	const GET_CLIENTE_SUMA_PLATILLO = 'select sum(t2.precioNormal*t1.cantidad) as suma from lineacomanda t1,platillo t2 where idComanda=? and t2.idPlatillo=t1.idPlatillo group by idComanda';
+	const GET_USUARIO_SUMA_RESTBAR = 'select sum(t2.precioLimitado*t1.cantidad) as suma from restbar_bd.lineacomanda t1,platillo t2 where idComanda=? and t2.idPlatillo=t1.idPlatillo group by idComanda';
+	const GET_CLIENTE_SUMA_RESTBAR = 'select sum(t2.precioNormal*t1.cantidad) as suma from restbar_bd.lineacomanda t1,platillo t2 where idComanda=? and t2.idPlatillo=t1.idPlatillo group by idComanda';
 	const EMP_OR_CLIENT = 'select t3.cliente from comanda t1,trabajador t3 where  t1.id_cliente=t3.idTrabajador and t1.idComanda=?';
 	const SET_COMANDA_USUARIO = 'INSERT INTO comandacredito values(?,?,false,?)';
+	
 	const GET_ID_CAJA = 'select id_caja from caja where estado=1';
 	const ERASE_LISTA_PLATILLOS = 'DELETE FROM lineacomanda WHERE idComanda=?';
 	const SET_LISTA_PLATILLOS = 'INSERT INTO lineacomanda values (0,?,?,?,?)';
@@ -128,47 +133,6 @@ class Dcomanda{
 	return $idCom;
 	}
 	
-	public function setComandaCredito($idComanda,$procedencia){
-	    $comunication = new ComunicationRecep();
-	    $PARAMS = array($idComanda);
-		$PARAMS_TYPES = array (ComunicationRecep::$TINT);
-		$eorc = $comunication->query(self::EMP_OR_CLIENT,$PARAMS,$PARAMS_TYPES);
-	    if ($eorc->getRecordCount()>0){
-			while($eorc->next()){
-				$resultc=$eorc->getRow();
-				$aux=$resultc["cliente"];
-				}}	
-	    $PARAMS = array($idComanda);
-		$PARAMS_TYPES = array (ComunicationRecep::$TINT);
-		if ($aux==1) $total = $comunication->query(self::GET_CLIENTE_SUMA,$PARAMS,$PARAMS_TYPES);
-		else if ($aux==0) $total = $comunication->query(self::GET_USUARIO_SUMA,$PARAMS,$PARAMS_TYPES);
-		
-		if ($total->getRecordCount()>0){
-			while($total->next()){
-				$resultc=$total->getRow();
-				$suma=$resultc["suma"];
-				}}	
-		$PARAMS = array($idComanda,$suma,$procedencia);
-		$PARAMS_TYPES = array (ComunicationRecep::$TINT,ComunicationRecep::$TFLOAT,ComunicationRecep::$TSTRING);
-		$result = $comunication->update(self::SET_COMANDA_USUARIO,$PARAMS,$PARAMS_TYPES);
-	}
-	public function setComandaCreditoComida($idComanda,$procedencia){
-	    $comunication = new ComunicationRecep();
-	    $PARAMS = array($idComanda);
-		$PARAMS_TYPES = array (ComunicationRecep::$TINT);
-		$total = $comunication->query(self::GET_USUARIO_SUMA_PLATILLO,$PARAMS,$PARAMS_TYPES);
-		
-		if ($total->getRecordCount()>0){
-			while($total->next()){
-				$resultc=$total->getRow();
-				$suma=$resultc["suma"];
-				}}	
-		$PARAMS = array($idComanda,$suma,$procedencia);
-		$PARAMS_TYPES = array (ComunicationRecep::$TINT,ComunicationRecep::$TFLOAT,ComunicationRecep::$TSTRING);
-		$result = $comunication->update(self::SET_COMANDA_USUARIO,$PARAMS,$PARAMS_TYPES);
-	}
-
-
 	
 	public function borrarLineasComanda($comandaID){
 		$comunication = new ComunicationRecep();

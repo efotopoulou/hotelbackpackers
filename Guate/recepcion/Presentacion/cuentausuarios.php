@@ -87,10 +87,10 @@ function loadusuarios(json){
 }
 //-------------------------------------------LOAD CUENTA----------------------------------------------------------//
 function loadcuenta(id){
-year = $("#years").val();
-month = $("#month").val();
+//year = $("#years").val();
+//month = $("#month").val();
 $(".total").html("0");
-$.getJSONGuate("Presentacion/jsoncuentausuarios.php",{idusuario:id,year:year,month:month}, function(json){
+$.getJSONGuate("Presentacion/jsoncuentausuarios.php",{idusuario:id}, function(json){
      json = verificaJSON(json);
      loadPage(json);
        });	
@@ -100,14 +100,12 @@ if (json.TicketsInfo){
   	  $("#ticketsTable").html(" ");
      for(i=0;i<json.TicketsInfo.length;i++) {
      	numComanda=showid(json.TicketsInfo[i].numComanda);
-     	idCom="T"+json.TicketsInfo[i].idComanda;
-        $("#ticketsTable").append("<tr id="+idCom+"><td class='checkbox' width=2%><input type='checkbox'  onclick='btncolor(\""+idCom+"\");'></td><td width=5%><h6>"+numComanda+"</h6></td><td width=9% class='estado'><h6 class='estadoh6'>"+json.TicketsInfo[i].estado+"</h6></td><td width=25%><h6>"+json.TicketsInfo[i].fechaHora+"</h6></td><td width=6%><h6>"+json.TicketsInfo[i].total+"</h6></td><td width=10%><h6>"+json.TicketsInfo[i].clientType+"</h6></td><td><h6>"+json.TicketsInfo[i].nombre+"</h6></td></tr>");
+     	idCom=json.TicketsInfo[i].procedencia+json.TicketsInfo[i].idComanda;
+        $("#ticketsTable").append("<tr id="+idCom+"><td class='checkbox' width=2%><input type='checkbox'  onclick='btncolor(\""+idCom+"\");'></td><td width=5%><h6 class='numcomand'>"+numComanda+"</h6></td><td width=9% class='estado'><h6 class='estadoh6'>"+json.TicketsInfo[i].estado+"</h6></td><td width=25%><h6>"+json.TicketsInfo[i].fechaHora+"</h6></td><td width=6%><h6>"+json.TicketsInfo[i].total+"</h6></td><td width=10%><h6>"+json.TicketsInfo[i].clientType+"</h6></td><td><h6>"+json.TicketsInfo[i].nombre+"</h6></td></tr>");
         $("#"+idCom+" td:not(.checkbox)").mousedown(function(e){
-           showpedido(this.parentNode.id);
+           var num=$("#"+this.parentNode.id+" .numcomand").html();
+           showpedido(this.parentNode.id,num);
         });
-        if (json.TicketsInfo[i].estado=="cobrado"){$("#T"+json.TicketsInfo[i].idComanda).addClass("verde");}
-        if (json.TicketsInfo[i].estado=="anulado"){$("#T"+json.TicketsInfo[i].idComanda).addClass("redtext");}
-        //alert(json.TicketsInfo[i].idComanda);		
         }
         }else{
         $("#ticketsTable").html(" ");
@@ -142,12 +140,12 @@ if (numComanda!= null)	return numComanda;
 else return "";
 }
 //-------------------------------------------SHOW PEDIDO---------------------------------------------------//
-function showpedido(id){
+function showpedido(id,numcomanda){
     if ($("#ticketsTable tr").hasClass("detail"+id)){
        	$(".detail"+id).remove();
     }else {
-	 var idComDetail=id.substring(1);
-	 $.getJSONGuate("Presentacion/jsongestioncaja.php",{idComDetail:idComDetail}, function(json){
+	// var idComDetail=id.substring(1);
+	 $.getJSONGuate("Presentacion/jsongestioncaja.php",{idComDetailcuenta:id,numcomanda:numcomanda}, function(json){
       json = verificaJSON(json);
       if (json.pedidosInfo){		
        for(i=0;i<json.pedidosInfo.length;i++) {

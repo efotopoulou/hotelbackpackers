@@ -73,7 +73,7 @@ $tikets=$caja->get_usuarios_comandas($iduser);
 if ((sizeof($tikets))>0){
 	  for($i=0;$i<count($tikets);$i++) {
 	  if ($tikets[$i]->cobrado) $estado="cobrado"; else $estado="credito";
-	  $TicketsInfo[$i]=array("idComanda"=>$tikets[$i]->idComanda,"numComanda"=>$tikets[$i]->numComanda,"estado"=>$estado,"fechaHora"=>$tikets[$i]->fechaHora,"total"=>$tikets[$i]->total,"clientType"=>$tikets[$i]->clientType,"nombre"=>$tikets[$i]->nombre);
+	  $TicketsInfo[$i]=array("idComanda"=>$tikets[$i]->idComanda,"numComanda"=>$tikets[$i]->numComanda,"procedencia"=>$tikets[$i]->procedencia,"estado"=>$estado,"fechaHora"=>$tikets[$i]->fechaHora,"total"=>$tikets[$i]->total,"clientType"=>$tikets[$i]->clientType,"nombre"=>$tikets[$i]->nombre);
 	  }
  }	
  $response["TicketsInfo"]=$TicketsInfo;

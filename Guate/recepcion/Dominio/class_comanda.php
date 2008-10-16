@@ -30,16 +30,17 @@ class comanda{
 			$rs = $dtp->setComandaVenta($efectivo, $tipoCliente, $total, $idcliente ,$free);
 			return $rs;
 		}
-		function setComandaCredito($idComanda,$procedencia){
-			$dtp = new DComanda();
-			$rs = $dtp->setComandaCredito($idComanda,$procedencia);
-			return $rs;
-		}
-		function setComandaCreditoComida($idComanda,$procedencia){
-			$dtp = new DComanda();
-			$rs = $dtp->setComandaCreditoComida($idComanda,$procedencia);
-			return $rs;
-		}
+		//function setComandaCredito($idComanda,$procedencia){
+		//	$dtp = new DComanda();
+		//	$rs = $dtp->setComandaCredito($idComanda,$procedencia);
+		//	return $rs;
+		//}
+		//function setComandaCreditoComida($idComanda,$procedencia){
+		//	echo("HOla");
+		//	$dtp = new DComanda();
+		//	$rs = $dtp->setComandaCreditoComida($idComanda,$procedencia);
+		//	return $rs;
+		//}
 
 		function comandasRestore(){
 			$dtp = new DComanda();

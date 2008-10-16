@@ -1,5 +1,6 @@
 <?php
 require ($_SERVER['DOCUMENT_ROOT'] . '/restbar/Dominio/class_comanda.php');
+require ($_SERVER['DOCUMENT_ROOT'] . '/recepcion/Dominio/class_credito.php');
 require ($_SERVER['DOCUMENT_ROOT'] . '/recepcion/Dominio/MensajeJSON.php');
 //Recoge el parametro y se limpia de contrabarras
   $json = $_POST['json'];
@@ -8,6 +9,7 @@ require ($_SERVER['DOCUMENT_ROOT'] . '/recepcion/Dominio/MensajeJSON.php');
 
 //Creacion del objeto que inserta en la BD
 $comanda = new Comanda();
+$credito = new Credito();
 $mensaje = new MensajeJSON();
  
 $mesa = json_decode($json, true);
@@ -25,7 +27,7 @@ try {
  	if($cantidad==0) $cantidad=1;
  	$comanda->setLineaComanda($comandaId,$lineas[$i]["platoId"],$cantidad, $lineas[$i]["precioN"]);
  }
-if ($mesa["currentClientType"]==5)$comanda->setComandaCreditoComida($comandaId, "RB");
+if ($mesa["currentClientType"]==5)$credito->setComandaCreditoComida($comandaId,"RB");
 }catch (SQLException $e){
 	$aux = $e ->getNativeError();
  $mensaje->setMensaje("Error Desconocido: $aux!");
