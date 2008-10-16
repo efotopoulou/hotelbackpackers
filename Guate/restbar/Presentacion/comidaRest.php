@@ -298,7 +298,7 @@ var main = new Main(<?php echo($noMesas); ?>)
 <div class="h1f"><img width="2px" height="1px" src="images/blankdot.gif"/></div><div class="btnbck"><img height="1px" src="images/blankdot.gif"/></div>
 <div class="h1r"><img width="1px" height="1px" src="images/blankdot.gif"/></div>
 <div class="h1f"><img width="1px" height="1px" src="images/blankdot.gif"/></div><div class="btnbck"><img height="1px" src="images/blankdot.gif"/></div>
-<table class="tablebtn" cellspacing=0><tr><td  id="Cocina" class="actionbtn btnunpress" align="center" onmousedown="cocina(this.id)" onmouseup="changeClass(this.id)">Cocina</td></tr></table>
+<table class="tablebtn" cellspacing=0><tr><td  id="Cocina" class="actionbtn btnunpress" align="center" onmousedown="cocina(this.id)" onmouseup="changeClass(this.id)"  onmouseout="comprobarOut(this.id)">Cocina</td></tr></table>
 <div class="h1r"><img width="1px" height="1px" src="images/blankdot.gif"/></div>
 <div class="h1f"><img width="1px" height="1px" src="images/blankdot.gif"/></div><div class="btnbck"><img height="1px" src="im ages/blankdot.gif"/></div>
 <div class="h1r"><img width="2px" height="1px" src="images/blankdot.gif"/></div>
@@ -315,7 +315,7 @@ var main = new Main(<?php echo($noMesas); ?>)
 <div class="h1f"><img width="2px" height="1px" src="images/blankdot.gif"/></div><div class="btnbck"><img height="1px" src="images/blankdot.gif"/></div>
 <div class="h1r"><img width="1px" height="1px" src="images/blankdot.gif"/></div>
 <div class="h1f"><img width="1px" height="1px" src="images/blankdot.gif"/></div><div class="btnbck"><img height="1px" src="images/blankdot.gif"/></div>
-<table class="tablebtn" cellspacing=0><tr><td  id="7" class="tdbtn btnunpress" align="center" onmousedown="calmousedown(this.id,this.id)" onmouseup="changeClass(this.id)">7</td></tr></table>
+<table class="tablebtn" cellspacing=0><tr><td  id="7" class="tdbtn btnunpress" align="center" onmousedown="calmousedown(this.id,this.id)" onmouseup="changeClass(this.id)"  onmouseout="comprobarOut(this.id)">7</td></tr></table>
 <div class="h1r"><img width="1px" height="1px" src="images/blankdot.gif"/></div>
 <div class="h1f"><img width="1px" height="1px" src="images/blankdot.gif"/></div><div class="btnbck"><img height="1px" src="images/blankdot.gif"/></div>
 <div class="h1r"><img width="2px" height="1px" src="images/blankdot.gif"/></div>
@@ -328,7 +328,7 @@ var main = new Main(<?php echo($noMesas); ?>)
 <div class="h1f"><img width="2px" height="1px" src="images/blankdot.gif"/></div><div class="btnbck"><img height="1px" src="images/blankdot.gif"/></div>
 <div class="h1r"><img width="1px" height="1px" src="images/blankdot.gif"/></div>
 <div class="h1f"><img width="1px" height="1px" src="images/blankdot.gif"/></div><div class="btnbck"><img height="1px" src="images/blankdot.gif"/></div>
-<table class="tablebtn" cellspacing=0><tr><td  id="8" class="tdbtn btnunpress" align="center" onmousedown="calmousedown(this.id,this.id)" onmouseup="changeClass(this.id)">8</td></tr></table>
+<table class="tablebtn" cellspacing=0><tr><td  id="8" class="tdbtn btnunpress" align="center" onmousedown="calmousedown(this.id,this.id)" onmouseup="changeClass(this.id)"  onmouseout="comprobarOut(this.id)">8</td></tr></table>
 <div class="h1r"><img width="1px" height="1px" src="images/blankdot.gif"/></div>
 <div class="h1f"><img width="1px" height="1px" src="images/blankdot.gif"/></div><div class="btnbck"><img height="1px" src="images/blankdot.gif"/></div>
 <div class="h1r"><img width="2px" height="1px" src="images/blankdot.gif"/></div>
@@ -340,7 +340,7 @@ var main = new Main(<?php echo($noMesas); ?>)
 <div class="h1f"><img width="2px" height="1px" src="images/blankdot.gif"/></div><div class="btnbck"><img height="1px" src="images/blankdot.gif"/></div>
 <div class="h1r"><img width="1px" height="1px" src="images/blankdot.gif"/></div>
 <div class="h1f"><img width="1px" height="1px" src="images/blankdot.gif"/></div><div class="btnbck"><img height="1px" src="images/blankdot.gif"/></div>
-<table class="tablebtn" cellspacing=0><tr><td  id="9" class="tdbtn btnunpress" align="center" onmousedown="calmousedown(this.id,this.id)" onmouseup="changeClass(this.id)">9</td></tr></table>
+<table class="tablebtn" cellspacing=0><tr><td  id="9" class="tdbtn btnunpress" align="center" onmousedown="calmousedown(this.id,this.id)" onmouseup="changeClass(this.id)"  onmouseout="comprobarOut(this.id)">9</td></tr></table>
 <div class="h1r"><img width="1px" height="1px" src="images/blankdot.gif"/></div>
 <div class="h1f"><img width="1px" height="1px" src="images/blankdot.gif"/></div><div class="btnbck"><img height="1px" src="images/blankdot.gif"/></div>
 <div class="h1r"><img width="2px" height="1px" src="images/blankdot.gif"/></div>
@@ -354,7 +354,7 @@ var main = new Main(<?php echo($noMesas); ?>)
 <div class="h1f"><img width="2px" height="1px" src="images/blankdot.gif"/></div><div class="btnbck"><img height="1px" src="images/blankdot.gif"/></div>
 <div class="h1r"><img width="1px" height="1px" src="images/blankdot.gif"/></div>
 <div class="h1f"><img width="1px" height="1px" src="images/blankdot.gif"/></div><div class="btnbck"><img height="1px" src="images/blankdot.gif"/></div>
-<table class="tablebtn" cellspacing=0><tr><td  id="4" class="tdbtn btnunpress" align="center" onmousedown="calmousedown(this.id,this.id)" onmouseup="changeClass(this.id)">4</td></tr></table>
+<table class="tablebtn" cellspacing=0><tr><td  id="4" class="tdbtn btnunpress" align="center" onmousedown="calmousedown(this.id,this.id)" onmouseup="changeClass(this.id)"  onmouseout="comprobarOut(this.id)">4</td></tr></table>
 <div class="h1r"><img width="1px" height="1px" src="images/blankdot.gif"/></div>
 <div class="h1f"><img width="1px" height="1px" src="images/blankdot.gif"/></div><div class="btnbck"><img height="1px" src="images/blankdot.gif"/></div>
 <div class="h1r"><img width="2px" height="1px" src="images/blankdot.gif"/></div>
@@ -367,7 +367,7 @@ var main = new Main(<?php echo($noMesas); ?>)
 <div class="h1f"><img width="2px" height="1px" src="images/blankdot.gif"/></div><div class="btnbck"><img height="1px" src="images/blankdot.gif"/></div>
 <div class="h1r"><img width="1px" height="1px" src="images/blankdot.gif"/></div>
 <div class="h1f"><img width="1px" height="1px" src="images/blankdot.gif"/></div><div class="btnbck"><img height="1px" src="images/blankdot.gif"/></div>
-<table class="tablebtn" cellspacing=0><tr><td  id="5" class="tdbtn btnunpress" align="center" onmousedown="calmousedown(this.id,this.id)" onmouseup="changeClass(this.id)">5</td></tr></table>
+<table class="tablebtn" cellspacing=0><tr><td  id="5" class="tdbtn btnunpress" align="center" onmousedown="calmousedown(this.id,this.id)" onmouseup="changeClass(this.id)"  onmouseout="comprobarOut(this.id)">5</td></tr></table>
 <div class="h1r"><img width="1px" height="1px" src="images/blankdot.gif"/></div>
 <div class="h1f"><img width="1px" height="1px" src="images/blankdot.gif"/></div><div class="btnbck"><img height="1px" src="images/blankdot.gif"/></div>
 <div class="h1r"><img width="2px" height="1px" src="images/blankdot.gif"/></div>
@@ -379,7 +379,7 @@ var main = new Main(<?php echo($noMesas); ?>)
 <div class="h1f"><img width="2px" height="1px" src="images/blankdot.gif"/></div><div class="btnbck"><img height="1px" src="images/blankdot.gif"/></div>
 <div class="h1r"><img width="1px" height="1px" src="images/blankdot.gif"/></div>
 <div class="h1f"><img width="1px" height="1px" src="images/blankdot.gif"/></div><div class="btnbck"><img height="1px" src="images/blankdot.gif"/></div>
-<table class="tablebtn" cellspacing=0><tr><td  id="6" class="tdbtn btnunpress" align="center" onmousedown="calmousedown(this.id,this.id)" onmouseup="changeClass(this.id)">6</td></tr></table>
+<table class="tablebtn" cellspacing=0><tr><td  id="6" class="tdbtn btnunpress" align="center" onmousedown="calmousedown(this.id,this.id)" onmouseup="changeClass(this.id)"  onmouseout="comprobarOut(this.id)">6</td></tr></table>
 <div class="h1r"><img width="1px" height="1px" src="images/blankdot.gif"/></div>
 <div class="h1f"><img width="1px" height="1px" src="images/blankdot.gif"/></div><div class="btnbck"><img height="1px" src="images/blankdot.gif"/></div>
 <div class="h1r"><img width="2px" height="1px" src="images/blankdot.gif"/></div>
@@ -393,7 +393,7 @@ var main = new Main(<?php echo($noMesas); ?>)
 <div class="h1f"><img width="2px" height="1px" src="images/blankdot.gif"/></div><div class="btnbck"><img height="1px" src="images/blankdot.gif"/></div>
 <div class="h1r"><img width="1px" height="1px" src="images/blankdot.gif"/></div>
 <div class="h1f"><img width="1px" height="1px" src="images/blankdot.gif"/></div><div class="btnbck"><img height="1px" src="images/blankdot.gif"/></div>
-<table class="tablebtn" cellspacing=0><tr><td  id="1" class="tdbtn btnunpress" align="center" onmousedown="calmousedown(this.id,this.id)" onmouseup="changeClass(this.id)">1</td></tr></table>
+<table class="tablebtn" cellspacing=0><tr><td  id="1" class="tdbtn btnunpress" align="center" onmousedown="calmousedown(this.id,this.id)" onmouseup="changeClass(this.id)"  onmouseout="comprobarOut(this.id)">1</td></tr></table>
 <div class="h1r"><img width="1px" height="1px" src="images/blankdot.gif"/></div>
 <div class="h1f"><img width="1px" height="1px" src="images/blankdot.gif"/></div><div class="btnbck"><img height="1px" src="images/blankdot.gif"/></div>
 <div class="h1r"><img width="2px" height="1px" src="images/blankdot.gif"/></div>
@@ -405,7 +405,7 @@ var main = new Main(<?php echo($noMesas); ?>)
 <div class="h1f"><img width="2px" height="1px" src="images/blankdot.gif"/></div><div class="btnbck"><img height="1px" src="images/blankdot.gif"/></div>
 <div class="h1r"><img width="1px" height="1px" src="images/blankdot.gif"/></div>
 <div class="h1f"><img width="1px" height="1px" src="images/blankdot.gif"/></div><div class="btnbck"><img height="1px" src="images/blankdot.gif"/></div>
-<table class="tablebtn" cellspacing=0><tr><td  id="2" class="tdbtn btnunpress" align="center" onmousedown="calmousedown(this.id,this.id)" onmouseup="changeClass(this.id)">2</td></tr></table>
+<table class="tablebtn" cellspacing=0><tr><td  id="2" class="tdbtn btnunpress" align="center" onmousedown="calmousedown(this.id,this.id)" onmouseup="changeClass(this.id)"  onmouseout="comprobarOut(this.id)">2</td></tr></table>
 <div class="h1r"><img width="1px" height="1px" src="images/blankdot.gif"/></div>
 <div class="h1f"><img width="1px" height="1px" src="images/blankdot.gif"/></div><div class="btnbck"><img height="1px" src="images/blankdot.gif"/></div>
 <div class="h1r"><img width="2px" height="1px" src="images/blankdot.gif"/></div>
@@ -417,7 +417,7 @@ var main = new Main(<?php echo($noMesas); ?>)
 <div class="h1f"><img width="2px" height="1px" src="images/blankdot.gif"/></div><div class="btnbck"><img height="1px" src="images/blankdot.gif"/></div>
 <div class="h1r"><img width="1px" height="1px" src="images/blankdot.gif"/></div>
 <div class="h1f"><img width="1px" height="1px" src="images/blankdot.gif"/></div><div class="btnbck"><img height="1px" src="images/blankdot.gif"/></div>
-<table class="tablebtn" cellspacing=0><tr><td  id="3" class="tdbtn btnunpress" align="center" onmousedown="calmousedown(this.id,this.id)" onmouseup="changeClass(this.id)">3</td></tr></table>
+<table class="tablebtn" cellspacing=0><tr><td  id="3" class="tdbtn btnunpress" align="center" onmousedown="calmousedown(this.id,this.id)" onmouseup="changeClass(this.id)"  onmouseout="comprobarOut(this.id)">3</td></tr></table>
 <div class="h1r"><img width="1px" height="1px" src="images/blankdot.gif"/></div>
 <div class="h1f"><img width="1px" height="1px" src="images/blankdot.gif"/></div><div class="btnbck"><img height="1px" src="images/blankdot.gif"/></div>
 <div class="h1r"><img width="2px" height="1px" src="images/blankdot.gif"/></div>
@@ -431,7 +431,7 @@ var main = new Main(<?php echo($noMesas); ?>)
 <div class="h1f"><img width="2px" height="1px" src="images/blankdot.gif"/></div><div class="btnbck"><img height="1px" src="images/blankdot.gif"/></div>
 <div class="h1r"><img width="1px" height="1px" src="images/blankdot.gif"/></div>
 <div class="h1f"><img width="1px" height="1px" src="images/blankdot.gif"/></div><div class="btnbck"><img height="1px" src="images/blankdot.gif"/></div>
-<table class="tablebtn" cellspacing=0><tr><td  id="00" class="tdbtn btnunpress" align="center" onmousedown="calmousedown(this.id,this.id)" onmouseup="changeClass(this.id)">00</td></tr></table>
+<table class="tablebtn" cellspacing=0><tr><td  id="00" class="tdbtn btnunpress" align="center" onmousedown="calmousedown(this.id,this.id)" onmouseup="changeClass(this.id)"  onmouseout="comprobarOut(this.id)">00</td></tr></table>
 <div class="h1r"><img width="1px" height="1px" src="images/blankdot.gif"/></div>
 <div class="h1f"><img width="1px" height="1px" src="images/blankdot.gif"/></div><div class="btnbck"><img height="1px" src="images/blankdot.gif"/></div>
 <div class="h1r"><img width="2px" height="1px" src="images/blankdot.gif"/></div>
@@ -443,7 +443,7 @@ var main = new Main(<?php echo($noMesas); ?>)
 <div class="h1f"><img width="2px" height="1px" src="images/blankdot.gif"/></div><div class="btnbck"><img height="1px" src="images/blankdot.gif"/></div>
 <div class="h1r"><img width="1px" height="1px" src="images/blankdot.gif"/></div>
 <div class="h1f"><img width="1px" height="1px" src="images/blankdot.gif"/></div><div class="btnbck"><img height="1px" src="images/blankdot.gif"/></div>
-<table class="tablebtn" cellspacing=0><tr><td  id="0" class="tdbtn btnunpress" align="center" onmousedown="calmousedown(this.id,this.id)" onmouseup="changeClass(this.id)">0</td></tr></table>
+<table class="tablebtn" cellspacing=0><tr><td  id="0" class="tdbtn btnunpress" align="center" onmousedown="calmousedown(this.id,this.id)" onmouseup="changeClass(this.id)"  onmouseout="comprobarOut(this.id)">0</td></tr></table>
 <div class="h1r"><img width="1px" height="1px" src="images/blankdot.gif"/></div>
 <div class="h1f"><img width="1px" height="1px" src="images/blankdot.gif"/></div><div class="btnbck"><img height="1px" src="images/blankdot.gif"/></div>
 <div class="h1r"><img width="2px" height="1px" src="images/blankdot.gif"/></div>
@@ -455,7 +455,7 @@ var main = new Main(<?php echo($noMesas); ?>)
 <div class="h1f"><img width="2px" height="1px" src="images/blankdot.gif"/></div><div class="btnbck"><img height="1px" src="images/blankdot.gif"/></div>
 <div class="h1r"><img width="1px" height="1px" src="images/blankdot.gif"/></div>
 <div class="h1f"><img width="1px" height="1px" src="images/blankdot.gif"/></div><div class="btnbck"><img height="1px" src="images/blankdot.gif"/></div>
-<table class="tablebtn" cellspacing=0><tr><td  id="." class="tdbtn btnunpress" align="center" onmousedown="calmousedown(this.id,this.id)" onmouseup="changeClass(this.id)">.</td></tr></table>
+<table class="tablebtn" cellspacing=0><tr><td  id="." class="tdbtn btnunpress" align="center" onmousedown="calmousedown(this.id,this.id)" onmouseup="changeClass(this.id)"  onmouseout="comprobarOut(this.id)">.</td></tr></table>
 <div class="h1r"><img width="1px" height="1px" src="images/blankdot.gif"/></div>
 <div class="h1f"><img width="1px" height="1px" src="images/blankdot.gif"/></div><div class="btnbck"><img height="1px" src="images/blankdot.gif"/></div>
 <div class="h1r"><img width="2px" height="1px" src="images/blankdot.gif"/></div>
@@ -470,7 +470,7 @@ var main = new Main(<?php echo($noMesas); ?>)
 <div class="h1f"><img width="2px" height="1px" src="images/blankdot.gif"/></div><div class="btnbck"><img height="1px" src="images/blankdot.gif"/></div>
 <div class="h1r"><img width="1px" height="1px" src="images/blankdot.gif"/></div>
 <div class="h1f"><img width="1px" height="1px" src="images/blankdot.gif"/></div><div class="btnbck"><img height="1px" src="images/blankdot.gif"/></div>
-<table class="tablebtn" cellspacing=0><tr><td  id="Efectivo" class="actionbtn btnunpress" align="center" onmousedown="efectivo()" onmouseup="changeClass(this.id)">Efectivo</td></tr></table>
+<table class="tablebtn" cellspacing=0><tr><td  id="Efectivo" class="actionbtn btnunpress" align="center" onmousedown="efectivo()" onmouseup="changeClass(this.id)"  onmouseout="comprobarOut(this.id)">Efectivo</td></tr></table>
 <div class="h1r"><img width="1px" height="1px" src="images/blankdot.gif"/></div>
 <div class="h1f"><img width="1px" height="1px" src="images/blankdot.gif"/></div><div class="btnbck"><img height="1px" src="images/blankdot.gif"/></div>
 <div class="h1r"><img width="2px" height="1px" src="images/blankdot.gif"/></div>
@@ -485,7 +485,7 @@ var main = new Main(<?php echo($noMesas); ?>)
 <div class="h1f"><img width="2px" height="1px" src="images/blankdot.gif"/></div><div class="btnbck"><img height="1px" src="images/blankdot.gif"/></div>
 <div class="h1r"><img width="1px" height="1px" src="images/blankdot.gif"/></div>
 <div class="h1f"><img width="1px" height="1px" src="images/blankdot.gif"/></div><div class="btnbck"><img height="1px" src="images/blankdot.gif"/></div>
-<table class="tablebtn" cellspacing=0><tr><td  id="Borrar" class="actionbtn btnunpress" align="center" onmousedown="borrar(this.id)" onmouseup="changeClass(this.id)">Borrar</td></tr></table>
+<table class="tablebtn" cellspacing=0><tr><td  id="Borrar" class="actionbtn btnunpress" align="center" onmousedown="borrar(this.id)" onmouseup="changeClass(this.id)"  onmouseout="comprobarOut(this.id)">Borrar</td></tr></table>
 <div class="h1r"><img width="1px" height="1px" src="images/blankdot.gif"/></div>
 <div class="h1f"><img width="1px" height="1px" src="images/blankdot.gif"/></div><div class="btnbck"><img height="1px" src="images/blankdot.gif"/></div>
 <div class="h1r"><img width="2px" height="1px" src="images/blankdot.gif"/></div>
