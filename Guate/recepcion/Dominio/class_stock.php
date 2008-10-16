@@ -25,9 +25,9 @@ class stock{
         return $ors;				
 		}
 		
-		function add_stock($addornew,$idbebida,$stockbar,$stockrestaurante,$unidadventa){
+		function add_stock($idbebida,$stockbar,$stockrestaurante,$unidadventa){
 		$as = new Dstock();
-		$rs = $as->add_stock($addornew,$idbebida,$stockbar,$stockrestaurante,$unidadventa);
+		$rs = $as->add_stock($idbebida,$stockbar,$stockrestaurante,$unidadventa);
 		}
 		
 		function get_stock_bebida($idbebida){
@@ -88,6 +88,12 @@ class stock{
 		function recuperar_venta_caja(){
 		$gsb = new Dstock();
 		$rs = $gsb->recuperar_venta_caja();		
+		return $rs;
+		}
+		
+		function venta_turno_bar(){
+		$gsb = new Dstock();
+		$rs = $gsb->venta_turno_bar();		
 		return $rs;
 		}
 		

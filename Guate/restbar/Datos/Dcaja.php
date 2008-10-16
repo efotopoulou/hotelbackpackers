@@ -340,10 +340,11 @@ class Dcaja{
 		$result = $comunication->query(self::GET_PEDIDO,$PARAMS,$PARAMS_TYPES);
 		return $result;
 	}
-	public function get_pedido_bar($idComanda){
-	    $comunication = new ComunicationRestBar();
-		$PARAMS = array($idComanda,$idComanda);
-		$PARAMS_TYPES = array (ComunicationRestBar::$TINT,ComunicationRestBar::$TINT);
+	
+	 public function get_pedido_bar($idComanda){
+	    $comunication = new ComunicationRecep();
+		$PARAMS = array($idComanda);
+		$PARAMS_TYPES = array (ComunicationRecep::$TINT);
 		$result = $comunication->query(self::GET_PEDIDO_BAR,$PARAMS,$PARAMS_TYPES);
 		return $result;	
 	 }

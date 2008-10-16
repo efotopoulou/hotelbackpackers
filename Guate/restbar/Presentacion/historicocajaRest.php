@@ -132,12 +132,13 @@ function loadPage(json){
     for(i=0;i<json.TicketsInfo.length;i++) {
         camb = cambio(json.TicketsInfo[i].efectivo,json.TicketsInfo[i].total);
      	numComanda=showid(json.TicketsInfo[i].numComanda);
-        idCom=json.TicketsInfo[i].idComanda;
+        idCom="T"+json.TicketsInfo[i].idComanda;
      	nombre = descripcion(json.TicketsInfo[i].free,json.TicketsInfo[i].nombre)
     
-     $("#ticketsTable").append("<tr  id="+idCom+"><td width=2%></td><td width=10%><h6>"+numComanda+"</h6></td><td width=10%><h6>"+json.TicketsInfo[i].estado+"</h6></td><td width=21%><h6>"+json.TicketsInfo[i].fechaHora+"</h6></td><td width=6%><h6>"+json.TicketsInfo[i].total+"</h6></td><td width=8%><h6>"+json.TicketsInfo[i].efectivo+"</h6></td><td width=8%><h6>"+camb+"</h6></td><td width=7%><h6>"+json.TicketsInfo[i].tipoCliente+"</h6></td><td><h6>"+nombre+"</h6></td></tr>");
+     $("#ticketsTable").append("<tr  id="+idCom+"><td width=2%></td><td width=10%><h6 class='numcomand'>"+numComanda+"</h6></td><td width=10%><h6>"+json.TicketsInfo[i].estado+"</h6></td><td width=21%><h6>"+json.TicketsInfo[i].fechaHora+"</h6></td><td width=6%><h6>"+json.TicketsInfo[i].total+"</h6></td><td width=8%><h6>"+json.TicketsInfo[i].efectivo+"</h6></td><td width=8%><h6>"+camb+"</h6></td><td width=7%><h6>"+json.TicketsInfo[i].tipoCliente+"</h6></td><td><h6>"+nombre+"</h6></td></tr>");
       $("#"+idCom+" td:not(.checkbox)").mousedown(function(e){
-           showpedido(this.parentNode.id);
+           var num=$("#"+this.parentNode.id+" .numcomand").html();
+           showpedido(this.parentNode.id,num);
         });
         if(json.TicketsInfo[i].estado=="anulado"){
         	$("#"+idCom).css({ textDecoration:"line-through"});
@@ -177,11 +178,12 @@ function redondea(num){
 	return (Math.round(num*100)/100);
 }
 //-------------------------------------------SHOW PEDIDO---------------------------------------------------//
-function showpedido(id){
+function showpedido(id,numcomanda){
     if ($("#ticketsTable tr").hasClass("detail"+id)){
        	$(".detail"+id).remove();
     }else {
-	 $.getJSONGuate("Presentacion/jsongestioncaja.php",{idComDetail:id}, function(json){
+	 var idcom=id.substring(1);
+	 $.getJSONGuate("Presentacion/jsongestioncaja.php",{idComDetail:idcom,numcomanda:numcomanda}, function(json){
       json = verificaJSON(json);
       if (json.pedidosInfo){		
        for(i=0;i<json.pedidosInfo.length;i++) {

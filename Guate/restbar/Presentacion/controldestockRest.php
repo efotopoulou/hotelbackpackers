@@ -35,24 +35,24 @@ recargaEstadoCaja();
 </head>
 <script>
 //--------------------------------------------------------PREPARE STOCK--------------------------------------------------------//
-function preparestock(aux){
+function preparestock(){
   var idbebida=$("#stockTable .verde").attr("id");
   if(idbebida){	
   //recoger los valores que nos interesan	
    var codigobebida=$("#stockTable .verde .codigo").html();
    var familia=$("#stockTable .verde .familia").html();
    var namebebida=$("#stockTable .verde .name").html();	
-   //var bar=$("#stockTable .verde .sb").html();	
-   var restaurante=$("#stockTable .verde .sr").html();	
+   var bar=$("#stockTable .verde .sb").html();	
+   //var restaurante=$("#stockTable .verde .sr").html();	
    //var total=parseInt(bar)+parseInt(restaurante);
    var unidadventa=$("#stockTable .verde .unidad").html();	
   
    $("#numbebida").val(codigobebida);
    $("#namebebida").val(namebebida);
    $("#familia").val(familia);
-   //$("#barstock").val(bar);
-   $("#restaurantestock").val(restaurante);
-   $("#totalstock").val(total);
+   $("#barstock").val(bar);
+   //$("#restaurantestock").val(restaurante);
+   //$("#totalstock").val(total);
    $("#unidadventa").val(unidadventa);
    $("#numbebida,#namebebida,#totalstock,#familia").attr({disabled:true});
   
@@ -65,12 +65,12 @@ function preparestock(aux){
 function addstock(){
 	var idbebida=$("#stockTable .verde").attr("id");
   if (idbebida){
-	//var stockbar = $("#barstock").val();
-	var stockrestaurante = $("#restaurantestock").val();
+	var stockbar = $("#barstock").val();
+	//var stockrestaurante = $("#restaurantestock").val();
 	var unidadventa = $("#unidadventa").val();
-	  if(idbebida && stockrestaurante && unidadventa){
+	  if(idbebida && stockbar && unidadventa){
          if(confirm('�Estas seguro que quieres a�adir estas cantidades del producto?')){
-             $.getJSONGuate("Presentacion/jsongestionstock.php",{idbebida:idbebida,stockbar:"",stockrestaurante:stockrestaurante,unidadventa:unidadventa}, function(json){
+             $.getJSONGuate("Presentacion/jsongestionstock.php",{idbebida:idbebida,stockbar:stockbar,stockrestaurante:"",unidadventa:unidadventa}, function(json){
              json = verificaJSON(json);
              loadbebidas(json);
              $("#"+idbebida).addClass("saved");	
@@ -78,8 +78,8 @@ function addstock(){
          }
 		 $("#numbebida").val("");
 		 $("#namebebida").val("");
-		 //$("#barstock").val("");
-		 $("#restaurantestock").val("");
+		 $("#barstock").val("");
+		 //$("#restaurantestock").val("");
 	
 		 changedisplay('b5');
 		 changedisplay('addstock');
@@ -104,7 +104,7 @@ function loadbebidas(json){
       for(i=0;i<json.stockInfo.length;i++) {
         idStock="B"+json.stockInfo[i].idBebida;
         total=parseInt(json.stockInfo[i].stockrestaurante)+parseInt(json.stockInfo[i].stockbar);
-        $("#stockTable").append("<tr id="+idStock+"><td class='checkbox' width=2%><input type='checkbox' onmousedown='changeClass(\""+idStock+"\");'></td><td width=10% class='codigo'>"+json.stockInfo[i].numBebida+"</td><td width=15% class='familia'>"+json.stockInfo[i].familia+"</td><td width=41% class='name'>"+json.stockInfo[i].nombre+"</h6></td><td width=10% class='sr'>"+json.stockInfo[i].stockrestaurante+"</td><td width=10% class='unidad'>"+json.stockInfo[i].unidadventa+"</td></tr>");	
+        $("#stockTable").append("<tr id="+idStock+"><td class='checkbox' width=2%><input type='checkbox' onmousedown='changeClass(\""+idStock+"\");'></td><td width=10% class='codigo'>"+json.stockInfo[i].numBebida+"</td><td width=18% class='familia'>"+json.stockInfo[i].familia+"</td><td class='name'>"+json.stockInfo[i].nombre+"</h6></td><td width=11% class='sr'>"+json.stockInfo[i].stockbar+"</td><td width=14% class='unidad'>"+json.stockInfo[i].unidadventa+"</td></tr>");	
         }
         }
 }
@@ -125,10 +125,10 @@ function changedisplay(Seccion){
 }
 //------------------------------------------VENTA DE HOY--------------------------------------------------------//
 function ventadeturno(){ 
-      
+  $("#rlv").attr({disabled:true});   
   $.getJSONGuate("Presentacion/jsongestionstock.php",{ventaturno:1}, function(json){
     json = verificaJSON(json);
-    if (json.recuperarVentas==1) $("#rlv").attr({disabled:true});
+    //if (json.recuperarVentas==1) 
     if (json.ventasInfo){
   	   $("#VentasTable").html(" ");
   	   $("#VentasTable").append("<tr><td width=20%><h5>id</h5></td><td><h5>nombre</h5></td><td width=20%><h5>cant.</h5></td></tr>");	
@@ -152,7 +152,7 @@ function recuperarventa(){
 }
 </script>
 <body>
-<?php include($_SERVER['DOCUMENT_ROOT'] . '/common/Presentacion/menu.php'); ?>
+<?php include($_SERVER['DOCUMENT_ROOT'] . '/common/Presentacion/menuRestBar.php'); ?>
 
 <div  id="ventaturno" style="display:none;margin:0 auto;text-align:center;" class="box_amarillo">
 <center><table class="box_amarillo" id="VentasTable" style="height:80%;width:80%">
@@ -167,20 +167,20 @@ function recuperarventa(){
 	
 	<div>
 	<table cellpadding=0 cellspacing=1>
-    <tr class="titulos1"><td width=12%><h6>Codigo</h6></td><td width=15%><h6>Familia</h6></td><td width=40%><h6><center>Nombre Producto</center></h6></td><td width=10%><h6>Stock Recepcion</h6></td><td width=13%><h6><center>Unidad Venta</center></h6></td></tr>
+    <tr class="titulos1"><td width=12%><h6>Codigo</h6></td><td width=15%><h6>Familia</h6></td><td width=40%><h6><center>Nombre Producto</center></h6></td><td width=10%><h6>Stock Bar</h6></td><td width=13%><h6><center>Unidad Venta</center></h6></td></tr>
     </table>
     </div>
   
    <div style="height:65%;overflow:auto">
-    <table id="stockTable" width=99% cellpadding=0 cellspacing=1>
+    <table id="stockTable" width=95% cellpadding=0 cellspacing=1>
     </table>
    </div>
    
    <div id="b5" style="height:10%;width:100%;overflow:auto">
     <div class="row" align="left">
      <div style="margin-top:20px;margin-left:100px;float:left;width:20%"><span><input type="button" value="Venta de Turno" onClick="ventadeturno();"/></span></div>
-     <!-- <div style="margin-top:20px;float:left;width:20%"><span><input type="button" value="Comprar Producto" id="add" onClick="preparestock('b6');"/></span></div>-->
-     <div style="margin-top:20px;width:20%;float:left"><span><input type="button" value="Modificar Estado del Stock" id="mod" onClick="preparestock('b7');"/></span></div>
+    <!-- <div style="margin-top:20px;float:left;width:20%"><span><input type="button" value="Comprar Producto" id="add" onClick="preparestock('b6');"/></span></div>-->
+     <div style="margin-top:20px;width:20%;float:left"><span><input type="button" value="Modificar Estado del Stock" id="mod" onClick="preparestock();"/></span></div>
     </div>
   </div>
   
@@ -190,14 +190,14 @@ function recuperarventa(){
 	<td width=10%><input style="width: 100%" id="numbebida" value="" type="text"/></td>
 	<td width=14%><input style="width: 100%" id="familia" value="" type="text"/></td>
 	<td width=40%><input style="width: 100%" id="namebebida" value="" type="text"/></td>
-	<!-- <td width=10%><input style="width: 100%" id="barstock" value="" type="text"/></td> -->
-	<td width=10%><input style="width: 100%" id="restaurantestock" value="" type="text"/></td>
+	 <td width=10%><input style="width: 100%" id="barstock" value="" type="text"/></td> 
+	<!--<td width=10%><input style="width: 100%" id="restaurantestock" value="" type="text"/></td>-->
 	<!-- <td><input style="width: 100%" id="totalstock" value="" type="text"/></td> -->
 	<td width=10%><input style="width: 100%" id="unidadventa" value="" type="text"/></td>
 	</tr>
 	</table>
   </div>
-	
+		
 	<div id="b7" style="float:left; margin-top:5px;" class="changedisplay">			
 	 <input type="button" value="Guardar" style="width:100px;margin-left:300px;" onClick="addstock();"/>
       <input type="button" value="Cancelar" style="width:100px" onClick="changedisplay('b5');changedisplay('addstock');changedisplay('b7');"/>	
@@ -209,6 +209,7 @@ function recuperarventa(){
 
 </body>
 </html>
+
 
 
 
