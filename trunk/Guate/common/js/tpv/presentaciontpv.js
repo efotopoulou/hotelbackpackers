@@ -238,7 +238,6 @@ function mesamousedown(id){
 //-------------------------------------------CLIENTEMOUSEDOWN----------------------------------------//
 //Hay que llamar a esta funcion despues de asignarle el currentMesa
 function clientemousedown(num){
- if (!main.comandaCocina()){
 	main.id_cliente=undefined;
 	clienteScreen.setCorrectColor(num);
 	if (main.comandaAbierta()) actualizarListaProductos(num);
@@ -247,7 +246,6 @@ function clientemousedown(num){
     if (num==2) {desHotkeys();mostrarListaTrabajadores();activarEfectivo();}
     if (num==1) {askForVolName();desactivarEfectivo();}
     if (num==4) {guardarDatosCliente(undefined,"");activarEfectivo();}
-  } 
 }
 
 //-------------------------------------------ASK FOR THE NAME OF THE VOLUNTEER--------------------//
@@ -348,7 +346,6 @@ function comprobarOut(id){
  	$("#"+id).addClass("btnunpress");
  	$("#"+id).removeClass("redtext");
  	main.calPressedId = undefined;
- 	//alert("hola");
  }	
 }
 //-------------------------------------------sendComandaAbierta----------------------------------------//

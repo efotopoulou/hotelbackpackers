@@ -10,7 +10,6 @@ function hotkeys(){
 	jQuery.hotkeys.add('n8',function (){ calmousedown("8","8");changeClass("8")});
 	jQuery.hotkeys.add('n9',function (){ calmousedown("9","9");changeClass("9")});
 
-	jQuery.hotkeys.add('backspace',function (){ borrar("Borrar");changeClass("Borrar")});
 	jQuery.hotkeys.add('e',function (){ efectivo();changeClass("Efectivo")});
 	
 	jQuery.hotkeys.add('right',mesaRight);
