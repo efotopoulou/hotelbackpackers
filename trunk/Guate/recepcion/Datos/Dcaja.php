@@ -34,12 +34,14 @@ class Dcaja{
 	const GET_FONDO_CAJA_OLD = 'SELECT fondoInicial from caja where id_caja=?';
 	const ARE_TIKETS_COBRADOS = 'SELECT t1.idComanda from comanda t1,caja t2 where t1.id_caja=t2.id_caja and t2.estado=1 and (t1.estado="cerrado" or t1.estado="abierta")';
 	const GET_USUARIOS = 'select idTrabajador,nombre from trabajador';
-	const USUARIOS_COMANDAS = 'select t1.idComanda,t1.numComanda,t5.cobrado,t1.fechaHora,t5.total,t4.clientType,t3.nombre from comanda t1,caja t2,trabajador t3,tipocliente t4,comandacredito t5 where t1.id_caja=t2.id_caja and t1.id_cliente=t3.idTrabajador and t1.tipoCliente=5 and t1.tipoCliente=t4.idTipoCliente and t5.idComanda=t1.idComanda and t3.idTrabajador=?';
+	const USUARIOS_COMANDAS = 'select t1.idComanda,t1.numComanda,t5.procedencia,t5.cobrado,t1.fechaHora,t5.total,t4.clientType,t3.nombre from comanda t1,caja t2,trabajador t3,tipocliente t4,comandacredito t5 where t1.id_caja=t2.id_caja and t1.id_cliente=t3.idTrabajador and t1.tipoCliente=5 and t1.tipoCliente=t4.idTipoCliente and t5.idComanda=t1.idComanda and t3.idTrabajador=? union select t1.idComanda,t1.numComanda,t5.procedencia,t5.cobrado,t1.fechaHora,t5.total,t4.clientType,t3.nombre from restbar_bd.comanda t1,restbar_bd.caja t2,trabajador t3,tipocliente t4,comandacredito t5 where t1.id_caja=t2.id_caja and t1.id_cliente=t3.idTrabajador and t1.tipoCliente=5 and t1.tipoCliente=t4.idTipoCliente and t5.idComanda=t1.idComanda and t3.idTrabajador=? order by fechaHora desc';
 	const USUARIOS_MOV = 'select t1.id_movimiento,t1.fechaHora,t2.cobrado as tipo,t2.dinero,t1.descripcion,t4.nombre as categoria,t5.nombre as encargado from movimiento t1,movimientocredito t2,trabajador t3,categoria t4,guate_bd.usuario t5 where t1.id_movimiento=t2.id_movimiento and t3.idTrabajador=t2.id_usuario and t4.id_categoria=t1.id_categoria and t5.Id_usuario=t1.idencargado and t2.id_usuario=? order by t1.fechaHora desc';
 	const SET_USUARIO = 'INSERT INTO trabajador VALUES(0,?,?)';
 	const TOTAL_CUENTA = 'select sum(total) as total from(select sum(t4.total) as total from comanda t1,caja t2,trabajador t3,comandacredito t4 where t1.id_caja=t2.id_caja  and t1.idComanda=t4.idComanda and t1.id_cliente=t3.idTrabajador and t1.tipoCliente=5 and t3.idTrabajador=? and t4.cobrado=0 group by t3.idTrabajador union select sum(t1.dinero) as total from movimientocredito t1,movimiento t2 where t1.id_movimiento=t2.id_movimiento and t1.id_usuario=?)as total';
 	const GET_PEDIDO = 'select t1.idLineaComanda,t2.idPlatillo,t1.cantidad,t2.nombre,t1.precio from lineacomanda t1,platillo t2 where idComanda=? and t2.idPlatillo=t1.idPlatillo';
+	const GET_PEDIDO_RESTBAR= 'select t1.idLineaComanda,t2.idPlatillo,t1.cantidad,t2.nombre,t1.precio from restbar_bd.lineacomanda t1,platillo t2 where idComanda=? and t2.idPlatillo=t1.idPlatillo';
 	const GET_PEDIDO_BAR = 'select t1.idLineaComanda,t2.numBebida,t1.cantidad,t2.nombre,t1.precio from lineacomanda t1,bebida t2 where idComanda=? and t2.idBebida=t1.idPlatillo ';
+	const GET_PEDIDO_BAR_RESTBAR = 'select t1.idLineaComanda,t2.numBebida,t1.cantidad,t2.nombre,t1.precio from restbar_bd.lineacomanda t1,bebida t2 where idComanda=? and t2.idBebida=t1.idPlatillo ';
 	const GET_MOV_CATEGORIES = 'select * from categoria where showcaja=1';
 	const GET_PRECIOS = 'select precioLimitado,precioNormal from bar_bd.bebida where idBebida=?';
 	const TOTAL_COMANDA_CREDITO = 'select total from comandacredito where idComanda=?';
@@ -315,8 +317,8 @@ class Dcaja{
 	}	
 	public function get_usuarios_comandas ($idusuario){
 		$comunication = new ComunicationRecep();
-		$PARAMS = array($idusuario);
-		$PARAMS_TYPES = array (ComunicationRecep::$TINT);
+		$PARAMS = array($idusuario,$idusuario);
+		$PARAMS_TYPES = array (ComunicationRecep::$TINT,ComunicationRecep::$TINT);
 		$result = $comunication->query(self::USUARIOS_COMANDAS,$PARAMS,$PARAMS_TYPES);
 		return $result;
 	}
@@ -350,13 +352,34 @@ class Dcaja{
 		$result = $comunication->query(self::GET_PEDIDO,$PARAMS,$PARAMS_TYPES);
 		return $result;
 	}
+	public function get_pedido_cuenta($idComanda){
+		$idcom = substr($idComanda,2);
+	    $procedencia = substr($idComanda,0,2);
+		$comunication = new ComunicationRecep();
+		$PARAMS = array($idcom);
+		$PARAMS_TYPES = array (ComunicationRecep::$TSTRING);
+		if($procedencia=="HR") $result = $comunication->query(self::GET_PEDIDO,$PARAMS,$PARAMS_TYPES);
+		else if($procedencia=="RB") $result = $comunication->query(self::GET_PEDIDO_RESTBAR,$PARAMS,$PARAMS_TYPES);
+		return $result;
+	}
 	public function get_pedido_bar($idComanda){
 	    $comunication = new ComunicationRecep();
-		$PARAMS = array($idComanda,$idComanda);
-		$PARAMS_TYPES = array (ComunicationRecep::$TINT,ComunicationRecep::$TINT);
+		$PARAMS = array($idComanda);
+		$PARAMS_TYPES = array (ComunicationRecep::$TINT);
 		$result = $comunication->query(self::GET_PEDIDO_BAR,$PARAMS,$PARAMS_TYPES);
 		return $result;	
 	 }
+	 public function get_pedido_bar_cuenta($idComanda){
+	    $idcom = substr($idComanda,2);
+	    $procedencia = substr($idComanda,0,2);
+	    $comunication = new ComunicationRecep();
+		$PARAMS = array($idcom);
+		$PARAMS_TYPES = array (ComunicationRecep::$TINT);
+		if($procedencia=="HR") $result = $comunication->query(self::GET_PEDIDO_BAR,$PARAMS,$PARAMS_TYPES);
+		else if($procedencia=="RB") $result = $comunication->query(self::GET_PEDIDO_BAR_RESTBAR,$PARAMS,$PARAMS_TYPES);
+		return $result;	
+	 }
+	 
 	public function get_mov_categories(){
 		$comunication = new ComunicationRecep();
 		$PARAMS = array();

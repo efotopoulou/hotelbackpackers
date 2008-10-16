@@ -172,7 +172,7 @@ if ($estadocaja==0){
 <div id="cajaCerrada" style="display:none">la caja esta cerrada<br /><a href="view.php?page=caja">Abrir caja</a></div>
 
 <div  id="free" style="display:none;margin:0 auto;text-align:center;">
-Introduzca el razon de la cortesia:<br />
+Introduzca la razon de la cortesia:<br />
 <input type="text" id="freevol"/><br />
 <input type="button" value="Aceptar" onClick="putvoluntario(freevol.value)" />	
 <input type="button" value="Cancelar" onClick="cancelarCliente()" />

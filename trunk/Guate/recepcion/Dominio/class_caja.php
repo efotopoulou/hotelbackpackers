@@ -304,7 +304,7 @@ $rs = $uc->get_usuarios_comandas ($idusuario);
 		$n=0;
 		while($rs->next()){
 		$result=$rs->getRow();
-		$ors[$n] =new usuariocomanda($result["idComanda"],$result["numComanda"],$result["cobrado"],$result["fechaHora"],$result["total"],$result["clientType"],$result["nombre"]);
+		$ors[$n] =new usuariocomanda($result["idComanda"],$result["numComanda"],$result["procedencia"],$result["cobrado"],$result["fechaHora"],$result["total"],$result["clientType"],$result["nombre"]);
 		$n++;			
 		}
     }else{
@@ -357,6 +357,22 @@ $rs = $gp->get_pedido($idComanda);
 	return $ors;			
 }	
 
+function get_pedido_cuenta($idComanda){
+$gp = new Dcaja();
+$rs = $gp->get_pedido_cuenta($idComanda);
+	if($rs->getRecordCount()>0){ 
+		$n=0;
+		while($rs->next()){
+		$result=$rs->getRow();
+		$ors[$n] =new Pedido($result["idPlatillo"],$result["cantidad"],$result["nombre"],$result["precio"]);
+		$n++;			
+		}
+    }else{
+		$result=null;
+	    }
+	return $ors;			
+}	
+
 function get_pedido_bar($id){
 $gpb = new Dcaja();
 $rs = $gpb->get_pedido_bar($id);
@@ -371,6 +387,22 @@ $rs = $gpb->get_pedido_bar($id);
 		$result=null;
 	    }
 	return $ors;	
+}
+
+function get_pedido_bar_cuenta($id){
+$gpb = new Dcaja();
+$rs = $gpb->get_pedido_bar_cuenta($id);
+	if($rs->getRecordCount()>0){ 
+		$n=0;
+		while($rs->next()){
+		$result=$rs->getRow();
+		$ors[$n] =new Pedido($result["numBebida"],$result["cantidad"],$result["nombre"],$result["precio"]);
+		$n++;			
+		}
+    }else{
+		$result=null;
+	    }
+	return $ors;			
 }
 
 function get_categories(){
