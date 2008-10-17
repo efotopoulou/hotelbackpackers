@@ -29,7 +29,7 @@
 						input.val('');
 						input.blur();
 						input.attr("disabled", "disabled"); // we have to this so there'll be less spam messages
-						$.post("/restbar/Presentacion/writeChat.php", { //this is the url of your server side script that will handle write function
+						$.post("/restbar/Presentacion/serverchat.php", { //this is the url of your server side script that will handle write function
 							msg: message
 						}, function(data){
 							input.removeAttr("disabled");
@@ -46,7 +46,7 @@
 			
 			// handle the read messages function
 			var readMessages = function(){
-				$.getJSON("/restbar/Presentacion/readChat.php", function(data){
+				$.getJSON("/restbar/Presentacion/serverchat.php", function(data){
 					$.each(data, function(i,msg){
 						chat.append('<p><small>('+ msg.time +')</small> '+msg.nickname+' &gt; <strong>'+msg.msg+'</strong></p>');
 					});
@@ -57,7 +57,7 @@
 			chooseNickname.submit(function(){
 				var tryNickname=$(this).find(':input:first').val();
 				
-				$.post("/restbar/Presentacion/writeChat.php", { //this is the url of your server side script that will handle write function
+				$.post("/restbar/Presentacion/serverchat.php", { //this is the url of your server side script that will handle write function
 					nickname: tryNickname
 				}, function(data){
 					if (data) {
