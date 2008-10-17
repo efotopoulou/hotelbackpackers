@@ -28,6 +28,7 @@ else
 <?php if($allowedRest["comidaRest"]){ ?><li><a href="/restbar/view.php?page=comidaRest">Comida</a></li><?php } ?>
 <?php if($allowedRest["historicocajaRest"]){ ?><li><a href="/restbar/view.php?page=historicocajaRest">Historico Caja</a></li><?php } ?>
 <?php if($allowedRest["controldestockRest"]){ ?><li><a href="/restbar/view.php?page=controldestockRest">Control de Stock</a></li><?php } ?>
+<?php if($allowedRest["cocina"]){ ?><li><a href="/restbar/view.php?page=cocina">Cocina</a></li><?php } ?>
 				
 			</ul>
 			
