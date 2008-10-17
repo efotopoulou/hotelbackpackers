@@ -1,0 +1,50 @@
+#myChat {
+	position:relative;
+	margin:20px 0;
+	border:1px solid #000;
+	padding:10px;
+}
+.chat {
+	position:relative;
+	overflow:hidden;	
+	border:1px solid #bbb;
+	height:270px;
+	padding:5px;
+	background:#eee;
+	margin-bottom:5px;
+}
+
+.chat div {
+	position:absolute;
+	width:100%;
+	bottom:0;
+}
+
+.chat p {
+	margin:0
+}
+
+/* zoneClavier */
+.writeInput {
+	margin:0 5px 0 0;
+	padding:0;
+/*	visibility:visible;*/
+}
+
+.writeInput input {
+	font-size:20px;
+	margin:0;
+	padding:0;
+	border:1px solid #999;
+}
+
+.writeInput input:focus {
+	background:yellow;
+	border-color:cyan;
+}
+
+.ajaxStatus {
+	position:absolute;
+	top:-25px;
+	right:10px;
+}
