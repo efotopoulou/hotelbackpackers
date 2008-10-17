@@ -31,6 +31,7 @@ require ($_SERVER['DOCUMENT_ROOT'] . '/recepcion/Dominio/class_caja.php');
 		
 <script>
 //PRESENTACION
+var timeoutHnd;
 //Al iniciar la pagina.... ONREADY!!!!!!!
 $(document).ready(function(){
    $.blockUI({ message: '<h1>Cargando...</h1>' });
@@ -149,7 +150,7 @@ if ($estadocaja==0){
 }else {?>
 <body>
 <?php } ?>
-<?php include($_SERVER['DOCUMENT_ROOT'] . '/common/Presentacion/menu.php'); ?>
+<?php include($_SERVER['DOCUMENT_ROOT'] . '/common/Presentacion/menuRestBar.php'); ?>
 <div style="height:94%;margin:0pt;padding:0pt">
 <div id="cajaCerrada" style="display:none">la caja esta cerrada<br /><a href="view.php?page=caja">Abrir caja</a></div>
 
@@ -169,13 +170,13 @@ Introduzca el razon de la cortesia:<br />
 <div id="clientesForm" style="display:none">
 <table id="list2" class="scroll" cellpadding="0" cellspacing="0"></table>
 <div id="pager2" class="scroll" style="text-align:center;"></div>
-<div onclick="cancelarCliente()" style="background:#AAA;cursor:pointer">cancelar</div>
+<div style="height:30px"><input type="button" onclick="cancelarCliente()" value="cancelar"></input></div>
 </div>
 <div id="TrabajadoresForm" style="display:none">
 <div style="padding:4px">nombre: <input type="text" id="searchNombre" onkeydown="doSearch()" /></div>
 <table id="list3" class="scroll" cellpadding="0" cellspacing="0"></table>
 <div id="pager3" class="scroll" style="text-align:center;"></div>
-<div onclick="cancelarCliente()" style="background:#AAA;cursor:pointer">cancelar</div>
+<div style="height:30px"><input type="button" onclick="cancelarCliente()" value="cancelar"></input></div>
 </div>
  <div id="arriba_izquierda" style="width:100%;height:100%">
  <div style="border-bottom:1px solid #AAAAAA;">

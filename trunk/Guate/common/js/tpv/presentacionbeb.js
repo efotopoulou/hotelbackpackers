@@ -94,7 +94,7 @@ function cerrarTiquetMouseDown(){
 }
 function sendComanda(){
  var myJsonMain = JSON.stringify(main.comanda());
-  $.getJSONGuate("Presentacion/jsonsavetpv.php",{ json: myJsonMain}, function(json){
+  $.getJSONGuate("Presentacion/jsonsavebebida.php",{ json: myJsonMain}, function(json){
     if (json["Mensaje"]) {
     	changeClass('Efectivo');
     	efectivo();
@@ -197,6 +197,6 @@ function restoreHibernar(){
  }
  
 function calcularCambio(){
-	$("#cambio").val(redondea(main.comanda().efectivo-main.comanda().totalPropina));
+	$("#cambio").val(redondea(main.comanda().efectivo-main.comanda().total));
 }
  
