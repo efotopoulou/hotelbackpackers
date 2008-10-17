@@ -7,7 +7,7 @@ function getFamilias(){
  },false);
 }
 function getFamiliasBeb(){
- $.getJSONGuate("Presentacion/jsonbebtpv.php", function(json){
+ $.getJSONGuate("/recepcion/Presentacion/jsonbebtpv.php", function(json){
     json = verificaJSON(json);
     crearFamilias(json);
    	$(".platscroll").css({display:"none"});
