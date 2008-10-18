@@ -1,4 +1,4 @@
-//-------------------------------------------PLATOMOUSEDOWN----------------------------------------//
+//----------------------------------------------PLATOMOUSEDOWN--------------------------------------------//
 function platomousedown(plato,platoid,precioN,precioLim,id){
   //si hay una mesa elegida
   if(main.currentMesa){
@@ -93,6 +93,16 @@ function sendComanda(){
     json = verificaJSON(json);
   });
 }
+function sendCocina(){
+ var myJsonMain = JSON.stringify(main.comanda());
+  $.getJSONGuate("Presentacion/jsonsendCocina.php",{ json: myJsonMain}, function(json){
+    if (json["Mensaje"]) {
+    	changeClass('Efectivo');
+    	efectivo();
+    }
+    json = verificaJSON(json);
+  });
+}
 
 //-------------------------------------------LIBERAMESAMOUSEDOWN----------------------------------------//
 function liberaMesaMouseDown(id){
@@ -111,6 +121,7 @@ function cocina(id){
    listaPedidos.mensajeCocina("Pedido en Cocina");
    listaPedidos.fijarComanda();
    main.comanda().estado="cocina";
+   sendCocina();
    //Enviar comanda a la cocina.
   }
   changeClass(id);
