@@ -1,6 +1,7 @@
 <?php
 require ($_SERVER['DOCUMENT_ROOT'] . '/restbar/Dominio/class_comanda.php');
 require ($_SERVER['DOCUMENT_ROOT'] . '/recepcion/Dominio/class_credito.php');
+include ($_SERVER['DOCUMENT_ROOT'] . '/recepcion/Dominio/class_stock.php');
 require ($_SERVER['DOCUMENT_ROOT'] . '/recepcion/Dominio/MensajeJSON.php');
 //Recoge el parametro y se limpia de contrabarras
   $json = $_POST['json'];
@@ -11,6 +12,7 @@ require ($_SERVER['DOCUMENT_ROOT'] . '/recepcion/Dominio/MensajeJSON.php');
 $comanda = new Comanda();
 $credito = new Credito();
 $mensaje = new MensajeJSON();
+$stock = new stock();
  
 $mesa = json_decode($json, true);
 
@@ -26,6 +28,7 @@ $comandaId = $comanda->setComanda($mesa["comandaID"],$mesa["efectivo"],$mesaNum,
  	$cantidad = (int)$lineas[$i]["cantidad"];
  	if($cantidad==0) $cantidad=1;
  	$comanda->setLineaComandaBebida($comandaId,$lineas[$i]["platoId"],$cantidad, $lineas[$i]["precioN"]);
+    $stock->informar_controlstock($lineas[$i]["platoId"],$cantidad);
  }
 if ($mesa["currentClientType"]==5)$credito->setComandaCreditoBebida($comandaId,"RB");
 }catch (SQLException $e){
