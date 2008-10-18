@@ -92,9 +92,19 @@ class stock{
 		}
 		
 		function venta_turno_bar(){
-		$gsb = new Dstock();
-		$rs = $gsb->venta_turno_bar();		
-		return $rs;
+		$gsr = new Dstock();
+        $rs = $gsr->venta_turno_bar();
+      if ($rs->getRecordCount()>0){
+	     $n=0;
+	       while($rs->next()){
+		   $result=$rs->getRow();
+		   $ors[$n] = new VentaTurno($result["numBebida"],$result["nombre"],$result["suma"]);
+		   $n++;
+		   }														
+        }else{
+	    $result=null;
+			}
+        return $ors;	
 		}
 		
 		

@@ -1,8 +1,9 @@
 <?php
 include($_SERVER['DOCUMENT_ROOT'] . '/hotel/Dominio/class_usuario.php');
+require ($_SERVER['DOCUMENT_ROOT'] . '/restbar/Dominio/class_turno.php');
 
-$caja=new caja();
-$turno=$caja->get_turno_caja();
+$turno=new turno();
+$turn=$turno->get_turno_caja();
 
 $usr=new usuario();
 if ($sesion){
@@ -46,7 +47,7 @@ else
 			<div style="float:right">
 				<a href="/hotel/view.php?page=login" style="color:#FFFFFF">Salir</a>
 			</div>	
-			<div id="turno"><center>Turno de <?php echo($turno); ?></center></div>
+			<div id="turno"><center>Turno de <?php echo($turn); ?></center></div>
 			
 			<div style="clear:both"></div>
 		</div>

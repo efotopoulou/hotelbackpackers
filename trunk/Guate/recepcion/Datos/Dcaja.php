@@ -7,7 +7,6 @@ class Dcaja{
 	const IS_CAJA_OPEN = 'SELECT estado from caja WHERE estado=true';
 	const OPEN_CAJA = 'INSERT INTO caja VALUES(?,1,NOW(),null,?,null,0,?)';
 	const GET_FONDO_CAJA = 'SELECT fondoInicial from caja where estado=1';
-	const GET_TURNO_CAJA = 'SELECT turno from caja where estado=1';
 	const GET_ID_CAJA = 'select id_caja from caja where estado=1';
 	const CLOSE_CAJA = 'UPDATE caja SET estado=0,fechaHoraCierre=NOW(), EfectivoCerrar=? where caja.estado=1';
 	const INS_MOV = 'INSERT INTO movimiento VALUES(0,NOW(),?,?,?,?,?,?)';
@@ -79,15 +78,6 @@ class Dcaja{
 		$PARAMS = array();
 		$PARAMS_TYPES = array ();
 		$result = $comunication->query(self::GET_FONDO_CAJA,$PARAMS,$PARAMS_TYPES);
-		
-		return $result;
-	}
-	
-	public function get_turno_caja (){
-		$comunication = new ComunicationRecep();
-		$PARAMS = array();
-		$PARAMS_TYPES = array ();
-		$result = $comunication->query(self::GET_TURNO_CAJA,$PARAMS,$PARAMS_TYPES);
 		
 		return $result;
 	}

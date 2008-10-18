@@ -12,7 +12,7 @@ class Dstock{
 	const INFORM_STOCK_REST = 'UPDATE stockbebidas SET stockrestaurante=? where idBebida=?';
 	const GET_STOCK_RECEPTION = 'select t2.nombre, t2.idBebida,t2.precioNormal,t2.precioLimitado from stockbebidas t1,bebida t2 where t2.idBebida=t1.idBebida and stockrestaurante!=0 order by numBebida';
 	const VENTA_TURNO = 'select t1.idBebida,t5.numBebida,t5.nombre,sum(t4.cantidad)as suma from stockbebidas t1,caja t2,comanda t3,lineacomanda t4,bebida t5 where t1.idBebida=t4.idPlatillo and t2.estado=1 and t2.id_caja=t3.id_caja and t3.idComanda=t4.idComanda and t1.idBebida=t5.idBebida and t3.estado!="anulado" group by t1.idBebida,t3.tipoCliente';
-	const VENTA_TURNO_BAR = 'select t1.idBebida,t5.numBebida,t5.nombre,sum(t4.cantidad)as suma from stockbebidas t1,restbar_bd.caja t2,restbar_bd.comanda t3,restbar_bd.lineacomanda t4,bebida t5 where t1.stockrestaurante != 0 and t1.idBebida=t4.idPlatillo and t2.estado=1 and t2.id_caja=t3.id_caja and t3.idComanda=t4.idComanda and t1.idBebida=t5.idBebida and t3.estado!="anulado" group by t1.idBebida,t3.tipoCliente';
+	const VENTA_TURNO_BAR = 'select t1.idBebida,t5.numBebida,t5.nombre,sum(t4.cantidad)as suma from stockbebidas t1,restbar_bd.caja t2,restbar_bd.comanda t3,restbar_bd.lineacomanda t4,bebida t5 where t1.idBebida=t4.idPlatillo and t2.estado=1 and t2.id_caja=t3.id_caja and t3.idComanda=t4.idComanda and t1.idBebida=t5.idBebida and t3.estado!="anulado" group by t1.idBebida,t3.tipoCliente';
 	const RECUPERAR_VENTA_CAJA = 'select id_caja,recuperarventa from caja where estado=1';
 	const RECUPERAR_VENTA_CAJA_1 = 'select recuperarventa from caja where estado=1';
 	const UPDATE_RECUPERAR_VENTA_CAJA = 'UPDATE caja SET recuperarventa=1 where id_caja=?';
@@ -150,6 +150,7 @@ class Dstock{
 	$PARAMS = array();
 	$PARAMS_TYPES = array ();
 	$rs = $comunication->query(self::VENTA_TURNO_BAR,$PARAMS,$PARAMS_TYPES);
+	return $rs;
  }
  
  public function recuperar_venta_caja(){
