@@ -4,6 +4,7 @@ require ($_SERVER['DOCUMENT_ROOT'] . '/restbar/Dominio/class_cocina.php');
 require ($_SERVER['DOCUMENT_ROOT'] . '/recepcion/Dominio/MensajeJSON.php');
 
 $fondo = $_POST['fondo'];
+$turno = $_POST['turno'];
 $efectivoCerrar = $_POST['efectivo'];
 $totalTipo =  $_POST['tipo'];
 $dinero =  $_POST['dinero'];
@@ -26,7 +27,7 @@ $mensaje = new MensajeJSON();
 
 try{
 if ($fondo){
-$open=$caja->open_caja($fondo);
+$open=$caja->open_caja($fondo,$turno);
 }else if ($efectivoCerrar){
 //$closeornot=$caja->are_tiquets_cobrados();	
 //    if ((sizeof($closeornot))>0) $mensaje->setMensaje("No puedes cerrar la caja.Hay comandas que no son cobradas!");

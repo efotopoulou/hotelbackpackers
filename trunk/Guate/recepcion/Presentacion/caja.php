@@ -35,6 +35,7 @@ $(document).ready(function(){
 <?php
 $caja=new caja();
 $fondoc=$caja->get_fondo_caja();
+$turno=$caja->get_turno_caja();
 
 $categoria=$caja-> get_categories();
 for($i=0;$i<count($categoria);$i++) {
@@ -402,7 +403,7 @@ $("#efectivo_cerrar,#input_money,#output_money,#categoria,#description,#cob,#an,
 }
 //-------------------------------------------REPORTE CAJA (HTML - EXCEL)-------------------------------------------------//
 function reportecaja(type){
-	turno =$("#turno").val();
+	turno ="+<?php echo($turno); ?>+";
 	user =$("#selUsers option:selected").html();
    if(type=="html") document.location="Presentacion/reportehtml.php?turno="+turno+"&encargado="+user;
    if(type=="excel") document.location="Presentacion/reportexcel.php?turno="+turno+"&encargado="+user;
