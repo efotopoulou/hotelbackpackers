@@ -26,6 +26,15 @@ class comanda{
 			if ($dtp->esCocina($platoId)) 
 			   $dtp->setCocina($rs);
 		}
+		function esCocina($platoId){
+			$dtp = new DComanda();
+			$rs = $dtp->esCocina($platoId);
+			return $rs;
+		}
+		function setCocina($lineaComandaId){
+			$dtp = new DComanda();
+			$dtp->setCocina($lineaComandaId);
+		}
 		function setLineaComandaBebida($comandaID,$platoId,$cantidad,$precio){
 			$dtp = new DComanda();
 			$rs = $dtp->setLineaComanda($comandaID,$platoId,$cantidad,$precio);
