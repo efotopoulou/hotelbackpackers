@@ -75,14 +75,14 @@ if (json.Tiquets){
 if (json.Info){
  $("#movimientosTable").html(" ");
  
- var efectivo =Math.abs(json.TotalEntradas - json.TotalSalidas);
+ var efectivo =json.TotalEntradas - json.TotalSalidas;
  for (var k in json.Info){
 	var saldo = Math.abs(json.Info[k].entrada - json.Info[k].salida);
 	$("#movimientosTable").append("<tr><td width=30%>"+k+"</td><td width=25%>Q"+json.Info[k].entrada+"</td><td width=25%>Q"+json.Info[k].salida+"</td><td width=20%>Q"+saldo+"</td></tr>");		
     if(a[k]) $("#"+a[k]).append("<tr><td colspan=2></td><td width=10%>TOTAL</td><td width=10%>Q"+json.Info[k].entrada+"</td><td width=10%>Q"+json.Info[k].salida+"</td></tr>");		
     }
 } 
-$("#movimientosTable").append("<tr><td width=30%>TOTALES</td><td width=25%>Q"+json.TotalEntradas+"</td><td width=25%>Q"+json.TotalSalidas+"</td><td width=20%>Q"+efectivo+"</td></tr>");		
+$("#movimientosTable").append("<tr><td width=30%>TOTALES</td><td width=25%>"+json.TotalEntradas+"Q</td><td width=25%>"+json.TotalSalidas+"Q</td><td width=20%>"+efectivo+"Q</td></tr>");		
  
  $("#entrymov").html(json.TotalEntradas);
  $("#exitmov").html(json.TotalSalidas); 

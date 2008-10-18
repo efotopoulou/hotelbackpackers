@@ -71,12 +71,14 @@ else
 			<div style="float:right">
 				<a href="/hotel/view.php?page=login" style="color:#FFFFFF">Salir</a>
 			</div>	
+			
 			<div>
 				<select id="turno" style="float:left;margin-left:10px;font-size:10px">
 				<option id="Manana">Manana</option>
 				<option id="Tarde">Tarde</option>
 				</select>
 			</div>
+			
 			<div style="clear:both"></div>
 		</div>
 </div>

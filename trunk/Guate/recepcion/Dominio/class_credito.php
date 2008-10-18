@@ -13,5 +13,11 @@ class credito{
 			$rs = $dtp->setComandaCreditoComida($idComanda,$procedencia);
 			return $rs;
 		}
+		function setComandaCreditoBebida($idComanda,$procedencia){
+			$dtp = new DCredito();
+			$rs = $dtp->setComandaCreditoBebida($idComanda,$procedencia);
+			return $rs;
+		}
+		
 }
 ?>

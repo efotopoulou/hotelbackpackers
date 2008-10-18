@@ -5,7 +5,7 @@ require_once ('ComunicationRecep.php');
 class Dcaja{
 	
 	const IS_CAJA_OPEN = 'SELECT estado from caja WHERE estado=true';
-	const OPEN_CAJA = 'INSERT INTO caja VALUES(?,1,NOW(),null,?,null,0)';
+	const OPEN_CAJA = 'INSERT INTO caja VALUES(?,1,NOW(),null,?,null,0,?)';
 	const GET_FONDO_CAJA = 'SELECT fondoInicial from caja where estado=1';
 	const GET_ID_CAJA = 'select id_caja from caja where estado=1';
 	const CLOSE_CAJA = 'UPDATE caja SET estado=0,fechaHoraCierre=NOW(), EfectivoCerrar=? where caja.estado=1';
@@ -64,10 +64,10 @@ class Dcaja{
 		$result = $comunication->query(self::GET_ID_CAJA,$PARAMS,$PARAMS_TYPES);
 		return $result;
 	}
-	public function open_caja($fondo){
+	public function open_caja($fondo,$turno){
 		$comunication = new ComunicationRecep();
-		$params = array(0,$fondo);
-		$PARAMS_INSERT = array(ComunicationRecep::$TINT,ComunicationRecep::$TFLOAT);
+		$params = array(0,$fondo,$turno);
+		$PARAMS_INSERT = array(ComunicationRecep::$TINT,ComunicationRecep::$TFLOAT,ComunicationRecep::$TSTRING);
 		$result = $comunication->update(self::OPEN_CAJA,$params,$PARAMS_INSERT);
 		
 		return $result;

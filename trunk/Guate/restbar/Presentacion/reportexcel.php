@@ -101,7 +101,7 @@ foreach($response["Info"] as $indice => $valor) {
 $objPHPExcel->getActiveSheet()->setCellValue('A'.($i+1),'TOTALES');
 $objPHPExcel->getActiveSheet()->setCellValue('B'.($i+1),'=SUM(B16:B'.$i.')');
 $objPHPExcel->getActiveSheet()->setCellValue('C'.($i+1),'=SUM(C16:C'.$i.')');
-$objPHPExcel->getActiveSheet()->setCellValue('D'.($i+1),'=ABS(B'.($i+1).'-C'.($i+1).')');
+$objPHPExcel->getActiveSheet()->setCellValue('D'.($i+1),'=B'.($i+1).'-C'.($i+1));
 
 //$objPHPExcel->getActiveSheet()->setCellValue('D'.($i+1),'=SUM(D16:D'.$i.')');
 
