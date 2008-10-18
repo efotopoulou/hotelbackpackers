@@ -11,10 +11,17 @@ class Dcredito{
 	const EMP_OR_CLIENT = 'select t3.cliente from comanda t1,trabajador t3 where  t1.id_cliente=t3.idTrabajador and t1.idComanda=?';
 	const EMP_OR_CLIENT_RESTBAR = 'select t3.cliente from restbar_bd.comanda t1,trabajador t3 where  t1.id_cliente=t3.idTrabajador and t1.idComanda=?';
 	
-	const GET_USUARIO_SUMA_PLATILLO = 'select sum(t2.precioLimitado*t1.cantidad) as suma from lineacomanda t1,platillo t2 where idComanda=? and t2.idPlatillo=t1.idPlatillo group by idComanda';
-	const GET_CLIENTE_SUMA_PLATILLO = 'select sum(t2.precioNormal*t1.cantidad) as suma from lineacomanda t1,platillo t2 where idComanda=? and t2.idPlatillo=t1.idPlatillo group by idComanda';
-	const GET_USUARIO_SUMA_RESTBAR = 'select sum(t2.precioLimitado*t1.cantidad) as suma from restbar_bd.lineacomanda t1,recepcion_bd.platillo t2 where idComanda=? and t2.idPlatillo=t1.idPlatillo group by idComanda';
-	const GET_CLIENTE_SUMA_RESTBAR = 'select sum(t2.precioNormal*t1.cantidad) as suma from restbar_bd.lineacomanda t1,recepcion_bd.platillo t2 where idComanda=? and t2.idPlatillo=t1.idPlatillo group by idComanda';
+	//precio limitado y normal del la comida de la recepcion y restbar
+	const GET_USUARIO_SUMA_PLATILLO_COMIDA = 'select sum(t2.precioLimitado*t1.cantidad) as suma from lineacomanda t1,platillo t2 where idComanda=? and t2.idPlatillo=t1.idPlatillo group by idComanda';
+	const GET_CLIENTE_SUMA_PLATILLO_COMIDA = 'select sum(t2.precioNormal*t1.cantidad) as suma from lineacomanda t1,platillo t2 where idComanda=? and t2.idPlatillo=t1.idPlatillo group by idComanda';
+	const GET_USUARIO_SUMA_RESTBAR_COMIDA = 'select sum(t2.precioLimitado*t1.cantidad) as suma from restbar_bd.lineacomanda t1,recepcion_bd.platillo t2 where idComanda=? and t2.idPlatillo=t1.idPlatillo group by idComanda';
+	const GET_CLIENTE_SUMA_RESTBAR_COMIDA = 'select sum(t2.precioNormal*t1.cantidad) as suma from restbar_bd.lineacomanda t1,recepcion_bd.platillo t2 where idComanda=? and t2.idPlatillo=t1.idPlatillo group by idComanda';
+	
+	//precio limitado y normal del la bebida de la recepcion y restbar
+	const GET_USUARIO_SUMA_PLATILLO_BEBIDA = 'select sum(t2.precioLimitado*t1.cantidad) as suma from lineacomanda t1,bebida t2 where idComanda=? and t2.idBebida=t1.idPlatillo group by idComanda';
+	const GET_CLIENTE_SUMA_PLATILLO_BEBIDA = 'select sum(t2.precioNormal*t1.cantidad) as suma from lineacomanda t1,bebida t2 where idComanda=? and t2.idBebida=t1.idPlatillo group by idComanda';
+	const GET_USUARIO_SUMA_RESTBAR_BEBIDA = 'select sum(t2.precioLimitado*t1.cantidad) as suma from restbar_bd.lineacomanda t1,bebida t2 where idComanda=? and t2.idBebida=t1.idPlatillo group by idComanda';
+	const GET_CLIENTE_SUMA_RESTBAR_BEBIDA = 'select sum(t2.precioNormal*t1.cantidad) as suma from restbar_bd.lineacomanda t1,bebida t2 where idComanda=? and t2.idBebida=t1.idPlatillo group by idComanda';
 	
 	
 public function setComandaCredito($idComanda,$procedencia){
@@ -62,10 +69,10 @@ public function coste_credito($procedencia,$cliente,$idComanda){
 	$comunication = new ComunicationRecep();
     $PARAMS = array($idComanda);
 	$PARAMS_TYPES = array (ComunicationRecep::$TINT);
-	if($procedencia=="HR" && $cliente==0) $total = $comunication->query(self::GET_USUARIO_SUMA_PLATILLO,$PARAMS,$PARAMS_TYPES);
-	else if($procedencia=="HR" && $cliente==1) $total = $comunication->query(self::GET_CLIENTE_SUMA_PLATILLO,$PARAMS,$PARAMS_TYPES);
-	else if($procedencia=="RB" && $cliente==0) $total = $comunication->query(self::GET_USUARIO_SUMA_RESTBAR,$PARAMS,$PARAMS_TYPES);
-	else if($procedencia=="RB" && $cliente==1) $total = $comunication->query(self::GET_CLIENTE_SUMA_RESTBAR,$PARAMS,$PARAMS_TYPES);
+	if($procedencia=="HR" && $cliente==0) $total = $comunication->query(self::GET_USUARIO_SUMA_PLATILLO_COMIDA,$PARAMS,$PARAMS_TYPES);
+	else if($procedencia=="HR" && $cliente==1) $total = $comunication->query(self::GET_CLIENTE_SUMA_PLATILLO_COMIDA,$PARAMS,$PARAMS_TYPES);
+	else if($procedencia=="RB" && $cliente==0) $total = $comunication->query(self::GET_USUARIO_SUMA_RESTBAR_COMIDA,$PARAMS,$PARAMS_TYPES);
+    else if($procedencia=="RB" && $cliente==1) $total = $comunication->query(self::GET_CLIENTE_SUMA_RESTBAR_COMIDA,$PARAMS,$PARAMS_TYPES);
 	
 	if ($total->getRecordCount()>0){
 			while($total->next()){
@@ -76,5 +83,32 @@ public function coste_credito($procedencia,$cliente,$idComanda){
 	
 }
 //------------------------------------------------------------------------------------------------------------       
+public function setComandaCreditoBebida($idComanda,$procedencia){
+	    $comunication = new ComunicationRecep();
+	    $cliente=$this->emp_or_client($idComanda,$procedencia);
+	    $costecredito=$this->coste_credito_bebida($procedencia,$cliente,$idComanda);
+		$PARAMS = array($idComanda,$costecredito,$procedencia);
+		$PARAMS_TYPES = array (ComunicationRecep::$TINT,ComunicationRecep::$TFLOAT,ComunicationRecep::$TSTRING);
+		$result = $comunication->query(self::SET_COMANDA_USUARIO,$PARAMS,$PARAMS_TYPES);
+	}
+	
+	public function coste_credito_bebida($procedencia,$cliente,$idComanda){
+	$comunication = new ComunicationRecep();
+    $PARAMS = array($idComanda);
+	$PARAMS_TYPES = array (ComunicationRecep::$TINT);
+	if($procedencia=="HR" && $cliente==0) $total = $comunication->query(self::GET_USUARIO_SUMA_PLATILLO,$PARAMS,$PARAMS_TYPES);
+	else if($procedencia=="HR" && $cliente==1) $total = $comunication->query(self::GET_CLIENTE_SUMA_PLATILLO,$PARAMS,$PARAMS_TYPES);
+	else if($procedencia=="RB" && $cliente==0) $total = $comunication->query(self::GET_USUARIO_SUMA_RESTBAR_BEBIDA,$PARAMS,$PARAMS_TYPES);
+	else if($procedencia=="RB" && $cliente==1) $total = $comunication->query(self::GET_CLIENTE_SUMA_RESTBAR_BEBIDA,$PARAMS,$PARAMS_TYPES);
+	
+	if ($total->getRecordCount()>0){
+			while($total->next()){
+				$resultc=$total->getRow();
+				$suma=$resultc["suma"];
+				}}		
+	return $suma;
+	
+}
+
 }
 ?>

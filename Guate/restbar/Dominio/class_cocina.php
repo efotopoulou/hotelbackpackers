@@ -11,7 +11,7 @@ class cocina{
 		$n=0;
 		while($rs->next()){
 		$result=$rs->getRow();
-		$ors[$n] = new PedidosCocina($result["idLineaComanda"],$result["idComanda"],$result["idPlatillo"],$result["nombre"],$result["cantidad"],$result["hora"]);
+		$ors[$n] = new PedidosCocina($result["idLineaComanda"],$result["idComanda"],$result["numComanda"],$result["idPlatillo"],$result["nombre"],$result["cantidad"],$result["hora"]);
 		$n++;					
 		}
     }else{

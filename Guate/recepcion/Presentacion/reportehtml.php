@@ -75,7 +75,7 @@ if (json.Tiquets){
 if (json.Info){
  $("#movimientosTable").html(" ");
  
- var efectivo =Math.abs(json.TotalEntradas - json.TotalSalidas);
+ var efectivo =json.TotalEntradas - json.TotalSalidas;
  for (var k in json.Info){
 	var saldo = Math.abs(json.Info[k].entrada - json.Info[k].salida);
 	$("#movimientosTable").append("<tr><td width=30%>"+k+"</td><td width=25%>Q"+json.Info[k].entrada+"</td><td width=25%>Q"+json.Info[k].salida+"</td><td width=20%>Q"+saldo+"</td></tr>");		

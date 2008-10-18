@@ -92,9 +92,9 @@ function abrirCaja(){
  $.blockUI({ message: $('#cajaCerrada')});
 }
 //--------------------------------------------------------ABRIR CAJA----------------------------------------------------------------------//
-function openCaja(fondo){
+function openCaja(fondo,turno){
 
-    $.getJSONGuate("Presentacion/jsongestioncaja.php",{fondo:fondo}, function(json){
+    $.getJSONGuate("Presentacion/jsongestioncaja.php",{fondo:fondo,turno:turno}, function(json){
       json = verificaJSON(json);
       loadPage(json);  
     });
@@ -423,9 +423,10 @@ onload="abrirCaja()"
 >
 <?php include($_SERVER['DOCUMENT_ROOT'] . '/common/Presentacion/menu.php'); ?>
 <div  id="cajaCerrada" style="display:none;margin:0 auto;text-align:center;">
-Introduzca el fondo que va a poner en la caja<br />
-Fondo: <input type="text" id="fondo" name="fondo"/><br />
-<input type="button" value="Aceptar" onClick="openCaja(fondo.value)" />	
+Introduzca el fondo de la caja y el turno:<br />
+Fondo: <input type="text" id="fondo" name="fondo"/>
+Turno:<select id="turno"><option  value='Manana'>Manana</option><option value='Tarde'>Tarde</option><option value='Noche'>Noche</option></select>
+<input type="button" value="Aceptar" onClick="openCaja(fondo.value,turno.value);" />	
 <input type="button" value="Cancelar" onClick="cancelarapertura();" />
 </div>
 

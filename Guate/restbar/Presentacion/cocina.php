@@ -58,7 +58,7 @@ function loadpedidos(json){
   	  var aux="";
   	  $("#pedidosTable").html(" ");
       for(i=0;i<json.PedidosInfo.length;i++) {
-        $("#pedidosTable").append("<tr id="+json.PedidosInfo[i].idLineaComanda+" onmousedown='changeClass(this.id)'><td width=2%>&nbsp;</td><td width=10%><h3>"+json.PedidosInfo[i].idComanda+"</h3></td><td width=15%><h3>"+json.PedidosInfo[i].idPlatillo+"</h3></td><td width=50%><center>"+json.PedidosInfo[i].nombre+"</center></td><td width=10%>"+json.PedidosInfo[i].cantidad+"</td><td>"+json.PedidosInfo[i].hora+"</td></tr>");		
+        $("#pedidosTable").append("<tr id="+json.PedidosInfo[i].idLineaComanda+" onmousedown='changeClass(this.id)'><td width=2%>&nbsp;</td><td width=10%><h3>"+json.PedidosInfo[i].numComanda+"</h3></td><td width=15%><h3>"+json.PedidosInfo[i].idPlatillo+"</h3></td><td><center>"+json.PedidosInfo[i].nombre+"</center></td><td width=10%><center>"+json.PedidosInfo[i].cantidad+"</center></td><td width=15%>"+json.PedidosInfo[i].hora+"</td></tr>");		
         if (json.PedidosInfo[i].idLineaComanda==pedidoElegido) {btncolor(pedidoElegido);}
         $("#"+json.PedidosInfo[i].idLineaComanda).addClass("fonto letras");
         }
@@ -113,7 +113,7 @@ $("#"+id).toggleClass("blacktext");
 <div id="secundario" style="width:100%;height:100%;background:#000000;">
   
       <table  width=97% cellpadding=0 cellspacing=1  style="background:#000000;">
-      <tr class="fonto letras"><td width=2%>&nbsp;</td><td width=10%><h3>Comanda</h3></td><td width=15%><h3>Platillo</h3></td><td width=50%><h3><center>Nombre</center></h3></td><td width=10%><h3>Cantidad</h3></td><td><h3>Hora</h3></td></tr>
+      <tr class="fonto letras"><td width=2%>&nbsp;</td><td width=10%><h3>Comanda</h3></td><td width=15%><h3>Platillo</h3></td><td><h3><center>Nombre</center></h3></td><td width=10%><h3>Cant.</h3></td><td width=15%><h3>Hora</h3></td></tr>
       </table>
      <div style="height:80%;overflow:auto">
         <table id="pedidosTable" width=97% cellpadding=0 cellspacing=1>
@@ -123,10 +123,10 @@ $("#"+id).toggleClass("blacktext");
      <div id="b5" style="float:left; width:100%; margin-top:5px">	
      <table style="width:100%;background:#000000;">		
 	  <tr class="fonto letras">
-	  <td  id="recuperar" align="center" onmousedown="btncolor(this.id);recuperarpedido();" onmouseup="btncolor(this.id)">Recuperar pedido</td>
+	  <td  id="recuperar" width=25% align="center" onmousedown="btncolor(this.id);recuperarpedido();" onmouseup="btncolor(this.id)">Recuperar pedido</td>
 	  <!--  <input type="button" value="Recuperar pedido" style="width:100px" onClick="recuperarpedido()"/></td> -->
-	  <td><div class="jclock" style="width:400px;"></div></center></td>
-	  <td  id="eliminar" align="center" onmousedown="btncolor(this.id);eliminarpedido();" onmouseup="btncolor(this.id)">Eliminar pedido</td>
+	  <td><div class="jclock"  align="center" style="width:400px;"></div></center></td>
+	  <td  id="eliminar" width=25% align="center" onmousedown="btncolor(this.id);eliminarpedido();" onmouseup="btncolor(this.id)">Servir pedido</td>
 	  </tr> 
 	 </table>		
     </div>

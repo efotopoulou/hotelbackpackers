@@ -1,8 +1,8 @@
 <?php
 require ($_SERVER['DOCUMENT_ROOT'] . '/recepcion/Dominio/class_familia.php');
-require ($_SERVER['DOCUMENT_ROOT'] . '/recepcion/Dominio/class_comanda.php');
+require ($_SERVER['DOCUMENT_ROOT'] . '/restbar/Dominio/class_comanda.php');
 require ($_SERVER['DOCUMENT_ROOT'] . '/recepcion/Dominio/class_mesas.php');
-require ($_SERVER['DOCUMENT_ROOT'] . '/recepcion/Dominio/class_caja.php');
+require ($_SERVER['DOCUMENT_ROOT'] . '/restbar/Dominio/class_caja.php');
 ?>
 <html lang="en" dir="ltr">
 	<head>

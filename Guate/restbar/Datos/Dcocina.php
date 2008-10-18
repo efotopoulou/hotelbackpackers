@@ -4,7 +4,7 @@ require_once ('ComunicationRestBar.php');
 
 class Dcocina{
 	
-	const SELECT_PEDIDOS = 'select t1.idLineaComanda,t4.idComanda,t2.idPlatillo,t3.nombre,t2.cantidad,time(t4.fechaHora) as hora from cocina t1,lineacomanda t2,recepcion_bd.platillo t3,comanda t4 where t4.idComanda=t2.idComanda and t1.idLineaComanda=t2.idLineaComanda and t3.idPlatillo=t2.idPlatillo and t1.presentado=1 order by t4.fechaHora asc';
+	const SELECT_PEDIDOS = 'select t1.idLineaComanda,t4.idComanda,t4.numComanda,t2.idPlatillo,t3.nombre,t2.cantidad,time(t4.fechaHora) as hora from cocina t1,lineacomanda t2,recepcion_bd.platillo t3,comanda t4 where t4.idComanda=t2.idComanda and t1.idLineaComanda=t2.idLineaComanda and t3.idPlatillo=t2.idPlatillo and t1.presentado=1 union select t1.idLineaComanda,t4.idComanda,t4.numComanda,t2.idPlatillo,t3.nombre,t2.cantidad,time(t4.fechaHora) as hora from cocina t1,recepcion_bd.lineacomanda t2,recepcion_bd.platillo t3,recepcion_bd.comanda t4 where t4.idComanda=t2.idComanda and t1.idLineaComanda=t2.idLineaComanda and t3.idPlatillo=t2.idPlatillo and t1.presentado=1 order by hora asc';
 	const DELETE_PEDIDOS = 'delete from cocina where 1=1';
 	const ELIMINAR_LINEA = 'UPDATE cocina SET presentado=0,horadelete=NOW() where idLineaComanda=?';
 	const RECUPERAR_LINEAID = 'select t1.idLineaComanda from cocina t1,lineacomanda t2,recepcion_bd.platillo t3,comanda t4 where t4.idComanda=t2.idComanda and t1.idLineaComanda=t2.idLineaComanda and t3.idPlatillo=t2.idPlatillo order by t1.horadelete desc limit 1';

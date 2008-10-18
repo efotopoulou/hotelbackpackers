@@ -45,9 +45,9 @@ class caja{
 		return $a;		
 		}
 		
-		function open_caja($fondo){
+		function open_caja($fondo,$turno){
 		$opcj = new Dcaja();
-		$rs = $opcj->open_caja($fondo);
+		$rs = $opcj->open_caja($fondo,$turno);
 		
 		return $rs;
 		}
