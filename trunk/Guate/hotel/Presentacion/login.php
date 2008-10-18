@@ -20,6 +20,7 @@ if($_POST!=null){
 		$sesion->set_id_usuario($id);
 		if($ser=="Rest.") $onload="/restbar/view.php?page=comidaRest";
 		if($ser=="Backup") $onload="/common/phpMyBackupPro/";
+		if($ser=="Cocina") $onload="/restbar/view.php?page=cocina";
 		$redir=true;
 		
 		$log=new log();
@@ -92,8 +93,10 @@ else{
 			
 			<tr><td colspan=2>
 			 <input type="button" value="Hotel" onClick="formsubmit(this.value)"/>
-			 <input type="button" style="margin-left:30px" value="Rest." onClick="formsubmit(this.value)"/>
-			 <input type="button" style="margin-left:30px" value="Backup" onClick="formsubmit(this.value)"/></td>
+			 <input type="button" style="margin-left:10px" value="Rest." onClick="formsubmit(this.value)"/>
+			 <input type="button" style="margin-left:10px" value="Backup" onClick="formsubmit(this.value)"/>
+ 			 <input type="button" style="margin-left:10px" value="Cocina" onClick="formsubmit(this.value)"/></td>
+			 
 			</tr>
 		</table>
 		<input id="id_usr" name="id_usr" type="hidden"  value="<?php echo $id ?>"/>
