@@ -45,9 +45,9 @@ class caja{
 		return $a;		
 		}
 		
-		function open_caja($fondo){
+		function open_caja($fondo,$turno){
 		$opcj = new Dcaja();
-		$rs = $opcj->open_caja($fondo);
+		$rs = $opcj->open_caja($fondo,$turno);
 		
 		return $rs;
 		}
@@ -60,6 +60,22 @@ class caja{
 			while($rs->next()){
 				$result=$rs->getRow();
 				$a=$result["fondoInicial"];
+				}
+																		
+		  }else{
+				$result=null;
+			}
+			return $a;
+		}
+		
+		function get_turno_caja(){
+			$fcj = new Dcaja();
+			$rs = $fcj->get_turno_caja();
+			
+		if ($rs->getRecordCount()>0){
+			while($rs->next()){
+				$result=$rs->getRow();
+				$a=$result["turno"];
 				}
 																		
 		  }else{

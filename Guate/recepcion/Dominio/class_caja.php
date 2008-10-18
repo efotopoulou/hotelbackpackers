@@ -68,6 +68,22 @@ class caja{
 			return $a;
 		}
 		
+		function get_turno_caja(){
+			$fcj = new Dcaja();
+			$rs = $fcj->get_turno_caja();
+			
+		if ($rs->getRecordCount()>0){
+			while($rs->next()){
+				$result=$rs->getRow();
+				$a=$result["turno"];
+				}
+																		
+		  }else{
+				$result=null;
+			}
+			return $a;
+		}
+		
 		function close_caja($efectivoCerrar){
 		$clcj = new Dcaja();
 		$rs = $clcj->close_caja($efectivoCerrar);

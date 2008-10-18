@@ -34,6 +34,7 @@ $(document).ready(function(){
 <?php
 $caja=new caja();
 $fondoc=$caja->get_fondo_caja();
+$turno=$caja->get_turno_caja();
 
 $categoria=$caja-> get_categories();
 for($i=0;$i<count($categoria);$i++) {
@@ -83,9 +84,9 @@ function abrirCaja(){
  $.blockUI({ message: $('#cajaCerrada')});
 }
 //--------------------------------------------------------ABRIR CAJA----------------------------------------------------------------------//
-function openCaja(fondo){
+function openCaja(fondo,turno){
 
-    $.getJSONGuate("Presentacion/jsongestioncaja.php",{fondo:fondo}, function(json){
+    $.getJSONGuate("Presentacion/jsongestioncaja.php",{fondo:fondo,turno:turno}, function(json){
       json = verificaJSON(json);
       loadPage(json);  
     });
@@ -378,7 +379,8 @@ $("#efectivo_cerrar,#input_money,#output_money,#categoria,#description,#cob,#an,
 }
 //-------------------------------------------REPORTE CAJA (HTML - EXCEL)-------------------------------------------------//
 function reportecaja(type){
-	turno =$("#turno").val();
+	//turno =$("#turno").val();
+    var turno ="+<?php echo($turno); ?>+";
 	user =$("#selUsers option:selected").html();
    if(type=="html") document.location="Presentacion/reportehtml.php?turno="+turno+"&encargado="+user;
    if(type=="excel") document.location="Presentacion/reportexcel.php?turno="+turno+"&encargado="+user;
@@ -400,8 +402,9 @@ onload="abrirCaja()"
 <?php include($_SERVER['DOCUMENT_ROOT'] . '/common/Presentacion/menuRestBar.php'); ?>
 <div  id="cajaCerrada" style="display:none;margin:0 auto;text-align:center;">
 Introduzca el fondo que va a poner en la caja<br />
-Fondo: <input type="text" id="fondo" name="fondo"/><br />
-<input type="button" value="Aceptar" onClick="openCaja(fondo.value)" />	
+Fondo: <input type="text" id="fondo" name="fondo"/>
+Turno:<select id="turno"><option  value='Manana'>Manana</option><option value='Tarde'>Tarde</option><option value='Noche'>Noche</option></select>
+<input type="button" value="Aceptar" onClick="openCaja(fondo.value,turno.value)" />	
 <input type="button" value="Cancelar" onClick="cancelarapertura();" />
 </div>
 

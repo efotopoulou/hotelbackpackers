@@ -1,5 +1,10 @@
 <?php
 include($_SERVER['DOCUMENT_ROOT'] . '/hotel/Dominio/class_usuario.php');
+//require ($_SERVER['DOCUMENT_ROOT'] . '/recepcion/Dominio/class_caja.php');
+
+$caja=new caja();
+$turno=$caja->get_turno_caja();
+
 $usr=new usuario();
 if ($sesion){
 	$allowed=$sesion->is_allowed('admin_menu');
@@ -72,12 +77,7 @@ else
 				<a href="/hotel/view.php?page=login" style="color:#FFFFFF">Salir</a>
 			</div>	
 			
-			<div>
-				<select id="turno" style="float:left;margin-left:10px;font-size:10px">
-				<option id="Manana">Manana</option>
-				<option id="Tarde">Tarde</option>
-				</select>
-			</div>
+			<div id="turno"><center>Turno de <?php echo($turno); ?></center></div>
 			
 			<div style="clear:both"></div>
 		</div>
