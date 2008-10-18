@@ -23,7 +23,7 @@ if($recarga){
 $response = loadstock($stock);	
 }else if($idbebida){
 $id = substr($idbebida, 1);
-$stock->add_stock($addornew,$id,$stockbar,$stockrestaurante,$unidadventa);	
+$stock->add_stock($id,$stockbar,$stockrestaurante,$unidadventa);	
 $response = loadstock($stock);	
 }else if($ventaturno){
 $rvc=$stock->recuperar_venta_caja();
