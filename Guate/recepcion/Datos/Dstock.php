@@ -133,7 +133,7 @@ class Dstock{
               $result=$rs->getRow();
 	          $idbebida=$result["idBebida"];
 	          $suma=$result["suma"];
-	          $this->add_stock('b6',$idbebida,0,$suma,1);
+	          $this->add_venta_recuperada($idbebida,$suma);
 	          $n++;
 		   }														
        }
@@ -144,6 +144,25 @@ class Dstock{
 	}
 	
  }	
+ //esta funcion añade las cantidades de bebidas que se ventieron en el stock de restaurante o bar
+ public function add_venta_recuperada($idbebida,$suma){
+ 	$comunication = new ComunicationRecep();
+	$PARAMS = array($idbebida);
+	$PARAMS_TYPES = array (ComunicationRecep::$TINT);
+	$rs = $comunication->query(self::GET_BEBIDA,$PARAMS,$PARAMS_TYPES);
+    if ($rs->getRecordCount()>0){
+	       while($rs->next()){
+              $result=$rs->getRow();
+	         // $stockbar=$result["stockbar"];
+	          $stockrestaurante=$result["stockrestaurante"];
+		   }														
+       }
+    $stock=$stockrestaurante+$suma;
+    $PARAMS = array($stock,$idbebida);
+	$PARAMS_TYPES = array (ComunicationRecep::$TFLOAT,ComunicationRecep::$TINT);
+	$rs = $comunication->query(self::INFORM_STOCK_REST,$PARAMS,$PARAMS_TYPES);
+ }
+ 
  
  public function venta_turno_bar(){
  	$comunication = new ComunicationRecep();
