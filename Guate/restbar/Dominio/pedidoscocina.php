@@ -1,16 +1,14 @@
 <?php
 class PedidosCocina{
-    var $idLineaComanda;
-    var $idComanda;
+    var $idCocina;
     var $numComanda;
     var $idPlatillo;
+    var $cantidad;
     var $nombre;
-    var $fondoInicial;
     var $hora;
 	
-	function PedidosCocina($idLineaComanda,$idComanda,$numComanda,$idPlatillo,$nombre,$cantidad,$hora){
-	$this->idLineaComanda = $idLineaComanda;
-	$this->idComanda = $idComanda;
+	function PedidosCocina($idCocina,$numComanda,$idPlatillo,$nombre,$cantidad,$hora){
+	$this->idCocina = $idCocina;
 	$this->numComanda = $numComanda;
 	$this->idPlatillo = $idPlatillo;
 	$this->nombre= $nombre;

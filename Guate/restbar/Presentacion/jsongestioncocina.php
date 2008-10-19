@@ -27,7 +27,7 @@ function loadpedidos($cocina){
 $pedidos=$cocina->select_pedidos();
 if ((sizeof($pedidos))>0){
 	  for($i=0;$i<count($pedidos);$i++) {
-	  $PedidosInfo[$i]=array("idLineaComanda"=>$pedidos[$i]->idLineaComanda,"idComanda"=>$pedidos[$i]->idComanda,"numComanda"=>$pedidos[$i]->numComanda,"idPlatillo"=>$pedidos[$i]->idPlatillo,"nombre"=>$pedidos[$i]->nombre,"cantidad"=>$pedidos[$i]->cantidad,"hora"=>$pedidos[$i]->hora);
+	   $PedidosInfo[$i]=array("idCocina"=>$pedidos[$i]->idCocina,"numComanda"=>$pedidos[$i]->numComanda,"idPlatillo"=>$pedidos[$i]->idPlatillo,"nombre"=>$pedidos[$i]->nombre,"cantidad"=>$pedidos[$i]->cantidad,"hora"=>$pedidos[$i]->hora);
 	  }
  }	
 $response["PedidosInfo"]=$PedidosInfo;

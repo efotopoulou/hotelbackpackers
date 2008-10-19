@@ -11,7 +11,7 @@ class cocina{
 		$n=0;
 		while($rs->next()){
 		$result=$rs->getRow();
-		$ors[$n] = new PedidosCocina($result["idLineaComanda"],$result["idComanda"],$result["numComanda"],$result["idPlatillo"],$result["nombre"],$result["cantidad"],$result["hora"]);
+		$ors[$n] = new PedidosCocina($result["idCocina"],$result["comanda"],$result["platoId"],$result["nombre"],$result["cantidad"],$result["hora"]);
 		$n++;					
 		}
     }else{
@@ -25,9 +25,9 @@ function delete_pedidos(){
    $rs = $dp->delete_pedidos();
   return $rs;
   }	
-function eliminar_pedido($idLineaComanda){
+function eliminar_pedido($eliminarpedidoid){
    $el = new Dcocina();
-   $rs = $el->eliminar_pedido($idLineaComanda);
+   $rs = $el->eliminar_pedido($eliminarpedidoid);
   return $rs;
 }
 function recuperar_pedido (){
