@@ -20,8 +20,11 @@ class Dcaja{
 	//const COBRAR_MOVIMENTO = 'UPDATE recepcion_bd.movimientocredito SET cobrado=1 where id_movimiento=?';
 	const ESTADO_COMANDA = 'select estado from comanda where idComanda=?';
     const ESTADO_TIQUET = 'select estado from comanda where idComanda=?';
-	const DELETE_CREDITO_TIQUET = 'delete from recepcion_bd.comandacredito where procedencia="RB" idComanda=? ';
+	const DELETE_CREDITO_TIQUET = 'delete from recepcion_bd.comandacredito where procedencia="RB" and idComanda=? ';
 	const ANULAR_TICKET = 'UPDATE comanda SET estado="anulado" where idComanda=?';
+	const LINEACOMANDA= 'select idPlatillo,cantidad from lineacomanda where idComanda=?';
+	const GET_BEBIDA = 'select stockbar,stockrestaurante,unidadventa from recepcion_bd.stockbebidas where idBebida=?';
+	const INFORM_STOCK_BAR = 'UPDATE recepcion_bd.stockbebidas SET stockbar=? where idBebida=?';
 	const ESTADO_MOVIMIENTO = 'select tipo from movimiento where id_movimiento=?';
 	//const DELETE_CREDITO = 'delete from movimientocredito where id_movimiento=?';
 	const ANULAR_MOVIMIENTO = 'UPDATE movimiento SET tipo="anulado" where id_movimiento=?';
@@ -198,7 +201,7 @@ class Dcaja{
 		return $a;
 		
 	}
-	public function anular_ticket ($idComanda){
+	public function anular_ticket ($idComanda,$numComanda){
 		$comunication = new ComunicationRestBar();
 		$PARAMS = array($idComanda);
 		$PARAMS_TYPES = array (ComunicationRestBar::$TINT);
@@ -210,17 +213,51 @@ class Dcaja{
 				}}		
 		//hay que anular el credito desde la recepcion_bd
 		if ($a=="credito"){
+		echo("idComanda: ".$idComanda);
 		$PARAMS = array($idComanda);
 		$PARAMS_TYPES = array (ComunicationRestBar::$TINT);
 		$comunication->update(self::DELETE_CREDITO_TIQUET,$PARAMS,$PARAMS_TYPES);	
 		}
+		//esta funcion se llama para añadir al control de stock los productos que su venta fue anulada
+		if($numComanda=="null") {$this->anular_recuperar_stock($idComanda);}
+		
 		$PARAMS = array($idComanda);
 		$PARAMS_TYPES = array (ComunicationRestBar::$TINT);
 		$rs = $comunication->update(self::ANULAR_TICKET,$PARAMS,$PARAMS_TYPES);
-		
-		return $rs;
 	
 	}
+	
+	public function anular_recuperar_stock($idComanda){
+	$comunication = new ComunicationRestBar();	
+    $PARAMS = array($idComanda);
+	$PARAMS_TYPES = array (ComunicationRestBar::$TINT);
+	$rs = $comunication->query(self::LINEACOMANDA,$PARAMS,$PARAMS_TYPES);
+	if ($rs->getRecordCount()>0){
+			while($rs->next()){
+				$result=$rs->getRow();
+				$idPlatillo=$result["idPlatillo"];
+				$cantidad=$result["cantidad"];
+				$this->add_venta_anulada($idPlatillo,$cantidad);
+				}}		
+	}
+	
+	public function add_venta_anulada($idbebida,$cantidad){
+ 	$comunication = new ComunicationRestBar();
+	$PARAMS = array($idbebida);
+	$PARAMS_TYPES = array (ComunicationRestBar::$TINT);
+	$rs = $comunication->query(self::GET_BEBIDA,$PARAMS,$PARAMS_TYPES);
+    if ($rs->getRecordCount()>0){
+	       while($rs->next()){
+              $result=$rs->getRow();
+	          $stockbar=$result["stockbar"];
+		   }														
+       }
+    $stock=$stockbar+$cantidad;
+    $PARAMS = array($stock,$idbebida);
+	$PARAMS_TYPES = array (ComunicationRestBar::$TFLOAT,ComunicationRestBar::$TINT);
+	$rs = $comunication->query(self::INFORM_STOCK_BAR,$PARAMS,$PARAMS_TYPES);
+ }
+	
 	public function anular_movimiento ($idMovimiento){
 		$comunication = new ComunicationRestBar();
 		$PARAMS = array($idMovimiento);

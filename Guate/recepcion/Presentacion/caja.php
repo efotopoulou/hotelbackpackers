@@ -337,15 +337,20 @@ function showpedido(id,numcomanda){
 function anularTicket(){
  if(confirm('¿Estas seguro que quieres anular estos tiquets?')){
   var comandas;
+  var numcomandas;
   $("#ticketsTable .btnunpress").each(function (){
    var id = this.id;
    if (!comandas) comandas = id;
    else comandas+=","+id;
    changeClass(id);
+   var num=$("#ticketsTable .btnunpress .numcomand").html();
+   if (!num)num="null";
+   if (!numcomandas) numcomandas = num; 
+   else  numcomandas+=","+num;
   });
 
   if(comandas){ 
-   $.getJSONGuate("Presentacion/jsongestioncaja.php",{comandasAnuladas:comandas}, function(json){
+   $.getJSONGuate("Presentacion/jsongestioncaja.php",{comandasAnuladas:comandas,numcomandasAnuladas:numcomandas}, function(json){
     json = verificaJSON(json);
     loadPage(json);
    });
@@ -404,7 +409,8 @@ $("#efectivo_cerrar,#input_money,#output_money,#categoria,#description,#cob,#an,
 }
 //-------------------------------------------REPORTE CAJA (HTML - EXCEL)-------------------------------------------------//
 function reportecaja(type){
-	turno ="+<?php echo($turn); ?>+";
+	//turno ="<?php echo($turn); ?>";
+	turno =$(".turnico").html();
 	alert(turno);
 	user =$("#selUsers option:selected").html();
    if(type=="html") document.location="Presentacion/reportehtml.php?turno="+turno+"&encargado="+user;
