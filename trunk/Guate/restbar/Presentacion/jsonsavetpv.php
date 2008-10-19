@@ -14,8 +14,6 @@ $mensaje = new MensajeJSON();
  
 $mesa = json_decode($json, true);
 
-
-$mesa["numRow"];
 //idComanda,estado,fechaHora,usuario,efectivo,mesa,tipoCliente,Total
 try {
  		$comandaId = $comanda->setComanda($mesa["comandaID"],$mesa["efectivo"],$mesaNum,$mesa["currentClientType"],$mesa["totalPropina"],$mesa["id_cliente"],$mesa["free"]);

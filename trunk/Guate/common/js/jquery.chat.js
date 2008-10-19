@@ -6,7 +6,7 @@
 	$.fn.ajaxChat = function(params){
 		
 		var params = $.extend({
-			refresh:1.7
+			refresh:10
 		},params);
 		
 		var chat = function (jElt) {
@@ -16,6 +16,26 @@
 			var writeInput=jElt.find('.writeInput');
 			var chooseNickname=jElt.find('.chooseNickname');
 			var ajaxStatus=jElt.find('.ajaxStatus');
+//ISAAC
+				$.post("/restbar/Presentacion/serverchat.php", {nickname: "cocina"}, 
+				  function(data){
+					if (data) {
+						chatContainer.show();
+						readMessages();
+						
+						writeInput.find(':input').val('Hola, estoy dentro del chat!').parent().trigger('submit');
+						
+					} else {
+						alert('bad nickname, try something else !');
+					}
+				   }, 'json');
+				    $("#eliminar").mousedown(function(){
+				       var cantidad=$("#pedidosTable .white .cantidad").html();
+				       var nombre=$("#pedidosTable .white .nombre").html();
+				       var numComanda=$("#pedidosTable .white .numComanda").html();
+      					if (cantidad != null)writeInput.find(':input').val('Listo '+cantidad+' '+nombre+' de '+numComanda).parent().trigger('submit');
+				    });
+//END ISAAC
 			
 			// handle the submit message function
 			var activateKeyboard = function(){

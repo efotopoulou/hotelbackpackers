@@ -4,11 +4,11 @@ require_once ('ComunicationRestBar.php');
 
 class Dcocina{
 	
-	const SELECT_PEDIDOS = 'select t1.idLineaComanda,t4.idComanda,t4.numComanda,t2.idPlatillo,t3.nombre,t2.cantidad,time(t4.fechaHora) as hora from cocina t1,lineacomanda t2,recepcion_bd.platillo t3,comanda t4 where t4.idComanda=t2.idComanda and t1.idLineaComanda=t2.idLineaComanda and t3.idPlatillo=t2.idPlatillo and t1.presentado=1 union select t1.idLineaComanda,t4.idComanda,t4.numComanda,t2.idPlatillo,t3.nombre,t2.cantidad,time(t4.fechaHora) as hora from cocina t1,recepcion_bd.lineacomanda t2,recepcion_bd.platillo t3,recepcion_bd.comanda t4 where t4.idComanda=t2.idComanda and t1.idLineaComanda=t2.idLineaComanda and t3.idPlatillo=t2.idPlatillo and t1.presentado=1 order by hora asc';
+	const SELECT_PEDIDOS = 'select t1.idCocina,t1.comanda,t1.platoId,t2.nombre,t1.cantidad,time(t1.hora) as hora from cocina t1,recepcion_bd.platillo t2 where  t1.platoId=t2.idPlatillo and t1.presentado=1 order by hora asc';
 	const DELETE_PEDIDOS = 'delete from cocina where 1=1';
-	const ELIMINAR_LINEA = 'UPDATE cocina SET presentado=0,horadelete=NOW() where idLineaComanda=?';
-	const RECUPERAR_LINEAID = 'select t1.idLineaComanda from cocina t1,lineacomanda t2,recepcion_bd.platillo t3,comanda t4 where t4.idComanda=t2.idComanda and t1.idLineaComanda=t2.idLineaComanda and t3.idPlatillo=t2.idPlatillo order by t1.horadelete desc limit 1';
-	const RECUPERAR_LINEA = 'UPDATE cocina SET presentado=1,horadelete=null where idLineaComanda=?';
+	const ELIMINAR_LINEA = 'UPDATE cocina SET presentado=0,horadelete=NOW() where idCocina=?';
+	const RECUPERAR_LINEAID = 'select idCocina from cocina  where horadelete is not null  order by horadelete desc limit 1';
+	const RECUPERAR_LINEA = 'UPDATE cocina SET presentado=1,horadelete=null where idCocina=?';
 		
 	public function select_pedidos (){
 		$comunication = new ComunicationRestBar();
@@ -26,9 +26,9 @@ class Dcocina{
 		
 		return $result;
 	}
-	public function eliminar_pedido ($idLineaComanda){
+	public function eliminar_pedido ($eliminarpedidoid){
 		$comunication = new ComunicationRestBar();
-		$PARAMS = array($idLineaComanda);
+		$PARAMS = array($eliminarpedidoid);
 		$PARAMS_TYPES = array (ComunicationRestBar::$TINT);
 		$result = $comunication->update(self::ELIMINAR_LINEA,$PARAMS,$PARAMS_TYPES);
 		
@@ -45,12 +45,12 @@ class Dcocina{
 		if ($lineaid->getRecordCount()>0){
 			while($lineaid->next()){
 				$resultl=$lineaid->getRow();
-				$a=$resultl["idLineaComanda"];
-				}}		
-
-		$params = array($a);
-		$PARAMS_INSERT = array(ComunicationRestBar::$TINT);
-		$result = $comunication->update(self::RECUPERAR_LINEA,$params,$PARAMS_INSERT);
+				$a=$resultl["idCocina"];
+			}
+			$params = array($a);
+		    $PARAMS_INSERT = array(ComunicationRestBar::$TINT);
+		    $result = $comunication->update(self::RECUPERAR_LINEA,$params,$PARAMS_INSERT);
+		}		
 		return $result;
 	
 	}

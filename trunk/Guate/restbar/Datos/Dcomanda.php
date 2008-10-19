@@ -7,10 +7,9 @@ class Dcomanda{
 	const SET_PLATILLOS = 'INSERT INTO comanda values(0, ?,\'cobrado\',NOW(),?,?,?,?,?,?,?)';
 	const SET_LISTA_PLATILLOS = 'INSERT INTO lineacomanda values (0,?,?,?,?)';
     const ES_COCINA ='select cocina from recepcion_bd.platillo where idPlatillo=?';
-    const SET_COCINA ='insert into cocina values (?,true,null)';    
+    const SET_COCINA ='insert into cocina values (0,?,?,?,NOW(),true,null)';    
 	const GET_USUARIO_SUMA_PLATILLO = 'select sum(t2.precioLimitado*t1.cantidad) as suma from lineacomanda t1,recepcion_bd.platillo t2 where idComanda=? and t2.idPlatillo=t1.idPlatillo group by idComanda';
 	const SET_COMANDA_USUARIO = 'INSERT INTO recepcion_bd.comandacredito values(?,?,false,?)';	
-
 
 
 	
@@ -65,10 +64,10 @@ class Dcomanda{
 		$aux = $result["cocina"];
 		return $aux;
 	}
-	public function setCocina($idLineaComanda){
+	public function setCocina($comandaID,$platoId, $cantidad){
 		$comunication = new ComunicationRestBar();
-		$PARAMS = array($idLineaComanda);
-		$PARAMS_TYPES = array (ComunicationRestBar::$TINT);
+		$PARAMS = array($comandaID,$platoId, $cantidad);
+		$PARAMS_TYPES = array (ComunicationRestBar::$TSTRING, ComunicationRestBar::$TINT,ComunicationRestBar::$TINT);
 		$result = $comunication->update(self::SET_COCINA,$PARAMS,$PARAMS_TYPES);
 		return $result;
 	}

@@ -1,6 +1,5 @@
 <?php
 require ($_SERVER['DOCUMENT_ROOT'] . '/restbar/Dominio/class_comanda.php');
-require ($_SERVER['DOCUMENT_ROOT'] . '/recepcion/Dominio/class_credito.php');
 require ($_SERVER['DOCUMENT_ROOT'] . '/recepcion/Dominio/MensajeJSON.php');
 //Recoge el parametro y se limpia de contrabarras
   $json = $_POST['json'];
@@ -9,13 +8,10 @@ require ($_SERVER['DOCUMENT_ROOT'] . '/recepcion/Dominio/MensajeJSON.php');
 
 //Creacion del objeto que inserta en la BD
 $comanda = new Comanda();
-$credito = new Credito();
 $mensaje = new MensajeJSON();
  
 $mesa = json_decode($json, true);
 
-
-$mesa["numRow"];
 //idComanda,estado,fechaHora,usuario,efectivo,mesa,tipoCliente,Total
 try {
 // 		$comandaId = $comanda->setComanda($mesa["comandaID"],$mesa["efectivo"],$mesaNum,$mesa["currentClientType"],$mesa["totalPropina"],$mesa["id_cliente"],$mesa["free"]);
@@ -23,9 +19,10 @@ $lineas = $mesa["liniasComanda"];
  for ($i=0;$i<=$mesa["numRow"];$i++){
  	$cantidad = (int)$lineas[$i]["cantidad"];
  	if($cantidad==0) $cantidad=1;
- 	$comanda->setLineaComanda($comandaId,$lineas[$i]["platoId"],$cantidad, $lineas[$i]["precioN"]);
+ 	if ($comanda->esCocina($lineas[$i]["platoId"]))
+ 	  $comanda->setCocina($mesa["comandaID"], $lineas[$i]["platoId"], $cantidad);
+ 	  //$comanda->setLineaComanda($comandaId,$lineas[$i]["platoId"],$cantidad, $lineas[$i]["precioN"]);
  }
-if ($mesa["currentClientType"]==5)$credito->setComandaCreditoComida($comandaId,"RB");
 }catch (SQLException $e){
 	$aux = $e ->getNativeError();
  $mensaje->setMensaje("Error Desconocido: $aux!");

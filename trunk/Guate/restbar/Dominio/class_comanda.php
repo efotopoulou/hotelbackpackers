@@ -23,17 +23,17 @@ class comanda{
 		function setLineaComanda($comandaID,$platoId,$cantidad,$precio){
 			$dtp = new DComanda();
 			$rs = $dtp->setLineaComanda($comandaID,$platoId,$cantidad,$precio);
-			if ($dtp->esCocina($platoId)) 
-			   $dtp->setCocina($rs);
+			//if ($dtp->esCocina($platoId)) 
+			//   $dtp->setCocina($rs);
 		}
 		function esCocina($platoId){
 			$dtp = new DComanda();
 			$rs = $dtp->esCocina($platoId);
 			return $rs;
 		}
-		function setCocina($lineaComandaId){
+		function setCocina($comandaID,$platoId, $cantidad){
 			$dtp = new DComanda();
-			$dtp->setCocina($lineaComandaId);
+			$dtp->setCocina($comandaID,$platoId, $cantidad);
 		}
 		function setLineaComandaBebida($comandaID,$platoId,$cantidad,$precio){
 			$dtp = new DComanda();

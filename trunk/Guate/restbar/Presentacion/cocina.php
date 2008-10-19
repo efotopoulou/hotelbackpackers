@@ -8,11 +8,13 @@ require ($_SERVER['DOCUMENT_ROOT'] . '/recepcion/Dominio/class_mesas.php');
 	<title></title><!-- Meta Information -->
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta name="MSSmartTagsPreventParsing" content="true">
+<link href="/common/css/chat.css" rel="stylesheet" type="text/css" />
+
 <style>
 tr{background:#FFF;text-align:right}
 table{background:#DDD}
 .fonto{background:black}
-.letras{color:#FFFFFF;font-family:Arial;font-size:30px;}
+.letras{color:#FFFFFF;font-family:Arial;font-size:25px;}
 .white{background:#FFFFFF}
 .saved{background:#B9FAC4}
 .blacktext{color:black}
@@ -32,9 +34,11 @@ table{background:#DDD}
 
 <script src="/common/js/color_picker/color_picker.js" type="text/javascript"></script>
 <script src="/common/js/guate.js"></script>
+<script src="/common/js/testsound.js"></script>
+<script src="/common/js/jquery.chat.js"></script>
 	<script type="text/javascript">
 
-//------------------------------------------------------------AL CARGAR LA PAGINA--------------------------------------------------------------//	
+//------------------------------------------------------------AL CARGAR LA PAGINA--------------------------------------------------------------//
 $(document).ready(function(){
  skata();
 });
@@ -56,12 +60,17 @@ function loadpedidos(json){
   if (json){
 	if (json.PedidosInfo){
   	  var aux="";
+  	  var platos=$(".platos").size(); 
   	  $("#pedidosTable").html(" ");
       for(i=0;i<json.PedidosInfo.length;i++) {
-        $("#pedidosTable").append("<tr id="+json.PedidosInfo[i].idLineaComanda+" onmousedown='changeClass(this.id)'><td width=2%>&nbsp;</td><td width=10%><h3>"+json.PedidosInfo[i].numComanda+"</h3></td><td width=15%><h3>"+json.PedidosInfo[i].idPlatillo+"</h3></td><td><center>"+json.PedidosInfo[i].nombre+"</center></td><td width=10%><center>"+json.PedidosInfo[i].cantidad+"</center></td><td width=15%>"+json.PedidosInfo[i].hora+"</td></tr>");		
+        $("#pedidosTable").append("<tr class='platos' id='"+json.PedidosInfo[i].idCocina+"' onmousedown='changeClass(this.id)'><td width=2%>&nbsp;</td><td width=10%><h3 class='numComanda'>"+json.PedidosInfo[i].numComanda+"</h3></td><td width=15%><h3>"+json.PedidosInfo[i].idPlatillo+"</h3></td><td><center class='nombre'>"+json.PedidosInfo[i].nombre+"</center></td><td width=10%><center class='cantidad'>"+json.PedidosInfo[i].cantidad+"</center></td><td width=15%>"+json.PedidosInfo[i].hora+"</td></tr>");		
         if (json.PedidosInfo[i].idLineaComanda==pedidoElegido) {btncolor(pedidoElegido);}
-        $("#"+json.PedidosInfo[i].idLineaComanda).addClass("fonto letras");
+         $("#"+json.PedidosInfo[i].idCocina).addClass("fonto letras");
         }
+        if (platos <json.PedidosInfo.length){
+        	 sound2Play();
+        }
+        platos=json.PedidosInfo.length;
     }else $("#pedidosTable").html(" ");
   }
 }
@@ -110,17 +119,17 @@ $("#"+id).toggleClass("blacktext");
 </script>
 <body>
 
-<div id="secundario" style="width:100%;height:100%;background:#000000;">
+<div id="secundario" style="margin-top:0px;width:100%;height:100%;background:#000000;">
   
       <table  width=97% cellpadding=0 cellspacing=1  style="background:#000000;">
       <tr class="fonto letras"><td width=2%>&nbsp;</td><td width=10%><h3>Comanda</h3></td><td width=15%><h3>Platillo</h3></td><td><h3><center>Nombre</center></h3></td><td width=10%><h3>Cant.</h3></td><td width=15%><h3>Hora</h3></td></tr>
       </table>
-     <div style="height:80%;overflow:auto">
+     <div style="height:60%;overflow:auto">
         <table id="pedidosTable" width=97% cellpadding=0 cellspacing=1>
         </table>
      </div>
     
-     <div id="b5" style="float:left; width:100%; margin-top:5px">	
+     <div id="b5" style=" width:100%;">	
      <table style="width:100%;background:#000000;">		
 	  <tr class="fonto letras">
 	  <td  id="recuperar" width=25% align="center" onmousedown="btncolor(this.id);recuperarpedido();" onmouseup="btncolor(this.id)">Recuperar pedido</td>
@@ -130,7 +139,23 @@ $("#"+id).toggleClass("blacktext");
 	  </tr> 
 	 </table>		
     </div>
-	
+<div id="myChat">
+	<div class="chat">
+		<div></div>
+	</div>
+	<div style="display:none">
+	  <form action="" method="post" class="writeInput">
+		<input type="text" value="" />
+	  </form>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function(){
+	$('#myChat').ajaxChat();
+});
+</script>
+ 
 </div>
 
 <br/>
