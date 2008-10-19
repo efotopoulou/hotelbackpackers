@@ -13,6 +13,7 @@ $categoria =  $_POST['categoria'];
 $idencargado =  $_POST['idencargado'];
 $idComanda = $_POST['idComanda'];
 $comandasAnuladas = $_POST['comandasAnuladas'];
+$numcomandasAnuladas = $_POST['numcomandasAnuladas'];
 $movimientosAnulados = $_POST['movimientosAnulados'];
 $idComandafacturada = $_POST['idComandafacturada']; 
 $idComDetail = $_POST['idComDetail'];
@@ -56,9 +57,19 @@ if ((sizeof($pedidos))>0){
 }
 else if($comandasAnuladas){
   $idComandaAnuladaList = split( ",",$comandasAnuladas);
-  foreach ($idComandaAnuladaList as $value){
-  $caja->anular_ticket($value);	
+  $numComandaAnuladaList = split( ",",$numcomandasAnuladas);
+ 
+ for ($i=0;$i<sizeof($idComandaAnuladaList);$i++){
+ $caja->anular_ticket($idComandaAnuladaList[$i],$numComandaAnuladaList[$i]);
+//echo($idComandaAnuladaList[$i]);
+//cho($numComandaAnuladaList[$i]);
   }
+ 
+ 
+  
+//foreach($idComandaAnuladaList as $value){
+//  $caja->anular_ticket($value);	
+//  }
 }else if($movimientosAnulados){
  $idMovimientoAnuladaList = split( ",",$movimientosAnulados);
    foreach ($idMovimientoAnuladaList as $value){

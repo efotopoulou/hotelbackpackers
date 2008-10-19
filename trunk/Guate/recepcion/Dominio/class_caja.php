@@ -101,9 +101,9 @@ class caja{
 		$rs = $cbtc->cobrar_movimiento_credito($idmov);
 		return $rs;
 		}
-		function anular_ticket($idComanda){
+		function anular_ticket($idComanda,$numComanda){
 		$antc = new Dcaja();
-		$rs = $antc->anular_ticket($idComanda);
+		$rs = $antc->anular_ticket($idComanda,$numComanda);
 		
 		return $rs;
 		}
