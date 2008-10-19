@@ -411,7 +411,6 @@ $("#efectivo_cerrar,#input_money,#output_money,#categoria,#description,#cob,#an,
 function reportecaja(type){
 	//turno ="<?php echo($turn); ?>";
 	turno =$(".turnico").html();
-	alert(turno);
 	user =$("#selUsers option:selected").html();
    if(type=="html") document.location="Presentacion/reportehtml.php?turno="+turno+"&encargado="+user;
    if(type=="excel") document.location="Presentacion/reportexcel.php?turno="+turno+"&encargado="+user;

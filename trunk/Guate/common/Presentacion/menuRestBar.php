@@ -47,7 +47,7 @@ else
 			<div style="float:right">
 				<a href="/hotel/view.php?page=login" style="color:#FFFFFF">Salir</a>
 			</div>	
-			<div id="turno"><center>Turno de <?php echo($turn); ?></center></div>
+			<div id="turno"><center>Turno de <span class='turnico'><?php echo($turn); ?></span></center></div>
 			
 			<div style="clear:both"></div>
 		</div>

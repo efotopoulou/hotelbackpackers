@@ -3,7 +3,7 @@ require_once ('ComunicationRecep.php');
 
 class Dcomanda{
 	//idComanda,estado,fechaHora,usuario,efectivo,mesa,tipoCliente,total,id_cliente,id_caja
-	const SET_PLATILLOS = 'INSERT INTO comanda values(0, ?,\'cobrado\',NOW(),?,?,?,?,?,?,?)';
+	const SET_PLATILLOS = 'INSERT INTO comanda values(0, ?,?,NOW(),?,?,?,?,?,?,?)';
 	const SET_COMANDA = 'INSERT INTO comanda values(?,?,NOW(),?,?,?,?,?,?,?)';
 	const SET_COMANDA_VENTA = 'INSERT INTO comanda values(0,null,?,NOW(),?,?,?,?,?,?,null)';
 	
@@ -106,8 +106,10 @@ class Dcomanda{
 				$resultc=$idcaja->getRow();
 				$idCaja=$resultc["id_caja"];
 				}}	
-		$PARAMS = array($comandaID,$efectivo,$tipoCliente, $total, $idcliente, $idCaja, $free,$numMesa);
-		$PARAMS_TYPES = array (ComunicationRecep::$TSTRING,ComunicationRecep::$TFLOAT,ComunicationRecep::$TINT,ComunicationRecep::$TFLOAT,ComunicationRecep::$TINT,ComunicationRecep::$TINT,ComunicationRecep::$TSTRING,ComunicationRecep::$TINT);
+		$estado="cobrado";
+		if($tipoCliente==5)	$estado="credito"; 
+		$PARAMS = array($comandaID,$estado,$efectivo,$tipoCliente, $total, $idcliente, $idCaja, $free,$numMesa);
+		$PARAMS_TYPES = array (ComunicationRecep::$TSTRING,ComunicationRecep::$TSTRING,ComunicationRecep::$TFLOAT,ComunicationRecep::$TINT,ComunicationRecep::$TFLOAT,ComunicationRecep::$TINT,ComunicationRecep::$TINT,ComunicationRecep::$TSTRING,ComunicationRecep::$TINT);
 		$result = $comunication->update(self::SET_PLATILLOS,$PARAMS,$PARAMS_TYPES);
 		
 		return $result;
