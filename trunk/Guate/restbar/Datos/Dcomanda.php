@@ -4,7 +4,7 @@ require_once ('ComunicationRestBar.php');
 class Dcomanda{
 	const GET_ID_CAJA = 'select id_caja from caja where estado=1';
 	//idComanda,estado,fechaHora,usuario,efectivo,mesa,tipoCliente,total,id_cliente,id_caja
-	const SET_PLATILLOS = 'INSERT INTO comanda values(0, ?,\'cobrado\',NOW(),?,?,?,?,?,?,?)';
+	const SET_PLATILLOS = 'INSERT INTO comanda values(0, ?,?,NOW(),?,?,?,?,?,?,?)';
 	const SET_LISTA_PLATILLOS = 'INSERT INTO lineacomanda values (0,?,?,?,?)';
     const ES_COCINA ='select cocina from recepcion_bd.platillo where idPlatillo=?';
     const SET_COCINA ='insert into cocina values (0,?,?,?,NOW(),true,null)';    
@@ -39,8 +39,10 @@ class Dcomanda{
 				$resultc=$idcaja->getRow();
 				$idCaja=$resultc["id_caja"];
 				}}	
-		$PARAMS = array($comandaID,$efectivo,$tipoCliente, $total, $idcliente, $idCaja, $free,$numMesa);
-		$PARAMS_TYPES = array (ComunicationRestBar::$TSTRING,ComunicationRestBar::$TFLOAT,ComunicationRestBar::$TINT,ComunicationRestBar::$TFLOAT,ComunicationRestBar::$TINT,ComunicationRestBar::$TINT,ComunicationRestBar::$TSTRING,ComunicationRestBar::$TINT);
+		$estado="cobrado";
+		if($tipoCliente==5)	$estado="credito"; 
+		$PARAMS = array($comandaID,$estado,$efectivo,$tipoCliente, $total, $idcliente, $idCaja, $free,$numMesa);
+		$PARAMS_TYPES = array (ComunicationRestBar::$TSTRING,ComunicationRestBar::$TSTRING,ComunicationRestBar::$TFLOAT,ComunicationRestBar::$TINT,ComunicationRestBar::$TFLOAT,ComunicationRestBar::$TINT,ComunicationRestBar::$TINT,ComunicationRestBar::$TSTRING,ComunicationRestBar::$TINT);
 		$result = $comunication->update(self::SET_PLATILLOS,$PARAMS,$PARAMS_TYPES);
 		
 		return $result;
