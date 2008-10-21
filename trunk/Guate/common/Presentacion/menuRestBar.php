@@ -18,7 +18,7 @@ else
 			id=document.getElementById('selUsers').options[indice].id;
 			if(typeof(xajax_changeUsuario) != 'undefined') xajax_changeUsuario(id);
 			if(typeof(jQuery) != 'undefined') {
-			  $.getJSONGuate("Presentacion/jsonchangeUser.php",{ id: id}, function(json){
+			  $.getJSONGuate("/recepcion/Presentacion/jsonchangeUser.php",{ id: id}, function(json){
     			json = verificaJSON(json);
 			  });	
 			}
@@ -34,6 +34,7 @@ else
 <?php if($allowedRest["historicocajaRest"]){ ?><li><a href="/restbar/view.php?page=historicocajaRest">Historico Caja</a></li><?php } ?>
 <?php if($allowedRest["controldestockRest"]){ ?><li><a href="/restbar/view.php?page=controldestockRest">Control de Stock</a></li><?php } ?>
 <?php if($allowedRest["cocina"]){ ?><li><a href="/restbar/view.php?page=cocina">Cocina</a></li><?php } ?>
+<?php if($allowedRest["chat"]){ ?><li><a href="/restbar/view.php?page=chat">Chat</a></li><?php } ?>
 				
 			</ul>
 			

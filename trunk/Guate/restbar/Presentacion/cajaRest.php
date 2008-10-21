@@ -206,7 +206,6 @@ function supuestoEfectivo(){
 	 
 	var supEfectivo =redondea(fondo+totalEntradas+totalTickets-totalSalidas);
 	$(".supEfectivo").html(supEfectivo);
-	$(".corte").html(supEfectivo-ventaR);
 	//aux = $(".totalTickets").html();
 }
 //-------------------------------------------recargaEstadoCaja-------------------------------------------
@@ -221,7 +220,6 @@ function recargaEstadoCaja(){
 function loadPage(json){
  $(".entrymov").html(redondea(json.TotalEntradas));
  $(".exitmov").html(redondea(json.TotalSalidas)); 
- $(".totventarecepcion").html(redondea(json.VentaR)); 
  var totTickets=redondea(json.TotalTickets);
  $(".totalTickets").html(totTickets);    
      
@@ -349,14 +347,6 @@ function anularMovimiento(){
  }
 }
 
-//-------------------------------------------FACTURAR TICKET-------------------------------------------------//
-//function facturar(){
-//  var idComanda=$("#ticketsTable .btnunpress").attr("id");
-//  if(idComanda){
-// $.blockUI({ message: $('#factura')});
-//  }else alert("Por favor elige la comanda que desea facturar!");
-//}
-//-------------------------------------------IMPRIMIR COMANDA-------------------------------------------------//
 function imprimir(){
  var nom = $("#nombre").val();
  var ap1 = $("#ap1").val();
@@ -441,19 +431,9 @@ La caja se esta cerrando.Por favor espere.<br />
       		<div style="margin-top:5px"><span class="fondo">0</span></div>
    			</div>
    		
-   		    <div class="row" align="left">
-      		<div style="width:120px;float:left"><span>Venta recepcion:</span></div>
-      		<div><span class="totventarecepcion">0</span></div>
-   			</div>
-   			
    			<div class="row" align="left">
       		<div style="width:120px;float:left"><span>Supuesto Efectivo:</span></div>
       		<div><span class="supEfectivo">0</span></div>
-   			</div>
-   			
-   			<div class="row" align="left">
-      		<div style="width:120px;float:left"><span>Dinero del corte:</span></div>
-      		<div><span class="corte">0</span></div>
    			</div>
 		</form> 
 		</div>
@@ -516,7 +496,7 @@ La caja se esta cerrando.Por favor espere.<br />
 
 <div id="secundarioesCj">
 
-	<h5 class="titulos">Comandas realizadas en la Recepcion</h5>
+	<h5 class="titulos">Comandas realizadas en el Restaurante</h5>
 	<table  width=97% cellpadding=0 cellspacing=1>
     <tr><td width=2%>&nbsp;</td><td width=10%><h6>ID</h6></td><td width=8%><h6>Estado</h6></td><td width=17%><h6><center>Fecha Hora</center></h6></td><td width=6%><h6><h6>Total</h6></h6></td><td width=8%><h6>efectivo</h6></td><td width=8%><h6>cambio</h6></td><td width=10%><h6>Cliente</h6></td><td><h6><center>Descripcion</center></h6></td></tr>
     </table>

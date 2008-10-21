@@ -10,7 +10,7 @@ error_reporting(E_ALL);
 $mensaje = new MensajeJSON();
 
 if ($idcaja){
-error_reporting(E_ERROR);
+//error_reporting(E_ERROR);
 $reporte = new getreporte();
 $response=$reporte->getdatosExcel($idcaja,$mensaje);	
 }else{

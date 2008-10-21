@@ -6,7 +6,7 @@
 	$.fn.ajaxChat = function(params){
 		
 		var params = $.extend({
-			refresh:5
+			refresh:10
 		},params);
 		
 		var chat = function (jElt) {
@@ -16,9 +16,8 @@
 			var writeInput=jElt.find('.writeInput');
 			var chooseNickname=jElt.find('.chooseNickname');
 			var ajaxStatus=jElt.find('.ajaxStatus');
-
 //ISAAC
-				$.post("/restbar/Presentacion/serverchat.php", {nickname: "mesero"}, 
+				$.post("/restbar/Presentacion/serverchat.php", {nickname: "cocina"}, 
 				  function(data){
 					if (data) {
 						chatContainer.show();
@@ -37,7 +36,6 @@
       					if (cantidad != null)writeInput.find(':input').val('Listo '+cantidad+' '+nombre+' de '+numComanda).parent().trigger('submit');
 				    });
 //END ISAAC
-
 			
 			// handle the submit message function
 			var activateKeyboard = function(){
@@ -99,8 +97,8 @@
 				return false;
 			});
 			
-//			chatContainer.hide();
-//			writeInput.hide();
+			chatContainer.hide();
+			writeInput.hide();
 			ajaxStatus.hide();
 			
 			activateKeyboard();
