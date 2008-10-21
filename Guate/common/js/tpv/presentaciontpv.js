@@ -79,6 +79,7 @@ function cerrarTiquetMouseDown(){
     listaPedidos.fijarComanda();
     listaPedidos.mensajeCocina("Comanda Cerrada");
     clienteScreen.setClienteName("");
+    main.free=undefined;
     main.comanda().estado="cerrado";
 	}
 	changeClass('CerrarTicket');
