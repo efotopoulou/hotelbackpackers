@@ -2,12 +2,16 @@
 require ($_SERVER['DOCUMENT_ROOT'] . '/restbar/Dominio/class_chat.php');
 
 $chat = new chat();
+ob_start();
 $chatInfo = new chatInfo();
+ob_end_clean();
 $nickname=$_POST['nickname'];
 $msg=$_POST['msg'];
+//NICKNAME
 if ($nickname){
 	$chatInfo->setPseudo($nickname);
 	echo '"'.$nickname.'"';
+//WRITE MESSAGE
 }else if ($msg){
 	$now = date('d-m-Y G:i:s');
     $msg=trim(strip_tags($_POST['msg']));
@@ -17,11 +21,13 @@ if ($nickname){
         echo json_encode($data);
     else
         echo json_encode('');
+//READ MESSAGE
 }else {
     if(empty($_SESSION['last_chat_message_id'])) $_SESSION['last_chat_message_id']=0;
     $messages=$chat->leerChat($chatInfo->pseudo);
     if($messages) {
         $_SESSION['last_chat_message_id']=$messages[count($messages)-1]["id_msg"];
+        //echo $_SESSION['last_chat_message_id'];
         echo json_encode($messages);
     } else echo json_encode('');
 }

@@ -19,7 +19,7 @@ else
 			id=document.getElementById('selUsers').options[indice].id;
 			if(typeof(xajax_changeUsuario) != 'undefined') xajax_changeUsuario(id);
 			if(typeof(jQuery) != 'undefined') {
-			  $.getJSONGuate("Presentacion/jsonchangeUser.php",{ id: id}, function(json){
+			  $.getJSONGuate("/recepcion/Presentacion/jsonchangeUser.php",{ id: id}, function(json){
     			json = verificaJSON(json);
 			  });	
 			}

@@ -1,6 +1,6 @@
 <?php
-require ('../Dominio/class_reporte.php');
-require ('../Dominio/class_caja.php');
+require ($_SERVER['DOCUMENT_ROOT'] . '/restbar/Dominio/class_reporte.php');
+require ($_SERVER['DOCUMENT_ROOT'] . '/restbar/Dominio/class_caja.php');
 
 class getreporte{
 

@@ -35,7 +35,7 @@ table{background:#DDD}
 <script src="/common/js/color_picker/color_picker.js" type="text/javascript"></script>
 <script src="/common/js/guate.js"></script>
 <script src="/common/js/testsound.js"></script>
-<script src="/common/js/jquery.chat.js"></script>
+<script src="/common/js/jquery.chatcocina.js"></script>
 	<script type="text/javascript">
 
 //------------------------------------------------------------AL CARGAR LA PAGINA--------------------------------------------------------------//

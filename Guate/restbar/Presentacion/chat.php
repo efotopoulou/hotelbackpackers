@@ -6,28 +6,23 @@
 
 </head>
 <body>
-<div id="myChat">
+<div id="secundario" style="margin-top:0px;width:100%;height:100%;">
+
+<div id="myChat" style="height:80%">
 	<div class="chat">
 		<div></div>
 	</div>
-
-	<form action="" method="post" class="writeInput">
-		<input type="text" value="" />
-	</form>
-	
-	<form action="" method="post" class="chooseNickname">
-		<p>Choisis un pseudo, choose a nickname : (3-12 chars - plain text)</p>
-		<input type="text" value="" maxlength="100" /> <input type="submit" value="ok" />
-	</form>
-	
-	<img src="/img/ajax-loader.gif" class="ajaxStatus" />
-
+	<div>
+	  <form action="" method="post" class="writeInput">
+		<input type="text" value="aaaa" />
+	  </form>
+    </div>
 </div>
-
 <script type="text/javascript">
 $(function(){
 	$('#myChat').ajaxChat();
 });
 </script>
+</div>
 </body>
 </html>

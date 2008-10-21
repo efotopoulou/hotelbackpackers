@@ -14,7 +14,7 @@ error_reporting(E_ERROR);
 $reporte = new getreporte();
 $response=$reporte->getdatosExcel($idcaja,$mensaje);	
 }else{
-//	error_reporting(E_ERROR);
+error_reporting(E_ERROR);
 $caja=new caja();
 $id_caja=$caja->get_id_caja ();
 $reporte = new getreporte();

@@ -61,15 +61,7 @@ else if($comandasAnuladas){
  
  for ($i=0;$i<sizeof($idComandaAnuladaList);$i++){
  $caja->anular_ticket($idComandaAnuladaList[$i],$numComandaAnuladaList[$i]);
-//echo($idComandaAnuladaList[$i]);
-//cho($numComandaAnuladaList[$i]);
   }
- 
- 
-  
-//foreach($idComandaAnuladaList as $value){
-//  $caja->anular_ticket($value);	
-//  }
 }else if($movimientosAnulados){
  $idMovimientoAnuladaList = split( ",",$movimientosAnulados);
    foreach ($idMovimientoAnuladaList as $value){
@@ -100,14 +92,14 @@ if ((sizeof($tikets))>0){
 $totalmovimientos=$caja->total_mov_old($id_caja);	
 $entrytot = $totalmovimientos->entrada;
 $exittot = $totalmovimientos->salida;
-$ventaR = $totalmovimientos->ventaR;
+//$ventaR = $totalmovimientos->ventaR;
 //$entrytot=$caja->get_entrada();
 //$exittot=$caja->get_salida();
 $totalTickets=$caja->total_tickets();
 $response["TotalTickets"]=$totalTickets;
 $response["TotalEntradas"]=$entrytot;
 $response["TotalSalidas"]=$exittot;
-$response["VentaR"]=$ventaR;
+//$response["VentaR"]=$ventaR;
 $response["MovimientosInfo"]=$movimientoInfo;
 $response["TicketsInfo"]=$TicketsInfo;
 $response["pedidosInfo"]=$pedidosInfo;
