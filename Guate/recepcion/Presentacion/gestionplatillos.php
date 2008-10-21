@@ -187,7 +187,7 @@ function guardarplato(){
 	var precioL = parseFloat($("#precioL").val());
 	var cocina = parseInt($("#pantallaCocina").val());
 	var platoFamily = $("#platoFamily").val();
-	if(idplato && nameplato && precioN && precioL && cocina && platoFamily){
+	if(idplato && nameplato && precioN && precioL && platoFamily){
         if(confirm('�Estas seguro que quieres guardar este platillo?')){
            $.getJSONGuate("Presentacion/jsongestionrest.php",{idplato:idplato,nameplato:nameplato,precioN:precioN,precioL:precioL,cocina:cocina,platoFamily:platoFamily}, function(json){json = verificaJSON(json);loadplatillos(json);$("#P"+idplato).toggleClass("saved");});
         }

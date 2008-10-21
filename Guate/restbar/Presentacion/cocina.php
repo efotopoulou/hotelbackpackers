@@ -63,8 +63,8 @@ function loadpedidos(json){
   	  var platos=$(".platos").size(); 
   	  $("#pedidosTable").html(" ");
       for(i=0;i<json.PedidosInfo.length;i++) {
-        $("#pedidosTable").append("<tr class='platos' id='"+json.PedidosInfo[i].idCocina+"' onmousedown='changeClass(this.id)'><td width=2%>&nbsp;</td><td width=10%><h3 class='numComanda'>"+json.PedidosInfo[i].numComanda+"</h3></td><td width=15%><h3>"+json.PedidosInfo[i].idPlatillo+"</h3></td><td><center class='nombre'>"+json.PedidosInfo[i].nombre+"</center></td><td width=10%><center class='cantidad'>"+json.PedidosInfo[i].cantidad+"</center></td><td width=15%>"+json.PedidosInfo[i].hora+"</td></tr>");		
-        if (json.PedidosInfo[i].idLineaComanda==pedidoElegido) {btncolor(pedidoElegido);}
+        $("#pedidosTable").append("<tr class='platos' id='"+json.PedidosInfo[i].idCocina+"' onmousedown='changeClass(this.id);pedidoElegido=this.id;'><td width=2%>&nbsp;</td><td width=10%><h3 class='numComanda'>"+json.PedidosInfo[i].numComanda+"</h3></td><td width=15%><h3>"+json.PedidosInfo[i].idPlatillo+"</h3></td><td><center class='nombre'>"+json.PedidosInfo[i].nombre+"</center></td><td width=10%><center class='cantidad'>"+json.PedidosInfo[i].cantidad+"</center></td><td width=15%>"+json.PedidosInfo[i].hora+"</td></tr>");		
+        if (json.PedidosInfo[i].idCocina==pedidoElegido) {btncolor(pedidoElegido);}
         $("#"+json.PedidosInfo[i].idCocina).addClass("fonto letras");
       }
       if (platos <json.PedidosInfo.length){
