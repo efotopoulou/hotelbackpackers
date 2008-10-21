@@ -6,9 +6,10 @@ class chat{
 	const LEERCHAT= 'select pseudo as nickname, msg, time, id_msg from (select pseudo, msg, time,id_msg from chat_message where pseudo!=? and id_msg>? order by id_msg desc limit 50) as messages order by messages.id_msg';
 	const ESCRIBIRCHAT= 'INSERT INTO chat_message VALUES (?,?, 0, ?)';
 	
-		function leerChat($pseudo){
+		function leerChat($pseudo,$lastchat){
 		$comunication = new ComunicationRestBar();
-		$PARAMS = array($pseudo, $_SESSION['last_chat_message_id']);
+		$PARAMS = array($pseudo, $lastchat);
+		//echo $lastchat;
 		$PARAMS_TYPES = array (ComunicationRestBar::$TSTRING, ComunicationRestBar::$TINT);
 		$result = $comunication->query(self::LEERCHAT,$PARAMS,$PARAMS_TYPES);
 	    if($result->getRecordCount()>0 ) {
@@ -16,6 +17,7 @@ class chat{
 		    while($result->next()){
 				$resultc=$result->getRow();
 				$a[$i]=array("nickname"=>$resultc["nickname"], "msg"=>$resultc["msg"],"time"=>$resultc["time"],"id_msg"=>$resultc["id_msg"]);
+				$i++;
 		    }
 		 }		
 		return $a;
