@@ -329,6 +329,11 @@ function set_usuario($nombreEmpleado,$cliente){
   $rs = $u->set_usuario($nombreEmpleado,$cliente);
 }
 
+function cuenta_delete($cuentadelete){
+  $u = new Dcaja();
+  $rs = $u->cuenta_delete($cuentadelete);	
+}
+
 function get_usuarios_comandas($idusuario){
 $uc = new Dcaja();
 $rs = $uc->get_usuarios_comandas ($idusuario);

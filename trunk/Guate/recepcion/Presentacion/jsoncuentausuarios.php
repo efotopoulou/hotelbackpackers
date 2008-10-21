@@ -16,6 +16,7 @@ $idempleado=$_POST['idempleado'];
 $idencargado=$_POST['idencargado'];
 $tipo=$_POST['tipo'];
 $mask=$_POST['mask'];
+$cuentadelete=$_POST['cuentadelete'];
 
 $caja=new caja();
 $mensaje = new MensajeJSON();
@@ -24,7 +25,9 @@ try{
 //al cargar la pagina cargamos la lista de los usuarios--OK
 if ($usuario){
 $response = loadusuarios($caja);	
-}else if($mask){
+}
+//buscador de usuarios
+else if($mask){
 $response = load_buscador_usuarios($caja,$mask);	
 }
 //cobrar una parte del credito.despues lo insertamos como movimiento en la caja y el la cuenta de usuarios--OK
@@ -58,6 +61,11 @@ $caja->insert_mov_credito($idMov,$dinero,$idemp,0);
 $response = loadtickets($caja,$idempleado);	
 $response+= loadmovimientos($caja,$idempleado);
 $totalTickets=$caja->total_cuenta($idemp);	
+}
+//eliminar una cuenta
+else if($cuentadelete){
+$caja->cuenta_delete($cuentadelete);
+$response = loadusuarios($caja);
 }
 }catch (SQLException $e){
 	$aux = $e ->getNativeError();
