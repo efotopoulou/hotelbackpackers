@@ -212,9 +212,10 @@ var tipo= $("#tipo").val();
 }
 //-------------------------------------------ELIMINAR CUENTA-------------------------------------------------//
 function eliminar_cuenta(){
-var id_delete=$("#usuariosTable .amarillo").attr("id");
+var cuentadelete=$("#usuariosTable .amarillo").attr("id");
+alert(cuentadelete);
   if(confirm('Estas seguro que quieres eleminar esta cuenta?')){
-     $.getJSONGuate("Presentacion/jsoncuentausuarios.php",{id_delete:id_delete}, function(json){
+     $.getJSONGuate("Presentacion/jsoncuentausuarios.php",{cuentadelete:cuentadelete}, function(json){
       json = verificaJSON(json);
       loadusuarios(json);
       $("#ticketsTable").html(" ");
@@ -313,11 +314,10 @@ function nombreReload(){
 	<div class="box_amarillo" style="width:36%; margin-top:15px;float:left">
 	 <div><span class="label"><b><h3>Gestion Empleados:</h3></b></span>
 	     
-	     <div id="b5" style="float:left; margin-top:5px;">			
-	       <div style="margin-top:5px;margin-left:20px;width:50%;float:left"><span><input type="button" value="Crear Cuenta" id="reporte" onClick="changedisplay('b6');changedisplay('b5');"/></span></div>
-           <div style="margin-top:5px;margin-left:20px;width:50%;float:left"><span><input type="button" value="Eliminar Cuenta" onClick="changedisplay('b6');changedisplay('b5');"/></span></div>
-               <!--<div style="margin-top:5px;width:50%;float:left"><span><input type="button" value="Eliminar cuenta" id="reporteexcel" onClick="eliminar_cuenta();"/></span></div> -->
-         </div>
+   <div id="b5" style="float:left; margin-top:5px;">			
+	 <div style="margin-top:5px;margin-left:20px;width:50%;float:left"><span><input type="button" value="Crear Cuenta" id="reporte" onClick="changedisplay('b6');changedisplay('b5');"/></span></div>
+     <div style="margin-top:5px;margin-left:20px;width:50%;float:left"><span><input type="button" value="Eliminar Cuenta" onClick="eliminar_cuenta();"/></span></div>
+    </div>
 	     
 	     
 	     <div id="b6" style="float:left; margin-top:5px;" class="changedisplay">			
