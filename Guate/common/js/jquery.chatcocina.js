@@ -6,7 +6,7 @@
 	$.fn.ajaxChat = function(params){
 		
 		var params = $.extend({
-			refresh:10
+			refresh:5
 		},params);
 		
 		var chat = function (jElt) {

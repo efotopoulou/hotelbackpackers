@@ -1,3 +1,7 @@
+<?php
+$_SESSION['pseudo']="mesero";
+$_SESSION['last_chat_message_id']="0";
+?>
 <html>
 <head>
 <link href="/common/css/chat.css" rel="stylesheet" type="text/css" />
@@ -14,7 +18,7 @@
 	</div>
 	<div>
 	  <form action="" method="post" class="writeInput">
-		<input type="text" value="aaaa" />
+		<input type="text" value="" />
 	  </form>
     </div>
 </div>
