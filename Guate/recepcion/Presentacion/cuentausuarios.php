@@ -26,6 +26,7 @@ table{background:#DDD}
 	<script type="text/javascript">
 	
 //------------------------------------------------------------AL CARGAR LA PAGINA--------------------------------------------------------------//	
+var timeoutHnd;
 $(document).ready(function(){
   $.getJSONGuate("Presentacion/jsoncuentausuarios.php",{usuario:"yes"}, function(json){
      json = verificaJSON(json);
@@ -271,6 +272,22 @@ function pagarcredito(){
    });
  }
 }
+//--------------------------------------------------------DO SEARCH NOMBRE EMPLEADO--------------------------------------------------------//
+function doSearch(){
+ if(timeoutHnd) clearTimeout(timeoutHnd);
+ timeoutHnd = setTimeout(nombreReload,500);
+}
+function nombreReload(){
+ var mask = jQuery("#searchNombre").val();
+ //Presentacion/jsongrid.php?q=trabajador&nd='+new Date().getTime()
+ //jQuery("#list3").setGridParam({url:"/recepcion/Presentacion/jsongrid.php?q=trabajador&nm_mask="+nm_mask,page:1}).trigger("reloadGrid");
+ $.getJSONGuate("Presentacion/jsoncuentausuarios.php",{mask:mask}, function(json){
+     json = verificaJSON(json);
+   loadusuarios(json);
+   $("#ticketsTable").html(" ")
+   $("#movimientosTable").html(" ");
+   });
+}
 </script>
 <body>
 <?php include($_SERVER['DOCUMENT_ROOT'] . '/common/Presentacion/menu.php'); ?>
@@ -278,6 +295,14 @@ function pagarcredito(){
 	
 	<div class="box_amarillo" style="width:50%; margin-top:5px;float:right">
 	<div><span class="label"><b><h3>Empleados:</h3></b></span>
+	  
+	   <div class="row" align="left">
+       <table class="green">
+       <tr class="green"><td><h6>Buscar Nombre:</h6></td><td><input id="searchNombre" type="text" size="10" value="" onkeydown="doSearch()"/></td></tr>
+   	   </table>
+   	   </div>
+   	   <br/>
+	  
 	  <div style="height:40%;overflow:auto">
       <table id="usuariosTable" width=97% cellpadding=0 cellspacing=1>
       </table>
@@ -289,7 +314,8 @@ function pagarcredito(){
 	 <div><span class="label"><b><h3>Gestion Empleados:</h3></b></span>
 	     
 	     <div id="b5" style="float:left; margin-top:5px;">			
-	           <div style="margin-top:5px;margin-left:20px;width:50%;float:left"><span><input type="button" value="crear cuenta" id="reporte" onClick="changedisplay('b6');changedisplay('b5');"/></span></div>
+	       <div style="margin-top:5px;margin-left:20px;width:50%;float:left"><span><input type="button" value="Crear Cuenta" id="reporte" onClick="changedisplay('b6');changedisplay('b5');"/></span></div>
+           <div style="margin-top:5px;margin-left:20px;width:50%;float:left"><span><input type="button" value="Eliminar Cuenta" onClick="changedisplay('b6');changedisplay('b5');"/></span></div>
                <!--<div style="margin-top:5px;width:50%;float:left"><span><input type="button" value="Eliminar cuenta" id="reporteexcel" onClick="eliminar_cuenta();"/></span></div> -->
          </div>
 	     
@@ -303,7 +329,17 @@ function pagarcredito(){
    			     <input type="button" value="Guardar" style="margin-top:5px;margin-left:20px" onClick="crear_cuenta();"/>
                  <input type="button" value="Cancelar" style="margin-top:5px;margin-left:10px" onClick="changedisplay('b5');changedisplay('b6');"/>	
 		       </div>
-      </div>
+		 </div>
+		 
+		 <div id="buemp" style="float:left; margin-top:5px;" class="changedisplay">			
+			   <div class="row" align="left">
+      		     <table class="green">
+      		     <tr class="green"><td><h6>Nombre:</h6></td><td><input id="nombrebuscar" type="text" size="10" value=""/></td></tr>
+   			     </table>
+   			    </div>
+		 </div>
+      
+      
 	
 	 <div style="clear:both"></div> 
 	 </div>

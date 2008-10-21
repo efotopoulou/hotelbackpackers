@@ -308,6 +308,22 @@ $rs = $u->get_usuarios();
 	return $ors;		
 }
 
+function buscador_usuarios($mask){
+$u = new Dcaja();
+$rs = $u->buscador_usuarios($mask);
+	if($rs->getRecordCount()>0){ 
+		$n=0;
+		while($rs->next()){
+		$result=$rs->getRow();
+		$ors[$n] = new CuentaUsuario($result["idTrabajador"],$result["nombre"]);
+		$n++;					
+		}
+    }else{
+		$result=null;
+	    }
+	return $ors;
+}
+
 function set_usuario($nombreEmpleado,$cliente){
   $u = new Dcaja();
   $rs = $u->set_usuario($nombreEmpleado,$cliente);

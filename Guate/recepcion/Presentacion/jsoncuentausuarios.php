@@ -15,6 +15,7 @@ $categoria=$_POST['categoria'];
 $idempleado=$_POST['idempleado'];
 $idencargado=$_POST['idencargado'];
 $tipo=$_POST['tipo'];
+$mask=$_POST['mask'];
 
 $caja=new caja();
 $mensaje = new MensajeJSON();
@@ -23,6 +24,8 @@ try{
 //al cargar la pagina cargamos la lista de los usuarios--OK
 if ($usuario){
 $response = loadusuarios($caja);	
+}else if($mask){
+$response = load_buscador_usuarios($caja,$mask);	
 }
 //cobrar una parte del credito.despues lo insertamos como movimiento en la caja y el la cuenta de usuarios--OK
 else if($money){
@@ -93,6 +96,16 @@ if ((sizeof($movimientos))>0){
 }
 function loadusuarios($caja){
 $usuarios=$caja->get_usuarios();
+if ((sizeof($usuarios))>0){
+	  for($i=0;$i<count($usuarios);$i++) {
+	  $UsuariosInfo[$i]=array("idTrabajador"=>$usuarios[$i]->idTrabajador,"nombre"=>$usuarios[$i]->nombre);
+	  }
+ }
+ $response["UsuariosInfo"]=$UsuariosInfo;
+ return($response);		
+}
+function load_buscador_usuarios($caja,$mask){
+$usuarios=$caja->buscador_usuarios($mask);
 if ((sizeof($usuarios))>0){
 	  for($i=0;$i<count($usuarios);$i++) {
 	  $UsuariosInfo[$i]=array("idTrabajador"=>$usuarios[$i]->idTrabajador,"nombre"=>$usuarios[$i]->nombre);
