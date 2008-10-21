@@ -46,6 +46,8 @@ function LineaComandaScreen(){
   this.addPlatilloFijo = function(platillo){
     if(!platillo.cantidad) platillo.cantidad='1';
     $("#lista"+this.actualComanda).append(this.platilloHtml(platillo,"fixedRow"));
+    var objDiv = document.getElementById("arriba_derecha");
+    objDiv.scrollTop = objDiv.scrollHeight;
   }
   
   this.platilloHtml = function(platillo, class, id){
@@ -109,7 +111,7 @@ function LineaComandaScreen(){
  }
  this.calcularPropina = function(precio){
  var propina =0;
-  if(main.comandaAbierta()&& main.comanda().currentClientType!=2){
+  if(main.mesa() && main.comanda()&& main.comanda().currentClientType!=2){
    propina = parseInt(precio/10);
   }    
   return propina;
