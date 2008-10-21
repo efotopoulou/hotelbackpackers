@@ -24,6 +24,10 @@ function ClienteScreen(){
 	//borrar todos los colores rojos y azules de los botones client
 	this.setNoColor();
 	
+	//Activar o desactivar el efectivo
+	if (num==5 || num==1)desactivarEfectivo();
+	else activarEfectivo();
+		
 	//si existe la mesa o comanda, poner el boton rojo y el current client se pone a num, sino azul 
 	if (main.comandaAbierta()) {
 		this.setRed(num);
