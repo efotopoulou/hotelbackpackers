@@ -111,7 +111,7 @@ function LineaComandaScreen(){
  }
  this.calcularPropina = function(precio){
  var propina =0;
-  if(main.mesa() && main.comanda()&& main.comanda().currentClientType!=2){
+  if(main.propina && main.mesa() && main.comanda()&& main.comanda().currentClientType!=2){
    propina = parseInt(precio/10);
   }    
   return propina;

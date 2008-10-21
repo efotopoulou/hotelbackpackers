@@ -128,6 +128,11 @@ function cocina(id){
   changeClass(id);
 }
 
+function propina(id){
+   main.propina=!main.propina;
+   changeClass(id);
+   if (main.mesa() && main.comanda())main.pushLiniaComanda(main.currentMesa);
+}
 function mesaLibre(){
   listaPedidos.reiniciar();
   //borra la mesa y cambia el color a azul(o sea que libre)
@@ -229,7 +234,7 @@ function guardarComandaId(){
 //-------------------------------------------MESAMOUSEDOWN----------------------------------------//
 function mesamousedown(id){
   var num=id.substring(4);
-  
+  var aux=main.currentMesa;
   //Guarda el valor de IdComanda en la mesa que es ahora current (AUN NO SE HA CANVIADO DE CURRENT)
   guardarComandaId();
   
@@ -240,8 +245,8 @@ function mesamousedown(id){
   mesaScreen.setCorrectColor(num);
   
   //Cambiar el color de los botones de ClientType
-  if (main.mesa())clienteScreen.setCorrectColor(main.comanda().currentClientType);
-  else if (!main.currentClient)  clientemousedown(4); 
+  if (main.mesa()) clienteScreen.setCorrectColor(main.comanda().currentClientType);
+  else clientemousedown(4); 
   if(main.mesas[num]) main.carga(num);
   else main.creaEfecto(num);
  }       

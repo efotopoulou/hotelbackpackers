@@ -60,6 +60,7 @@ function Main(numMesas){
  this.id_cliente;
  this.free;
  this.calPressedId;
+ this.propina=true;
 
 //CREA EFECTO: Pone los valores a 0.
  this.creaEfecto = function (numMesa) {
@@ -85,7 +86,6 @@ function Main(numMesas){
 	 	else listaPedidos.addPlatillo(this.mesas[numMesa].comanda[j].liniasComanda[i], "row"+new String(j)+new String(i));
 	 	if (this.mesas[numMesa].comanda[j].isCocina())listaPedidos.mensajeCocina("Pedido en Cocina"); 
  	  }
-      //listaPedidos.modifyTotal(this.mesas[numMesa].comanda[j].total);
  	}
    calcularTotal();
    $("#idComanda").val(main.comanda().comandaID);
@@ -504,21 +504,38 @@ var main = new Main(<?php echo($noMesas); ?>)
 </table>
 </td>
 <!--BOTON CERRAR TICKET-->
-<td height="50%"><div id="divCerrar" class="btn">
+<td height="50%">
+
+<table width="100%" height="100%"><tr><td>
+<div class="btn">
 <div class="h1r"><img width="2px" height="1px" src="images/blankdot.gif"/></div>
 <div class="h1f"><img width="2px" height="1px" src="images/blankdot.gif"/></div><div class="btnbck"><img height="1px" src="images/blankdot.gif"/></div>
 <div class="h1r"><img width="1px" height="1px" src="images/blankdot.gif"/></div>
 <div class="h1f"><img width="1px" height="1px" src="images/blankdot.gif"/></div><div class="btnbck"><img height="1px" src="images/blankdot.gif"/></div>
-<table class="tablebtn" cellspacing=0><tr><td  id="CerrarTicket" class="closebtn btnunpress" align="center" onmousedown="cerrarTiquetMouseDown();" onmouseup="changeClass(this.id)" ommouseout="comprobarOut(this.id)">Cerrar Ticket</td></tr></table>
+<table class="tablebtn" cellspacing=0><tr><td  id="Propina" class="actionbtn btnunpress" align="center" onmousedown="propina(this.id)" onmouseup="changeClass(this.id)" onmouseout="comprobarOut(this.id)">Propina</td></tr></table>
 <div class="h1r"><img width="1px" height="1px" src="images/blankdot.gif"/></div>
 <div class="h1f"><img width="1px" height="1px" src="images/blankdot.gif"/></div><div class="btnbck"><img height="1px" src="images/blankdot.gif"/></div>
 <div class="h1r"><img width="2px" height="1px" src="images/blankdot.gif"/></div>
-<div class="h1f"><img width="2px" height="1px" src="images/blankdot.gif"/></div><div class="btnbck"><img height="1px" src="images/blankdot.gif"/></div></td></tr> </table>
+<div class="h1f"><img width="2px" height="1px" src="images/blankdot.gif"/></div><div class="btnbck"><img height="1px" src="images/blankdot.gif"/></div>
 
-
+</td></tr>
+<tr><td>
+<!--BOTON SIN PROPINA-->
+<div id="divCerrar" class="btn">
+<div class="h1r"><img width="2px" height="1px" src="images/blankdot.gif"/></div>
+<div class="h1f"><img width="2px" height="1px" src="images/blankdot.gif"/></div><div class="btnbck"><img height="1px" src="images/blankdot.gif"/></div>
+<div class="h1r"><img width="1px" height="1px" src="images/blankdot.gif"/></div>
+<div class="h1f"><img width="1px" height="1px" src="images/blankdot.gif"/></div><div class="btnbck"><img height="1px" src="images/blankdot.gif"/></div>
+<table class="tablebtn" cellspacing=0><tr><td  id="CerrarTicket" class="closebtn btnunpress" align="center" onmousedown="cerrarTiquetMouseDown();" onmouseup="changeClass(this.id)" ommouseout="comprobarOut(this.id)">Cerrar</td></tr></table>
+<div class="h1r"><img width="1px" height="1px" src="images/blankdot.gif"/></div>
+<div class="h1f"><img width="1px" height="1px" src="images/blankdot.gif"/></div><div class="btnbck"><img height="1px" src="images/blankdot.gif"/></div>
+<div class="h1r"><img width="2px" height="1px" src="images/blankdot.gif"/></div>
+<div class="h1f"><img width="2px" height="1px" src="images/blankdot.gif"/></div><div class="btnbck"><img height="1px" src="images/blankdot.gif"/></div>
 
 </td></tr>
 </table>
+</td></tr> </table>
+</td></tr></table>
 </div><!--tablageneraldiv-->
 </div>
 </body>
