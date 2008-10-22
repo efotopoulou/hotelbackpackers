@@ -74,7 +74,7 @@
 					});
 					var objDiv = document.getElementById("chatCocina");
     				objDiv.scrollTop = objDiv.scrollHeight;
-					
+    				sound2Play();
 					setTimeout(readMessages,params.refresh*1000);
 				});
 			}

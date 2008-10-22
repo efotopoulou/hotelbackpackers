@@ -75,6 +75,7 @@
 					});
 					var objDiv = document.getElementById("chatMesero");
     				objDiv.scrollTop = objDiv.scrollHeight;
+    				sound2Play();
 					setTimeout(readMessages,params.refresh*1000);
 				});
 			}
