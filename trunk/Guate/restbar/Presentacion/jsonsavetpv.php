@@ -12,20 +12,22 @@ $comanda = new Comanda();
 $credito = new Credito();
 $mensaje = new MensajeJSON();
  
-$mesa = json_decode($json, true);
+$comandasList = json_decode($json, true);
+
 
 //idComanda,estado,fechaHora,usuario,efectivo,mesa,tipoCliente,Total
 try {
- 		$comandaId = $comanda->setComanda($mesa["comandaID"],$mesa["efectivo"],$mesaNum,$mesa["currentClientType"],$mesa["totalPropina"],$mesa["id_cliente"],$mesa["free"]);
- //Se borra por si acaso ha desactivado el efectivo y lo vuelve a apretar.
- //$comanda->borrarLineasComanda($mesa["comandaID"]);
+for($k=0;$k<sizeof($comandasList);$k++){
+ $mesa=$comandasList[$k];
+  $comandaId = $comanda->setComanda($mesa["comandaID"],$mesa["efectivo"],$mesaNum,$mesa["currentClientType"],$mesa["totalPropina"],$mesa["id_cliente"],$mesa["free"]);
  $lineas = $mesa["liniasComanda"];
  for ($i=0;$i<=$mesa["numRow"];$i++){
  	$cantidad = (int)$lineas[$i]["cantidad"];
  	if($cantidad==0) $cantidad=1;
  	$comanda->setLineaComanda($comandaId,$lineas[$i]["platoId"],$cantidad, $lineas[$i]["precioN"]);
  }
-if ($mesa["currentClientType"]==5)$credito->setComandaCreditoComida($comandaId,"RB");
+ if ($mesa["currentClientType"]==5)$credito->setComandaCreditoComida($comandaId,"RB");
+}
 }catch (SQLException $e){
 	$aux = $e ->getNativeError();
  $mensaje->setMensaje("Error Desconocido: $aux!");

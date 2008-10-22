@@ -10,7 +10,7 @@ function platomousedown(plato,platoid,precioN,precioLim,id){
 	 main.mesas[main.currentMesa]= new Mesa();
 	}
 	//if (!(main.comanda() && main.comanda().isAbierta()) ){	
-	if (!main.comandaAbierta() && !main.comandaCocina()){
+	if (!main.comandaAbierta()){
 	 var aux = main.mesa().currentComanda;
 	 main.mesa().currentComanda+=1;
 	 main.mesa().comanda[main.mesa().currentComanda]= new Comanda();
@@ -23,13 +23,11 @@ function platomousedown(plato,platoid,precioN,precioLim,id){
 	  }
 	 guardarComandaId();
 	}
-    if(!main.comandaCocina()){
      main.comanda().numRow+=1;
      var precio=escogePrecio(precioN,precioLim);
      main.comanda().liniasComanda[main.comanda().numRow] = new LiniaComanda(platoid,precio,precio,precioN,precioLim,plato);
      listaPedidos.addPlatillo(main.linia(),"row"+new String(main.mesa().currentComanda+new String(main.comanda().numRow)));
      calcularTotal();
-    }else alert('La comanda esta en la cocina');
  }else alert('Por favor, elegid primero la mesa que os interesa');
 }
 
@@ -77,16 +75,25 @@ function cerrarTiquetMouseDown(){
     $("#cambio").val("");
     $("#idComanda").val("R"+main.numDefaultID);
     listaPedidos.fijarComanda();
-    listaPedidos.mensajeCocina("Comanda Cerrada");
+    for (i=main.mesa().comanda.length-1;i>=0 && !main.mesa().comanda[i].isCerrada();i--) {
+       listaPedidos.mensajeCocinaAnt("Comanda Cerrada",i);
+       main.mesa().comanda[i].estado="cerrado";
+     }
     clienteScreen.setClienteName("");
     main.free=undefined;
-    main.comanda().estado="cerrado";
+    //main.comanda().estado="cerrado";
 	}
 	changeClass('CerrarTicket');
 }
 function sendComanda(){
- var myJsonMain = JSON.stringify(main.comanda());
-  $.getJSONGuate("Presentacion/jsonsavetpv.php",{ json: myJsonMain}, function(json){
+    var comandas=new Array();
+     var i;
+     for (i=main.mesa().comanda.length-1;i>=0 && !main.mesa().comanda[i].isCerrada();i--) {
+       comandas[i]=main.mesa().comanda[i];
+     }
+
+ var myJsonMain = JSON.stringify(comandas);
+  $.getJSONGuate("Presentacion/jsonsavetpv.php",{ json: myJsonMain,mesa:main.currentMesa}, function(json){
     if (json["Mensaje"]) {
     	changeClass('Efectivo');
     	efectivo();
@@ -119,6 +126,7 @@ function liberaMesaMouseDown(id){
 //-------------------------------------------COCINA----------------------------------------//
 function cocina(id){
   if (main.comandaAbierta()){
+   guardarComandaId();
    listaPedidos.mensajeCocina("Pedido en Cocina");
    listaPedidos.fijarComanda();
    main.comanda().estado="cocina";
@@ -159,6 +167,25 @@ function calcularTotal(){
      precioTotal=redondea(precioTotal);
      main.comanda().total=precioTotal;
      main.comanda().totalPropina=listaPedidos.modifyTotal(precioTotal);
+     //Calculando precio de comanda en cocina anteriores
+     var totAnt=0;
+     var i;
+     for (i=main.mesa().comanda.length-1;i>=0 && !main.mesa().comanda[i].isCerrada();i--) {
+       totAnt+=main.mesa().comanda[i].totalPropina;
+     }
+     $("#total").val(totAnt);
+	}
+    return precioTotal;
+}
+function calcularTotalFijo(num){
+	var precioTotal=0;
+	if(main.mesa()){
+	 jQuery.each(main.mesa().comanda[num].liniasComanda,function() {
+       precioTotal+=this.precioN;
+     });
+     precioTotal=redondea(precioTotal);
+     main.comanda().total=precioTotal;
+     main.comanda().totalPropina=listaPedidos.modifyTotalFijo(precioTotal,num);
 	}
     return precioTotal;
 }
@@ -218,7 +245,7 @@ function restoreHibernar(){
  }
  
  function calcularCambio(){
-	$("#cambio").val(redondea(main.comanda().efectivo-main.comanda().totalPropina));
+	$("#cambio").val(redondea(main.comanda().efectivo-$("#total").val()));
 }
 function guardarComandaId(){
 	 var defaultID = "";
