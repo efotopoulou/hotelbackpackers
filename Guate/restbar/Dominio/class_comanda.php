@@ -48,9 +48,9 @@ class comanda{
 		function getNextMaxIdComanda(){
 			$dtp = new DComanda();
 			$rs = $dtp->getNextMaxIdComanda();
-			if($rs==null) $rs = "R0";
+			if($rs==null) $rs = "0";
 			$number=(int)substr($rs,1);
-			return "R".($number+1);
+			return $number+1;
 		}
 
 

@@ -79,13 +79,14 @@ function Main(numMesas){
  this.pushLiniaComanda = function(numMesa){
  	listaPedidos.vaciar();
  	for (var j=0;j<this.mesas[numMesa].comanda.length;j++){
-
       listaPedidos.addComanda();
 	  for (var i=0;i<this.mesas[numMesa].comanda[j].liniasComanda.length;i++){
 	 	if (!this.mesas[numMesa].comanda[j].isAbierta()) listaPedidos.addPlatilloFijo(this.mesas[numMesa].comanda[j].liniasComanda[i]);
 	 	else listaPedidos.addPlatillo(this.mesas[numMesa].comanda[j].liniasComanda[i], "row"+new String(j)+new String(i));
-	 	if (this.mesas[numMesa].comanda[j].isCocina())listaPedidos.mensajeCocina("Pedido en Cocina"); 
  	  }
+ 	  if (!this.mesas[numMesa].comanda[j].isAbierta())calcularTotalFijo(j);
+ 	  if (this.mesas[numMesa].comanda[j].isCocina())listaPedidos.mensajeCocinaAnt("Pedido en Cocina", j); 
+ 	  
  	}
    calcularTotal();
    $("#idComanda").val(main.comanda().comandaID);

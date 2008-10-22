@@ -74,6 +74,17 @@ function LineaComandaScreen(){
   	 $("#precioTotal"+this.actualComanda).html(""+precio);
   	 $("#propina"+this.actualComanda).html(""+propina);
   	 $("#TotalPropina"+this.actualComanda).html(""+totalpropina);
+  	 
+  	 $("#total").val(totalpropina);
+  	 return totalpropina;
+  }
+  this.modifyTotalFijo = function(precio,num){
+     var propina = this.calcularPropinaFijo(precio,num);
+     var totalpropina = parseInt(parseInt(precio)+parseInt(propina));
+  	 $("#precioTotal"+num).html(""+precio);
+  	 $("#propina"+num).html(""+propina);
+  	 $("#TotalPropina"+num).html(""+totalpropina);
+  	 
   	 $("#total").val(totalpropina);
   	 return totalpropina;
   }
@@ -116,7 +127,18 @@ function LineaComandaScreen(){
   }    
   return propina;
  }
+ this.calcularPropinaFijo = function(precio,num){
+ var propina =0;
+  if(main.propina && main.mesa() && main.mesa().comanda[num]&& main.mesa().comanda[num].currentClientType!=2){
+   propina = parseInt(precio/10);
+  }    
+  return propina;
+ }
+
  this.mensajeCocina=function(men){
   $("#total"+main.currentCom()+" #mensajeCocina").html(men);
  }
+ this.mensajeCocinaAnt=function(men,j){
+  $("#total"+j+" #mensajeCocina").html(men);
+ } 
 }
