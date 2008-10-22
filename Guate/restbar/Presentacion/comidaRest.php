@@ -7,7 +7,7 @@ require ($_SERVER['DOCUMENT_ROOT'] . '/restbar/Dominio/class_caja.php');
 <html lang="en" dir="ltr">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<title>TPV</title>
+		<title>Comida</title>
 		<link rel="stylesheet" type="text/css" media="screen" href="/common/css/grid.css" />
 		<link href="/common/css/estilo.css" rel="stylesheet" type="text/css" />
 
@@ -65,8 +65,8 @@ function Main(numMesas){
 //CREA EFECTO: Pone los valores a 0.
  this.creaEfecto = function (numMesa) {
   listaPedidos.modifyTotal("0");
-  if (!main.numDefaultID) main.numDefaultID=parseInt($("#idComanda").val().substring(1));
-  $("#idComanda").val("R"+main.numDefaultID);
+  if (!main.numDefaultID) main.numDefaultID=parseInt($("#idComanda").val());
+  $("#idComanda").val(main.numDefaultID);
   listaPedidos.reiniciar();
   }
   

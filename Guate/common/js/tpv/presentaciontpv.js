@@ -73,7 +73,7 @@ function cerrarTiquetMouseDown(){
     $("#efectivo").val("");
     $("#efectivo").attr({disabled:true}).val("");
     $("#cambio").val("");
-    $("#idComanda").val("R"+main.numDefaultID);
+    $("#idComanda").val(main.numDefaultID);
     listaPedidos.fijarComanda();
     for (i=main.mesa().comanda.length-1;i>=0 && !main.mesa().comanda[i].isCerrada();i--) {
        listaPedidos.mensajeCocinaAnt("Comanda Cerrada",i);
@@ -250,7 +250,7 @@ function restoreHibernar(){
 function guardarComandaId(){
 	 var defaultID = "";
     defaultID=$("#idComanda").val();
-    var numDefaultID=parseInt(defaultID.substring(1));
+    var numDefaultID=parseInt(defaultID);
     //alert('change:'+numDefaultID);
     if (main.mesa()){
      main.comanda().comandaID=defaultID;
