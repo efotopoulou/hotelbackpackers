@@ -1,6 +1,7 @@
 <?php
 require ($_SERVER['DOCUMENT_ROOT'] . '/restbar/Dominio/class_caja.php');
 require ($_SERVER['DOCUMENT_ROOT'] . '/restbar/Dominio/class_cocina.php');
+require ($_SERVER['DOCUMENT_ROOT'] . '/restbar/Dominio/class_chat.php');
 require ($_SERVER['DOCUMENT_ROOT'] . '/recepcion/Dominio/MensajeJSON.php');
 
 $fondo = $_POST['fondo'];
@@ -36,6 +37,8 @@ $open=$caja->open_caja($fondo,$turno);
      $close=$caja->close_caja($efectivoCerrar);
      $cocina = new cocina();
      $cocina->delete_pedidos();
+     $chat = new chat();
+     $chat->delete_chat();
      $mensaje->setMensaje("La caja esta cerrada!");
      $closecaja=true;
      include($_SERVER['DOCUMENT_ROOT'] . '/common/Presentacion/backup.php');
