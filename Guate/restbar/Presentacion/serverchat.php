@@ -15,7 +15,7 @@ if ($nickname){
 	echo '"'.$_SESSION['pseudo'].'"';
 //WRITE MESSAGE
 }else if ($msg){
-	$now = date('d-m-Y G:i:s');
+	$now = date('G:i:s');
     $msg=trim(strip_tags($_POST['msg']));
     $messages=$chat->escribirChat($_SESSION['pseudo'], $msg, $now);
     $data=array('msg' => $msg, 'nickname' => $_SESSION['pseudo'],'time' =>$now);

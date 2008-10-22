@@ -1,5 +1,8 @@
 <?php
 require ($_SERVER['DOCUMENT_ROOT'] . '/recepcion/Dominio/class_mesas.php');
+
+$_SESSION['pseudo']="cocina";
+$_SESSION['last_chat_message_id']="0";
 ?>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
@@ -140,7 +143,7 @@ $("#"+id).toggleClass("blacktext");
 	 </table>		
     </div>
 <div id="myChat">
-	<div class="chat">
+	<div class="chat" id="chatCocina">
 		<div></div>
 	</div>
 	<div style="display:none">

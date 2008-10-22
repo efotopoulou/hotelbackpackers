@@ -87,7 +87,8 @@ function calmousedown(texto,id){
   //Calculando el nuevo precio a mostrar
    calcularPrecio();
   //Calculando TOTAL
-  calcularTotal();
+  //calcularTotal();
+  $("#total").val(calcularTotal());
  }
  changeClass(id);
 }
@@ -106,7 +107,7 @@ function borrar(id){
      calcularPrecio();
   	}else borrarLinia();
   	//Calculando TOTAL
-     calcularTotal();
+     $("#total").val(calcularTotal());
   }
  changeClass(id);
 }

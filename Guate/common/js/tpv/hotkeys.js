@@ -1,5 +1,5 @@
 function hotkeys(){
-	jQuery.hotkeys.add('n0',function (){ calmousedown("0","0");changeClass("0")});
+/*	jQuery.hotkeys.add('n0',function (){ calmousedown("0","0");changeClass("0")});
 	jQuery.hotkeys.add('n1',function (){ calmousedown("1","1");changeClass("1")});
 	jQuery.hotkeys.add('n2',function (){ calmousedown("2","2");changeClass("2")});
 	jQuery.hotkeys.add('n3',function (){ calmousedown("3","3");changeClass("3")});
@@ -11,7 +11,7 @@ function hotkeys(){
 	jQuery.hotkeys.add('n9',function (){ calmousedown("9","9");changeClass("9")});
 
 	jQuery.hotkeys.add('e',function (){ efectivo();changeClass("Efectivo")});
-	
+	*/	
 	jQuery.hotkeys.add('right',mesaRight);
 	jQuery.hotkeys.add('left',mesaLeft);
 	jQuery.hotkeys.add('up',mesaUpDown);
@@ -20,7 +20,7 @@ function hotkeys(){
 }
 
 function desHotkeys(){
-	jQuery.hotkeys.remove('n0');
+/*	jQuery.hotkeys.remove('n0');
 	jQuery.hotkeys.remove('n1');
 	jQuery.hotkeys.remove('n2');
 	jQuery.hotkeys.remove('n3');
@@ -30,9 +30,10 @@ function desHotkeys(){
 	jQuery.hotkeys.remove('n7');
 	jQuery.hotkeys.remove('n8');
 	jQuery.hotkeys.remove('n9');
-
 	jQuery.hotkeys.remove('backspace');
 	jQuery.hotkeys.remove('e');
+	*/
+
 }
 function mesaRight(){
   var mesa = 0;

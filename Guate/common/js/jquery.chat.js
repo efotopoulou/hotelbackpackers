@@ -58,10 +58,11 @@
 							input.focus();
 							if (data) 
 								chat.append('<p><small>('+ data.time +')</small> ' + data.nickname + ' &gt; <strong>' + data.msg + '</strong></p>');
+								var objDiv = document.getElementById("chatMesero");
+    							objDiv.scrollTop = objDiv.scrollHeight;					
 							ajaxStatus.hide();
 						}, 'json');
 					}
-					
 					return false;
 				});
 			}
@@ -72,6 +73,8 @@
 					$.each(data, function(i,msg){
 						chat.append('<p><small>('+ msg.time +')</small> '+msg.nickname+' &gt; <strong>'+msg.msg+'</strong></p>');
 					});
+					var objDiv = document.getElementById("chatMesero");
+    				objDiv.scrollTop = objDiv.scrollHeight;
 					setTimeout(readMessages,params.refresh*1000);
 				});
 			}

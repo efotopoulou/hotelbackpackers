@@ -13,7 +13,7 @@ $_SESSION['last_chat_message_id']="0";
 <div id="secundario" style="margin-top:0px;width:100%;height:100%;">
 
 <div id="myChat" style="height:80%">
-	<div class="chat">
+	<div class="chat" id="chatMesero">
 		<div></div>
 	</div>
 	<div>

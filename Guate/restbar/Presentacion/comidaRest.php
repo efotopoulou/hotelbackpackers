@@ -86,6 +86,7 @@ function Main(numMesas){
  	  }
  	  if (!this.mesas[numMesa].comanda[j].isAbierta())calcularTotalFijo(j);
  	  if (this.mesas[numMesa].comanda[j].isCocina())listaPedidos.mensajeCocinaAnt("Pedido en Cocina", j); 
+ 	  if (this.mesas[numMesa].comanda[j].isCerrada())listaPedidos.mensajeCocinaAnt("Comanda Cerrada", j);
  	  
  	}
    calcularTotal();

@@ -89,7 +89,7 @@ function sendComanda(){
     var comandas=new Array();
      var i;
      for (i=main.mesa().comanda.length-1;i>=0 && !main.mesa().comanda[i].isCerrada();i--) {
-       comandas[i]=main.mesa().comanda[i];
+       comandas.push(main.mesa().comanda[i]);
      }
 
  var myJsonMain = JSON.stringify(comandas);
