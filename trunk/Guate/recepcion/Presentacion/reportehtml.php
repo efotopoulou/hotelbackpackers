@@ -93,7 +93,7 @@ $("#movimientosTable").append("<tr><td width=30%>TOTALES</td><td width=25%>Q"+js
 </script>
 <body>
 <div>
-	<h2>HOTEL BACKPAPERS</h2>
+	<h2>HOTEL BACKPAPERS RECEPCION</h2>
     <h4>Resumen de caja <br/></h4>
 	<table>
 	<tr><td><b>desde:</b></td><td id="desde"></td></tr>
