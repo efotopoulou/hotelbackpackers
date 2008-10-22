@@ -4,6 +4,7 @@ $_SESSION['last_chat_message_id']="0";
 ?>
 <html>
 <head>
+<title>Chat</title>
 <link href="/common/css/chat.css" rel="stylesheet" type="text/css" />
 		<script src="/common/js/jquery-1.2.3.pack.js"></script>
 		<script src="/common/js/jquery.chat.js"></script>

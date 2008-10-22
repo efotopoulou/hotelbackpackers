@@ -7,7 +7,7 @@ require ($_SERVER['DOCUMENT_ROOT'] . '/restbar/Dominio/class_caja.php');
 <html lang="en" dir="ltr">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<title>TPV</title>
+		<title>Bebida</title>
 		<link rel="stylesheet" type="text/css" media="screen" href="/common/css/grid.css" />
 		<link href="/common/css/estilo.css" rel="stylesheet" type="text/css" />
 

@@ -66,7 +66,7 @@ $objPHPExcel->getActiveSheet()->getStyle('D15')->getFont()->setBold(true);
 
 // Add some data
 $objPHPExcel->setActiveSheetIndex(0);
-$objPHPExcel->getActiveSheet()->setCellValue('A1', 'Hotel Backpapers');
+$objPHPExcel->getActiveSheet()->setCellValue('A4', 'Hotel Backpapers Bar-Restaurante');
 $objPHPExcel->getActiveSheet()->setCellValue('A4', 'Resumen de caja');
 $objPHPExcel->getActiveSheet()->setCellValue('A6', 'Desde:');
 $objPHPExcel->getActiveSheet()->setCellValue('B6', $response["HoraApertura"]);
