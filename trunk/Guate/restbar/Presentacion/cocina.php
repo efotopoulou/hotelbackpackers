@@ -1,8 +1,5 @@
 <?php
 require ($_SERVER['DOCUMENT_ROOT'] . '/recepcion/Dominio/class_mesas.php');
-
-$_SESSION['pseudo']="cocina";
-$_SESSION['last_chat_message_id']="0";
 ?>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
@@ -38,13 +35,67 @@ table{background:#DDD}
 <script src="/common/js/color_picker/color_picker.js" type="text/javascript"></script>
 <script src="/common/js/guate.js"></script>
 <script src="/common/js/testsound.js"></script>
-<script src="/common/js/jquery.chatcocina.js"></script>
 	<script type="text/javascript">
 
 //------------------------------------------------------------AL CARGAR LA PAGINA--------------------------------------------------------------//
+var nick="cocina";
+var lastchatid=0;
+var refresh=5;
+
 $(document).ready(function(){
  skata();
+ $("#eliminar").mousedown(function(){
+  var cantidad=$("#pedidosTable .white .cantidad").html();
+  var nombre=$("#pedidosTable .white .nombre").html();
+  var numComanda=$("#pedidosTable .white .numComanda").html();
+  if (cantidad != null) $(".writeInput").find(':input').val('Listo '+cantidad+' '+nombre+' de '+numComanda).parent().trigger('submit');
+ });
+  read();
+ $(".writeInput").submit(function(){
+   write();
+   return false;
+ });
 });
+// handle the read messages function
+function read(){
+$.getJSONGuate("/restbar/Presentacion/serverchat.php",{serv:1,nick:nick, lastchatid:lastchatid} ,function(json){
+	json = verificaJSON(json);
+	if (json){
+	 if (json.Mensajes){
+	 	for(i=0;i<json.Mensajes.length;i++) {
+	 	var msg = json.Mensajes[i];
+	 	  $(".chat").append('<p><small>('+ msg.time +')</small> '+msg.nickname+' &gt; <strong>'+msg.msg+'</strong></p>');
+	 	}
+	 }
+	 if (json.lastchatid) lastchatid=json.lastchatid;
+	}
+	var objDiv = document.getElementById("chatCocina");
+	objDiv.scrollTop = objDiv.scrollHeight;
+	//sound2Play();
+	$("#lastchat").html(lastchatid);
+	setTimeout(read,refresh*1000);
+	});
+}
+function write(){
+	var input = $(".writeInput").find(':input');
+	var message = input.val();
+	if ($.trim(message).length > 0) { // need to have something to say !
+		input.val('');
+		input.blur();
+		input.attr("disabled", "disabled"); // we have to this so there'll be less spam messages
+		$.getJSONGuate("/restbar/Presentacion/serverchat.php",{serv:2,nick:nick, msg: message} ,function(json){
+			json = verificaJSON(json);
+			input.removeAttr("disabled");
+			input.focus();
+			if (json && json.Mensajes){
+				var data =  json.Mensajes;
+				$(".chat").append('<p><small>('+ data.time +')</small> ' + data.nickname + ' &gt; <strong>' + data.msg + '</strong></p>');
+			}
+			var objDiv = document.getElementById("chatCocina");
+    		objDiv.scrollTop = objDiv.scrollHeight;					
+		});
+	}
+}
 
 function skata(){
   $.getJSONGuate("Presentacion/jsongestioncocina.php", function(json){
@@ -130,8 +181,8 @@ $("#"+id).toggleClass("blacktext");
      <div style="height:60%;overflow:auto">
         <table id="pedidosTable" width=97% cellpadding=0 cellspacing=1>
         </table>
+        <div id="lastchat"></div>
      </div>
-    
      <div id="b5" style=" width:100%;">	
      <table style="width:100%;background:#000000;">		
 	  <tr class="fonto letras">
@@ -154,9 +205,9 @@ $("#"+id).toggleClass("blacktext");
 </div>
 
 <script type="text/javascript">
-$(function(){
-	$('#myChat').ajaxChat();
-});
+//$(function(){
+//	$('#myChat').ajaxChat();
+//});
 </script>
  
 </div>

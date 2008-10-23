@@ -6,7 +6,8 @@
 	$.fn.ajaxChat = function(params){
 		
 		var params = $.extend({
-			refresh:5
+			refresh:5,
+			nick:"cocina"
 		},params);
 		
 		var chat = function (jElt) {
@@ -17,18 +18,6 @@
 			var chooseNickname=jElt.find('.chooseNickname');
 			var ajaxStatus=jElt.find('.ajaxStatus');
 //ISAAC
-				$.post("/restbar/Presentacion/serverchat.php", {nickname: "cocina"}, 
-				  function(data){
-					if (data) {
-						chatContainer.show();
-						readMessages();
-						
-						writeInput.find(':input').val('Hola, estoy dentro del chat!').parent().trigger('submit');
-						
-					} else {
-						alert('bad nickname, try something else !');
-					}
-				   }, 'json');
 				    $("#eliminar").mousedown(function(){
 				       var cantidad=$("#pedidosTable .white .cantidad").html();
 				       var nombre=$("#pedidosTable .white .nombre").html();

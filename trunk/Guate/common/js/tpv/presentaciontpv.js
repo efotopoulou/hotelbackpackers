@@ -378,17 +378,17 @@ function redondea(num){
 	return (Math.round(num*100)/100);
 }
 function changeClass(id){
- $("#"+id).toggleClass("btnpress");
- $("#"+id).toggleClass("btnunpress");
- $("#"+id).toggleClass("redtext");
+// $("#"+id).toggleClass("btnpress");
+// $("#"+id).toggleClass("btnunpress");
+// $("#"+id).toggleClass("redtext");
  if (main.calPressedId != id) main.calPressedId = id;
  else main.calPressedId = undefined;
 }
 function comprobarOut(id){
  if (main.calPressedId==id){
- 	$("#"+id).removeClass("btnpress");
- 	$("#"+id).addClass("btnunpress");
- 	$("#"+id).removeClass("redtext");
+// 	$("#"+id).removeClass("btnpress");
+// 	$("#"+id).addClass("btnunpress");
+// 	$("#"+id).removeClass("redtext");
  	main.calPressedId = undefined;
  }	
 }

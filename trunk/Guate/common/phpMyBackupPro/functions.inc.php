@@ -1,4 +1,5 @@
 <?php
+include("class.phpmailer.php");
 /*
  +--------------------------------------------------------------------------+
  | phpMyBackupPro                                                           |
@@ -910,6 +911,21 @@ function PMBP_ftp_store($files) {
 function PMBP_email_store($attachments,$backup_info) {
     global $CONF;
     $out=FALSE;
+
+    $mail             = new PHPMailer();
+    $mail->IsSMTP();
+    $mail->SMTPAuth   = true;                  // enable SMTP authentication
+    $mail->SMTPSecure = "ssl";                 // sets the prefix to the servier
+    $mail->Host       = "smtp.gmail.com";      // sets GMAIL as the SMTP server
+    $mail->Port       = 465;                   // set the SMTP port for the GMAIL server
+    $mail->Username   = "willezumleben@gmail.com";  // GMAIL username
+    $mail->Password   = "5c6bdbd5";            // GMAIL password
+    $mail->From       = "willezumleben@gmail.com";
+    $mail->FromName   = "First Last";
+    $mail->IsHTML(true); // send as HTML
+    $mail->AddAddress("willezumleben@gmail.com", "John Doe");
+    
+
     $lb="\n";
     $all_emails=explode(",",$CONF['email']);
  
@@ -938,6 +954,7 @@ function PMBP_email_store($attachments,$backup_info) {
         $bodies[$i]=rtrim(chunk_split(base64_encode($bodies[$i]), 76, $lb)).$lb;
         $parts[$i]="Content-Type: application/zip; name=\"".$attachments[$i].
         "\"".$lb."Content-Transfer-Encoding: base64".$lb."Content-Disposition: attachment; filename=\"".$attachments[$i]."\"".$lb.$lb.$bodies[$i].$lb;
+        $mail->AddAttachment($attachments[$i]);
     }
 
     $encoded['body']="--".$boundary.$lb.implode("--".$boundary.$lb,$parts)."--".$boundary."--".$lb.$lb;
@@ -959,9 +976,18 @@ function PMBP_email_store($attachments,$backup_info) {
         $subject=F_MAIL_4." ".$CONF['sitename'];
     }
 
+    $mail->Subject = $subject;
+    $mail->MsgHTML($mailtext);
+
+
     // send mail
-    if (!@mail($CONF['email'],$subject,$encoded['body'],$headers)) $out.="<div class=\"red\">".F_MAIL_5.".</div>\n";
-        else $out.="<div class=\"green\">".F_MAIL_6." ".$CONF['email'].".</div>\n";
+    //if (!@mail($CONF['email'],$subject,$encoded['body'],$headers)) $out.="<div class=\"red\">".F_MAIL_5.".</div>\n";
+    //    else $out.="<div class=\"green\">".F_MAIL_6." ".$CONF['email'].".</div>\n";
+    if(!$mail->Send()) {
+ 	 $out.="<div class=\"green\">".F_MAIL_6." ".$CONF['email'].".</div>\n";
+	} else {
+	 $out.="<div class=\"red\">".F_MAIL_5.".</div>\n";
+	}
     
     return $out;
 }

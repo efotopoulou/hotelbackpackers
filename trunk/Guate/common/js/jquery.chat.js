@@ -23,19 +23,11 @@
 					if (data) {
 						chatContainer.show();
 						readMessages();
-						
 						writeInput.find(':input').val('Hola, estoy dentro del chat!').parent().trigger('submit');
-						
 					} else {
 						alert('bad nickname, try something else !');
 					}
 				   }, 'json');
-				    $("#eliminar").mousedown(function(){
-				       var cantidad=$("#pedidosTable .white .cantidad").html();
-				       var nombre=$("#pedidosTable .white .nombre").html();
-				       var numComanda=$("#pedidosTable .white .numComanda").html();
-      					if (cantidad != null)writeInput.find(':input').val('Listo '+cantidad+' '+nombre+' de '+numComanda).parent().trigger('submit');
-				    });
 //END ISAAC
 
 			
