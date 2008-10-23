@@ -514,7 +514,7 @@ var main = new Main(<?php echo($noMesas); ?>)
 <div class="h1f"><img width="2px" height="1px" src="images/blankdot.gif"/></div><div class="btnbck"><img height="1px" src="images/blankdot.gif"/></div>
 <div class="h1r"><img width="1px" height="1px" src="images/blankdot.gif"/></div>
 <div class="h1f"><img width="1px" height="1px" src="images/blankdot.gif"/></div><div class="btnbck"><img height="1px" src="images/blankdot.gif"/></div>
-<table class="tablebtn" cellspacing=0><tr><td  id="Propina" class="actionbtn btnunpress" align="center" onmousedown="propina(this.id)" onmouseup="changeClass(this.id)" onmouseout="comprobarOut(this.id)">Propina</td></tr></table>
+<table class="tablebtn" cellspacing=0><tr><td  id="BotonPropina" class="actionbtn btnunpress" align="center" onmousedown="propina(this.id)" onmouseup="changeClass(this.id)" onmouseout="comprobarOut(this.id)">Propina</td></tr></table>
 <div class="h1r"><img width="1px" height="1px" src="images/blankdot.gif"/></div>
 <div class="h1f"><img width="1px" height="1px" src="images/blankdot.gif"/></div><div class="btnbck"><img height="1px" src="images/blankdot.gif"/></div>
 <div class="h1r"><img width="2px" height="1px" src="images/blankdot.gif"/></div>
@@ -528,7 +528,7 @@ var main = new Main(<?php echo($noMesas); ?>)
 <div class="h1f"><img width="2px" height="1px" src="images/blankdot.gif"/></div><div class="btnbck"><img height="1px" src="images/blankdot.gif"/></div>
 <div class="h1r"><img width="1px" height="1px" src="images/blankdot.gif"/></div>
 <div class="h1f"><img width="1px" height="1px" src="images/blankdot.gif"/></div><div class="btnbck"><img height="1px" src="images/blankdot.gif"/></div>
-<table class="tablebtn" cellspacing=0><tr><td  id="CerrarTicket" class="closebtn btnunpress" align="center" onmousedown="cerrarTiquetMouseDown();" onmouseup="changeClass(this.id)" ommouseout="comprobarOut(this.id)">Cerrar</td></tr></table>
+<table class="tablebtn" cellspacing=0><tr><td  id="BotonCerrarTicket" class="closebtn btnunpress" align="center" onmousedown="cerrarTiquetMouseDown();" onmouseup="changeClass(this.id)" ommouseout="comprobarOut(this.id)">Cerrar</td></tr></table>
 <div class="h1r"><img width="1px" height="1px" src="images/blankdot.gif"/></div>
 <div class="h1f"><img width="1px" height="1px" src="images/blankdot.gif"/></div><div class="btnbck"><img height="1px" src="images/blankdot.gif"/></div>
 <div class="h1r"><img width="2px" height="1px" src="images/blankdot.gif"/></div>
