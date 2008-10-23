@@ -29,12 +29,12 @@ else
 	<!-- navigation -->
 	<ul id="navigation">
 <?php if($allowedRest["cajaRest"]){ ?><li><a href="/restbar/view.php?page=cajaRest">Caja</a></li><?php } ?>
-<?php if($allowedRest["bebidaRest"]){ ?><li><a href="/restbar/view.php?page=bebidaRest">Bebida</a></li><?php } ?>
-<?php if($allowedRest["comidaRest"]){ ?><li><a href="/restbar/view.php?page=comidaRest">Comida</a></li><?php } ?>
+<?php if($allowedRest["bebidaRest"]){ ?><li><a href="/restbar/view.php?page=bebidaRest" target="_blank">Bebida</a></li><?php } ?>
+<?php if($allowedRest["comidaRest"]){ ?><li><a href="/restbar/view.php?page=comidaRest" target="_blank">Comida</a></li><?php } ?>
 <?php if($allowedRest["historicocajaRest"]){ ?><li><a href="/restbar/view.php?page=historicocajaRest">Historico Caja</a></li><?php } ?>
 <?php if($allowedRest["controldestockRest"]){ ?><li><a href="/restbar/view.php?page=controldestockRest">Control de Stock</a></li><?php } ?>
 <?php if($allowedRest["cocina"]){ ?><li><a href="/restbar/view.php?page=cocina">Cocina</a></li><?php } ?>
-<?php if($allowedRest["chat"]){ ?><li><a href="/restbar/view.php?page=chat">Chat</a></li><?php } ?>
+<?php if($allowedRest["chat"]){ ?><li><a href="/restbar/view.php?page=chat" target="_blank">Chat</a></li><?php } ?>
 				
 			</ul>
 			

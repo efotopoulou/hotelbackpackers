@@ -51,8 +51,8 @@ $encargado =  $_GET['encargado'];
 //$nombre = $caja->nameEncargado($encargado);
 
 // Set fonts
-$objPHPExcel->getActiveSheet()->getStyle('A1')->getFont()->setSize(20);
-$objPHPExcel->getActiveSheet()->getStyle('A1')->getFont()->setBold(true);
+$objPHPExcel->getActiveSheet()->getStyle('B1')->getFont()->setSize(10);
+$objPHPExcel->getActiveSheet()->getStyle('B1')->getFont()->setBold(true);
 $objPHPExcel->getActiveSheet()->getStyle('A4')->getFont()->setBold(true);
 $objPHPExcel->getActiveSheet()->getStyle('A6')->getFont()->setBold(true);
 $objPHPExcel->getActiveSheet()->getStyle('C6')->getFont()->setBold(true);
@@ -66,7 +66,7 @@ $objPHPExcel->getActiveSheet()->getStyle('D15')->getFont()->setBold(true);
 
 // Add some data
 $objPHPExcel->setActiveSheetIndex(0);
-$objPHPExcel->getActiveSheet()->setCellValue('A1', 'Hotel Backpapers Recepcion');
+$objPHPExcel->getActiveSheet()->setCellValue('B1', 'Hotel Backpapers Recepcion');
 $objPHPExcel->getActiveSheet()->setCellValue('A4', 'Resumen de caja');
 $objPHPExcel->getActiveSheet()->setCellValue('A6', 'Desde:');
 $objPHPExcel->getActiveSheet()->setCellValue('B6', $response["HoraApertura"]);
