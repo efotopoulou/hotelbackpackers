@@ -1,7 +1,8 @@
 <?php
 require ($_SERVER['DOCUMENT_ROOT'] . '/restbar/Dominio/class_caja.php');
 
-$admin = "disabled='true'";
+//$admin = "disabled='true'";
+$admin = " ";
 if ($sesion){
 	if ($sesion->is_allowed('admin_menu')) $admin=" ";
 }

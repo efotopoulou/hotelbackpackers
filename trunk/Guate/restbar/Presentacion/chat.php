@@ -27,12 +27,12 @@ $.getJSONGuate("/restbar/Presentacion/serverchat.php",{serv:1,nick:nick, lastcha
 	 	var msg = json.Mensajes[i];
 	 	  $(".chat").append('<p><small>('+ msg.time +')</small> '+msg.nickname+' &gt; <strong>'+msg.msg+'</strong></p>');
 	 	}
+	 	sound2Play();
 	 }
 	 if (json.lastchatid) lastchatid=json.lastchatid;
 	}
 	var objDiv = document.getElementById("chatMesero");
 	objDiv.scrollTop = objDiv.scrollHeight;
-	//sound2Play();
 	$("#lastchat").html(lastchatid);
 	setTimeout(read,refresh*1000);
 	});

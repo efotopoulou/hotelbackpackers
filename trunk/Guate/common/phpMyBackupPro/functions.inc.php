@@ -918,12 +918,12 @@ function PMBP_email_store($attachments,$backup_info) {
     $mail->SMTPSecure = "ssl";                 // sets the prefix to the servier
     $mail->Host       = "smtp.gmail.com";      // sets GMAIL as the SMTP server
     $mail->Port       = 465;                   // set the SMTP port for the GMAIL server
-    $mail->Username   = "willezumleben@gmail.com";  // GMAIL username
-    $mail->Password   = "5c6bdbd5";            // GMAIL password
-    $mail->From       = "willezumleben@gmail.com";
+    $mail->Username   = "hotelbackpackers@gmail.com";  // GMAIL username
+    $mail->Password   = "casaguatemala";            // GMAIL password
+    $mail->From       = "hotelbackpackers@gmail.com";
     $mail->FromName   = "First Last";
     $mail->IsHTML(true); // send as HTML
-    $mail->AddAddress("willezumleben@gmail.com", "John Doe");
+    $mail->AddAddress("hotelbackpackers@gmail.com", "Isaac Muro");
     
 
     $lb="\n";
@@ -983,7 +983,7 @@ function PMBP_email_store($attachments,$backup_info) {
     // send mail
     //if (!@mail($CONF['email'],$subject,$encoded['body'],$headers)) $out.="<div class=\"red\">".F_MAIL_5.".</div>\n";
     //    else $out.="<div class=\"green\">".F_MAIL_6." ".$CONF['email'].".</div>\n";
-    if(!$mail->Send()) {
+    if($mail->Send()) {
  	 $out.="<div class=\"green\">".F_MAIL_6." ".$CONF['email'].".</div>\n";
 	} else {
 	 $out.="<div class=\"red\">".F_MAIL_5.".</div>\n";
