@@ -61,6 +61,7 @@ else
 <?php if($allowedRest["gestionplatillos"]){ ?><li><a href="/recepcion/view.php?page=gestionplatillos">Gestion de Platillos</a></li><?php } ?>
 <?php if($allowedRest["controldestock"]){ ?><li><a href="/recepcion/view.php?page=controldestock">Control de Stock</a></li><?php } ?>
 <?php if($allowedRest["cuentausuarios"]){ ?><li><a href="/recepcion/view.php?page=cuentausuarios">Cuenta De Usuarios</a></li><?php } ?>
+<?php if($allowedRest["estadisticas"]){ ?><li><a href="/recepcion/view.php?page=estadisticas">Estadisticas</a></li><?php } ?>
 		    </ul>
 		</li>		
 				
