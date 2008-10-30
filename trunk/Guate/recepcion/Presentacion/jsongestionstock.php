@@ -7,7 +7,6 @@ $idbebida = $_POST['idbebida'];
 $stockbar =  $_POST['stockbar'];
 $stockrestaurante =  $_POST['stockrestaurante'];
 $unidadventa = $_POST['unidadventa'];
-$addornew = $_POST['aux'];
 $categoria =  $_POST['categoria'];
 $idencargado =  $_POST['idencargado'];
 $idComanda = $_POST['idComanda']; 

@@ -155,6 +155,10 @@ function recuperarventa(){
   $.unblockUI();
     
 }
+//------------------------------------------IMPRIMIR STOCK-------------------------------------------------------//
+function imprimirStock(){
+ document.location="Presentacion/imprimirstock.php";	
+}
 </script>
 <body>
 <?php include($_SERVER['DOCUMENT_ROOT'] . '/common/Presentacion/menuRestBar.php'); ?>
@@ -183,9 +187,10 @@ function recuperarventa(){
    
    <div id="b5" style="height:10%;width:100%;overflow:auto">
     <div class="row" align="left">
-     <div style="margin-top:20px;margin-left:100px;float:left;width:20%"><span><input type="button" value="Venta de Turno" onClick="ventadeturno();"/></span></div>
+    <div style="margin-top:20px;margin-left:100px;float:left;width:20%"><span><input type="button" value="Venta de Turno" onClick="ventadeturno();"/></span></div>
     <!-- <div style="margin-top:20px;float:left;width:20%"><span><input type="button" value="Comprar Producto" id="add" onClick="preparestock('b6');"/></span></div>-->
-     <div style="margin-top:20px;width:20%;float:left"><span><input <?php echo $admin ?> type="button" value="Modificar Estado del Stock" id="mod" onClick="preparestock();"/></span></div>
+    <div style="margin-top:20px;width:20%;float:left"><span><input <?php echo $admin ?> type="button" value="Modificar Estado del Stock" id="mod" onClick="preparestock();"/></span></div>
+    <div style="margin-top:20px;width:20%;float:left"><span><input <?php echo $admin ?> type="button" value="Imprimir Stock" onClick="imprimirStock();"/></span></div>
     </div>
   </div>
   
