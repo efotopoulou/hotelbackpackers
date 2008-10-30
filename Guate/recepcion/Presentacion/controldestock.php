@@ -1,5 +1,10 @@
 <?php
 require ($_SERVER['DOCUMENT_ROOT'] . '/recepcion/Dominio/class_caja.php');
+
+$admin = "disabled='true'";
+if ($sesion){
+	if ($sesion->is_allowed('admin_menu')) $admin=" ";
+}
 ?>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
@@ -180,7 +185,7 @@ function recuperarventa(){
     <div class="row" align="left">
      <div style="margin-top:20px;margin-left:100px;float:left;width:20%"><span><input type="button" value="Venta de Turno" onClick="ventadeturno();"/></span></div>
      <!-- <div style="margin-top:20px;float:left;width:20%"><span><input type="button" value="Comprar Producto" id="add" onClick="preparestock('b6');"/></span></div>-->
-     <div style="margin-top:20px;width:20%;float:left"><span><input type="button" value="Modificar Estado del Stock" id="mod" onClick="preparestock('b7');"/></span></div>
+     <div style="margin-top:20px;width:20%;float:left"><span><input <?php echo $admin ?> type="button" value="Modificar Estado del Stock" id="mod" onClick="preparestock('b7');"/></span></div>
     </div>
   </div>
   
