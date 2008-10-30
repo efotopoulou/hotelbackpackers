@@ -157,7 +157,7 @@ function recuperarventa(){
 }
 //------------------------------------------IMPRIMIR STOCK-------------------------------------------------------//
 function imprimirStock(){
-	
+ document.location="Presentacion/imprimirstock.php";	
 }
 </script>
 <body>
@@ -171,7 +171,7 @@ function imprimirStock(){
 </div>
 
 <div id="stockbar">
- <h5 class="titulos"><center>Control de Stock del bar</center></h5>
+ <h5 class="titulos"><center>Control de Stock de la Venta de recepcion</center></h5>
  <div style="margin-left:10%;margin-top:2%;width:80%">
 	
 	<div>
@@ -190,7 +190,7 @@ function imprimirStock(){
      <div style="margin-top:20px;margin-left:100px;float:left;width:20%"><span><input type="button" value="Venta de Turno" onClick="ventadeturno();"/></span></div>
      <!-- <div style="margin-top:20px;float:left;width:20%"><span><input type="button" value="Comprar Producto" id="add" onClick="preparestock('b6');"/></span></div>-->
      <div style="margin-top:20px;width:20%;float:left"><span><input <?php echo $admin ?> type="button" value="Modificar Estado del Stock" id="mod" onClick="preparestock('b7');"/></span></div>
-     <div style="margin-top:20px;width:20%;float:left"><span><input <?php echo $admin ?> type="button" value="Imprimir Stock" id="Impr" onClick="imprimirStock();"/></span></div>
+     <div style="margin-top:20px;width:20%;float:left;margin-left:100px;"><span><input <?php echo $admin ?> type="button" value="Imprimir Stock" id="Impr" onClick="imprimirStock();"/></span></div>
     </div>
   </div>
   
