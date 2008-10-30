@@ -22,7 +22,7 @@ body {
 		font-size: 12px;
 	}
 </style>
-<link href="/Restaurante/css/estilo.css" rel="stylesheet" type="text/css" />
+<link href="/common/css/estilo.css" rel="stylesheet" type="text/css" />
     <script src="/common/js/jquery-1.2.3.pack.js"></script>
     <script LANGUAGE="Javascript" SRC="../js/FusionCharts/FusionCharts.js"></script>
 	<script src="/common/js/guate.js"></script>
@@ -60,7 +60,7 @@ function changecolorCMP(id){
    if($("#S").hasClass("highlight"))  param+="&week="+$("#selectWeeks").val();
    if (id=='P'){
    	  param+="&limit="+$("#numTopPlatillos").val();
-   	  $.getJSONGuate("gestionEstadisticas.php?"+param,function(json){
+   	  $.getJSONGuate("Presentacion/gestionEstadisticas.php?"+param,function(json){
  	  json = verificaJSON(json);
  	  //muestra el grapho de los platillos
  	  chart1 = new FusionCharts(json["file"]+"?ChartNoDataText=No hay informacion para el periodo de tiempo que te interesa!", "chart1Id",json["width"],json["height"], "0", "0");
@@ -69,7 +69,7 @@ function changecolorCMP(id){
 	  $("#chart2div").html("");
  	});
    }else{
-      $.getJSONGuate("gestionEstadisticas.php?"+param,function(json){
+      $.getJSONGuate("Presentacion/gestionEstadisticas.php?"+param,function(json){
  	  json = verificaJSON(json);
  	  //muestra el grapho de la caja
  	  chart1 = new FusionCharts(json["file1"]+"?ChartNoDataText=No hay informacion para el periodo de tiempo que te interesa!", "chart1Id",json["width1"],json["height1"], "0", "0");
@@ -123,7 +123,7 @@ return dd.getDate();
 } 
 function loadDefaultGraph(currenyear,currentmonth){
 var chart;
- $.getJSONGuate("gestionEstadisticas.php?tipoEstadistica=CM&year="+currenyear+"&month="+currentmonth, function(json){
+ $.getJSONGuate("Presentacion/gestionEstadisticas.php?tipoEstadistica=CM&year="+currenyear+"&month="+currentmonth, function(json){
  	json = verificaJSON(json);
  	chart1 = new FusionCharts(json["file1"]+"?ChartNoDataText=No hay informacion para este mes!", "chart1Id",json["width1"],json["height1"], "0", "0");
     chart1.setDataXML(json["strxml1"]);

@@ -1,6 +1,6 @@
 <?php
-require ('../Dominio/class_estadisticas.php');
-require ('../Dominio/MensajeJSON.php');
+require ($_SERVER['DOCUMENT_ROOT'] . '/recepcion/Dominio/class_estadisticas.php');
+require ($_SERVER['DOCUMENT_ROOT'] . '/recepcion/Dominio/MensajeJSON.php');
 
 $tipoEstadistica =  $_GET['tipoEstadistica'];
 $year =  $_GET['year'];
