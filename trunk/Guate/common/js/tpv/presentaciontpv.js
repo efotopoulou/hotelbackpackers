@@ -305,6 +305,7 @@ main.free = free;
 clienteScreen.setClienteName(free);
 $.unblockUI();
 hotkeys();
+$("#freevol").val("");
 }
 function cancelarCliente(){
 	$.unblockUI();
@@ -313,6 +314,7 @@ function cancelarCliente(){
 	main.id_cliente=undefined;
 	clienteScreen.setCorrectColor(4);
 	activarEfectivo();
+	$("#freevol").val("");
 	if (main.comandaAbierta()){
 		main.comanda().id_cliente=undefined;
 		main.comanda().clienteName= undefined;
