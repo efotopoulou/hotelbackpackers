@@ -245,6 +245,34 @@ class caja{
 			if ($a==null)$a="0";
 			return $a;
 		}
+		
+function total_comida($id_caja){
+		$tot = new Dcaja();
+		$rs = $tot->total_comida($id_caja);
+		if ($rs->getRecordCount()>0){
+			while($rs->next()){
+				$result=$rs->getRow();
+				$a=$result["totalComida"];
+				}
+		}else{$a="0";}
+			if ($a==null)$a="0";
+			return $a;	
+		}
+
+function total_bebida($id_caja){
+		$tot = new Dcaja();
+		$rs = $tot->total_bebida($id_caja);
+		if ($rs->getRecordCount()>0){
+			while($rs->next()){
+				$result=$rs->getRow();
+				$a=$result["totalBebida"];
+				}
+		}else{$a="0";}
+			if ($a==null)$a="0";
+			return $a;	
+		}
+
+		
 function total_mov_old($idcaja){
 	$mvcj = new Dcaja();
 	$rs = $mvcj->total_money_mov_old($idcaja);

@@ -42,11 +42,10 @@ function loadPage(json){
  for(i=0;i<json.ReportDetails.length;i++) {
    a[json.ReportDetails[i].categoria]=(json.ReportDetails[i].id_categoria);
  }
- a["Adicion Bar Restaurante"]="BR";
- 
    // crear las tablas para cada categoria
    for (var k in json.Info){
-    if (k=="Adicion Bar Restaurante") idcat="BR";
+    if (k=="Adicion Bar") idcat="B";
+    else if (k=="Adicion Restaurante") idcat="R";
     else idcat=a[k];
     $("#informetotal").before("<table id="+idcat+" width=100%><tr><td width=80% colspan=3>"+k+"</td><td width=10%>Ingreso</td><td width=10%>Egreso</td></tr></table></br></br>");
    } 
@@ -65,10 +64,17 @@ function loadPage(json){
 }
 // imprimir detalladamente las comandas realizadas  
 if (json.Tiquets){
-  for(i=0;i<json.Tiquets.length;i++) {
-  $("#reportdetail").append("<tr><td width=10%>"+json.Tiquets[i].fecha+"</td><td width=15%>Adicion Bar Restaurante</td><td>efectivo</td><td width=50%>"+json.Tiquets[i].idComanda+"</td><td width=10%>"+json.Tiquets[i].total+"</td><td width=10%>0</td><td width=10%> - </td></tr>");	
-  $("#BR").append("<tr><td width=10%>"+json.Tiquets[i].time+"</td><td width=50%>"+json.Tiquets[i].idComanda+"</td><td width=10%>efectivo</td><td width=10%>"+json.Tiquets[i].total+"</td><td width=10%>0</td></tr>");
-  }    
+  i=0;
+  while(i<json.Tiquets.length && json.Tiquets[i].idComanda==""){
+  $("#reportdetail").append("<tr><td width=10%>"+json.Tiquets[i].fecha+"</td><td width=15%>Adicion Bar</td><td>efectivo</td><td width=50%>"+json.Tiquets[i].idComanda+"</td><td width=10%>"+json.Tiquets[i].total+"</td><td width=10%>0</td><td width=10%> - </td></tr>");	
+  $("#B").append("<tr><td width=10%>"+json.Tiquets[i].time+"</td><td width=50%>"+json.Tiquets[i].idComanda+"</td><td width=10%>efectivo</td><td width=10%>"+json.Tiquets[i].total+"</td><td width=10%>0</td></tr>");	
+  i++;
+  }
+  while(i<json.Tiquets.length && json.Tiquets[i].idComanda!=""){
+  $("#reportdetail").append("<tr><td width=10%>"+json.Tiquets[i].fecha+"</td><td width=15%>Adicion Restaurante</td><td>efectivo</td><td width=50%>"+json.Tiquets[i].idComanda+"</td><td width=10%>"+json.Tiquets[i].total+"</td><td width=10%>0</td><td width=10%> - </td></tr>");	
+  $("#R").append("<tr><td width=10%>"+json.Tiquets[i].time+"</td><td width=50%>"+json.Tiquets[i].idComanda+"</td><td width=10%>efectivo</td><td width=10%>"+json.Tiquets[i].total+"</td><td width=10%>0</td></tr>");	
+  i++;
+  }
 }
 
 // manejar la informacion de los movimientos en total.Es decir coger la resumen
@@ -89,6 +95,11 @@ $("#movimientosTable").append("<tr><td width=30%>TOTALES</td><td width=25%>"+jso
  $("#efectivo").html(efectivo); 
  $("#desde").html(json.HoraApertura); 
    if(json.HoraCierre) $("#hasta").html(json.HoraCierre);
+ if (json.VentaTurno){
+   for(i=0;i<json.VentaTurno.length;i++) {
+   $("#ventaturno").append("<tr><td width=10%>"+json.VentaTurno[i].numBebida+"</td><td>"+json.VentaTurno[i].nombre+"</td><td width=12%>"+json.VentaTurno[i].suma+"</td><td width=10%>"+json.VentaTurno[i].precio+"</td></tr>");
+   }} 
+  
 }
 </script>
 <body>
@@ -114,6 +125,15 @@ $("#movimientosTable").append("<tr><td width=30%>TOTALES</td><td width=25%>"+jso
     <tr><td>TOTAL EFECTIVO:</td><td id="efectivo"></td><tr/>
     </table>
     <br/><br/>
+    
+    <div id="venta"><h4>VENTA DE TURNO<br/></h4></div>
+    <table width=50% border=1>
+    <tr><td width=10%>Codigo</td><td><center>Nombre</center></td><td width=10%><center>Cantidad</center></td><td width=10%>Dinero</td></tr>
+    </table>
+    <table id="ventaturno" width=50% border=1></table>
+</div>
+<br/><br/>
+    
     <div id="informetotal"><h4>INFORME DE CAJA POR TURNO<br/></h4></div>
     <table width=100% border=1>
     <tr><td width=10%>Fecha</td><td width=15%><center>Cuenta</center></td><td><center>Valores</center></td><td width=50%>Detalle</td><td width=10%>Entrada</td><td width=10%>Salida</td><td width=10%>Factura</td></tr>

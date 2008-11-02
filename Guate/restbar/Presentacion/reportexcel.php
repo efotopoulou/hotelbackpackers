@@ -117,6 +117,33 @@ $objPHPExcel->getActiveSheet()->setCellValue('D'.($i+4),'=C'.($i+1));
 $objPHPExcel->getActiveSheet()->setCellValue('C'.($i+5),'TOTAL EFECTIVO');
 $objPHPExcel->getActiveSheet()->setCellValue('D'.($i+5),'=D'.($i+1));
 
+$ultimarow = $objPHPExcel->getActiveSheet()->getHighestRow();
+$ulrow = $ultimarow+3;
+$objPHPExcel->getActiveSheet()->getStyle('A'.$ulrow)->getFont()->setBold(true);
+$objPHPExcel->getActiveSheet()->getStyle('A'.($ulrow+1))->getFont()->setBold(true);
+$objPHPExcel->getActiveSheet()->getStyle('B'.($ulrow+1))->getFont()->setBold(true);
+$objPHPExcel->getActiveSheet()->getStyle('C'.($ulrow+1))->getFont()->setBold(true);
+$objPHPExcel->getActiveSheet()->getStyle('D'.($ulrow+1))->getFont()->setBold(true);
+
+$objPHPExcel->getActiveSheet()->setCellValue('A'.($ulrow), 'Venta de Turno');
+$objPHPExcel->getActiveSheet()->setCellValue('A'.($ulrow+1), 'Codigo');
+$objPHPExcel->getActiveSheet()->setCellValue('B'.($ulrow+1), 'Nombre');
+$objPHPExcel->getActiveSheet()->setCellValue('C'.($ulrow+1), 'Cantidad');
+$objPHPExcel->getActiveSheet()->setCellValue('D'.($ulrow+1), 'Dinero');
+
+$w=$ulrow+3;
+foreach($response["VentaTurno"] as $indice => $valor) {
+	//echo ('A'.$i.": ".$indice."->".$response["Info"][$indice]["entrada"]);
+ //$categoria[$indice]=0;
+ for($j=0;$j<sizeof($valor);$j++){
+ $objPHPExcel->getActiveSheet()->setCellValue('A'.($w+$j),$valor[$j]["numBebida"]);
+ $objPHPExcel->getActiveSheet()->setCellValue('B'.($w+$j),$valor[$j]["nombre"]);
+ $objPHPExcel->getActiveSheet()->setCellValue('C'.($w+$j),$valor[$j]["suma"]);
+ $objPHPExcel->getActiveSheet()->setCellValue('D'.($w+$j),$valor[$j]["precio"]);
+ }
+ $w+=sizeof($valor);
+}
+
 // Set column widths
 $objPHPExcel->getActiveSheet()->getColumnDimension('A')->setAutoSize(true);
 $objPHPExcel->getActiveSheet()->getColumnDimension('B')->setAutoSize(true);
