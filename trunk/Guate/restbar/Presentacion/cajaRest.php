@@ -39,8 +39,8 @@ $fondoc=$caja->get_fondo_caja();
 $categoria=$caja-> get_categories();
 for($i=0;$i<count($categoria);$i++) {
 ?>
-    //if(<?php echo($categoria[$i]->id_categoria); ?>==7)  $("#categoria").append("<option <?php echo $admin ?> value='<?php echo($categoria[$i]->id_categoria); ?>'><?php echo($categoria[$i]->nombre); ?></option>");   
-	$("#categoria").append("<option value='<?php echo($categoria[$i]->id_categoria); ?>'><?php echo($categoria[$i]->nombre); ?></option>");
+    if(<?php echo($categoria[$i]->id_categoria); ?>==7)  $("#categoria").append("<option <?php echo $admin ?> value='<?php echo($categoria[$i]->id_categoria); ?>'><?php echo($categoria[$i]->nombre); ?></option>");   
+	else $("#categoria").append("<option value='<?php echo($categoria[$i]->id_categoria); ?>'><?php echo($categoria[$i]->nombre); ?></option>");
 
 <?php } ?>
 $(".fondo").html(<?php echo($fondoc);?>);
