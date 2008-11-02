@@ -131,9 +131,9 @@ if (json.TicketsInfo){
         $("#movimientosTable").html(" ");
         }
        
-        if (!json.MovimientosInfo && !json.TicketsInfo) alert("Este mes el usuario no ha consumido nada!");
+        if (!json.MovimientosInfo && !json.TicketsInfo) alert("El usuario no ha consumido nada!");
         
-        if (json.TotalTickets)  $(".total").html(json.TotalTickets);
+        if (json.TotalTickets)  $(".total").html(Math.round(json.TotalTickets*100)/100);
 }
 //-------------------------------------------DECIDIR SI VA A APARECER EL NUMCOMANDA-------------------------------------------------//
 function showid(numComanda){
