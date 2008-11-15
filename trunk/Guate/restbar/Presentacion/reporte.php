@@ -23,10 +23,9 @@ $movimientos=$reporte->get_resumen($id_caja);
 	  for($i=0;$i<count($movimientos);$i++) {
 	   $categorias[$movimientos[$i]->categoria][$movimientos[$i]->tipo]=$movimientos[$i]->suma;
 	   $totales[$movimientos[$i]->tipo]+=$movimientos[$i]->suma;
-	   }
-	   $totales["entrada"]+=$totalcomida+$totalbebida;
-	   
+	   }	   
   }
+  $totales["entrada"]+=$totalcomida+$totalbebida;
   
    $categorias["Adicion Bar"]["entrada"]=$totalbebida;
    $categorias["Adicion Restaurante"]["entrada"]=$totalcomida;
@@ -101,7 +100,9 @@ if ((sizeof($reportmov))>0){
 $reporttik=$reporte->get_tiquets($id_caja);
 if ((sizeof($reporttik))>0){
 	  for($i=0;$i<count($reporttik);$i++) {
-	  $ReportTikDetails["Adicion Bar Restaurante"][]=array("fecha"=>$reporttik[$i]->fecha,"time"=>$reporttik[$i]->time,"idComanda"=>$reporttik[$i]->idComanda,"total"=>$reporttik[$i]->total);
+	 // if ($reporttik[$i]->idComanda !="") $ReportTikDetails["Adicion Restaurante"][]=array("fecha"=>$reporttik[$i]->fecha,"time"=>$reporttik[$i]->time,"idComanda"=>$reporttik[$i]->idComanda,"total"=>$reporttik[$i]->total);
+	 // else $ReportTikDetails["Adicion Bar"][]=array("fecha"=>$reporttik[$i]->fecha,"time"=>$reporttik[$i]->time,"idComanda"=>$reporttik[$i]->idComanda,"total"=>$reporttik[$i]->total);
+	  $ReportTikDetails[$i]=array("fecha"=>$reporttik[$i]->fecha,"time"=>$reporttik[$i]->time,"idComanda"=>$reporttik[$i]->idComanda,"total"=>$reporttik[$i]->total);
 	  }
  }
  

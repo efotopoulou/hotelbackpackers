@@ -20,7 +20,7 @@ if($_POST!=null){
 		$sesion->set_id_usuario($id);
 		if($ser=="Rest.") $onload="/restbar/view.php?page=comidaRest";
 		if($ser=="Backup") $onload="/common/phpMyBackupPro/";
-		if($ser=="Cocina") $onload="/restbar/view.php?page=cocina";
+		if($ser=="Cocina") $onload="/restbar/Presentacion/cocina.php";
 		$redir=true;
 		
 		$log=new log();
