@@ -13,7 +13,7 @@ $caja=new caja();
 $id_caja=$caja->get_id_caja ();
 
 $reporte = new getreporte();
-$response=$reporte->getdatos($id_caja,$mensaje);
+$response=$reporte->getdatosExcel($id_caja,$mensaje);
 }
 $mensaje->setDatos($response);
 echo($mensaje->encode());

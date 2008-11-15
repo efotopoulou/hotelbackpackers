@@ -98,7 +98,7 @@ function write(){
 }
 
 function skata(){
-  $.getJSONGuate("Presentacion/jsongestioncocina.php", function(json){
+  $.getJSONGuate("/restbar/Presentacion/jsongestioncocina.php", function(json){
   json = verificaJSON(json);
   loadpedidos(json);
   $.periodic(skata, {frequency: 10});

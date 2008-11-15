@@ -60,7 +60,9 @@ function loadPage(json){
   }	
 }else{
  $("#reportdetail").html(" ");
- $("#informetotal").before('<table id="BR" width=100%><tr><td width=80% colspan=3>"Adicion Bar Restaurante"</td><td width=10%>Ingreso</td><td width=10%>Egreso</td></tr></table></br></br>');
+ //$("#informetotal").before('<table id="BR" width=100%><tr><td width=80% colspan=3>"Adicion Bar Restaurante"</td><td width=10%>Ingreso</td><td width=10%>Egreso</td></tr></table></br></br>');
+ $("#informetotal").before('<table id="B" width=100%><tr><td width=80% colspan=3>"Adicion Bar"</td><td width=10%>Ingreso</td><td width=10%>Egreso</td></tr></table></br></br>');
+ $("#informetotal").before('<table id="R" width=100%><tr><td width=80% colspan=3>"Adicion Restaurante"</td><td width=10%>Ingreso</td><td width=10%>Egreso</td></tr></table></br></br>');
 }
 // imprimir detalladamente las comandas realizadas  
 if (json.Tiquets){

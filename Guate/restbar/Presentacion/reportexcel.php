@@ -135,13 +135,13 @@ $w=$ulrow+3;
 foreach($response["VentaTurno"] as $indice => $valor) {
 	//echo ('A'.$i.": ".$indice."->".$response["Info"][$indice]["entrada"]);
  //$categoria[$indice]=0;
- for($j=0;$j<sizeof($valor);$j++){
- $objPHPExcel->getActiveSheet()->setCellValue('A'.($w+$j),$valor[$j]["numBebida"]);
- $objPHPExcel->getActiveSheet()->setCellValue('B'.($w+$j),$valor[$j]["nombre"]);
- $objPHPExcel->getActiveSheet()->setCellValue('C'.($w+$j),$valor[$j]["suma"]);
- $objPHPExcel->getActiveSheet()->setCellValue('D'.($w+$j),$valor[$j]["precio"]);
- }
- $w+=sizeof($valor);
+ //for($j=0;$j<sizeof($valor);$j++){
+ $objPHPExcel->getActiveSheet()->setCellValue('A'.($w),$valor["numBebida"]);
+ $objPHPExcel->getActiveSheet()->setCellValue('B'.($w),$valor["nombre"]);
+ $objPHPExcel->getActiveSheet()->setCellValue('C'.($w),$valor["suma"]);
+ $objPHPExcel->getActiveSheet()->setCellValue('D'.($w),$valor["precio"]);
+ //}
+ $w++;
 }
 
 // Set column widths
@@ -195,15 +195,17 @@ if($response["ReportDetails"]){
   }
 }
 foreach($response["Tiquets"] as $indice => $valor) {
- for($j=0;$j<sizeof($valor);$j++){
- $objPHPExcel->getActiveSheet()->setCellValue('A'.($i+$j),$valor[$j]["fecha"]);
- $objPHPExcel->getActiveSheet()->setCellValue('B'.($i+$j),$indice);
- $objPHPExcel->getActiveSheet()->setCellValue('C'.($i+$j),'efectivo');
- $objPHPExcel->getActiveSheet()->setCellValue('D'.($i+$j),$valor[$j]["idComanda"]);
- $objPHPExcel->getActiveSheet()->setCellValue('E'.($i+$j),$valor[$j]["total"]);
- $objPHPExcel->getActiveSheet()->setCellValue('F'.($i+$j),'0');
- $objPHPExcel->getActiveSheet()->setCellValue('G'.($i+$j),' - ');
- }
+ //for($j=0;$j<sizeof($valor);$j++){
+ $objPHPExcel->getActiveSheet()->setCellValue('A'.($i),$valor["fecha"]);
+ $objPHPExcel->getActiveSheet()->setCellValue('B'.($i),'lalala');
+ if($valor["idComanda"] !="") $objPHPExcel->getActiveSheet()->setCellValue('B'.($i),'Adicion Restaurante');
+ else $objPHPExcel->getActiveSheet()->setCellValue('B'.($i),'Adicion Bar');
+ $objPHPExcel->getActiveSheet()->setCellValue('C'.($i),'efectivo');
+ $objPHPExcel->getActiveSheet()->setCellValue('D'.($i),$valor["idComanda"]);
+ $objPHPExcel->getActiveSheet()->setCellValue('E'.($i),$valor["total"]);
+ $objPHPExcel->getActiveSheet()->setCellValue('F'.($i),'0');
+ $objPHPExcel->getActiveSheet()->setCellValue('G'.($i),' - ');
+ //}
  $i++;
 }
 
@@ -234,41 +236,62 @@ if($response["ReportDetails"]){
  $row+=sizeof($valor)+4;
  }
 }
-foreach($response["Tiquets"] as $indice => $valor) {
- $objPHPExcel->getActiveSheet()->setCellValue('A'.($row-1),$indice);
+ $objPHPExcel->getActiveSheet()->setCellValue('A'.($row-1),'Adicion Bar');
  $objPHPExcel->getActiveSheet()->setCellValue('D'.($row-1),'Ingreso');
  $objPHPExcel->getActiveSheet()->setCellValue('E'.($row-1),'Egreso');
  
  $objPHPExcel->getActiveSheet()->getStyle('A'.($row-1))->getFont()->setBold(true);
  $objPHPExcel->getActiveSheet()->getStyle('D'.($row-1))->getFont()->setBold(true);
  $objPHPExcel->getActiveSheet()->getStyle('E'.($row-1))->getFont()->setBold(true);
- 
- for($j=0;$j<sizeof($valor);$j++){
- $objPHPExcel->getActiveSheet()->setCellValue('A'.($row+$j),$valor[$j]["time"]);
- $objPHPExcel->getActiveSheet()->setCellValue('B'.($row+$j),$valor[$j]["idComanda"]);
- $objPHPExcel->getActiveSheet()->setCellValue('C'.($row+$j),'efectivo');
- $objPHPExcel->getActiveSheet()->setCellValue('D'.($row+$j),$valor[$j]["total"]);
- $objPHPExcel->getActiveSheet()->setCellValue('E'.($row+$j),'0');
- }
- $objPHPExcel->getActiveSheet()->setCellValue('C'.($row+sizeof($valor)),'TOTAL');
- $objPHPExcel->getActiveSheet()->setCellValue('D'.($row+sizeof($valor)),'=SUM(D'.$row.':D'.($row+sizeof($valor)-1).')');
- $objPHPExcel->getActiveSheet()->setCellValue('E'.($row+sizeof($valor)),'0');
- $row+=sizeof($valor)+2;
-}
 
-foreach($response["Info"] as $indice => $valor) {
-  if(!$response["ReportDetails"][$indice] && !$response["Tiquets"][$indice]) {
-  $objPHPExcel->getActiveSheet()->setCellValue('A'.($row),$indice);
-  $objPHPExcel->getActiveSheet()->setCellValue('D'.($row),'Ingreso');
-  $objPHPExcel->getActiveSheet()->setCellValue('E'.($row),'Egreso');
+$aux=$row;
+foreach($response["Tiquets"] as $indice => $valor) {
+ //$objPHPExcel->getActiveSheet()->setCellValue('A'.($row-1),$indice);
+ //$objPHPExcel->getActiveSheet()->setCellValue('D'.($row-1),'Ingreso');
+ //$objPHPExcel->getActiveSheet()->setCellValue('E'.($row-1),'Egreso');
  
-  $objPHPExcel->getActiveSheet()->getStyle('A'.($row))->getFont()->setBold(true);
-  $objPHPExcel->getActiveSheet()->getStyle('D'.($row))->getFont()->setBold(true);
-  $objPHPExcel->getActiveSheet()->getStyle('E'.($row))->getFont()->setBold(true);
-  
-  $row+=2;
-  }	
+ if ($valor["idComanda"]== ""){
+  $objPHPExcel->getActiveSheet()->setCellValue('A'.($row),$valor["time"]);
+  $objPHPExcel->getActiveSheet()->setCellValue('B'.($row),$valor["idComanda"]);
+  $objPHPExcel->getActiveSheet()->setCellValue('C'.($row),'efectivo');
+  $objPHPExcel->getActiveSheet()->setCellValue('D'.($row),$valor["total"]);
+  $objPHPExcel->getActiveSheet()->setCellValue('E'.($row),'0');
+  $row++;
+ }
 }
+ $objPHPExcel->getActiveSheet()->setCellValue('C'.$row,'TOTAL');
+ $objPHPExcel->getActiveSheet()->setCellValue('D'.$row,'=SUM(D'.$aux.':D'.($row-1).')');
+ $objPHPExcel->getActiveSheet()->setCellValue('E'.$row,'0');
+ $row+=sizeof($valor)+2;
+ 
+ $objPHPExcel->getActiveSheet()->setCellValue('A'.($row-1),'Adicion Restaurante');
+ $objPHPExcel->getActiveSheet()->setCellValue('D'.($row-1),'Ingreso');
+ $objPHPExcel->getActiveSheet()->setCellValue('E'.($row-1),'Egreso');
+ 
+ $objPHPExcel->getActiveSheet()->getStyle('A'.($row-1))->getFont()->setBold(true);
+ $objPHPExcel->getActiveSheet()->getStyle('D'.($row-1))->getFont()->setBold(true);
+ $objPHPExcel->getActiveSheet()->getStyle('E'.($row-1))->getFont()->setBold(true);
+
+$aux=$row;
+ foreach($response["Tiquets"] as $indice => $valor) {
+ //$objPHPExcel->getActiveSheet()->setCellValue('A'.($row-1),$indice);
+ //$objPHPExcel->getActiveSheet()->setCellValue('D'.($row-1),'Ingreso');
+ //$objPHPExcel->getActiveSheet()->setCellValue('E'.($row-1),'Egreso');
+ 
+ if ($valor["idComanda"]!= ""){
+  $objPHPExcel->getActiveSheet()->setCellValue('A'.($row),$valor["time"]);
+  $objPHPExcel->getActiveSheet()->setCellValue('B'.($row),$valor["idComanda"]);
+  $objPHPExcel->getActiveSheet()->setCellValue('C'.($row),'efectivo');
+  $objPHPExcel->getActiveSheet()->setCellValue('D'.($row),$valor["total"]);
+  $objPHPExcel->getActiveSheet()->setCellValue('E'.($row),'0');
+  $row++;
+ }
+}
+ $objPHPExcel->getActiveSheet()->setCellValue('C'.$row,'TOTAL');
+ $objPHPExcel->getActiveSheet()->setCellValue('D'.$row,'=SUM(D'.$aux.':D'.($row-1).')');
+ $objPHPExcel->getActiveSheet()->setCellValue('E'.$row,'0');
+ $row+=sizeof($valor)+2;
+ 
 
 // Set column widths
 $objPHPExcel->getActiveSheet()->getColumnDimension('A')->setAutoSize(true);
