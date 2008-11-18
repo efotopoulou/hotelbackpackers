@@ -30,12 +30,12 @@ $response = loadusuarios($caja);
 else if($mask){
 $response = load_buscador_usuarios($caja,$mask);	
 }
-//cobrar una parte del credito.despues lo insertamos como movimiento en la caja y el la cuenta de usuarios--OK
+//cobrar una parte del credito.despues lo insertamos como movimiento en la caja de rest y el la cuenta de usuarios--OK
 else if($money){
 $iduser = substr($idempleado, 1);
 $onoma=$caja->nameUser($iduser);
-$idMov=$caja->insert_movimiento("entrada",$money,"Cobrado Credito ".$onoma,9,$idencargado);
-$caja->insert_mov_credito($idMov,-$money,$iduser,1,"HR");
+$idMov=$caja->insert_movimiento_rest("entrada",$money,"Cobrado Credito ".$onoma,4,$idencargado);
+$caja->insert_mov_credito($idMov,-$money,$iduser,1,"RB");
 $response = loadtickets($caja,$idempleado);	
 $response+=loadmovimientos($caja,$idempleado);	
 $totalTickets=$caja->total_cuenta($iduser);
@@ -52,12 +52,12 @@ else if($nombreEmpleado){
 $caja->set_usuario($nombreEmpleado,$tipo);
 $response = loadusuarios($caja);		
 }
-//insertar un nuevo movimiento como credito.en la caja y en la cuenta de usuarios--OK
+//insertar un nuevo movimiento como credito.en la caja de rest y en la cuenta de usuarios--OK
 else if($categoria){
 $idemp = substr($idempleado, 1);
 $onoma=$caja->nameUser($idemp);
-$idMov=$caja->insert_movimiento("credito",0,$onoma.": ".$description,$categoria,$idencargado);
-$caja->insert_mov_credito($idMov,$dinero,$idemp,0,"HR");
+$idMov=$caja->insert_movimiento_rest("credito",0,$onoma.": ".$description,$categoria,$idencargado);
+$caja->insert_mov_credito($idMov,$dinero,$idemp,0,"RB");
 $response = loadtickets($caja,$idempleado);	
 $response+= loadmovimientos($caja,$idempleado);
 $totalTickets=$caja->total_cuenta($idemp);	

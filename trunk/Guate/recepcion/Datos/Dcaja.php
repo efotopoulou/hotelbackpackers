@@ -8,11 +8,13 @@ class Dcaja{
 	const OPEN_CAJA = 'INSERT INTO caja VALUES(?,1,NOW(),null,?,null,0,?)';
 	const GET_FONDO_CAJA = 'SELECT fondoInicial from caja where estado=1';
 	const GET_ID_CAJA = 'select id_caja from caja where estado=1';
+	const GET_ID_CAJA_REST = 'select id_caja from restbar_bd.caja where estado=1';
 	const CLOSE_CAJA = 'UPDATE caja SET estado=0,fechaHoraCierre=NOW(), EfectivoCerrar=? where caja.estado=1';
 	const INS_MOV = 'INSERT INTO movimiento VALUES(0,NOW(),?,?,?,?,?,?)';
+	const INS_MOV_REST = 'INSERT INTO restbar_bd.movimiento VALUES(0,NOW(),?,?,?,?,?,?)';
 	const NAME_USER = 'select nombre from trabajador where idTrabajador=?';
 	const NAME_ENCARGADO = 'select nombre from guate_bd.usuario where Id_usuario=?';
-	const INS_MOVCREDITO = 'INSERT INTO movimientocredito VALUES(?,?,?,?)';
+	const INS_MOVCREDITO = 'INSERT INTO movimientocredito VALUES(?,?,?,?,?)';
 	//const TOTAL_MONEY_MOV = 'SELECT t1.tipo,sum(t1.dinero) as suma from movimiento t1,caja t2 where t1.id_caja=t2.id_caja and t2.estado=1 group by tipo';
 	const TOTAL_TICKETS = 'SELECT sum(t1.total) as totalTickets from comanda t1,caja t2 where t1.id_caja=t2.id_caja and t2.estado=1 and t1.estado!="anulado" ';
 	const COBRAR_TICKET = 'UPDATE comandacredito SET cobrado=1 where idComanda=?';
@@ -42,7 +44,7 @@ class Dcaja{
 	const GET_USUARIOS = 'select idTrabajador,nombre from trabajador where deleted=0';
 	const BUSCADOR_USUARIOS = 'select idTrabajador, nombre from trabajador where nombre LIKE ?';
 	const USUARIOS_COMANDAS = 'select t1.idComanda,t1.numComanda,t5.procedencia,t5.cobrado,t1.fechaHora,t5.total,t4.clientType,t3.nombre from comanda t1,caja t2,trabajador t3,tipocliente t4,comandacredito t5 where t1.id_caja=t2.id_caja and t1.id_cliente=t3.idTrabajador and t1.tipoCliente=5 and t1.tipoCliente=t4.idTipoCliente and t5.idComanda=t1.idComanda and t3.idTrabajador=? and t5.procedencia="HR" union select t1.idComanda,t1.numComanda,t5.procedencia,t5.cobrado,t1.fechaHora,t5.total,t4.clientType,t3.nombre from restbar_bd.comanda t1,restbar_bd.caja t2,trabajador t3,tipocliente t4,comandacredito t5 where t1.id_caja=t2.id_caja and t1.id_cliente=t3.idTrabajador and t1.tipoCliente=5 and t1.tipoCliente=t4.idTipoCliente and t5.idComanda=t1.idComanda and t3.idTrabajador=? and t5.procedencia="RB" order by fechaHora desc';
-	const USUARIOS_MOV = 'select t1.id_movimiento,t1.fechaHora,t2.cobrado as tipo,t2.dinero,t1.descripcion,t4.nombre as categoria,t5.nombre as encargado from movimiento t1,movimientocredito t2,trabajador t3,categoria t4,guate_bd.usuario t5 where t1.id_movimiento=t2.id_movimiento and t3.idTrabajador=t2.id_usuario and t4.id_categoria=t1.id_categoria and t5.Id_usuario=t1.idencargado and t2.id_usuario=? order by t1.fechaHora desc';
+	const USUARIOS_MOV = 'select t1.id_movimiento,t1.fechaHora,t2.cobrado as tipo,t2.dinero,t1.descripcion,t4.nombre as categoria,t5.nombre as encargado from movimiento t1,movimientocredito t2,trabajador t3,categoria t4,guate_bd.usuario t5 where t1.id_movimiento=t2.id_movimiento and t3.idTrabajador=t2.id_usuario and t4.id_categoria=t1.id_categoria and t5.Id_usuario=t1.idencargado and t2.id_usuario=? and t2.procedencia="HR" union select t1.id_movimiento,t1.fechaHora,t2.cobrado as tipo,t2.dinero,t1.descripcion,t4.nombre as categoria,t5.nombre as encargado from restbar_bd.movimiento t1,movimientocredito t2,trabajador t3,restbar_bd.categoria t4,guate_bd.usuario t5 where t1.id_movimiento=t2.id_movimiento and t3.idTrabajador=t2.id_usuario and t4.id_categoria=t1.id_categoria and t5.Id_usuario=t1.idencargado and t2.id_usuario=? and t2.procedencia="RB" order by fechaHora desc';
 	const SET_USUARIO = 'INSERT INTO trabajador VALUES(0,?,?,0)';
 	const TOTAL_CUENTA = 'select sum(total) as total from( select sum(t4.total) as total from comanda t1,caja t2,trabajador t3,comandacredito t4 where t1.id_caja=t2.id_caja  and t1.idComanda=t4.idComanda and t1.id_cliente=t3.idTrabajador and t1.tipoCliente=5 and t3.idTrabajador=? and t4.cobrado=0 group by t3.idTrabajador union select sum(t4.total) as total from restbar_bd.comanda t1,restbar_bd.caja t2,trabajador t3,comandacredito t4 where t1.id_caja=t2.id_caja  and t1.idComanda=t4.idComanda and t1.id_cliente=t3.idTrabajador and t1.tipoCliente=5 and t3.idTrabajador=? and t4.cobrado=0 group by t3.idTrabajador union select sum(t1.dinero) as total from movimientocredito t1,movimiento t2 where t1.id_movimiento=t2.id_movimiento and t1.id_usuario=?)as total';
 	const GET_PEDIDO = 'select t1.idLineaComanda,t2.idPlatillo,t1.cantidad,t2.nombre,t1.precio from lineacomanda t1,platillo t2 where idComanda=? and t2.idPlatillo=t1.idPlatillo';
@@ -50,6 +52,7 @@ class Dcaja{
 	const GET_PEDIDO_BAR = 'select t1.idLineaComanda,t2.numBebida,t1.cantidad,t2.nombre,t1.precio from lineacomanda t1,bebida t2 where idComanda=? and t2.idBebida=t1.idPlatillo ';
 	const GET_PEDIDO_BAR_RESTBAR = 'select t1.idLineaComanda,t2.numBebida,t1.cantidad,t2.nombre,t1.precio from restbar_bd.lineacomanda t1,bebida t2 where idComanda=? and t2.idBebida=t1.idPlatillo ';
 	const GET_MOV_CATEGORIES = 'select * from categoria where showcaja=1';
+	const GET_MOV_CATEGORIES_REST = 'select * from restbar_bd.categoria where showcaja=1';
 	const GET_PRECIOS = 'select precioLimitado,precioNormal from bar_bd.bebida where idBebida=?';
 	const TOTAL_COMANDA_CREDITO = 'select total from comandacredito where idComanda=?';
 	const TOTAL_MOV_CREDITO ='select dinero from movimientocredito where id_movimiento=?';
@@ -116,10 +119,28 @@ class Dcaja{
 		
 		return $result;
 	}
-	public function insert_mov_credito($idMov,$money,$iduser,$cobrado){
+	public function insert_movimiento_rest($tipo,$dinero,$descripcion,$categoria,$idencargado){
+		$comunication = new ComunicationRecep();
+		$params = array();
+		$PARAMS_TYPES = array ();
+		$idcaja = $comunication->query(self::GET_ID_CAJA_REST,$params,$PARAMS_TYPES);
+		
+		
+      if ($idcaja->getRecordCount()>0){
+			while($idcaja->next()){
+				$resultc=$idcaja->getRow();
+				$a=$resultc["id_caja"];
+				}}		
+        $params = array($a,$tipo,$dinero,$descripcion,$categoria,$idencargado);
+		$PARAMS_INSERT = array(ComunicationRecep::$TINT,ComunicationRecep::$TSTRING,ComunicationRecep::$TFLOAT,ComunicationRecep::$TSTRING,ComunicationRecep::$TSTRING,ComunicationRecep::$TINT);
+		$result = $comunication->update(self::INS_MOV_REST,$params,$PARAMS_INSERT);
+		
+		return $result;
+	}
+	public function insert_mov_credito($idMov,$money,$iduser,$cobrado,$procedencia){
 	$comunication = new ComunicationRecep();
-	$params = array($idMov,$money,$iduser,$cobrado);
-	$PARAMS_TYPES = array (ComunicationRecep::$TINT,ComunicationRecep::$TFLOAT,ComunicationRecep::$TINT,ComunicationRecep::$TINT);
+	$params = array($idMov,$money,$iduser,$cobrado,$procedencia);
+	$PARAMS_TYPES = array (ComunicationRecep::$TINT,ComunicationRecep::$TFLOAT,ComunicationRecep::$TINT,ComunicationRecep::$TINT,ComunicationRecep::$TSTRING);
 	$idcaja = $comunication->query(self::INS_MOVCREDITO,$params,$PARAMS_TYPES);
 			
 	}
@@ -375,8 +396,8 @@ class Dcaja{
 	
 	public function get_usuarios_movimientos ($idusuario){
 		$comunication = new ComunicationRecep();
-		$PARAMS = array($idusuario);
-		$PARAMS_TYPES = array (ComunicationRecep::$TINT);
+		$PARAMS = array($idusuario,$idusuario);
+		$PARAMS_TYPES = array (ComunicationRecep::$TINT,ComunicationRecep::$TINT);
 		$result = $comunication->query(self::USUARIOS_MOV,$PARAMS,$PARAMS_TYPES);
 		return $result;
 	}
@@ -443,6 +464,15 @@ class Dcaja{
 		$PARAMS = array();
 		$PARAMS_TYPES = array ();
 		$result = $comunication->query(self::GET_MOV_CATEGORIES,$PARAMS,$PARAMS_TYPES);
+		
+		return $result;
+	}	
+	
+	public function get_mov_categories_rest(){
+		$comunication = new ComunicationRecep();
+		$PARAMS = array();
+		$PARAMS_TYPES = array ();
+		$result = $comunication->query(self::GET_MOV_CATEGORIES_REST,$PARAMS,$PARAMS_TYPES);
 		
 		return $result;
 	}	

@@ -138,10 +138,14 @@ class caja{
 			$rs = $datos->insert_movimiento($tipo,$dinero,$descripcion,$categoria,$idencargado);
 			return $rs;
 		}
-		
-		function insert_mov_credito($idMov,$money,$iduser,$cobrado){
+		function insert_movimiento_rest($tipo,$dinero,$descripcion,$categoria,$idencargado){
 			$datos = new Dcaja();
-			$rs = $datos->insert_mov_credito($idMov,$money,$iduser,$cobrado);
+			$rs = $datos->insert_movimiento_rest($tipo,$dinero,$descripcion,$categoria,$idencargado);
+			return $rs;
+		}
+		function insert_mov_credito($idMov,$money,$iduser,$cobrado,$procedencia){
+			$datos = new Dcaja();
+			$rs = $datos->insert_mov_credito($idMov,$money,$iduser,$cobrado,$procedencia);
 			return $rs;
 		}
 		
@@ -445,6 +449,23 @@ $rs = $gpb->get_pedido_bar_cuenta($id);
 function get_categories(){
 $gc = new Dcaja();
 $rs = $gc->get_mov_categories();
+   if($rs->getRecordCount()>0){ 
+		$n=0;
+		while($rs->next()){
+		$result=$rs->getRow();
+		$ors[$n] =new MovimientoCategoria($result["id_categoria"],$result["nombre"]);
+		$n++;			
+		}
+    }else{
+		$result=null;
+	    }
+	return $ors;
+						
+}
+
+function get_categories_rest(){
+$gc = new Dcaja();
+$rs = $gc->get_mov_categories_rest();
    if($rs->getRecordCount()>0){ 
 		$n=0;
 		while($rs->next()){
