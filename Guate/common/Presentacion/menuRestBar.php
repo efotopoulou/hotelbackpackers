@@ -35,7 +35,7 @@ else
 <?php if($allowedRest["controldestockRest"]){ ?><li><a href="/restbar/view.php?page=controldestockRest">Control de Stock</a></li><?php } ?>
 <?php if($allowedRest["cocina"]){ ?><li><a href="/restbar/Presentacion/cocina.php">Cocina</a></li><?php } ?>
 <?php if($allowedRest["chat"]){ ?><li><a href="/restbar/Presentacion/chat.php" target="_blank">Chat</a></li><?php } ?>
-<?php if($allowedRest["cuentausuarios"]){ ?><li><a href="/recepcion/view.php?page=cuentausuarios">Cuentas</a></li><?php } ?>
+<?php if($allowedRest["cuentausuariosRest"]){ ?><li><a href="/restbar/view.php?page=cuentausuariosRest">Cuentas</a></li><?php } ?>
 <?php if($allowedRest["estadisticas"]){ ?><li><a href="/restbar/view.php?page=estadisticas" target="_blank">Estadisticas</a></li><?php } ?>				
 			</ul>
 			
