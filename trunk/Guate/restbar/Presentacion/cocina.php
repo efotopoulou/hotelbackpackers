@@ -132,14 +132,14 @@ function loadpedidos(json){
 //-------------------------------------------ELIMINAR PEDIDO-------------------------------------------------//
 function eliminarpedido(){
 var pedidoID=$("#pedidosTable .white").attr("id");
-$.getJSONGuate("Presentacion/jsongestioncocina.php",{eliminarpedido:pedidoID}, function(json){
+$.getJSONGuate("jsongestioncocina.php",{eliminarpedido:pedidoID}, function(json){
   json = verificaJSON(json);
   loadpedidos(json);
  });	
 }
 //-------------------------------------------RECUPERAR PEDIDO-------------------------------------------------//
 function recuperarpedido(){
-$.getJSONGuate("Presentacion/jsongestioncocina.php",{recuperarpedido:"yes"}, function(json){
+$.getJSONGuate("jsongestioncocina.php",{recuperarpedido:"yes"}, function(json){
   json = verificaJSON(json);
   loadpedidos(json);
  });	
