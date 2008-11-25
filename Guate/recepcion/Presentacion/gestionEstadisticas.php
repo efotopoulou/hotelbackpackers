@@ -73,12 +73,12 @@ if ((sizeof($lineasCMY))>0){
 	}
      //construir el xml de la cajas de este mes
 	$result["strxml1"]=$strXMLcaja;
-	$result["file1"]="../js/FusionCharts/FCF_Column3D.swf";
+	$result["file1"]="/common/js/FusionCharts/FCF_Column3D.swf";
 	$result["width1"]="1100";
 	$result["height1"]="200";
 	//construir el xml de los movimientos de este mes
 	$result["strxml2"]=$strXMLmovimientos;
-	$result["file2"]="../js/FusionCharts/FCF_MSColumn3D.swf";
+	$result["file2"]="/common/js/FusionCharts/FCF_MSColumn3D.swf";
 	$result["width2"]="1100";
 	$result["height2"]="200";
 	return($result);	
@@ -118,12 +118,12 @@ if ((sizeof($lineasCMM))>0){
 	}
      //construir el xml de la cajas de este mes
 	$result["strxml1"]=$strXMLcaja;
-	$result["file1"]="../js/FusionCharts/FCF_Column3D.swf";
+	$result["file1"]="/common/js/FusionCharts/FCF_Column3D.swf";
 	$result["width1"]="1100";
 	$result["height1"]="200";
 	//construir el xml de los movimientos de este mes
 	$result["strxml2"]=$strXMLmovimientos;
-	$result["file2"]="../js/FusionCharts/FCF_MSColumn3D.swf";
+	$result["file2"]="/common/js/FusionCharts/FCF_MSColumn3D.swf";
 	$result["width2"]="1100";
 	$result["height2"]="200";
 	return($result);
@@ -198,12 +198,12 @@ function cajaWeek($year,$month,$week,$estadisticas){
  }
 	//mantar el xml de la cajas de esta semana
 	$result["strxml1"]=$strXMLcaja;
-	$result["file1"]="../js/FusionCharts/FCF_MSColumn3D.swf";
+	$result["file1"]="/common/js/FusionCharts/FCF_MSColumn3D.swf";
 	$result["width1"]="1100";
 	$result["height1"]="200";
 	//mantar el xml de los movimientos de esta semana
 	$result["strxml2"]=$strXMLmovimientos;
-	$result["file2"]="../js/FusionCharts/FCF_MSColumn3D.swf";
+	$result["file2"]="/common/js/FusionCharts/FCF_MSColumn3D.swf";
 	$result["width2"]="1100";
 	$result["height2"]="200";
 	return($result);
@@ -224,7 +224,7 @@ $date = $year."-".$month."-".$week;
 
 	//mantar el xml de la cajas de esta semana
 	$result["strxml"]=$strXML;
-	$result["file"]="../js/FusionCharts/FCF_Pie3D.swf";
+	$result["file"]="/common/js/FusionCharts/FCF_Pie3D.swf";
 	$result["width"]="800";
 	$result["height"]="600";
 	return($result);	
@@ -243,7 +243,7 @@ $minas = monthsDescription($month);
 
 	//mantar el xml de la cajas de esta semana
 	$result["strxml"]=$strXML;
-	$result["file"]="../js/FusionCharts/FCF_Pie3D.swf";
+	$result["file"]="/common/js/FusionCharts/FCF_Pie3D.swf";
 	$result["width"]="800";
 	$result["height"]="600";
 	return($result);	
@@ -260,7 +260,7 @@ function topPlatillosYear($year,$limit,$estadisticas){
 
 	//mantar el xml de la cajas de esta semana
 	$result["strxml"]=$strXML;
-	$result["file"]="../js/FusionCharts/FCF_Pie3D.swf";
+	$result["file"]="/common/js/FusionCharts/FCF_Pie3D.swf";
 	$result["width"]="800";
 	$result["height"]="600";
 	return($result);

@@ -91,6 +91,7 @@ function loadcuenta(id){
 //year = $("#years").val();
 //month = $("#month").val();
 $(".total").html("0");
+$(".pagado").html("0");
 $.getJSONGuate("Presentacion/jsoncuentausuarios.php",{idusuario:id}, function(json){
      json = verificaJSON(json);
      loadPage(json);
