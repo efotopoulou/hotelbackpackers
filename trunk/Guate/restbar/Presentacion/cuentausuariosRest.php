@@ -147,7 +147,7 @@ function showpedido(id,numcomanda){
        	$(".detail"+id).remove();
     }else {
 	// var idComDetail=id.substring(1);
-	 $.getJSONGuate("Presentacion/jsongestioncaja.php",{idComDetailcuenta:id,numcomanda:numcomanda}, function(json){
+	 $.getJSONGuate("../recepcion/Presentacion/jsongestioncaja.php",{idComDetailcuenta:id,numcomanda:numcomanda}, function(json){
       json = verificaJSON(json);
       if (json.pedidosInfo){		
        for(i=0;i<json.pedidosInfo.length;i++) {
