@@ -24,7 +24,7 @@ body {
 </style>
 <link href="/common/css/estilo.css" rel="stylesheet" type="text/css" />
     <script src="/common/js/jquery-1.2.3.pack.js"></script>
-    <script LANGUAGE="Javascript" SRC="../js/FusionCharts/FusionCharts.js"></script>
+    <script LANGUAGE="Javascript" SRC="/common/js/FusionCharts/FusionCharts.js"></script>
 	<script src="/common/js/guate.js"></script>
 <script type="text/javascript">
 //------------------------------------------------------------AL CARGAR LA PAGINA--------------------------------------------------------------//	
