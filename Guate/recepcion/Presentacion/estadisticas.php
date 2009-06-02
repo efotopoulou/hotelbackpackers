@@ -162,7 +162,7 @@ var chart;
   <div class="box_amarillo" style="width:10%;height:85%;float:left">
      <table id="CMPTable" width=100% height=100% cellpadding=1 cellspacing=1 border=1>
       <tr><td height=50% class="highlight CMP" id="CM" onclick="changecolorCMP(this.id);"><h6><center>Caja y movimientos</center></h6></td></tr>
-      <tr><td width=50% class="tableColor CMP" id="P" onclick="changecolorCMP(this.id);"><h6><center>Top platillos</center></h6>
+      <tr><td width=50% class="tableColor CMP" id="P" onclick="changecolorCMP(this.id);"><h6><center>Top Venta en Recepción</center></h6>
       <br><center>
       <SELECT id="numTopPlatillos" >
                <OPTION style="width:20px;"></OPTION>

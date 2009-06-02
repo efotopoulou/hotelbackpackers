@@ -41,7 +41,7 @@ if (json.TicketsInfo){
   	  $("#ticketsTable").html(" ");
      for(i=0;i<json.TicketsInfo.length;i++) {
      	numComanda=showid(json.TicketsInfo[i].numComanda);
-        $("#ticketsTable").append("<tr><td width=5%>"+numComanda+"</td><td width=9%>"+json.TicketsInfo[i].estado+"</td><td width=25%>"+json.TicketsInfo[i].fechaHora+"</td><td width=6%>"+json.TicketsInfo[i].total+"</td><td width=10%>"+json.TicketsInfo[i].clientType+"</td><td>"+json.TicketsInfo[i].nombre+"</td></tr>");	
+        $("#ticketsTable").append("<tr><td width=5%>"+numComanda+"</td><td width=9%>"+json.TicketsInfo[i].estado+"</td><td width=25%>"+json.TicketsInfo[i].fechaHora+"</td><td width=6%>"+json.TicketsInfo[i].total+"</td><td width=10%>Credito</td><td>"+json.TicketsInfo[i].nombre+"</td></tr>");	
         }
         }else{
         $("#ticketsTable").html(" ");

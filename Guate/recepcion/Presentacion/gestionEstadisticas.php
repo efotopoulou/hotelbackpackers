@@ -101,7 +101,7 @@ if ((sizeof($lineasCMM))>0){
 		for($i=1;$i<=$days;$i++){   
 		$date = $currentyear."-".$currentmes."-".$i;
 		//echo (gettype($lineasCMM[$i]->suma));
-		$strCaja .= "<set name='" . $i . "' value='" .$lineasCMM[$i]->suma . "' color='".colorMonth($i)."' link='".urlencode("http://localhost:8081/Restaurante/Presentacion/view.php?page=historicocaja&date=".$date). "' />";
+		$strCaja .= "<set name='" . $i . "' value='" .$lineasCMM[$i]->suma . "' color='".colorMonth($i)."' link='".urlencode("http://localhost:8081/recepcion/view.php?page=historicocaja&date=".$date). "' />";
 		$strmovE .= "<set value='" .$lineasCMM[$i]->entradas . "'/>";
 		$strmovS .= "<set value='" .$lineasCMM[$i]->salidas . "'/>";
 		$strCategories .= "<category name='" .$i. "' />";  
@@ -159,7 +159,7 @@ function cajaWeek($year,$month,$week,$estadisticas){
 		    if ($linea){
 			 foreach($linea as $key1) {
                 //if ($key1->suma=="0") {$strCaja[$n] .= "<set value='" .$key1->suma . "' color='".colorweek($n)."'/>"; }else 
-		        $strCaja[$n] .= "<set value='" .$key1->suma . "' color='".colorweek($n)."' link='".urlencode("http://localhost:8081/Restaurante/Presentacion/view.php?page=historicocaja&idcaja=".$key1->id_caja). "'/>";
+		        $strCaja[$n] .= "<set value='" .$key1->suma . "' color='".colorweek($n)."' link='".urlencode("http://localhost:8081/recepcion/view.php?page=historicocaja&idcaja=".$key1->id_caja). "'/>";
                 $strmovE[$n] .= "<set value='" .$key1->entradas . "' color='".colorweek($n)."'/>";
                 $strmovS[$n] .= "<set value='" .$key1->salidas . "' color='".colorweek($n)."'/>";
                 $n++;

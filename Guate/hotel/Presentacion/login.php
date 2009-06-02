@@ -82,13 +82,13 @@ else{
 <div style="float:left">
  <img src="img/logoprograma.jpg"/>
 </div>
-	<div style="float:right; padding-top:150px; padding-right:250px">
+	<div style="float:right;  padding-right:250px">
 		<form action="view.php?page=login" method="POST" name="FormLogin">
 		<table class="t_general" style="background:#ecf8cb">
 			<tr><td  valign="top" style="padding-right:10px;text-align:right">Usuarios:</td>
 			<td><?php echo genera_usuarios($usr,$id) ?></td></tr>
 			
-			<tr><td style="padding:10px;text-align:right">Contraseña:</td>
+			<tr><td style="padding:10px;text-align:right">Contrase&#0241;a:</td>
 			<td><input id="pass" name="pass" style="width:103px" type="password"/></td></tr>
 			
 			<tr><td colspan=2>
