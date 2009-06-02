@@ -40,21 +40,7 @@ for($i=0;$i<count($categoria);$i++) {
 ?>
 	$("#categoria").append("<option value='<?php echo($categoria[$i]->id_categoria); ?>'><?php echo($categoria[$i]->nombre); ?></option>");
 
-<?php }  
-  
-  $anyos=new estadisticas();
-  $year=$anyos->yearsCaja();
-  for($i=0;$i<count($year);$i++) {
-  ?>
-	$("#years").append("<option value='<?php echo($year[$i]); ?>'><?php echo($year[$i]); ?></option>");
-
-  <?php } 
-  $hoy = getdate();
-  $year = $hoy['year'];
-  $month = $hoy['mon'];
-  ?>
-$("#years").val("<?php echo($year); ?>");
-$("#month").val("<?php echo($month); ?>");
+<?php }  ?>  
 });
 
 
@@ -69,7 +55,6 @@ btncolor(id);
 }
 function btncolor(id){
 $("#"+id).toggleClass("amarillo");
-//$("#"+id).toggleClass("redtext");	
 }
 
 function redondea(num){
@@ -88,8 +73,6 @@ function loadusuarios(json){
 }
 //-------------------------------------------LOAD CUENTA----------------------------------------------------------//
 function loadcuenta(id){
-//year = $("#years").val();
-//month = $("#month").val();
 $(".total").html("0");
 $(".pagado").html("0");
 $.getJSONGuate("Presentacion/jsoncuentausuarios.php",{idusuario:id}, function(json){
@@ -103,7 +86,7 @@ if (json.TicketsInfo){
      for(i=0;i<json.TicketsInfo.length;i++) {
      	numComanda=showid(json.TicketsInfo[i].numComanda);
      	idCom=json.TicketsInfo[i].procedencia+json.TicketsInfo[i].idComanda;
-        $("#ticketsTable").append("<tr id="+idCom+"><td class='checkbox' width=2%><input type='checkbox'  onclick='btncolor(\""+idCom+"\");'></td><td width=5%><h6 class='numcomand'>"+numComanda+"</h6></td><td width=9% class='estado'><h6 class='estadoh6'>"+json.TicketsInfo[i].estado+"</h6></td><td width=25%><h6>"+json.TicketsInfo[i].fechaHora+"</h6></td><td width=6%><h6>"+json.TicketsInfo[i].total+"</h6></td><td width=10%><h6>"+json.TicketsInfo[i].clientType+"</h6></td><td><h6>"+json.TicketsInfo[i].nombre+"</h6></td></tr>");
+        $("#ticketsTable").append("<tr id="+idCom+"><td class='checkbox' width=2%><input type='checkbox'  onclick='btncolor(\""+idCom+"\");'></td><td width=5%><h6 class='numcomand'>"+numComanda+"</h6></td><td width=9% class='estado'><h6 class='estadoh6'>"+json.TicketsInfo[i].estado+"</h6></td><td width=25%><h6>"+json.TicketsInfo[i].fechaHora+"</h6></td><td width=6%><h6>"+json.TicketsInfo[i].total+"</h6></td><td width=10%><h6>Credito</h6></td><td><h6>"+json.TicketsInfo[i].nombre+"</h6></td></tr>");
         $("#"+idCom+" td:not(.checkbox)").mousedown(function(e){
            var num=$("#"+this.parentNode.id+" .numcomand").html();
            showpedido(this.parentNode.id,num);
@@ -159,39 +142,6 @@ function showpedido(id,numcomanda){
      });
    }
 }
-//-------------------------------------------COBRAR TICKET-------------------------------------------------//
-function cobrarTicket(){
-var comandas;
-var cobradas=false;
-$("#ticketsTable .amarillo").each(function (){
-  alert(this.id);
-  if (!comandas) comandas = this.id;
-  else comandas+=","+this.id;
-  btncolor(this.id);
-  if($("#"+this.id+" .estadoh6").html()=="cobrado") cobradas=true;
-})
-var movs;
-$("#movimientosTable .amarillo").each(function (){
-  if (!movs) movs = this.id;
-  else movs+=","+this.id;
-  btncolor(this.id);
-  if($("#"+this.id+" .tipoh6").html()=="cobrado") cobradas=true;
-})
-
- if (cobradas)alert("Algun ticket o movimiento que has elegido esta ya cobrado!");
- else {
-  var idusuario=$("#usuariosTable .amarillo").attr("id");
-   if(comandas || movs){ 
-     year = $("#years").val();
-     month = $("#month").val();
-     var idencargado =$("#selUsers").val();
-     $.getJSONGuate("Presentacion/jsoncuentausuarios.php",{comandas:comandas,movs:movs,idusuario:idusuario,idencargado:idencargado,year:year,month:month}, function(json){
-      json = verificaJSON(json);
-      loadPage(json);
-     });
-   }else alert("Por favor elige la comanda o el movimiento que desea cobrar!");
-  }
-}
 //------------------------------------------CHANGE DISPLAY--------------------------------------------------------//
 function changedisplay(Seccion){ 
     $("#"+Seccion).toggleClass("changedisplay");
@@ -244,11 +194,9 @@ $("#categoria").val(1);
 }
 //--------------------------------------------------------CALL GESTION CAJA--------------------------------------------------------//
 function insertmovcredito(dinero,description,categoria,idempleado){
-  year = $("#years").val();
-  month = $("#month").val();
   if(confirm('�Estas seguro que quieres realizar este credito?')){
   var idencargado =$("#selUsers").val();
-  $.getJSONGuate("Presentacion/jsoncuentausuarios.php",{dinero:dinero,description:description,categoria:categoria,idempleado:idempleado,idencargado:idencargado,month:month,year:year}, function(json){
+  $.getJSONGuate("Presentacion/jsoncuentausuarios.php",{dinero:dinero,description:description,categoria:categoria,idempleado:idempleado,idencargado:idencargado}, function(json){
      json = verificaJSON(json);
      loadPage(json);
    });

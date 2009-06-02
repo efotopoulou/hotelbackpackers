@@ -103,7 +103,7 @@ if (json.TicketsInfo){
      for(i=0;i<json.TicketsInfo.length;i++) {
      	numComanda=showid(json.TicketsInfo[i].numComanda);
      	idCom=json.TicketsInfo[i].procedencia+json.TicketsInfo[i].idComanda;
-        $("#ticketsTable").append("<tr id="+idCom+"><td class='checkbox' width=2%><input type='checkbox'  onclick='btncolor(\""+idCom+"\");'></td><td width=5%><h6 class='numcomand'>"+numComanda+"</h6></td><td width=9% class='estado'><h6 class='estadoh6'>"+json.TicketsInfo[i].estado+"</h6></td><td width=25%><h6>"+json.TicketsInfo[i].fechaHora+"</h6></td><td width=6%><h6>"+json.TicketsInfo[i].total+"</h6></td><td width=10%><h6>"+json.TicketsInfo[i].clientType+"</h6></td><td><h6>"+json.TicketsInfo[i].nombre+"</h6></td></tr>");
+        $("#ticketsTable").append("<tr id="+idCom+"><td class='checkbox' width=2%><input type='checkbox'  onclick='btncolor(\""+idCom+"\");'></td><td width=5%><h6 class='numcomand'>"+numComanda+"</h6></td><td width=9% class='estado'><h6 class='estadoh6'>"+json.TicketsInfo[i].estado+"</h6></td><td width=25%><h6>"+json.TicketsInfo[i].fechaHora+"</h6></td><td width=6%><h6>"+json.TicketsInfo[i].total+"</h6></td><td width=10%><h6>Credito</h6></td><td><h6>"+json.TicketsInfo[i].nombre+"</h6></td></tr>");
         $("#"+idCom+" td:not(.checkbox)").mousedown(function(e){
            var num=$("#"+this.parentNode.id+" .numcomand").html();
            showpedido(this.parentNode.id,num);

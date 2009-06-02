@@ -3,10 +3,8 @@ require ($_SERVER['DOCUMENT_ROOT'] . '/recepcion/Dominio/class_caja.php');
 //require ($_SERVER['DOCUMENT_ROOT'] . '/recepcion/Dominio/class_cocina.php');
 require ($_SERVER['DOCUMENT_ROOT'] . '/recepcion/Dominio/MensajeJSON.php');
 
-$usuario = $_POST['usuario'];
+$usuario = $_POST['usuario']; 
 $idusuario = $_POST['idusuario'];
-//$comandas = $_POST['comandas'];
-//$movs = $_POST['movs'];
 $nombreEmpleado = $_POST['nombreEmpleado'];
 $dinero=$_POST['dinero'];
 $money=$_POST['money'];
@@ -22,7 +20,7 @@ $caja=new caja();
 $mensaje = new MensajeJSON();
 
 try{
-//al cargar la pagina cargamos la lista de los usuarios--OK
+//al cargar la pagina cargamos la lista de los usuarios
 if ($usuario){
 $response = loadusuarios($caja);	
 }
@@ -83,8 +81,7 @@ $iduser = substr($idusuario, 1);
 $tikets=$caja->get_usuarios_comandas($iduser);
 if ((sizeof($tikets))>0){
 	  for($i=0;$i<count($tikets);$i++) {
-	  if ($tikets[$i]->cobrado) $estado="cobrado"; else $estado="credito";
-	  $TicketsInfo[$i]=array("idComanda"=>$tikets[$i]->idComanda,"numComanda"=>$tikets[$i]->numComanda,"procedencia"=>$tikets[$i]->procedencia,"estado"=>$estado,"fechaHora"=>$tikets[$i]->fechaHora,"total"=>$tikets[$i]->total,"clientType"=>$tikets[$i]->clientType,"nombre"=>$tikets[$i]->nombre);
+	  $TicketsInfo[$i]=array("idComanda"=>$tikets[$i]->idComanda,"numComanda"=>$tikets[$i]->numComanda,"procedencia"=>$tikets[$i]->procedencia,"estado"=>"Credito","fechaHora"=>$tikets[$i]->fechaHora,"total"=>$tikets[$i]->total,"nombre"=>$tikets[$i]->nombre);
 	  }
  }	
  $response["TicketsInfo"]=$TicketsInfo;
