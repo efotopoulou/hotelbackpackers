@@ -64,7 +64,13 @@ $totalTickets=$caja->total_cuenta($idemp);
 }
 //eliminar una cuenta
 else if($cuentadelete){
-$caja->cuenta_delete($cuentadelete);
+$cuentaDel = substr($cuentadelete, 1);
+$debt = $caja->exist_debt($cuentaDel);
+if ($debt) $mensaje->setMensaje("No puedes eliminar esta cuenta porque el cliente debe dinero al hotel!");
+else{
+	$caja->cuenta_delete($cuentaDel);
+	$mensaje->setMensaje("La cuenta que elegiste se eliminó!");
+}
 $response = loadusuarios($caja);
 }
 }catch (SQLException $e){

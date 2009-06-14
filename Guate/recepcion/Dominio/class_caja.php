@@ -333,6 +333,12 @@ function set_usuario($nombreEmpleado,$cliente){
   $rs = $u->set_usuario($nombreEmpleado,$cliente);
 }
 
+function exist_debt($cuentadelete){
+  $u = new Dcaja();
+  $rs = $u->exist_debt($cuentadelete);
+  return $rs;		
+}
+
 function cuenta_delete($cuentadelete){
   $u = new Dcaja();
   $rs = $u->cuenta_delete($cuentadelete);	
