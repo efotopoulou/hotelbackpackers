@@ -22,6 +22,10 @@ class Dcaja{
 	const ESTADO_COMANDA = 'select estado from comanda where idComanda=?';
     const ESTADO_TIQUET = 'select estado from comanda where idComanda=?';
 	const DELETE_CREDITO_TIQUET = 'delete from comandacredito where idComanda=?';
+	const MOV_CREDITOS_DELETE = 'delete from movimientocredito where id_usuario=?';
+	const WHAT_COM_CREDITOS_DELETE = 'select t1.idComanda , t2.procedencia from comanda t1,comandacredito t2 where t1.idComanda=t2.idComanda and t1.tipoCliente=5 and t1.id_cliente=? and t2.procedencia="HR" union select t1.idComanda , t2.procedencia from restbar_bd.comanda t1,comandacredito t2 where t1.tipoCliente=5 and t1.idComanda=t2.idComanda and t1.id_cliente=?  and t2.procedencia="RB"';
+	const COM_CREDITOS_DELETE = 'delete from comandacredito where idComanda=? and procedencia=?';
+	const DEL_USUARIO_CUENTA ='UPDATE trabajador SET deleted=1 where idTrabajador=?';
 	
 	const ANULAR_TICKET = 'UPDATE comanda SET estado="anulado" where idComanda=?';
 	const LINEACOMANDA= 'select idPlatillo,cantidad from lineacomanda where idComanda=?';
@@ -43,7 +47,7 @@ class Dcaja{
 	
 	//Selects que tienen que hacer con las cuentas de credito
 	const GET_USUARIOS = 'select idTrabajador,nombre from trabajador where deleted=0';
-	const BUSCADOR_USUARIOS = 'select idTrabajador, nombre from trabajador where nombre LIKE ?';
+	const BUSCADOR_USUARIOS = 'select idTrabajador, nombre from trabajador where nombre LIKE ? and deleted=0';
 	const USUARIOS_COMANDAS = 'select t1.idComanda,t1.numComanda,t2.procedencia,t1.fechaHora,t2.total,t3.nombre from comanda t1,comandacredito t2,trabajador t3 where t1.tipoCliente=5 and procedencia="HR" and t1.idComanda=t2.idComanda and t1.id_cliente=t3.idTrabajador and t1.id_cliente=? union select t1.idComanda,t1.numComanda,t2.procedencia,t1.fechaHora,t2.total,t3.nombre from restbar_bd.comanda t1,comandacredito t2,trabajador t3 where tipoCliente=5 and procedencia="RB" and t1.idComanda=t2.idComanda and t1.id_cliente=t3.idTrabajador and t1.id_cliente=? order by fechaHora desc';
 	const USUARIOS_MOV = 'select t1.id_movimiento,t2.fechaHora,t1.cobrado as tipo,t1.dinero,t2.descripcion,t4.nombre as categoria,t3.nombre as encargado from movimientocredito t1,movimiento t2,guate_bd.usuario t3,categoria t4 where t1.id_movimiento=t2.id_movimiento and t1.procedencia="HR" and t1.id_usuario=? and t3.Id_usuario=t2.idencargado and t2.id_categoria=t4.id_categoria union select t1.id_movimiento,t2.fechaHora,t1.cobrado as tipo,t1.dinero,t2.descripcion,t4.nombre as categoria,t3.nombre as encargado from movimientocredito t1,restbar_bd.movimiento t2,guate_bd.usuario t3,restbar_bd.categoria t4 where t1.id_movimiento=t2.id_movimiento and t1.procedencia="RB" and t1.id_usuario=? and t3.Id_usuario=t2.idencargado and t2.id_categoria=t4.id_categoria order by fechaHora desc';
 	const TOTAL_CUENTA = 'select sum(total) as total from(select sum(t2.total) as total from comanda t1,comandacredito t2 where t1.idComanda=t2.idComanda and t1.tipoCliente=5 and t1.id_cliente=? and t2.procedencia="HR" union select sum(t2.total) as total from restbar_bd.comanda t1,comandacredito t2 where t1.tipoCliente=5 and t1.idComanda=t2.idComanda and t1.id_cliente=?  and t2.procedencia="RB" union select sum(t1.dinero) as total from movimientocredito t1,movimiento t2 where t1.id_movimiento=t2.id_movimiento and t1.id_usuario=? and t1.procedencia="HR" union select sum(t1.dinero) as total from movimientocredito t1,restbar_bd.movimiento t2 where t1.id_movimiento=t2.id_movimiento and t1.id_usuario=? and t1.procedencia="RB") as total';
@@ -61,7 +65,6 @@ class Dcaja{
 	const GET_PRECIOS = 'select precioLimitado,precioNormal from bar_bd.bebida where idBebida=?';
 	const TOTAL_COMANDA_CREDITO = 'select total from comandacredito where idComanda=?';
 	const TOTAL_MOV_CREDITO ='select dinero from movimientocredito where id_movimiento=?';
-	
 	
 	public function is_caja_open (){
 		$comunication = new ComunicationRecep();
@@ -414,12 +417,45 @@ class Dcaja{
 		$result = $comunication->query(self::SET_USUARIO,$PARAMS,$PARAMS_TYPES);
 	}
 	
+    public function exist_debt($cuentadelete){
+        $comunication = new ComunicationRecep();
+		$PARAMS = array($cuentadelete,$cuentadelete,$cuentadelete,$cuentadelete);
+		$PARAMS_TYPES = array (ComunicationRecep::$TINT,ComunicationRecep::$TINT,ComunicationRecep::$TINT,ComunicationRecep::$TINT);
+		$rs = $comunication->query(self::TOTAL_CUENTA,$PARAMS,$PARAMS_TYPES);	
+		
+		 if ($rs->getRecordCount()>0){
+			while($rs->next()){
+				$result=$rs->getRow();
+				$a=$result["total"];
+				}}
+			if ($a == NULL || $a == 0 ) return 0;
+			else return 1;
+}
+
 	public function	cuenta_delete($cuentadelete){
 	    $comunication = new ComunicationRecep();
 		$PARAMS = array($cuentadelete);
 		$PARAMS_TYPES = array (ComunicationRecep::$TINT);
-		$result = $comunication->query(self::CUENTA_DELETE,$PARAMS,$PARAMS_TYPES);
+		$result = $comunication->query(self::MOV_CREDITOS_DELETE,$PARAMS,$PARAMS_TYPES);
 		
+		$PARAMS = array($cuentadelete,$cuentadelete);
+		$PARAMS_TYPES = array (ComunicationRecep::$TINT,ComunicationRecep::$TINT);
+		$rs = $comunication->query(self::WHAT_COM_CREDITOS_DELETE,$PARAMS,$PARAMS_TYPES);
+		
+		if ($rs->getRecordCount()>0){
+			while($rs->next()){
+				$result=$rs->getRow();
+				$a=$result["idComanda"];
+				$b=$result["procedencia"];
+				
+				$PARAMS = array($a,$b);
+				$PARAMS_TYPES = array (ComunicationRecep::$TINT,ComunicationRecep::$TSTRING);
+				$result = $comunication->query(self::COM_CREDITOS_DELETE,$PARAMS,$PARAMS_TYPES);
+				}}
+				
+				$PARAMS = array($cuentadelete);
+				$PARAMS_TYPES = array (ComunicationRecep::$TINT);
+				$result = $comunication->query(self::DEL_USUARIO_CUENTA,$PARAMS,$PARAMS_TYPES);
 	}
 	
 	public function total_cuenta($idusuario){

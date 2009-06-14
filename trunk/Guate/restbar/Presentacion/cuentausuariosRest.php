@@ -214,13 +214,15 @@ var tipo= $("#tipo").val();
 //-------------------------------------------ELIMINAR CUENTA-------------------------------------------------//
 function eliminar_cuenta(){
 var cuentadelete=$("#usuariosTable .amarillo").attr("id");
-alert(cuentadelete);
+//alert(cuentadelete);
   if(confirm('Estas seguro que quieres eleminar esta cuenta?')){
      $.getJSONGuate("Presentacion/jsoncuentausuarios.php",{cuentadelete:cuentadelete}, function(json){
       json = verificaJSON(json);
       loadusuarios(json);
       $("#ticketsTable").html(" ");
-      $("#total").html("0");
+      $("#movimientosTable").html(" ");
+      $(".total").html("0");
+      $(".pagado").html("0");
      });
   }
 }
