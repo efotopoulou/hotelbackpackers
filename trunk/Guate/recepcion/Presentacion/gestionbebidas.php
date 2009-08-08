@@ -36,7 +36,7 @@ recargaEstadoRestaurante();
 </head>
 <script>
 function recargaEstadoRestaurante(){
- $.getJSON("Presentacion/jsongestionbar.php",{recarga:"yes"}, function(json){
+ $.getJSONGuate("Presentacion/jsongestionbar.php",{recarga:"yes"}, function(json){
   json = verificaJSON(json);
   loadpage(json);
  });
@@ -89,13 +89,13 @@ var a=algo;
 	var platilloid=$("#bebidasTable .btnpress").attr("id");
 	if (a=="family" && familiaid){
            if(confirm('�Estas seguro que quieres eliminar esta familia?')){
-             $.getJSON("Presentacion/jsongestionbar.php",{familydeleteid:familiaid}, function(json){json = verificaJSON(json);loadfamilias(json);});
+             $.getJSONGuate("Presentacion/jsongestionbar.php",{familydeleteid:familiaid}, function(json){json = verificaJSON(json);loadfamilias(json);});
            }else{$("#"+familiaid).toggleClass("btnpress");
 		 	   $("#"+familiaid).toggleClass("redtext");}
 		 	     
 	}else if (a=="platillo" && platilloid){
 		   if(confirm('�Estas seguro que quieres eliminar este platillo?')){
-		     $.getJSON("Presentacion/jsongestionbar.php",{bebidadeleteid:platilloid}, function(json){json = verificaJSON(json);loadbebidas(json);});
+		     $.getJSONGuate("Presentacion/jsongestionbar.php",{bebidadeleteid:platilloid}, function(json){json = verificaJSON(json);loadbebidas(json);});
 		   }else{$("#"+platilloid).toggleClass("btnpress");
 		 	     $("#"+platilloid).toggleClass("redtext");}
 	}
@@ -144,7 +144,7 @@ function guardarfamily(){
    var color = "#"+$("#myhexcode").val();
     if(namefamily && color ){
     	if(confirm('�Estas seguro que quieres guardar esta familia?')){
-	      $.getJSON("Presentacion/jsongestionbar.php",{namefamily:namefamily,color:color}, function(json){json = verificaJSON(json);loadfamilias(json);});
+	      $.getJSONGuate("Presentacion/jsongestionbar.php",{namefamily:namefamily,color:color}, function(json){json = verificaJSON(json);loadfamilias(json);});
     	}
 		$("#namefamily").val("");
 		$("#myhexcode").val("");
@@ -159,7 +159,7 @@ function modificarfamily(namefamilymod,colormod,familiaid){
    var familiaid=$("#familiasTable .btnpress").attr("id");
 	if(namefamilymod && familiaid){
 	     if(confirm('�Estas seguro que quieres modificar esta familia?')){
-	        $.getJSON("Presentacion/jsongestionbar.php",{namefamilymod:namefamilymod,famidmod:familiaid}, function(json){json = verificaJSON(json);loadfamilias(json);});
+	        $.getJSONGuate("Presentacion/jsongestionbar.php",{namefamilymod:namefamilymod,famidmod:familiaid}, function(json){json = verificaJSON(json);loadfamilias(json);});
 	     }
 		 $("#namefamilymod").val("");
 		 changedisplay('b4mod');
@@ -176,7 +176,7 @@ function guardarbebida(){
 	var bebidaFamily = $("#bebidaFamily").val();
 	if(idbebida && namebebida && precioN && precioL && bebidaFamily){
         if(confirm('�Estas seguro que quieres guardar este platillo?')){
-           $.getJSON("Presentacion/jsongestionbar.php",{idbebida:idbebida,namebebida:namebebida,precioN:precioN,precioL:precioL,bebidaFamily:bebidaFamily}, function(json){
+           $.getJSONGuate("Presentacion/jsongestionbar.php",{idbebida:idbebida,namebebida:namebebida,precioN:precioN,precioL:precioL,bebidaFamily:bebidaFamily}, function(json){
            	  json = verificaJSON(json);
            	  loadbebidas(json,idbebida);
            	  $(".Cod"+idbebida).addClass("saved");
@@ -201,7 +201,7 @@ function modificarbebida(){
 	var precioLmod = $("#precioLmod").val();
 	  if(platilloid && precioNmod && precioLmod){
          if(confirm('�Estas seguro que quieres modificar esta bebida?')){
-             $.getJSON("Presentacion/jsongestionbar.php",{idbebidamod:platilloid,precioNmod:precioNmod,precioLmod:precioLmod}, function(json){json = verificaJSON(json);loadbebidas(json);});
+             $.getJSONGuate("Presentacion/jsongestionbar.php",{idbebidamod:platilloid,precioNmod:precioNmod,precioLmod:precioLmod}, function(json){json = verificaJSON(json);loadbebidas(json);});
          }
 		 $("#idplatomod").val("");
 		 $("#nameplatomod").val("");

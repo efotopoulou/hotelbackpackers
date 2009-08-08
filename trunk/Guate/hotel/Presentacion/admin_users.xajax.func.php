@@ -4,7 +4,7 @@ require($_SERVER['DOCUMENT_ROOT'] . '/hotel/Dominio/class_usuario.php');
 	
 	function loadUsers(){
 		$objResponse = new xajaxResponse('ISO-8859-1');
-		$usr=new usuario();
+		$usr=new user();
 		$ses=new session();
 		$ses->get_perfiles();
 		
@@ -29,7 +29,7 @@ require($_SERVER['DOCUMENT_ROOT'] . '/hotel/Dominio/class_usuario.php');
 	
 	function changeUsers($usrdata, $modo){
 		$objResponse = new xajaxResponse('ISO-8859-1');
-		$tempo = new usuario();
+		$tempo = new user();
 		
 		if($modo==1){
 			$resbox=$tempo->insertar_usuario($usrdata);

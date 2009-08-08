@@ -164,7 +164,8 @@ var tipo= $("#tipo").val();
 //-------------------------------------------ELIMINAR CUENTA-------------------------------------------------//
 function eliminar_cuenta(){
 var cuentadelete=$("#usuariosTable .amarillo").attr("id");
-//alert(cuentadelete);
+//alert (cuentadelete);
+ if (cuentadelete){
   if(confirm('Estas seguro que quieres eliminar esta cuenta?')){
      $.getJSONGuate("Presentacion/jsoncuentausuarios.php",{cuentadelete:cuentadelete}, function(json){
       json = verificaJSON(json);
@@ -176,6 +177,7 @@ var cuentadelete=$("#usuariosTable .amarillo").attr("id");
       $(".pagado").html("0");
      });
   }
+ } else alert ("Elije primero la cuenta que quieres eliminar.");
 }
 //--------------------------------------------------------INSERT MOVIMIENTO A CREDITO--------------------------------------------------------//
 function insertMovimiento(entrada,description,categoria){

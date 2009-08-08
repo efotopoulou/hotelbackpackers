@@ -5,7 +5,7 @@ require ($_SERVER['DOCUMENT_ROOT'] . '/recepcion/Dominio/class_turno.php');
 $turno=new turno();
 $turn=$turno->get_turno_caja();
 
-$usr=new usuario();
+$usr=new user();
 if ($sesion){
 	$allowed=$sesion->is_allowed('admin_menu');
 	$allowedRest=$sesion->is_allowed_rest();}
@@ -38,35 +38,37 @@ else
                 <li><a href="/hotel/view.php?page=checkout">Check-out</a></li>
 				<li><a href="/hotel/view.php?page=cliente">Clientes</a></li>
 				<li><a href="/hotel/view.php?page=factura">Facturas</a></li>
+				<?php if($allowed){ ?>
+				<li><a style="font-weight:bold">Admin Hotel:</a></li>
+				<li><a href="/hotel/view.php?page=admin_precios">Precios y Temporadas</a></li>
+				<li><a href="/hotel/view.php?page=admin_users">Usuarios</a></li>
+				<li><a href="/hotel/view.php?page=admin_listados">Listados</a></li>
+				<li><a href="/common/phpMyBackupPro/">Backup</a></li>
+				<?php } ?>
+
 		    </ul>
 		</li>		
-				<?php if($allowed){ ?>
-				<li><a>Admin Hotel</a>
-					<ul>
-						<li><a href="/hotel/view.php?page=admin_precios">Precios y Temporadas</a></li>
-						<li><a href="/hotel/view.php?page=admin_users">Usuarios</a></li>
-						<li><a href="/hotel/view.php?page=admin_listados">Listados</a></li>
-						<li><a href="/common/phpMyBackupPro/">Backup</a></li>
-					</ul>
-				</li>
-				<?php } ?>
 <?php if($allowedRest["caja"]){ ?><li><a href="/recepcion/view.php?page=caja">Caja</a></li><?php } ?>
 				<li><a>Opciones Recepcion</a>
 			<ul>
 <?php if($allowedRest["ventarecepcion"]){ ?><li><a href="/recepcion/view.php?page=ventarecepcion">Venta en Recepcion</a></li><?php } ?>
+<?php if($allowedRest["cuentausuarios"]){ ?><li><a href="/recepcion/view.php?page=cuentausuarios">Cuenta De Usuarios</a></li><?php } ?>
+<?php if($allowedRest["controldestock"]){ ?><li><a href="/recepcion/view.php?page=controldestock">Control de Stock</a></li><?php } ?>
 <?php if($allowedRest["historicocaja"]){ ?><li><a href="/recepcion/view.php?page=historicocaja">Historico Caja</a></li><?php } ?>
+<?php if($allowedRest["estadisticas"]){ ?><li><a href="/recepcion/view.php?page=estadisticas">Estadisticas</a></li><?php } ?>
+<?php if($allowedRest["sugerencias"]){ ?><li><a href="/recepcion/view.php?page=sugerencias">Sugerencias</a></li><?php } ?>
+<?php if($allowedRest["gestionbebidas"]){ ?><li><a style="font-weight:bold">Admin Recepcion:</a></li><?php } ?>
 <?php if($allowedRest["gestionbebidas"]){ ?><li><a href="/recepcion/view.php?page=gestionbebidas">Gestion de Bebidas</a></li><?php } ?>
 <?php if($allowedRest["gestionplatillos"]){ ?><li><a href="/recepcion/view.php?page=gestionplatillos">Gestion de Platillos</a></li><?php } ?>
-<?php if($allowedRest["controldestock"]){ ?><li><a href="/recepcion/view.php?page=controldestock">Control de Stock</a></li><?php } ?>
-<?php if($allowedRest["cuentausuarios"]){ ?><li><a href="/recepcion/view.php?page=cuentausuarios">Cuenta De Usuarios</a></li><?php } ?>
-<?php if($allowedRest["estadisticas"]){ ?><li><a href="/recepcion/view.php?page=estadisticas">Estadisticas</a></li><?php } ?>
+
 		    </ul>
 		</li>		
-				
+<?php if($allowedRest["restaurante"]){ ?><li><a href="/restbar/view.php?page=cajaRest">Ir a Restaurante</a></li><?php } ?>
 			</ul>
 			
 		<div id="userdiv" style="width:190px">
 			<div style="float:left">
+			    <span style="font-size:15px;margin-right:10px;font-weight:bold"><a href="/common/docs/manualdeinstalacionwindows.pdf" target="blank">?</a></span>
 				<select id="selUsers" onChange="changeId()" style="font-size:10px">
 				<?php echo genera_usuarios($sesion, $usr); ?>
 				</select>
@@ -76,7 +78,7 @@ else
 				<a href="/hotel/view.php?page=login" style="color:#FFFFFF">Salir</a>
 			</div>	
 			
-			<div id="turno"><center>Turno de <span class='turnico'><?php echo($turn); ?></span></center></div>
+			<div id="turno"  style="text-align:center"><span class='turnico'><?php echo($turn); ?></span></center></div>
 			
 			<div style="clear:both"></div>
 		</div>

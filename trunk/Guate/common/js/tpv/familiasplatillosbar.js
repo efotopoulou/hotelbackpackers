@@ -4,12 +4,12 @@ function getFamilias(){
     crearFamilias(json);
  });
 }
-function getFamiliasBar(file){
- $.getJSON(file, function(json){
-    json = verificaJSON(json);
-    crearFamilias(json);
- });
-}
+//function getFamiliasBar(file){
+// $.getJSON(file, function(json){
+ //   json = verificaJSON(json);
+ //   crearFamilias(json);
+// });
+//}
 function getPlatillosVentaRecepcion(file){
  $.getJSONGuate(file, function(json){
     json = verificaJSON(json);

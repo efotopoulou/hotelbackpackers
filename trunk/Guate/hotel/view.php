@@ -3,15 +3,19 @@ include($_SERVER['DOCUMENT_ROOT'] . '/common/Dominio/class_session.php');
 require_once ($_SERVER['DOCUMENT_ROOT'] . '/common/Dominio/class_log.php');
 ini_set('display_errors','1');
 
+function error_handler($errno, $errstr, $errfile, $errline) { 
+  if (4096 == $errno) throw new Exception($errstr); 
+  return false; 
+} 
+
 function gestor_excepciones($excepcion) {
   echo "Excepción no capturada: " , $excepcion->getMessage(), "\n";
-error_log($excepcion->getMessage()."\r\n", 3, $_SERVER['DOCUMENT_ROOT'] . '/hotel/log/error.log');
+	$log = new log();
+	$log->guardarErrorHotel($excepcion, 2);
 }
 
+set_error_handler('error_handler');
 set_exception_handler('gestor_excepciones');
-
-
-
 
 ob_start();
 $sesion = new session();
@@ -25,6 +29,13 @@ if($_GET!=null){
 	if($sesion->is_allowed($p_req))
 		$page=$p_req;	
 }
-
+try{
 include('Presentacion/'.$page.'.php');
+}
+catch (Exception $excepcion) {
+ 	 		$texto=$excepcion->getMessage().$excepcion->getFile()."Line:".$excepcion->getLine().$excepcion->getTraceAsString();
+ 	 		$log = new log();
+ 	 		$log->guardarErrorHotel($texto,2);
+	 		//throw $excepcion;
+		}
 ?>

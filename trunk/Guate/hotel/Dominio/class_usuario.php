@@ -1,12 +1,14 @@
 <?php
 
 require_once ($_SERVER['DOCUMENT_ROOT'] . '/hotel/Datos/Dusuario.php');
+require_once ($_SERVER['DOCUMENT_ROOT'] . '/hotel/Dominio/Usuario.php');
 
 
-class usuario {
+class user {
 	
 	private $usr;
-		
+	
+	//TODO: Hacer esta función utilizando la clase Usuario.php	
 	function get_usuarios($id_perfil=0){
  		$datos=new Dusuario();
  		
@@ -20,15 +22,16 @@ class usuario {
 		}
 		return $rs->getRecordCount();
  	}
-	
-	function get_usuario($id_usr){
+	//Función que se utiliza en el login para saber si el id pasado existe en la BBDD.
+	//Si existe, pone en la variable privada $usr los valores del usuario seleccionado. 
+	function existe_usuario($id_usr){
  		$datos=new Dusuario();
  		
-		$rs=$datos->get_usuario($id_usr);	
+		$rs=$datos->existe_usuario($id_usr);	
  		
  		if($rs->getRecordCount()>0){
  			$rs->next();
-			$this->usr[$rs->getInt('Id_usuario')] = array("nombre"=>$rs->getString('nombre'), "id_perfil"=>$rs->getInt('Id_perfil'));	
+			$this->usr = new Usuario($rs->getInt('Id_usuario'),$rs->getInt('Id_perfil'),$rs->getString('nombre'), $rs->getString('email'));	
  		}
 		return $rs->getRecordCount();
  	}
@@ -63,9 +66,11 @@ class usuario {
 		return $a['nombre'];		
 	}
 	
+	//PRE: Se tiene que haber llamado antes a la función existe_usuario,
+	//que carga la información del usuario en la variable privada.
 	function get_id_perfil(){
-		$a=current($this->usr);
-		return $a['id_perfil'];		
+		$a=$this->usr->Id_perfil;
+		return $a;		
 	}
 	
 	function get_count(){
