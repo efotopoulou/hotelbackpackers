@@ -1,10 +1,11 @@
 <?php
 include($_SERVER['DOCUMENT_ROOT'] . '/hotel/Dominio/class_usuario.php');
-$usr=new usuario();
+$usr=new user();
 if ($sesion)
 	$allowed=$sesion->is_allowed('admin_menu');
 else
 	exit();
+throw new Exception();
 ?>
 
 <script>

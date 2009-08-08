@@ -5,7 +5,7 @@ require ($_SERVER['DOCUMENT_ROOT'] . '/restbar/Dominio/class_turno.php');
 $turno=new turno();
 $turn=$turno->get_turno_caja();
 
-$usr=new usuario();
+$usr=new user();
 if ($sesion){
 	$allowedRest=$sesion->is_allowed_rest();}
 else

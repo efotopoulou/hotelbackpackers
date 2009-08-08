@@ -12,8 +12,8 @@ $xajax->printJavascript('xajax/');
 	<meta name="MSSmartTagsPreventParsing" content="true">
 	<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 
-	<link href="css/estilo.css" rel="stylesheet" type="text/css" />
-	
+	<script src="/common/js/jquery-1.2.3.pack.js"></script>
+	<script src="/common/js/jquery.blockUI.js"></script>
 	<script src="scripts/nav.js"></script>	
 
 	<link href="/common/css/estilo.css" rel="stylesheet" type="text/css" />
@@ -106,7 +106,7 @@ $xajax->printJavascript('xajax/');
 		}	
 
 		function optionPerfil(opc){
-			if(opc==1 || opc==2){	//a�adir-modificar
+			if(opc==1 || opc==2){	//a&ntilde;adir-modificar
 				if(opc==1)
 					document.getElementById('FormPerfil').reset();	
 				document.getElementById('perfil_edit').style.display="";
@@ -175,9 +175,9 @@ $xajax->printJavascript('xajax/');
 
 	<div id="principal">
 	<h5 class="titulos">Usuarios del Hotel Backpackers</h5>		
-	 	<div class="box_amarillo" align="center" style="float: left; height:50%; width: 435px; margin-top:20px">
+	 	<div class="box_amarillo" align="center" style="overflow:auto;float: left; height:75%; width: 92%; margin-top:20px">
 		
-			<div id="EditUsers" style="height:200px;margin-top:20px;overflow:auto"></div>
+			<div id="EditUsers" style="margin-top:20px;overflow:auto"></div>
 			
 			<form id="FormUsers">
 			<table class="t_general">
@@ -191,7 +191,7 @@ $xajax->printJavascript('xajax/');
 			</form>
 			
 			<div id="b1" style="float:left; width:100%; margin-top:5px;">			
-				<input type="button" value="A�adir"  style="width:100px" onclick="optionUser(1)"/>
+				<input type="button" value="A&ntilde;adir"  style="width:100px" onclick="optionUser(1)"/>
 				<input type="button" value="Modificar" style="width:100px" onclick="optionUser(2)"/>
 				<input type="button" value="Eliminar" style="width:100px" onclick="optionUser(3)"/>		
 			</div>
@@ -218,7 +218,7 @@ $xajax->printJavascript('xajax/');
 			</form>
 			
 			<div id="b3" style="float:left; width:100%; margin-top:5px;">			
-				<input type="button" value="A�adir"  style="width:100px" onclick="optionPerfil(1)"/>
+				<input type="button" value="A&ntilde;adir"  style="width:100px" onclick="optionPerfil(1)"/>
 				<input type="button" value="Modificar" style="width:100px" onclick="optionPerfil(2)"/>
 				<input type="button" value="Eliminar" style="width:100px" onclick="optionPerfil(3)"/>		
 			</div>
@@ -235,7 +235,7 @@ $xajax->printJavascript('xajax/');
 			</form>
 			
 			<div id="b3_rest" style="float:left; width:100%; margin-top:5px;">			
-				<input type="button" value="A�adir"  style="width:100px" onclick="optionPerfilRest(1)"/>
+				<input type="button" value="A&ntilde;adir"  style="width:100px" onclick="optionPerfilRest(1)"/>
 				<input type="button" value="Modificar" style="width:100px" onclick="optionPerfilRest(2)"/>
 				<input type="button" value="Eliminar" style="width:100px" onclick="optionPerfilRest(3)"/>		
 			</div>

@@ -89,16 +89,16 @@ require_once ($_SERVER['DOCUMENT_ROOT'] . '/common/Datos/Dsession.php');
  	}
  	
 
- 	function get_perfil($id){
- 		$datos=new Dsession();
- 		
- 		$rs=$datos->get_perfil($id);
- 		if ($rs->getRecordCount()>0){
-			$rs->next();
-			$this->perfil[$rs->getInt('Id_perfil')] = array("nombre"=>$rs->getString('nombre'));	
-		}
-		return $rs->getRecordCount();
- 	}
+ //	function get_perfil($id){
+ //		$datos=new Dsession();
+ //		
+ //		$rs=$datos->get_perfil($id);
+ //		if ($rs->getRecordCount()>0){
+//			$rs->next();
+//			$this->perfil[$rs->getInt('Id_perfil')] = array("nombre"=>$rs->getString('nombre'));	
+//		}
+//		return $rs->getRecordCount();
+// 	}
  	
  	function insertar_perfil($data){
 		$datos=new Dsession();
@@ -123,21 +123,34 @@ require_once ($_SERVER['DOCUMENT_ROOT'] . '/common/Datos/Dsession.php');
 		return $rs;
 	}
 	
- 	function validar_perfil($id, $pass){
+ 	function validar_usuario($id, $id_perfil, $pass){
  		$datos=new Dsession();
-
- 		$rs=$datos->get_perfil($id);
+		$result=false;
+ 		$rs=$datos->get_password($id);
  		
  		if ($rs->getRecordCount()>0){
 			$rs->next();
 			$pass_bd=$rs->getString('password');
 			
 			if(md5($pass)==$pass_bd){	
-				$this->setSessionVar('id_perfil', $id);
-				return true;
+				$this->setSessionVar('id_perfil', $id_perfil);
+				$result=true;
 			}
 		}
-		return false;
+		return $result;
+ 	}
+	//Funcion que devuelve la pagina a cargar dependiendo del id del perfil 
+	//del usuario. Por defecto, va a la pagina de login.
+ 	function getOnLoad($id){
+ 		$datos=new Dsession();
+ 		$onload="/restbar/view.php?page=comidaRest";
+ 		$rs=$datos->getOnLoad($id);
+ 		
+ 		if ($rs->getRecordCount()>0){
+			$rs->next();
+			$onload=$rs->getString('onload');
+		}
+		return $onload;
  	}
  	
  	
@@ -282,21 +295,20 @@ require_once ($_SERVER['DOCUMENT_ROOT'] . '/common/Datos/Dsession.php');
 		$this->id_usuario=$id;
 	}
 
+//Comprueba si el usuario asignado a un perfil tiene permiso para ver esa pagina. 
  	function is_allowed($page){
  	 	$datos=new Dsession();
-
+		$result=false;
 		if($page=='slgrid' || $page=='message_box'|| $page=='print_factura')
-			return true; 			
- 		
- 		$rs=$datos->get_perfil($this->id_perfil);
- 		if ($rs->getRecordCount()>0){
+			$result=true; 			
+ 		else {
+ 		 $rs=$datos->is_allowed_hotel($this->id_perfil, $page);
+ 		 if ($rs->getRecordCount()>0){
 			$rs->next();
- 			$row=$rs->getRow();
- 			//si es una p�gina v�lida y se est� autorizado
- 			if( (array_key_exists($page, $row) && $row[$page]))
- 				return true;
+			$result=$rs->getInt('permiso');
+ 		 }
  		}
- 		return false;
+ 		return $result;
  	}
  	function is_allowed_rest(){
  		$datos=new Dsession();

@@ -72,9 +72,9 @@ class Dalojamiento{
 			}
 		}		
 		
-		$PARAMS = array($valor);
-		$PARAMS_TYPES = array (ComunicationRecep::$TFLOAT);
-		$checkin = $comunication->query(self::ERROR,$PARAMS,$PARAMS_TYPES);		
+		//$PARAMS = array($valor);
+		//$PARAMS_TYPES = array (ComunicationRecep::$TFLOAT);
+		//$checkin = $comunication->query(self::ERROR,$PARAMS,$PARAMS_TYPES);		
 		
 		
 		if ($valor<0) $PARAMS = array($a,"salida",abs($valor),$nombre." ".$apellido1." ".$apellido2." noches(".$noches.") ".$descripcion." chekin",2,$idencargado);

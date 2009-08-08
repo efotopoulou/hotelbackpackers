@@ -1,5 +1,4 @@
 function salir(){
-	//alert("saliendo");
 	location.href='/view.php';
 }
 function verificaJSON(json){
@@ -23,8 +22,14 @@ $.getJSONGuate = function(url, data, callback, isSyncr) {
               data:data,
               dataType:"json",
               error: function (XMLHttpRequest, textStatus, errorThrown) {
-                if (textStatus == "error") alert("La pagina: "+this.url +" que intentas acceder no existe");
-                if (textStatus == "parsererror") alert("La pagina: "+this.url +" que intentas acceder no devuelve un JSON correcto. Respuesta: "+XMLHttpRequest.responseText);
+                if (textStatus == "error"){
+                  $.getJSON("Presentacion/jsonlog.php",{url:this.url});
+                  alert("La pagina: "+this.url +" que intentas acceder no existe");
+                }
+                if (textStatus == "parsererror"){
+                  $.getJSON("Presentacion/jsonlog.php",{url:this.url,text:XMLHttpRequest.responseText});
+                  alert("La pagina: "+this.url +" que intentas acceder no devuelve un JSON correcto. Respuesta: "+XMLHttpRequest.responseText);
+                }
                 this; // the options for this ajax request
                },
               success:callback,

@@ -18,6 +18,7 @@ class log{
 	public static $CERRAR_FRA=11;
 	public static $USR_LOGIN=12;
 	
+	
 	function __construct(){
 		$this->err_file=$_SERVER['DOCUMENT_ROOT'] . '/hotel/log/error.log';	
 	}
@@ -28,8 +29,25 @@ class log{
 		$datos->insert_log($id_usuario, $id_accion, $id_evento);
 	}
 	
-	function insertar_error($msg){
-		error_log(date("d-m-Y H:i:s ").$msg."\r\n", 3, $this->err_file);	
-	}
-	
+//	function insertar_error($msg){
+	//	error_log(date("d-m-Y H:i:s ").$msg."\r\n", 3, $this->err_file);	
+//	}
+//Funcion que guarda las excepciones de php no controladas en el hotel  
+    public function guardarErrorHotel($texto, $errortype){
+    	error_log(date("Y-m-d,H:i:s").":".$texto."Errortype:".$errortype."\r\n", 3, $this->err_file);
+    	$datos=new Dlog();
+    	$datos->guardarErrorHotel($texto, $errortype);
+    } 
+//Funcion que guarda las excepciones de php no controladas en el la recepcion  
+    public function guardarErrorRecepcion($texto, $errortype){
+		error_log(date("Y-m-d,H:i:s").":".$texto."Errortype:".$errortype."\r\n", 3, $this->err_file);
+    	$datos=new Dlog();
+    	$datos->guardarErrorRecepcion($texto, $errortype);
+    } 
+//Funcion que guarda las excepciones de php no controladas en el hotel  
+    public function guardarErrorRestBar($texto, $errortype){
+    	error_log(date("Y-m-d,H:i:s").":".$texto."Errortype:".$errortype."\r\n", 3, $this->err_file);
+    	$datos=new Dlog();
+    	$datos->guardarErrorRestBar($texto, $errortype);
+    } 
 }

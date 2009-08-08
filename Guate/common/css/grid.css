@@ -8,83 +8,83 @@
 .Header th { 
 	font-size: 100%; font-weight: bold; text-align: left;
 	padding: 2px;
-	background-image: url(images/headerbg.gif); color: #ffffff;
+	background-image: url(/common/img/jqgrid/headerbg.gif); color: #ffffff;
 	width: 100%;
 	white-space: nowrap;
 	}
 
 .HeaderLeft { 
-	background-image: url(images/headerleft.gif);
+	background-image: url(/common/img/jqgrid/headerleft.gif);
 	}
 
 .HeaderRight { 
-	background-image: url(images/headerright.gif);
+	background-image: url(/common/img/jqgrid/headerright.gif);
 	}
 .HeaderButton {
-	background-image: url(images/headerbg.gif);	
+	background-image: url(/common/img/jqgrid/headerbg.gif);	
 }
 .HeaderButton img{
-	width: 21px;
+	width: 19px;
 }
 
 .HeaderLeft img{
-	width: 4px;
+	width: 7px;
 	}
 
 .HeaderRight img{
-	width: 9px;
+	width: 12px;
 	}
 .GridHeader table {margin:0;}
 .GridHeader td, tr {padding:0;}
 
-
 /* Grid */
 table.scroll {
-	border-right: 1px solid #FFFFFF;	
+	border-right: 1px solid #ffe3b0;	
 	table-layout: fixed;
-	margin-bottom:0;
+	margin-bottom :0px;
 }
 table.scroll tbody tr {
-	background-color: #eceae3; 
+	background-color: #f7f7f7; 
 }
 
 table.scroll tbody tr.alt{
-	background-color: #e3dfd1; 
+	background-color: #fff6e6; 
 }
 	
 table.scroll tr.over td{
-	background-color: #D2B48C;
+	background-color: #E1DCF4;
 }
 	
 	
 table.scroll tr.selected td {
-	background-color: #c9b9b1;
-	color: Black;
+	background-color:#3d84cc;
+	color: White;
 }
 
-table.scroll tbody tr td  {
+table.scroll tbody td  {
 	font-size: 90%;
 	padding: 2px;
 	text-align: left;
-	border-left: 1px solid #FFFFFF;
-	border-bottom: 1px solid #FFFFFF; 
+	border-left: 1px solid #ffe3b0;
+	border-bottom: 1px solid #ffe3b0; 
 	text-overflow: ellipsis;
 	overflow: hidden;
 	white-space: nowrap;
 	height : auto;
 }
 
-table.scroll thead tr th  {
+table.scroll thead th  {
 	font-size: 90%;
-	font-weight: normal;
+	vertical-align: top;
 	padding: 2px;
-	border-left: 1px solid #FFFFFF; 
-	border-bottom: 1px solid #FFFFFF; 
+	border-left: 1px solid #ffe3b0; 
+	border-bottom: 1px solid #ffe3b0; 
 	text-align: left;
+	font-weight: normal;
 	overflow: hidden;
 	white-space: nowrap;
-	background: url(images/grid-blue-hd.gif) transparent repeat-x;
-	height : 18px;
+	background-image: url(/common/img/jqgrid/grid-blue-hd.gif);
+	height: 17px;
 }
 table.scroll thead tr th div img {
 	width: 9px;
@@ -92,23 +92,21 @@ table.scroll thead tr th div img {
 	
 table.scroll th div {
 	overflow: hidden;
-/*	white-space: nowrap;*/
-	word-wrap: break-word;
-	height : 18px;
+	white-space: nowrap;
+	height : 17px;
 }
 	table.scroll th span {
 	cursor: e-resize;
 /*	border-right: 1px solid #D6D2C2;  */
-	width: 5px;
+	width: 10px;
 	float: right;
-	position: relative;
 	display: block;
-	margin: -1px -1px -1px 0px;
+	margin: -2px -1px -2px 0px;
 	height: 18px;
 	overflow: hidden;
 	white-space: nowrap;
 }
-
+	
 table.scroll thead {
 }
 
@@ -120,14 +118,14 @@ div.scroll {
 	height: 23px;
 	text-align: center;	
 	white-space: nowrap;
-	background-image: url(images/grid-blue-ft.gif);
-	border-right: 1px solid #FFFFFF;
-	border-left: 1px solid #FFFFFF;	
-	border-bottom: 1px solid #FFFFFF;
-	display : none;
+	background-image: url(/common/img/jqgrid/grid-blue-ft.gif);
+	border-right: 1px solid #ffe3b0;	
+	border-left: 1px solid #ffe3b0;	
+	border-bottom: 1px solid #ffe3b0;
+	display : none;	
 }
 div.scroll span {
-	vertical-align : top;
+	vertical-align : top; 	
 }
 .selbox {
 	font-size: x-small;
@@ -138,7 +136,8 @@ input.selbox{
 	vertical-align : top;
 }
 .pgbuttons {
-	margin-top :1px;
+	margin-top :2px;
+	width: 19px;
 }
 .nav-table-left {
 	padding:1px;
@@ -152,20 +151,25 @@ input.selbox{
 	margin-top:2px;
 }
 table.navtable {margin-bottom:0; width: auto;}
-table.navtable tbody tr {
-	background-image: url(images/grid-blue-ft.gif);
+table.navtable tr{
+	background-image: url(/common/img/jqgrid/grid-blue-ft.gif);	
 }
-table.navtable tbody tr td.nav-button {
-	border: 1px solid #FFFFFF;
+
+table.navtable td.nav-button {
+/*	margin-top:2px;*/
+	border: 1px solid #ffe3b0;
 	white-space: nowrap;
 }
-table.navtable tbody tr td.nav-hover {
-	border: 1px solid #c9b9b1;
+
+table.navtable td.nav-hover {
+	border: 1px solid #3d84cc;
 }
-table.tbutton tbody tr td {
+
+table.tbutton tr td{
 	border : none;
 	padding:0px;
 }
+
 img.jsHover { /*not used */
 	border: 1px solid #99CCFF;
 }
@@ -174,8 +178,7 @@ img.jsHover { /*not used */
 .cbox {
 	height: 10px;
 	width: 10px;
-/*	text-align: center;*/
-/*border:1px solid #999;*/
+	/*border:1px solid #999;*/
 }
 /* end multiselect */
 
@@ -190,6 +193,7 @@ div.loading {
 	color: white;
 	display: none;
 }
+
 div.loadingui {
 	display:none;
 	z-index:6000;
@@ -201,11 +205,11 @@ div.loadingui {
 }
 
 /* end loading div */
-/*toolbar */
 div.userdata {
 	margin-top: 0px;
-	background-color : #e3dfd1;
+	background-color : #f7f7f7;
 	height : 20px;
+	overflow: hidden;
 }
 /* end toolbar */
 /*Subgrid  text mode*/
@@ -269,12 +273,12 @@ select.editable {
     background:#F9F9F9;
     text-align:left;
     margin: 0 auto;
-	overflow: auto;
+	overflow: auto;    
 }
 
 
 .modalhead {
-	background-image: url(images/grid-blue-hd.gif);
+	background-image: url(/common/img/jqgrid/grid-blue-hd.gif);
 	height: 20px;
 	
 }
@@ -394,7 +398,7 @@ img.jqResize {
 	cursor :se-resize;
 }
 .dirty-cell {
-	background: transparent url(images/dirty.gif) no-repeat 0 0;	
+	background: transparent url(/common/img/jqgrid/dirty.gif) no-repeat 0 0;	
 }
 #DelError td {
 	font-size: 90%;
@@ -417,7 +421,7 @@ img.jqResize {
 	height: 18px; 
 	width: 16px;
 	overflow: hidden;
-	background: url(images/tree_minus.gif) no-repeat;
+	background: url(/common/img/jqgrid/tree_minus.gif) no-repeat;
 }
 .tree-plus
 {
@@ -425,7 +429,7 @@ img.jqResize {
 	height: 18px; 
 	width: 16px;
 	overflow: hidden;
-	background: url(images/tree_plus.gif) no-repeat;
+	background: url(/common/img/jqgrid/tree_plus.gif) no-repeat;
 }
 .tree-leaf
 {
@@ -433,9 +437,12 @@ img.jqResize {
 	height: 18px; 
 	width: 16px;
 	overflow: hidden;
-	background: url(images/tree_leaf.gif) no-repeat;
+	background: url(/common/img/jqgrid/tree_leaf.gif) no-repeat;
 }
 .treeclick
 {
 	cursor: pointer;
+}
+.edit-cell {
+	background-color: #E1DCF4;
 }

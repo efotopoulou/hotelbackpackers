@@ -8,7 +8,7 @@ class Dusuario{
 
 	const GET_USER_BY_PERFIL = 'SELECT * FROM usuario WHERE Id_perfil=? ORDER BY nombre';
 
-	const GET_USER_BY_ID = 'SELECT * FROM usuario WHERE Id_usuario=?';
+	const GET_USER_BY_ID = 'SELECT Id_usuario, Id_perfil, nombre, email FROM usuario WHERE Id_usuario=?';
 	
 	const INSERT_USER = 'INSERT INTO usuario VALUES (?,?,?)';
 	const UPDATE_USER = 'UPDATE usuario SET Id_perfil=?, nombre=? WHERE Id_usuario=?';	
@@ -32,7 +32,7 @@ class Dusuario{
 		return $result;
 	}
 	
-	public function get_usuario($id){
+	public function existe_usuario($id){
 		$comunication = new Comunication();
 		$PARAMS = array($id);
 		$PARAMS_TYPES = array (Comunication::$TINT);
