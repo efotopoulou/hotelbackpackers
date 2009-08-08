@@ -41,7 +41,7 @@ jQuery("#list2").jqGrid({
     // sortable defines if this column can be sorted (default true)
     colModel:[
         {name:'Nombre',index:'Nombre', width:120, editable:true,editoptions:{size:10},sortable:false},
-        {name:'Perfil',index:'Perfil', width:120, editable:true,editoptions:{size:10},sortable:false},
+        {name:'Perfil',index:'Perfil', width:120, editable:true,edittype:"select",editoptions:{value:"<?getPerfiles();?>Recepcionista:Recepcionista;Administrador:Administrador;:TNT;AR:ARAMEX"},sortable:false},
         {name:'Password',index:'Password', width:120,editable:true,editoptions:{size:10},sortable:false}
     ],
     // pager parameter define that we want to use a pager bar
@@ -83,3 +83,4 @@ $("#bedata").click(function(){
 
 </body>
 </html>
+
