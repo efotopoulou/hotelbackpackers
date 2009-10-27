@@ -1,7 +1,8 @@
 <?php
 require ($_SERVER['DOCUMENT_ROOT'] . '/recepcion/Dominio/class_caja.php');
-//require ($_SERVER['DOCUMENT_ROOT'] . '/recepcion/Dominio/class_cocina.php');
 require ($_SERVER['DOCUMENT_ROOT'] . '/recepcion/Dominio/MensajeJSON.php');
+
+$service = $_POST['service'];
 
 $usuario = $_POST['usuario']; 
 $idusuario = $_POST['idusuario'];
@@ -45,10 +46,10 @@ $response = loadtickets($caja,$idusuario);
 $response+=loadmovimientos($caja,$idusuario);	
 $totalTickets=$caja->total_cuenta($iduser);
 }
-//añadimos un nuevo usuario y cargamos de nuevo la lista de los usuarios--OK
+//añadimos un nuevo usuario y cargamos de nuevo la lista de los usuarios, si el nombre no esta repetido--OK
 else if($nombreEmpleado){
-$caja->set_usuario($nombreEmpleado,$tipo);
-$response = loadusuarios($caja);		
+ if (!$caja->set_usuario($nombreEmpleado,$tipo))  $mensaje->setMensaje("El nombre que pusiste ya tiene una cuenta abierta");
+ else $response = loadusuarios($caja);		
 }
 //insertar un nuevo movimiento como credito.en la caja y en la cuenta de usuarios--OK
 else if($categoria){

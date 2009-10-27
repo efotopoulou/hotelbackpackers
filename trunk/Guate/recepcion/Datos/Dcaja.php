@@ -56,6 +56,7 @@ class Dcaja{
 	//new const USUARIOS_MOV = 'select t1.id_movimiento,t2.fechaHora,t1.cobrado as tipo,t1.dinero,t2.descripcion,t4.nombre as categoria,t3.nombre as encargado from movimientocredito t1,movimiento t2,guate_bd.usuario t3,categoria t4 where t1.id_movimiento=t2.id_movimiento and t1.procedencia="HR" and t1.id_usuario=? and t3.Id_usuario=t2.idencargado and t2.id_categoria=t4.id_categoria union select t1.id_movimiento,t2.fechaHora,t1.cobrado as tipo,t1.dinero,t2.descripcion,t4.nombre as categoria,t3.nombre as encargado from movimientocredito t1,restbar_bd.movimiento t2,guate_bd.usuario t3,restbar_bd.categoria t4 where t1.id_movimiento=t2.id_movimiento and t1.procedencia="RB" and t1.id_usuario=? and t3.Id_usuario=t2.idencargado and t2.id_categoria=t4.id_categoria order by fechaHora desc';
 	//const TOTAL_CUENTA = 'select sum(total) as total from( select sum(t4.total) as total from comanda t1,caja t2,trabajador t3,comandacredito t4 where t1.id_caja=t2.id_caja  and t1.idComanda=t4.idComanda and t1.id_cliente=t3.idTrabajador and t1.tipoCliente=5 and t3.idTrabajador=? and t4.cobrado=0 group by t3.idTrabajador union select sum(t4.total) as total from restbar_bd.comanda t1,restbar_bd.caja t2,trabajador t3,comandacredito t4 where t1.id_caja=t2.id_caja  and t1.idComanda=t4.idComanda and t1.id_cliente=t3.idTrabajador and t1.tipoCliente=5 and t3.idTrabajador=? and t4.cobrado=0 group by t3.idTrabajador union select sum(t1.dinero) as total from movimientocredito t1,movimiento t2 where t1.id_movimiento=t2.id_movimiento and t1.id_usuario=?)as total';
 	const SET_USUARIO = 'INSERT INTO trabajador VALUES(0,?,?,0)';
+	const IS_USUARIO = 'SELECT idTrabajador from trabajador WHERE nombre = ?';
 	const GET_PEDIDO = 'select t1.idLineaComanda,t2.idPlatillo,t1.cantidad,t2.nombre,t1.precio from lineacomanda t1,platillo t2 where idComanda=? and t2.idPlatillo=t1.idPlatillo';
 	const GET_PEDIDO_RESTBAR= 'select t1.idLineaComanda,t2.idPlatillo,t1.cantidad,t2.nombre,t1.precio from restbar_bd.lineacomanda t1,platillo t2 where idComanda=? and t2.idPlatillo=t1.idPlatillo';
 	const GET_PEDIDO_BAR = 'select t1.idLineaComanda,t2.numBebida,t1.cantidad,t2.nombre,t1.precio from lineacomanda t1,bebida t2 where idComanda=? and t2.idBebida=t1.idPlatillo ';
@@ -411,10 +412,20 @@ class Dcaja{
 	}
 
 	public function set_usuario($nombreEmpleado,$cliente){
+		$result = false;
 		$comunication = new ComunicationRecep();
-		$PARAMS = array($nombreEmpleado,$cliente);
-		$PARAMS_TYPES = array (ComunicationRecep::$TSTRING,ComunicationRecep::$TBOOLEAN);
-		$result = $comunication->query(self::SET_USUARIO,$PARAMS,$PARAMS_TYPES);
+		//Comprobar que no existe un usuario con el mismo nombre
+		$PARAMS = array($nombreEmpleado);
+		$PARAMS_TYPES = array (ComunicationRecep::$TSTRING);
+		$rs = $comunication->query(self::IS_USUARIO,$PARAMS,$PARAMS_TYPES);
+		if ($rs->getRecordCount()==0){
+		 //Insertar el nuevo usuario
+		 $PARAMS = array($nombreEmpleado,$cliente);
+		 $PARAMS_TYPES = array (ComunicationRecep::$TSTRING,ComunicationRecep::$TBOOLEAN);
+		 $rs = $comunication->query(self::SET_USUARIO,$PARAMS,$PARAMS_TYPES);
+		 $result=true;
+		}
+		return $result;
 	}
 	
     public function exist_debt($cuentadelete){

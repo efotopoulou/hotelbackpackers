@@ -49,17 +49,17 @@ else
 		    </ul>
 		</li>		
 <?php if($allowedRest["caja"]){ ?><li><a href="/recepcion/view.php?page=caja">Caja</a></li><?php } ?>
-				<li><a>Opciones Recepcion</a>
+				<li><a>Opciones Recepci&oacute;n</a>
 			<ul>
-<?php if($allowedRest["ventarecepcion"]){ ?><li><a href="/recepcion/view.php?page=ventarecepcion">Venta en Recepcion</a></li><?php } ?>
+<?php if($allowedRest["ventarecepcion"]){ ?><li><a href="/recepcion/view.php?page=ventarecepcion">Venta en Recepci&oacute;n</a></li><?php } ?>
 <?php if($allowedRest["cuentausuarios"]){ ?><li><a href="/recepcion/view.php?page=cuentausuarios">Cuenta De Usuarios</a></li><?php } ?>
 <?php if($allowedRest["controldestock"]){ ?><li><a href="/recepcion/view.php?page=controldestock">Control de Stock</a></li><?php } ?>
-<?php if($allowedRest["historicocaja"]){ ?><li><a href="/recepcion/view.php?page=historicocaja">Historico Caja</a></li><?php } ?>
-<?php if($allowedRest["estadisticas"]){ ?><li><a href="/recepcion/view.php?page=estadisticas">Estadisticas</a></li><?php } ?>
+<?php if($allowedRest["historicocaja"]){ ?><li><a href="/recepcion/view.php?page=historicocaja">Hist&oacute;rico Caja</a></li><?php } ?>
+<?php if($allowedRest["estadisticas"]){ ?><li><a href="/recepcion/view.php?page=estadisticas">Estad&iacute;sticas</a></li><?php } ?>
 <?php if($allowedRest["sugerencias"]){ ?><li><a href="/recepcion/view.php?page=sugerencias">Sugerencias</a></li><?php } ?>
-<?php if($allowedRest["gestionbebidas"]){ ?><li><a style="font-weight:bold">Admin Recepcion:</a></li><?php } ?>
-<?php if($allowedRest["gestionbebidas"]){ ?><li><a href="/recepcion/view.php?page=gestionbebidas">Gestion de Bebidas</a></li><?php } ?>
-<?php if($allowedRest["gestionplatillos"]){ ?><li><a href="/recepcion/view.php?page=gestionplatillos">Gestion de Platillos</a></li><?php } ?>
+<?php if($allowedRest["gestionbebidas"]){ ?><li><a style="font-weight:bold">Admin Recepci&oacute;n:</a></li><?php } ?>
+<?php if($allowedRest["gestionbebidas"]){ ?><li><a href="/recepcion/view.php?page=gestionbebidas">Gesti&oacute;n de Bebidas</a></li><?php } ?>
+<?php if($allowedRest["gestionplatillos"]){ ?><li><a href="/recepcion/view.php?page=gestionplatillos">Gesti&oacute;n de Platillos</a></li><?php } ?>
 
 		    </ul>
 		</li>		
