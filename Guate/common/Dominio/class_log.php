@@ -29,9 +29,9 @@ class log{
 		$datos->insert_log($id_usuario, $id_accion, $id_evento);
 	}
 	
-//	function insertar_error($msg){
-	//	error_log(date("d-m-Y H:i:s ").$msg."\r\n", 3, $this->err_file);	
-//	}
+	function insertar_error($msg){
+		error_log(date("d-m-Y H:i:s ").$msg."\r\n", 3, $this->err_file);	
+	}
 //Funcion que guarda las excepciones de php no controladas en el hotel  
     public function guardarErrorHotel($texto, $errortype){
     	error_log(date("Y-m-d,H:i:s").":".$texto."Errortype:".$errortype."\r\n", 3, $this->err_file);

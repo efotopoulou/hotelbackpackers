@@ -330,7 +330,7 @@ $rs = $u->buscador_usuarios($mask);
 
 function set_usuario($nombreEmpleado,$cliente){
   $u = new Dcaja();
-  $rs = $u->set_usuario($nombreEmpleado,$cliente);
+  return $u->set_usuario($nombreEmpleado,$cliente);
 }
 
 function exist_debt($cuentadelete){
