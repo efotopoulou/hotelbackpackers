@@ -39,7 +39,7 @@ $("#fechas").val("");
    buttonImage: "/common/img/calendar.gif", 
    buttonImageOnly: true 
   });
-  //el parametro de la fecha se manta de las estadisticas-month para que vea el usuario las cajas que han sido abiertas esta fecha
+  //el parametro de la fecha se manda de las estadisticas-month para que vea el usuario las cajas que han sido abiertas esta fecha
  date = "<?php echo($date); ?>";
  if (date != ""){
   $("#fechas").val(date+" - "+date);
