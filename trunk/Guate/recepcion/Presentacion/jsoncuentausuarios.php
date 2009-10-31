@@ -2,101 +2,125 @@
 require ($_SERVER['DOCUMENT_ROOT'] . '/recepcion/Dominio/class_caja.php');
 require ($_SERVER['DOCUMENT_ROOT'] . '/recepcion/Dominio/MensajeJSON.php');
 
-$service = $_POST['service'];
-
-$usuario = $_POST['usuario']; 
-$idusuario = $_POST['idusuario'];
-$nombreEmpleado = $_POST['nombreEmpleado'];
-$dinero=$_POST['dinero'];
-$money=$_POST['money'];
-$description=$_POST['description'];
-$categoria=$_POST['categoria'];
-$idempleado=$_POST['idempleado'];
-$idencargado=$_POST['idencargado'];
-$tipo=$_POST['tipo'];
-$mask=$_POST['mask'];
-$cuentadelete=$_POST['cuentadelete'];
-
+//Cambiar caja por nueva clase que se llame cuentausuarios
 $caja=new caja();
 $mensaje = new MensajeJSON();
-
 try{
-//al cargar la pagina cargamos la lista de los usuarios
-if ($usuario){
-$response = loadusuarios($caja);	
-}
-//buscador de usuarios
-else if($mask){
-$response = load_buscador_usuarios($caja,$mask);	
-}
-//cobrar una parte del credito.despues lo insertamos como movimiento en la caja y el la cuenta de usuarios--OK
-else if($money){
-$iduser = substr($idempleado, 1);
-$onoma=$caja->nameUser($iduser);
-$idMov=$caja->insert_movimiento("entrada",$money,"Cobrado Credito ".$onoma,9,$idencargado);
-$caja->insert_mov_credito($idMov,-$money,$iduser,1,"HR");
-$response = loadtickets($caja,$idempleado);	
-$response+=loadmovimientos($caja,$idempleado);	
-$totalTickets=$caja->total_cuenta($iduser);
-}
-//cargamos de nuevo los tiquets y los movimientos para el usuario elegido--OK
-else if($idusuario){	
-$iduser = substr($idusuario, 1);
-$response = loadtickets($caja,$idusuario);	
-$response+=loadmovimientos($caja,$idusuario);	
-$totalTickets=$caja->total_cuenta($iduser);
-}
-//añadimos un nuevo usuario y cargamos de nuevo la lista de los usuarios, si el nombre no esta repetido--OK
-else if($nombreEmpleado){
- if (!$caja->set_usuario($nombreEmpleado,$tipo))  $mensaje->setMensaje("El nombre que pusiste ya tiene una cuenta abierta");
- else $response = loadusuarios($caja);		
-}
-//insertar un nuevo movimiento como credito.en la caja y en la cuenta de usuarios--OK
-else if($categoria){
-$idemp = substr($idempleado, 1);
-$onoma=$caja->nameUser($idemp);
-$idMov=$caja->insert_movimiento("credito",0,$onoma.": ".$description,$categoria,$idencargado);
-$caja->insert_mov_credito($idMov,$dinero,$idemp,0,"HR");
-$response = loadtickets($caja,$idempleado);	
-$response+= loadmovimientos($caja,$idempleado);
-$totalTickets=$caja->total_cuenta($idemp);	
-}
-//eliminar una cuenta
-else if($cuentadelete){
-$cuentaDel = substr($cuentadelete, 1);
-$debt = $caja->exist_debt($cuentaDel);
-//echo($debt);
-if ($debt) $mensaje->setMensaje("No puedes eliminar esta cuenta porque el cliente debe dinero al hotel!");
-else{
-	$caja->cuenta_delete($cuentaDel);
-	$mensaje->setMensaje("La cuenta que elegiste se eliminó!");
-}
-$response = loadusuarios($caja);
-}
+
+$service = $_POST['service'];
+  switch ($service){
+	case "begin":		$response = loadusuarios($caja);	
+						break;
+	case "crearcuenta": $response = crearcuenta($_POST['nombreEmpleado'], $_POST['tipo'], $caja, $mensaje);
+						break;
+	case "buscarnombre":$response = load_buscador_usuarios($caja,$_POST['mask']);
+						break;
+	case "eliminar":	$response = eliminarcuenta($_POST['cuentadelete'], $caja, $mensaje);
+						break;
+	case "loadcuenta":	$response = loadcuenta($_POST['idusuario'], $_POST['meses'], $caja);
+						break;
+	case "insmov":		$response = insertarmovimiento($_POST['idempleado'],$_POST['description'],$_POST['categoria'],$_POST['idencargado'], $_POST['dinero'], $caja);
+						break;
+	case "pagarcred":	$response = pagarcredito($_POST['idempleado'],$_POST['money'],$_POST['idencargado'], $caja);
+						break;
+
+  }
 }catch (SQLException $e){
 	$aux = $e ->getNativeError();
     $mensaje->setMensaje("Error Desconocido: $aux!");
  }
 
-$response["TotalTickets"]=$totalTickets;
-
 $mensaje->setDatos($response);
 echo($mensaje->encode());
 ?>	
+
 <?php
-function loadtickets($caja,$idusuario){
-$iduser = substr($idusuario, 1);
+
+//----------------   CREAR CUENTA   ----------------------
+
+//añadimos un nuevo usuario y cargamos de nuevo la lista de los usuarios, si el nombre no esta repetido--OK
+function crearcuenta($nombreEmpleado,$tipo,$cuenta,$mensaje){
+	if (!$cuenta->set_usuario($nombreEmpleado,$tipo))  $mensaje->setMensaje("El nombre que pusiste ya tiene una cuenta abierta");
+	else $response = loadusuarios($cuenta);
+	return $response;		
+}
+
+//----------------  LOAD USUARIOS   -----------------------
+function loadusuarios($caja){
+	$usuarios=$caja->get_usuarios();
+	if ((sizeof($usuarios))>0){
+		for($i=0;$i<count($usuarios);$i++) {
+			$UsuariosInfo[$i]=array("idTrabajador"=>$usuarios[$i]->idTrabajador,"nombre"=>$usuarios[$i]->nombre);
+		}
+	}
+	$response["UsuariosInfo"]=$UsuariosInfo;
+	return($response);		
+}
+
+//--------------   ELIMINAR CUENTA  -----------------------
+function eliminarcuenta($cuentadelete, $caja, $mensaje){
+	$cuentaDel = substr($cuentadelete, 1);
+	$debt = $caja->exist_debt($cuentaDel);
+	if ($debt) $mensaje->setMensaje("No puedes eliminar esta cuenta porque el cliente debe dinero al hotel!");
+	else{
+		$caja->cuenta_delete($cuentaDel);
+		$mensaje->setMensaje("La cuenta que elegiste se eliminó!");
+	}
+	return loadusuarios($caja);
+}
+
+//--------------  LOAD CUENTA   -----------------------------
+//cargamos de nuevo los tiquets y los movimientos para el usuario elegido--OK
+function loadcuenta($idusuario, $meses, $caja){
+	if($idusuario){	
+		$iduser = substr($idusuario, 1);
+		$response = loadtickets($caja,$meses,$iduser);	
+		$response += loadmovimientos($caja,$iduser);	
+		$totalTickets=$caja->total_cuenta($iduser);
+		$response["TotalTickets"]=$totalTickets;
+	}
+	return $response;
+}
+
+//--------------- INSERTAR MOVIMIENTO   ----------------------
+//insertar un nuevo movimiento como credito.en la caja y en la cuenta de usuarios--OK
+function insertarmovimiento($idempleado,$description,$categoria,$idencargado, $dinero, $caja){
+	$idemp = substr($idempleado, 1);
+	$onoma=$caja->nameUser($idemp);
+	$idMov=$caja->insert_movimiento("credito",0,$onoma.": ".$description,$categoria,$idencargado);
+	$caja->insert_mov_credito($idMov,$dinero,$idemp,0,"HR");
+	//$response = loadtickets($caja,2,$idemp);	
+	$response = loadmovimientos($caja,$idemp);
+	$totalTickets=$caja->total_cuenta($idemp);
+	$response["TotalTickets"]=$totalTickets;
+	return $response;	
+}
+
+//cobrar una parte del credito.despues lo insertamos como movimiento en la caja y el la cuenta de usuarios--OK
+//--------------  PAGAR CREDITO   -----------------------------	
+function pagarcredito($idempleado,$money,$idencargado, $caja){
+	$iduser = substr($idempleado, 1);
+	$onoma=$caja->nameUser($iduser);
+	$idMov=$caja->insert_movimiento("entrada",$money,"Cobrado Credito ".$onoma,9,$idencargado);
+	$caja->insert_mov_credito($idMov,-$money,$iduser,1,"HR");
+	//$response = loadtickets($caja,2,$iduser);	
+	$response = loadmovimientos($caja,$iduser);	
+	$totalTickets=$caja->total_cuenta($iduser);
+	$response["TotalTickets"]=$totalTickets;
+	return $response;	
+}
+
+function loadtickets($caja,$meses, $iduser){
 $tikets=$caja->get_usuarios_comandas($iduser);
 if ((sizeof($tikets))>0){
 	  for($i=0;$i<count($tikets);$i++) {
-	  $TicketsInfo[$i]=array("idComanda"=>$tikets[$i]->idComanda,"numComanda"=>$tikets[$i]->numComanda,"procedencia"=>$tikets[$i]->procedencia,"estado"=>"Credito","fechaHora"=>$tikets[$i]->fechaHora,"total"=>$tikets[$i]->total,"nombre"=>$tikets[$i]->nombre);
+	  $TicketsInfo[$i]=array("idComanda"=>$tikets[$i]->idComanda,"numComanda"=>$tikets[$i]->numComanda,"procedencia"=>$tikets[$i]->procedencia,"fechaHora"=>$tikets[$i]->fechaHora,"total"=>$tikets[$i]->total,"nombre"=>$tikets[$i]->nombre);
 	  }
  }	
  $response["TicketsInfo"]=$TicketsInfo;
  return($response);	
 }
-function loadmovimientos($caja,$idusuario){
-$iduser = substr($idusuario, 1);
+function loadmovimientos($caja,$iduser){
 $movimientos=$caja->get_usuarios_movimientos($iduser);
 if ((sizeof($movimientos))>0){
 	  for($i=0;$i<count($movimientos);$i++) {
@@ -107,16 +131,7 @@ if ((sizeof($movimientos))>0){
  $response["MovimientosInfo"]=$MovimientosInfo;
  return($response);	
 }
-function loadusuarios($caja){
-$usuarios=$caja->get_usuarios();
-if ((sizeof($usuarios))>0){
-	  for($i=0;$i<count($usuarios);$i++) {
-	  $UsuariosInfo[$i]=array("idTrabajador"=>$usuarios[$i]->idTrabajador,"nombre"=>$usuarios[$i]->nombre);
-	  }
- }
- $response["UsuariosInfo"]=$UsuariosInfo;
- return($response);		
-}
+
 function load_buscador_usuarios($caja,$mask){
 $usuarios=$caja->buscador_usuarios($mask);
 if ((sizeof($usuarios))>0){
@@ -127,33 +142,4 @@ if ((sizeof($usuarios))>0){
  $response["UsuariosInfo"]=$UsuariosInfo;
  return($response);		
 }
-
-
-
-//cobrar un tiquet.despues lo insertamos como movumiento en la caja.despues cargamos los tiquets y los movimientos
-//else if($comandas || $movs){
-//$iduser = substr($idusuario, 1);
-//$comandasList = split( ",",$comandas);
-//$a=0;
-//foreach ($comandasList as $value){
-// $val= substr($value, 1);
-// $a+=$caja->cobrar_ticket($val);
-//}
-//$movsList = split( ",",$movs);
-//foreach ($movsList as $value){
-// $val= substr($value, 1);
-// $a+=$caja->cobrar_movimiento_credito($val);
-//}
-//$onoma=$caja->nameUser($iduser);
-//$caja->insert_movimiento("entrada",$a,"Cobrado Credito ".$onoma,9,$idencargado);
-//$response = loadtickets($caja,$idusuario,$month,$year);	
-//$response+=loadmovimientos($caja,$idusuario,$month,$year);	
-//$totalTickets=$caja->total_cuenta($iduser,$month,$year);
-//}
 ?>
-
-
-
-
-
-

@@ -4,6 +4,8 @@ require ($_SERVER['DOCUMENT_ROOT'] . '/recepcion/Dominio/class_reporte.php');
 $nameempleado =  $_GET['name'];
 $idemp =  $_GET['id'];
 $pagado =  $_GET['pagado'];
+$fechaStart =  $_GET['fechaStart'];
+$fechaStop =  $_GET['fechaStop'];
 ?>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
@@ -12,22 +14,24 @@ $pagado =  $_GET['pagado'];
 <title></title><!-- Meta Information -->
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="MSSmartTagsPreventParsing" content="true">
-<style>
-tr{background:#FFF;text-align:left}
-table{background:#DDD}
-</style>
-<script src="/common/js/jquery-1.2.3.pack.js"></script>
-<script src="/common/js/guate.js"></script>
+	<script src="/common/js/jquery.js"></script>
+	<script src="/common/js/guate.js"></script>
+	<script src="/common/js/jquery.blockUI.js"></script>
 <script type="text/javascript">
 	
 //------------------------------------------------------------AL CARGAR LA PAGINA--------------------------------------------------------------//	
 $(document).ready(function(){
-$.getJSONGuate("jsoncuentausuarios.php",{idusuario:'<?php echo($idemp); ?>'}, function(json){
-  json = verificaJSON(json);
-  loadPage(json); 
+$.blockUI({ message: '<h1> Cargando los datos...</h1><h1>Espere por favor</h1><input type="button" value="Cancelar" style="margin-top:5px;margin-left:10px" onClick="$.unblockUI();"/>' });
+$.getJSONGuate("jsoncuentausuarios.php",{service:"loadcuenta",idusuario:'<?php echo($idemp); ?>'}, function(json){
+	json = verificaJSON(json);
+	loadPage(json);
+	$.unblockUI();
+	//window.print(); 
   });
-$("#cuentadequien").html("Cuenta del usuario "+'<?php echo($nameempleado); ?>');
-$("#pagado").html("Pagado: "+'<?php echo($pagado); ?>');
+$("#cuentadequien").html('<?php echo($nameempleado); ?>');
+$("#pagado").html('<?php echo($pagado); ?>');
+$("#fechaStart").html('<?php echo($fechaStart); ?>');
+$("#fechaStop").html('<?php echo($fechaStop); ?>');
 hoy = new Date();
 $("#fechahoy").html(hoy.toLocaleString());
 });
@@ -36,12 +40,12 @@ $("#fechahoy").html(hoy.toLocaleString());
 <script>
 //-------------------------------------------LOAD PAGE----------------------------------------------------------//
 function loadPage(json){
- $("#total").html("Total: "+json.TotalTickets);
+ $("#total").html(json.TotalTickets);
 if (json.TicketsInfo){ 
   	  $("#ticketsTable").html(" ");
      for(i=0;i<json.TicketsInfo.length;i++) {
      	numComanda=showid(json.TicketsInfo[i].numComanda);
-        $("#ticketsTable").append("<tr><td width=5%>"+numComanda+"</td><td width=9%>"+json.TicketsInfo[i].estado+"</td><td width=25%>"+json.TicketsInfo[i].fechaHora+"</td><td width=6%>"+json.TicketsInfo[i].total+"</td><td width=10%>Credito</td><td>"+json.TicketsInfo[i].nombre+"</td></tr>");	
+        $("#ticketsTable").append("<tr><td width=5%>"+numComanda+"</td><td width=25%>"+json.TicketsInfo[i].fechaHora+"</td><td width=6%>"+json.TicketsInfo[i].total+"</td><td>"+json.TicketsInfo[i].nombre+"</td></tr>");	
         }
         }else{
         $("#ticketsTable").html(" ");
@@ -64,14 +68,19 @@ else return "";
 </script>
 <body>
 <div>
-	<h2>HOTEL BACKPAPERS</h2>
-    <h4 id="cuentadequien"><br/></h4>
-    <h4 id="fechahoy"><br/></h4>
-	<h3 id="total"></h3><h3 id="pagado"></h3>
-	
+	<div style="text-align:center"><h2>HOTEL BACKPACKERS - CUENTAS</h2></div>
+    <table bgcolor="#000000" border="0" cellspacing="1">
+    <tr bgcolor="#FFFFFF"><td width=200px><b>Nombre del usuario<b></td><td><b id="cuentadequien"></b></td></tr>
+    <tr bgcolor="#FFFFFF"><td><b>Fecha de hoy</b></td><td><b id="fechahoy"></b></td></tr>
+    <tr bgcolor="#FFFFFF"><td><b>Pendiente de pagar</b></td><td><b id="total"></b></td></tr>
+    <tr bgcolor="#FFFFFF"><td><b>Ya pagado</b></td><td><b id="pagado"></b></td></tr>
+    <tr bgcolor="#FFFFFF"><td><b>Fecha Inicio</b></td><td><b id="fechaStart"></b></td></tr>
+    <tr bgcolor="#FFFFFF"><td><b>Fecha Final</b></td><td><b id="fechaStop"></b></td></tr>
+    </table>
+    	
     <div id="comandas"><h4>Comandas a Credito realizadas<br/></h4></div>
     <table width=75% border=1>
-    <tr><td width=5%><h4>ID</h4></td><td width=9%><h4><center>estado</center></h4></td><td width=25%><h4><center>Fecha Hora</center></h4></td><td width=6%><h4>Total</h4></td><td width=10%><h4>Cliente</h4></td><td><h4><center>Nombre de Cliente</center></h4></td></tr>
+    <tr><td width=5%><h4>ID</h4></td><td width=25%><h4><center>Fecha Hora</center></h4></td><td width=6%><h4>Total</h4></td><td><h4><center>Nombre de Cliente</center></h4></td></tr>
     </table>
     <table id="ticketsTable" width=75% border=1></table>
     <br/><br/>
