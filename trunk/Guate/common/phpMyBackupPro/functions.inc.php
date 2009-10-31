@@ -909,14 +909,15 @@ function PMBP_ftp_store($files) {
 
 // send email with $attachments backup files to $email email using $sitename for sender and subject
 function PMBP_email_store($attachments,$backup_info) {
+	echo "que coño esta pasando?";
     global $CONF;
     $out=FALSE;
 
     $mail             = new PHPMailer();
     $mail->IsSMTP();
     $mail->SMTPAuth   = true;                  // enable SMTP authentication
-    $mail->SMTPSecure = "ssl";                 // sets the prefix to the servier
-    $mail->Host       = "smtp.gmail.com";      // sets GMAIL as the SMTP server
+//    $mail->SMTPSecure = "ssl";                 // sets the prefix to the servier
+    $mail->Host       = "ssl://smtp.gmail.com";      // sets GMAIL as the SMTP server
     $mail->Port       = 465;                   // set the SMTP port for the GMAIL server
     $mail->Username   = "hotelbackpackers@gmail.com";  // GMAIL username
     $mail->Password   = "casaguatemala";            // GMAIL password
@@ -924,6 +925,8 @@ function PMBP_email_store($attachments,$backup_info) {
     $mail->FromName   = "First Last";
     $mail->IsHTML(true); // send as HTML
     $mail->AddAddress("hotelbackpackers@gmail.com", "Isaac Muro");
+    $mail->WordWrap   = 50;
+    $mail->Timeout       = 100;
     
 
     $lb="\n";
@@ -931,7 +934,7 @@ function PMBP_email_store($attachments,$backup_info) {
  
  	$mailtext=F_MAIL_2." '".$CONF['sitename']."'.".$lb;
  
- 	// send database backups
+	// send database backups
  	if (is_array($backup_info)) {
 	    if ($backup_info['comp']=="gzip") $mailtext.=INF_COMP.": gzip".$lb;
 	        elseif ($backup_info['comp']=="zip") $mailtext.=INF_COMP.": zip".$lb;

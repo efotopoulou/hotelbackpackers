@@ -1,4 +1,5 @@
 <?php
+
 /*
  +--------------------------------------------------------------------------+
  | phpMyBackupPro                                                           |
@@ -73,6 +74,7 @@ if ($argv) {
     $mode="incl";
     include_once("definitions.php");
     if (!isset($_SESSION['wss'])) $_SESSION['wss']=-1;
+    
     // is a databse or a directory selected?
     if ($_POST['db'] || isset($_POST['dirs']) || strlen($_POST['man_dirs'])) {
         // backups can only be triggered with the right security key!
@@ -85,7 +87,7 @@ if ($argv) {
             }
             // check if it is already time for a new backup
             if ($period!=0) {
-	            if ( ($_SESSION['wss']<0 && $PMBP_SYS_VAR['last_scheduled']>(time()-$period) ) ||
+            	if ( ($_SESSION['wss']<0 && $PMBP_SYS_VAR['last_scheduled']>(time()-$period) ) ||
 	            ($_SESSION['wss']>=0 && $PMBP_SYS_VAR['last_scheduled_'.$_SESSION['wss']]>(time()-$period)) ) {
 	                if($PMBP_SYS_VAR['scheduled_debug'])
 	                    echo "It's not time for a new backups yet! Set period to 'At each call' for debugging.<br>\n";
@@ -105,7 +107,7 @@ if ($argv) {
     if($PMBP_SYS_VAR['scheduled_debug'])
         echo "Start backing up the databases now:<br>\n";    
 } else {
-    $mode="web";
+    $mode="web";echo "kk3";
     include("login.php");
 }
 
@@ -123,7 +125,7 @@ if ($mode=="incl") {
     // update global_conf.php
     PMBP_save_global_conf();
 }
-
+echo "kk1";
 
 // print html if web mode
 if ($mode=="web") {
@@ -141,7 +143,7 @@ if ($mode=="web") {
         }
     }
 }
-
+echo "kk2";
 // if pressed 'backup' backup the db
 if ($_POST['db'] || isset($_POST['dirs']) || strlen($_POST['man_dirs'])) {
     $out="";
@@ -220,12 +222,12 @@ if ($_POST['db'] || isset($_POST['dirs']) || strlen($_POST['man_dirs'])) {
                 elseif ($mode=="incl") $out.=EX_NO_DB."<br>\n";
             
     }
-
+echo "kk3";
     // start backup using ftp or email
     $backup_info=array("comments"=>$_POST['comments'],"tables"=>($_POST['tables']=="on"),"data"=>($_POST['data']=="on"),"drop"=>($_POST['drop']=="on"),"comp"=>$_POST['zip']);
     if ($CONF['ftp_use'] && isset($store_files)) $out=PMBP_ftp_store($store_files)."\n";
-    if ($CONF['email_use'] && isset($store_files)) $out.=PMBP_email_store($store_files,$backup_info);
-    
+    if ($CONF['email_use'] && isset($store_files)) {echo PMBP_email_store($store_files,$backup_info);}//$out.=PMBP_email_store($store_files,$backup_info);
+    echo "kk5"; 
     // file backup per FTP
     if ($CONF['dir_backup'] && (isset($_POST['dirs']) || strlen($_POST['man_dirs']))) {
         $_POST['man_dirs']= str_replace("\n",",",$_POST['man_dirs']);
