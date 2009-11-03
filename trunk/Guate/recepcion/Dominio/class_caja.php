@@ -359,6 +359,22 @@ $rs = $uc->get_usuarios_comandas ($idusuario);
 	    }
 	return $ors;			
 }
+function get_usuarios_comandas_fechas($idusuario, $fechaStart, $fechaStop){
+$uc = new Dcaja();
+$rs = $uc->get_usuarios_comandas_fechas ($idusuario, $fechaStart, $fechaStop);
+	if($rs->getRecordCount()>0){ 
+		$n=0;
+		while($rs->next()){
+		$result=$rs->getRow();
+		$ors[$n] =new usuariocomanda($result["idComanda"],$result["numComanda"],$result["procedencia"],$result["fechaHora"],$result["total"],$result["nombre"]);
+		$n++;			
+		}
+    }else{
+		$result=null;
+	    }
+	return $ors;			
+}
+
 function get_usuarios_movimientos ($idusuario){
 $uc = new Dcaja();
 $rs = $uc->get_usuarios_movimientos ($idusuario);
@@ -374,6 +390,22 @@ $rs = $uc->get_usuarios_movimientos ($idusuario);
 	    }
 	return $ors;	
 }
+function get_usuarios_movimientos_fechas ($idusuario, $fechaStart, $fechaStop){
+$uc = new Dcaja();
+$rs = $uc->get_usuarios_movimientos_fechas ($idusuario, $fechaStart, $fechaStop);
+	if($rs->getRecordCount()>0){ 
+		$n=0;
+		while($rs->next()){
+		$result=$rs->getRow();
+		$ors[$n] =new CajaMovimiento($result["id_movimiento"],$result["fechaHora"],$result["tipo"],$result["dinero"],$result["descripcion"],$result["categoria"],$result["encargado"]);
+		$n++;			
+		}
+    }else{
+		$result=null;
+	    }
+	return $ors;	
+}
+
 function total_cuenta($idusuario){
 $tot = new Dcaja();
 $rs = $tot->total_cuenta($idusuario);

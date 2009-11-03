@@ -49,7 +49,9 @@ class Dcaja{
 	const GET_USUARIOS = 'select idTrabajador,nombre from trabajador where deleted=0';
 	const BUSCADOR_USUARIOS = 'select idTrabajador, nombre from trabajador where nombre LIKE ? and deleted=0';
 	const USUARIOS_COMANDAS = 'select t1.idComanda,t1.numComanda,t2.procedencia,t1.fechaHora,t2.total,t3.nombre from comanda t1,comandacredito t2,trabajador t3 where t1.tipoCliente=5 and procedencia="HR" and t1.idComanda=t2.idComanda and t1.id_cliente=t3.idTrabajador and t1.id_cliente=? union select t1.idComanda,t1.numComanda,t2.procedencia,t1.fechaHora,t2.total,t3.nombre from restbar_bd.comanda t1,comandacredito t2,trabajador t3 where tipoCliente=5 and procedencia="RB" and t1.idComanda=t2.idComanda and t1.id_cliente=t3.idTrabajador and t1.id_cliente=? order by fechaHora desc';
+	const USUARIOS_COMANDAS_FECHAS = 'select t1.idComanda,t1.numComanda,t2.procedencia,t1.fechaHora,t2.total,t3.nombre from comanda t1,comandacredito t2,trabajador t3 where t1.tipoCliente=5 and procedencia="HR" and t1.idComanda=t2.idComanda and t1.id_cliente=t3.idTrabajador and t1.id_cliente=? and fechaHora <= ? and fechaHora >= ? union select t1.idComanda,t1.numComanda,t2.procedencia,t1.fechaHora,t2.total,t3.nombre from restbar_bd.comanda t1,comandacredito t2,trabajador t3 where tipoCliente=5 and procedencia="RB" and t1.idComanda=t2.idComanda and t1.id_cliente=t3.idTrabajador and t1.id_cliente=? and fechaHora <= ? and fechaHora >= ? order by fechaHora desc';
 	const USUARIOS_MOV = 'select t1.id_movimiento,t2.fechaHora,t1.cobrado as tipo,t1.dinero,t2.descripcion,t4.nombre as categoria,t3.nombre as encargado from movimientocredito t1,movimiento t2,guate_bd.usuario t3,categoria t4 where t1.id_movimiento=t2.id_movimiento and t1.procedencia="HR" and t1.id_usuario=? and t3.Id_usuario=t2.idencargado and t2.id_categoria=t4.id_categoria union select t1.id_movimiento,t2.fechaHora,t1.cobrado as tipo,t1.dinero,t2.descripcion,t4.nombre as categoria,t3.nombre as encargado from movimientocredito t1,restbar_bd.movimiento t2,guate_bd.usuario t3,restbar_bd.categoria t4 where t1.id_movimiento=t2.id_movimiento and t1.procedencia="RB" and t1.id_usuario=? and t3.Id_usuario=t2.idencargado and t2.id_categoria=t4.id_categoria order by fechaHora desc';
+	const USUARIOS_MOV_FECHAS = 'select t1.id_movimiento,t2.fechaHora,t1.cobrado as tipo,t1.dinero,t2.descripcion,t4.nombre as categoria,t3.nombre as encargado from movimientocredito t1,movimiento t2,guate_bd.usuario t3,categoria t4 where t1.id_movimiento=t2.id_movimiento and t1.procedencia="HR" and t1.id_usuario=? and t3.Id_usuario=t2.idencargado and t2.id_categoria=t4.id_categoria and fechaHora <= ? and fechaHora >= ? union select t1.id_movimiento,t2.fechaHora,t1.cobrado as tipo,t1.dinero,t2.descripcion,t4.nombre as categoria,t3.nombre as encargado from movimientocredito t1,restbar_bd.movimiento t2,guate_bd.usuario t3,restbar_bd.categoria t4 where t1.id_movimiento=t2.id_movimiento and t1.procedencia="RB" and t1.id_usuario=? and t3.Id_usuario=t2.idencargado and t2.id_categoria=t4.id_categoria and fechaHora <= ? and fechaHora >= ? order by fechaHora desc';
 	const TOTAL_CUENTA = 'select sum(total) as total from(select sum(t2.total) as total from comanda t1,comandacredito t2 where t1.idComanda=t2.idComanda and t1.tipoCliente=5 and t1.id_cliente=? and t2.procedencia="HR" union select sum(t2.total) as total from restbar_bd.comanda t1,comandacredito t2 where t1.tipoCliente=5 and t1.idComanda=t2.idComanda and t1.id_cliente=?  and t2.procedencia="RB" union select sum(t1.dinero) as total from movimientocredito t1,movimiento t2 where t1.id_movimiento=t2.id_movimiento and t1.id_usuario=? and t1.procedencia="HR" union select sum(t1.dinero) as total from movimientocredito t1,restbar_bd.movimiento t2 where t1.id_movimiento=t2.id_movimiento and t1.id_usuario=? and t1.procedencia="RB") as total';
 	//const USUARIOS_COMANDAS = 'select t1.idComanda,t1.numComanda,t5.procedencia,t5.cobrado,t1.fechaHora,t5.total,t4.clientType,t3.nombre from comanda t1,caja t2,trabajador t3,tipocliente t4,comandacredito t5 where t1.id_caja=t2.id_caja and t1.id_cliente=t3.idTrabajador and t1.tipoCliente=5 and t1.tipoCliente=t4.idTipoCliente and t5.idComanda=t1.idComanda and t3.idTrabajador=? and t5.procedencia="HR" union select t1.idComanda,t1.numComanda,t5.procedencia,t5.cobrado,t1.fechaHora,t5.total,t4.clientType,t3.nombre from restbar_bd.comanda t1,restbar_bd.caja t2,trabajador t3,tipocliente t4,comandacredito t5 where t1.id_caja=t2.id_caja and t1.id_cliente=t3.idTrabajador and t1.tipoCliente=5 and t1.tipoCliente=t4.idTipoCliente and t5.idComanda=t1.idComanda and t3.idTrabajador=? and t5.procedencia="RB" order by fechaHora desc';
 	//const USUARIOS_MOV = 'select t1.id_movimiento,t1.fechaHora,t2.cobrado as tipo,t2.dinero,t1.descripcion,t4.nombre as categoria,t5.nombre as encargado from movimiento t1,movimientocredito t2,trabajador t3,categoria t4,guate_bd.usuario t5 where t1.id_movimiento=t2.id_movimiento and t3.idTrabajador=t2.id_usuario and t4.id_categoria=t1.id_categoria and t5.Id_usuario=t1.idencargado and t2.id_usuario=? and t2.procedencia="HR" union select t1.id_movimiento,t1.fechaHora,t2.cobrado as tipo,t2.dinero,t1.descripcion,t4.nombre as categoria,t5.nombre as encargado from restbar_bd.movimiento t1,movimientocredito t2,trabajador t3,restbar_bd.categoria t4,guate_bd.usuario t5 where t1.id_movimiento=t2.id_movimiento and t3.idTrabajador=t2.id_usuario and t4.id_categoria=t1.id_categoria and t5.Id_usuario=t1.idencargado and t2.id_usuario=? and t2.procedencia="RB" order by fechaHora desc';
@@ -402,12 +404,27 @@ class Dcaja{
 		$result = $comunication->query(self::USUARIOS_COMANDAS,$PARAMS,$PARAMS_TYPES);
 		return $result;
 	}
+	//and fechaHora <= '2009-10-01' and fechaHora >='2009-09-01'
+	public function get_usuarios_comandas_fechas ($idusuario, $fechaStart, $fechaStop){
+		$comunication = new ComunicationRecep();
+		$PARAMS = array($idusuario,$fechaStop, $fechaStart,$idusuario,$fechaStop, $fechaStart);
+		$PARAMS_TYPES = array (ComunicationRecep::$TINT,ComunicationRecep::$TDATE,ComunicationRecep::$TDATE,ComunicationRecep::$TINT,ComunicationRecep::$TDATE,ComunicationRecep::$TDATE);
+		$result = $comunication->query(self::USUARIOS_COMANDAS_FECHAS,$PARAMS,$PARAMS_TYPES);
+		return $result;
+	}
 	
 	public function get_usuarios_movimientos ($idusuario){
 		$comunication = new ComunicationRecep();
 		$PARAMS = array($idusuario,$idusuario);
 		$PARAMS_TYPES = array (ComunicationRecep::$TINT,ComunicationRecep::$TINT);
 		$result = $comunication->query(self::USUARIOS_MOV,$PARAMS,$PARAMS_TYPES);
+		return $result;
+	}
+	public function get_usuarios_movimientos_fechas ($idusuario, $fechaStart, $fechaStop){
+		$comunication = new ComunicationRecep();
+		$PARAMS = array($idusuario,$fechaStop, $fechaStart,$idusuario,$fechaStop, $fechaStart);
+		$PARAMS_TYPES = array (ComunicationRecep::$TINT,ComunicationRecep::$TDATE,ComunicationRecep::$TDATE,ComunicationRecep::$TINT,ComunicationRecep::$TDATE,ComunicationRecep::$TDATE);
+		$result = $comunication->query(self::USUARIOS_MOV_FECHAS,$PARAMS,$PARAMS_TYPES);
 		return $result;
 	}
 

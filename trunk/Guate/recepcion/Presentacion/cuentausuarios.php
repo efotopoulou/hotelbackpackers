@@ -155,7 +155,8 @@ for($i=0;$i<count($categoria);$i++) {
 	<div class="box_amarillo" style="margin:10px">
 		<div><span class="label, titleboxes"><b>Imprimir Cuentas:</b></span></div>
 			<div style="float:right"><input type="button" value="Imprimir Cuenta" onClick="imprimircuenta();"/></div>
-			<input type="text" size="25" value="" id="fechas"/>
+			<input type="text" size="25" value="" id="fechas"/><br />
+			<input type="checkbox" id="printall"> Imprimir todo
 		</div>
 	</div>
 
@@ -182,12 +183,10 @@ for($i=0;$i<count($categoria);$i++) {
     </table>
     </div>
     <div class="row" align="left" style="height:5%;overflow:auto">
-      <div style="margin-left:50px;width:120px;float:left;"><span style="font-weight:bold;font-size: 13pt">Total:</span><span class="total" style="font-weight:bold;font-size: 12pt">0</span></div>
-      <div style="margin-left:50px;width:120px;float:left;"><span style="font-weight:bold;font-size: 13pt">Pagado:</span><span class="pagado" style="font-weight:bold;font-size: 12pt">0</span></div>
+      <span style="font-weight:bold;font-size: 13pt">Pendiente de pagar: </span><span class="total" style="font-weight:bold;font-size: 12pt">0</span>
+      <span style="font-weight:bold;font-size: 13pt;margin-left:40px">Ya pagado: </span><span class="pagado" style="font-weight:bold;font-size: 12pt">0</span>
    		<div style="clear:both"></div>
    	</div>
-   
-
 </div>
 <br/>
 
