@@ -5,7 +5,7 @@ require ($_SERVER['DOCUMENT_ROOT'] . '/recepcion/Dominio/MensajeJSON.php');
 //Cambiar caja por nueva clase que se llame cuentausuarios
 $caja=new caja();
 $mensaje = new MensajeJSON();
-try{
+//try{
 
 $service = $_POST['service'];
   switch ($service){
@@ -17,18 +17,19 @@ $service = $_POST['service'];
 						break;
 	case "eliminar":	$response = eliminarcuenta($_POST['cuentadelete'], $caja, $mensaje);
 						break;
-	case "loadcuenta":	$response = loadcuenta($_POST['idusuario'], $_POST['meses'], $caja);
+	case "loadcuenta":	$response = loadcuenta($_POST['idusuario'], $caja);
 						break;
 	case "insmov":		$response = insertarmovimiento($_POST['idempleado'],$_POST['description'],$_POST['categoria'],$_POST['idencargado'], $_POST['dinero'], $caja);
 						break;
 	case "pagarcred":	$response = pagarcredito($_POST['idempleado'],$_POST['money'],$_POST['idencargado'], $caja);
 						break;
-
+	case "imprcuenta":	$response = imprcuenta($_POST['idusuario'],$_POST['fechaStart'],$_POST['fechaStop'], $caja);
+						break;
   }
-}catch (SQLException $e){
-	$aux = $e ->getNativeError();
-    $mensaje->setMensaje("Error Desconocido: $aux!");
- }
+//}catch (SQLException $e){
+//	$aux = $e ->getNativeError();
+ //   $mensaje->setMensaje("Error Desconocido: $aux!");
+ //}
 
 $mensaje->setDatos($response);
 echo($mensaje->encode());
@@ -68,13 +69,23 @@ function eliminarcuenta($cuentadelete, $caja, $mensaje){
 	}
 	return loadusuarios($caja);
 }
-
+//--------------  IMPRIMIR CUENTA   -----------------------------
+function imprcuenta($idusuario,$fechaStart,$fechaStop, $caja){
+	if ($fechaStart && $fechaStop){
+		$iduser = substr($idusuario, 1);
+		$response = imprtickets($caja,$iduser,$fechaStart,$fechaStop);	
+		$response += imprmovimientos($caja,$iduser,$fechaStart,$fechaStop);	
+		$totalTickets=$caja->total_cuenta($iduser);
+		$response["TotalTickets"]=$totalTickets;
+	} else $response = loadcuenta($idusuario, $caja);
+	return $response;
+}
 //--------------  LOAD CUENTA   -----------------------------
 //cargamos de nuevo los tiquets y los movimientos para el usuario elegido--OK
-function loadcuenta($idusuario, $meses, $caja){
+function loadcuenta($idusuario, $caja){
 	if($idusuario){	
 		$iduser = substr($idusuario, 1);
-		$response = loadtickets($caja,$meses,$iduser);	
+		$response = loadtickets($caja,$iduser);	
 		$response += loadmovimientos($caja,$iduser);	
 		$totalTickets=$caja->total_cuenta($iduser);
 		$response["TotalTickets"]=$totalTickets;
@@ -89,7 +100,7 @@ function insertarmovimiento($idempleado,$description,$categoria,$idencargado, $d
 	$onoma=$caja->nameUser($idemp);
 	$idMov=$caja->insert_movimiento("credito",0,$onoma.": ".$description,$categoria,$idencargado);
 	$caja->insert_mov_credito($idMov,$dinero,$idemp,0,"HR");
-	//$response = loadtickets($caja,2,$idemp);	
+	//$response = loadtickets($caja,$idemp);	
 	$response = loadmovimientos($caja,$idemp);
 	$totalTickets=$caja->total_cuenta($idemp);
 	$response["TotalTickets"]=$totalTickets;
@@ -103,14 +114,14 @@ function pagarcredito($idempleado,$money,$idencargado, $caja){
 	$onoma=$caja->nameUser($iduser);
 	$idMov=$caja->insert_movimiento("entrada",$money,"Cobrado Credito ".$onoma,9,$idencargado);
 	$caja->insert_mov_credito($idMov,-$money,$iduser,1,"HR");
-	//$response = loadtickets($caja,2,$iduser);	
+	//$response = loadtickets($caja,$iduser);	
 	$response = loadmovimientos($caja,$iduser);	
 	$totalTickets=$caja->total_cuenta($iduser);
 	$response["TotalTickets"]=$totalTickets;
 	return $response;	
 }
 
-function loadtickets($caja,$meses, $iduser){
+function loadtickets($caja, $iduser){
 $tikets=$caja->get_usuarios_comandas($iduser);
 if ((sizeof($tikets))>0){
 	  for($i=0;$i<count($tikets);$i++) {
@@ -119,6 +130,16 @@ if ((sizeof($tikets))>0){
  }	
  $response["TicketsInfo"]=$TicketsInfo;
  return($response);	
+}
+function imprtickets($caja,$iduser,$fechaStart,$fechaStop){
+$tikets=$caja->get_usuarios_comandas_fechas($iduser,$fechaStart,$fechaStop);
+if ((sizeof($tikets))>0){
+	  for($i=0;$i<count($tikets);$i++) {
+	  $TicketsInfo[$i]=array("idComanda"=>$tikets[$i]->idComanda,"numComanda"=>$tikets[$i]->numComanda,"procedencia"=>$tikets[$i]->procedencia,"fechaHora"=>$tikets[$i]->fechaHora,"total"=>$tikets[$i]->total,"nombre"=>$tikets[$i]->nombre);
+	  }
+ }	
+ $response["TicketsInfo"]=$TicketsInfo;
+ return($response);		
 }
 function loadmovimientos($caja,$iduser){
 $movimientos=$caja->get_usuarios_movimientos($iduser);
@@ -131,7 +152,18 @@ if ((sizeof($movimientos))>0){
  $response["MovimientosInfo"]=$MovimientosInfo;
  return($response);	
 }
-
+function imprmovimientos($caja,$iduser,$fechaStart,$fechaStop){
+$movimientos=$caja->get_usuarios_movimientos_fechas($iduser,$fechaStart,$fechaStop);
+if ((sizeof($movimientos))>0){
+	  for($i=0;$i<count($movimientos);$i++) {
+	  if ($movimientos[$i]->tipo) $tipo="cobrado"; else $tipo="credito";
+	  $MovimientosInfo[$i]=array("id_movimiento"=>$movimientos[$i]->id_movimiento,"fechaHora"=>$movimientos[$i]->fechaHora,"tipo"=>$tipo,"dinero"=>$movimientos[$i]->dinero,"descripcion"=>$movimientos[$i]->descripcion,"categoria"=>$movimientos[$i]->categoria,"encargado"=>$movimientos[$i]->encargado);
+	  }
+ }	
+ $response["MovimientosInfo"]=$MovimientosInfo;
+ return($response);	
+	
+}
 function load_buscador_usuarios($caja,$mask){
 $usuarios=$caja->buscador_usuarios($mask);
 if ((sizeof($usuarios))>0){

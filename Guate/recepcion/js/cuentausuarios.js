@@ -16,17 +16,17 @@ function loadusuarios(json){
 	if (json && json.UsuariosInfo){
 		$("#usuariosTable").html(" ");
 		for(i=0;i<json.UsuariosInfo.length;i++) {
-			$("#usuariosTable").append("<tr id=T"+json.UsuariosInfo[i].idTrabajador+" onmousedown='changeClassUsuario(this.id);loadcuenta(this.id, 2);'><td><h4><center class='onomataki'>"+json.UsuariosInfo[i].nombre+"</center></h4></td></tr>");		
+			$("#usuariosTable").append("<tr id=T"+json.UsuariosInfo[i].idTrabajador+" onmousedown='changeClassUsuario(this.id);loadcuenta(this.id);'><td><h4><center class='onomataki'>"+json.UsuariosInfo[i].nombre+"</center></h4></td></tr>");		
 			$("#T"+json.UsuariosInfo[i].idTrabajador).addClass("green");
 		}
 	}
 }
 //-------------------------------------------LOAD CUENTA----------------------------------------------------------//
-function loadcuenta(id, meses){
+function loadcuenta(id){
  $.blockUI({ message: '<h1> Cargando los datos...</h1><h1>Espere por favor</h1><input type="button" value="Cancelar" style="margin-top:5px;margin-left:10px" onClick="$.unblockUI();"/>' }); 
  $(".total").html("0");
  $(".pagado").html("0");
- $.getJSONGuate("Presentacion/jsoncuentausuarios.php",{service:"loadcuenta", meses:meses, idusuario:id}, function(json){
+ $.getJSONGuate("Presentacion/jsoncuentausuarios.php",{service:"loadcuenta", idusuario:id}, function(json){
    $.unblockUI();
    json = verificaJSON(json);
    loadPage(json);
@@ -140,12 +140,15 @@ var cuentadelete=$("#usuariosTable .amarillo").attr("id");
  if (cuentadelete){
   if(confirm('Estas seguro que quieres eliminar esta cuenta?')){
      $.getJSONGuate("Presentacion/jsoncuentausuarios.php",{service:"eliminar",cuentadelete:cuentadelete}, function(json){
+      var mensaje;
+      if (json.Mensaje) mensaje=1;
       json = verificaJSON(json);
       loadusuarios(json);
       $("#ticketsTable").html(" ");
       $("#movimientosTable").html(" ");
       $(".total").html("0");
       $(".pagado").html("0");
+	  if (!mensaje) $.growlUI('Cuenta', ' eliminada!!');
      });
   }
  } else alert ("Elije primero la cuenta que quieres eliminar.");
@@ -183,14 +186,15 @@ function insertmovcredito(dinero,description,categoria,idempleado){
 function imprimircuenta(){
 	nameempleado=$("#usuariosTable .amarillo .onomataki").html();
 	if (nameempleado) {
-		fechas = $("#fechas").val(); 
-		if (fechas){
-			pagado=$(".pagado").html();
-			idemp=$("#usuariosTable .amarillo").attr("id");
-			var regex = / - /;
-			fecha = fechas.split(regex);
-    		document.location="Presentacion/imprimircuenta.php?name="+nameempleado+"&id="+idemp+"&pagado="+pagado+"&fechaStart="+fecha[0]+"&fechaStop="+fecha[1];
-   		} else alert ("Antes de imprimir, introduce entre que fechas quieres imprimir la cuenta");
+		fechas = $("#fechas").val();
+		var regex = / - /;
+		fecha = fechas.split(regex);
+		var fechatext = "&fechaStart="+fecha[0]+"&fechaStop="+fecha[1]; 
+		pagado=$(".pagado").html();
+		idemp=$("#usuariosTable .amarillo").attr("id");
+		if ($("#printall").is(":checked"))	document.location="Presentacion/imprimircuenta.php?name="+nameempleado+"&id="+idemp+"&pagado="+pagado;
+		else if (fechas) document.location="Presentacion/imprimircuenta.php?name="+nameempleado+"&id="+idemp+"&pagado="+pagado+fechatext;
+   		else alert ("Antes de imprimir, introduce entre que fechas quieres imprimir la cuenta");
     } else alert ("Hay que elegir una persona antes de imprimir la cuenta");
 }
 //--------------------------------------------------------PAGAR CREDITO--------------------------------------------------------//
@@ -204,8 +208,9 @@ function pagarcredito(){
 			$.unblockUI();
 			json = verificaJSON(json);
 			loadmovimientos(json);
+			$(".total").html(Math.round(json.TotalTickets*100)/100);
 			$.growlUI('Nuevo credito cobrado', 'de '+money+' Quetzales!');
-   		});
+		});
  	}
 }
 //--------------------------------------------------------DO SEARCH NOMBRE EMPLEADO--------------------------------------------------------//
@@ -224,4 +229,3 @@ function nombreReload(){
    $(".pagado").html("0");
    });
 }
-

@@ -22,11 +22,11 @@ $fechaStop =  $_GET['fechaStop'];
 //------------------------------------------------------------AL CARGAR LA PAGINA--------------------------------------------------------------//	
 $(document).ready(function(){
 $.blockUI({ message: '<h1> Cargando los datos...</h1><h1>Espere por favor</h1><input type="button" value="Cancelar" style="margin-top:5px;margin-left:10px" onClick="$.unblockUI();"/>' });
-$.getJSONGuate("jsoncuentausuarios.php",{service:"loadcuenta",idusuario:'<?php echo($idemp); ?>'}, function(json){
+$.getJSONGuate("jsoncuentausuarios.php",{service:"imprcuenta",idusuario:'<?php echo($idemp); ?>',fechaStart:'<?php echo($fechaStart); ?>',fechaStop:'<?php echo($fechaStop); ?>'}, function(json){
 	json = verificaJSON(json);
 	loadPage(json);
 	$.unblockUI();
-	//window.print(); 
+	window.print(); 
   });
 $("#cuentadequien").html('<?php echo($nameempleado); ?>');
 $("#pagado").html('<?php echo($pagado); ?>');
@@ -78,16 +78,16 @@ else return "";
     <tr bgcolor="#FFFFFF"><td><b>Fecha Final</b></td><td><b id="fechaStop"></b></td></tr>
     </table>
     	
-    <div id="comandas"><h4>Comandas a Credito realizadas<br/></h4></div>
+    <div id="comandas"><h4>Comandas a Cr&eacute;dito realizadas<br/></h4></div>
     <table width=75% border=1>
     <tr><td width=5%><h4>ID</h4></td><td width=25%><h4><center>Fecha Hora</center></h4></td><td width=6%><h4>Total</h4></td><td><h4><center>Nombre de Cliente</center></h4></td></tr>
     </table>
     <table id="ticketsTable" width=75% border=1></table>
     <br/><br/>
     
-    <div id="comandas"><h4>Movimientos a Credito realizados<br/></h4></div>
+    <div id="comandas"><h4>Movimientos a Cr&eacute;dito realizados<br/></h4></div>
     <table width=75% border=1>
-    <tr><td width=18%><h4><center>Fecha Hora</center></h4></td><td width=8%><h4><center>estado</center></h4></td><td width=7%><h4>Dinero</h4></td><td><h4>Descripcion</h4></td><td width=10%><h4><center>Categoria</center></h4></td><td width=10%><h4><center>Encargado</center></h4></td></tr>
+    <tr><td width=18%><h4><center>Fecha Hora</center></h4></td><td width=8%><h4><center>Estado</center></h4></td><td width=7%><h4>Dinero</h4></td><td><h4>Descripci&oacute;n</h4></td><td width=10%><h4><center>Categoria</center></h4></td><td width=10%><h4><center>Encargado</center></h4></td></tr>
     </table>
     <table id="movimientosTable" width=75% border=1></table>
     
