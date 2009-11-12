@@ -4,13 +4,24 @@ function MesaScreen(){
  this.setCorrectColor = function(num){
   $(".mesa").removeClass("blueFuerte").removeClass("redFuerte");
   if (main.mesa()) $("#mesa"+num).addClass("redFuerte");
-  else $("#mesa"+num).addClass("blueFuerte"); 
+  else $("#mesa"+num).addClass("blueFuerte");
+  $("#mesaInfo").html("Mesa: "+num); 
  }
  this.setRedColor = function(){
    $("#mesa"+main.currentMesa).removeClass("blueFuerte").removeClass("btnunpress").addClass("orange").addClass("redFuerte");
  }
  this.setBlueColor = function(){
    $("#mesa"+main.currentMesa).addClass("blueFuerte").addClass("btnunpress").removeClass("orange").removeClass("redFuerte");
+ }
+ this.changeTab = function(){
+   if ($("#tabMesas").hasClass("displaynone")) $("#tab").html("Platos");
+   else $("#tab").html("Mesas");
+   $("#tabPlatos").toggleClass("displaynone");
+   $("#tabMesas").toggleClass("displaynone");
+ }
+ this.changeTabPlato = function(){
+   $("#tabMesas").toggleClass("displaynone")
+   $("#tabPlatos").toggleClass("displaynone")
  }
 }
 

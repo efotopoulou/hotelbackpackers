@@ -3,6 +3,7 @@ body{margin:0pt;padding:0pt;}
 #arriba_derecha,#arriba_izquierda{background:#ECF8CB}
 .letrasPlatos{font-family: Arial, Helvetica, sans-serif;}
 .client{float:right;cursor:pointer;padding:7px;border-left:solid 1px grey;}
+.tabs{float:left;cursor:pointer;padding:7px;border-right:solid 1px grey;}
 .orange{background-color:orange}
 .fixedRow, .precioFixed{background-color:orange}
 .btnbck{background-color:#efcc9a;}//e0edfe
@@ -21,9 +22,9 @@ body{margin:0pt;padding:0pt;}
 .notcalcbtntop{padding-top:3px;}
 div{margin:0pt;padding:0pt}
 .closebtn,.tdbtn, .actionbtn{font-family:Arial,sans-serif;border-right:1px solid #C3D9FF}
-.tdbtn{font-size:35px;cursor:pointer}
-.actionbtn{font-size:23px;cursor:pointer}
-.closebtn{font-size:23px}
+.tdbtn{font-size:28px;cursor:pointer}
+.actionbtn{font-size:18px;cursor:pointer}
+.closebtn{font-size:18px}
 .tablebtn{width:100%;height:96%;}
 table.tablebtn tr{vertical-align:middle}
 input {border:1px solid #C3D9FF}
@@ -80,6 +81,11 @@ div.items .item {
 	font-size:18px;
 	color:#000;
 }
+.plat2{
+	font-size:10px;
+	color:#000;
+}
+
 /* next / prev buttons */
 div.prev, div.next {
 	border:1px solid #ddd;

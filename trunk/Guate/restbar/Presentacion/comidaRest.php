@@ -15,14 +15,14 @@ require ($_SERVER['DOCUMENT_ROOT'] . '/restbar/Dominio/class_caja.php');
 		<script src="/common/js/jquery.blockUI.js"></script>
 		<script src="/common/js/jquery.jqGrid.js"></script>
 		<script src="/common/js/jquery.hotkeys.js"></script>
-		<script src="/common/js/jquery.mousewheel.js"></script>
+<!--		<script src="/common/js/jquery.mousewheel.js"></script>
 		<script src="/common/js/jquery.scrollable.js"></script>
-		<script src="/common/js/jquery.corner.js"></script>
+		<script src="/common/js/jquery.corner.js"></script>-->
 		<script src="/common/js/json.js"></script>
 		<script src="/common/js/guate.js"></script>
 		<script src="/common/js/tpv/lineacomandascreencomida.js"></script>
 		<script src="/common/js/tpv/boxizquierdaarriba.js"></script>
-		<script src="/common/js/tpv/familiasplatillos.js"></script>
+		<script src="/common/js/tpv/familiasplatillostodos.js"></script>
 		<script src="/common/js/tpv/hotkeys.js"></script>
 	<!--<script src="/common/js/tpv/commonpresentacion.js"></script>-->
 		<script src="/common/js/tpv/presentaciontpv.js"></script>
@@ -182,7 +182,7 @@ Introduzca el razon de la cortesia:<br />
 
 <!--CUADRO IZQUIERDA ARRIBA-->
 
-<tr><td width="50%" height="50%">
+<tr><td width="60%" rowspan="2">
 <div id="clientesForm" style="display:none">
 <table id="list2" class="scroll" cellpadding="0" cellspacing="0"></table>
 <div id="pager2" class="scroll" style="text-align:center;"></div>
@@ -196,14 +196,16 @@ Introduzca el razon de la cortesia:<br />
 </div>
  <div id="arriba_izquierda" style="width:100%;height:100%">
  <div style="border-bottom:1px solid #AAAAAA;">
-  <div id="clienteTypeInfo" style="float:left;padding:7px"></div>
+  <div id="tab" class="tabs" onmousedown="mesaScreen.changeTab()">Platos</div>
+  <div id="mesaInfo" style="float:left;padding:4px;"></div>
   <div id="clientpressed1" class="client" onmousedown="clientemousedown(1)">Cortesia</div> 
   <div id="clientpressed5" class="client" onmousedown="clientemousedown(5)">Cr&eacute;dito</div>
   <div id="clientpressed2" class="client" onmousedown="clientemousedown(2)">Cup&oacute;n</div> 
   <div id="clientpressed4" class="client" onmousedown="clientemousedown(4)">Normal</div>
+  <div id="clienteTypeInfo" style="float:right;padding:4px;font-weight:bold"></div>
   <div style="clear:both"></div>
  </div>
- <div style="width:100%;height:80%">
+ <div style="width:100%;height:80%" id="tabMesas">
  <table width="100%" height="100%" border=0 cellpadding="1" cellspacing="1">	
 <?php
 $table=new mesas();
@@ -248,6 +250,9 @@ var main = new Main(<?php echo($noMesas); ?>)
 
 </table>
  
+ </div><!--fin tabMesas-->
+ <div id="tabPlatos" class="displaynone">
+ 	       <div style="position: relative; width: 100%; height: 100%;" id="platillos"></div>
  </div>
 </div>
  
@@ -256,31 +261,16 @@ var main = new Main(<?php echo($noMesas); ?>)
 
 <!--CUADRO DERECHA ARRIBA-->
 
-<td width="50%" height="50%">
+<td width="40%" height="50%">
 
-<div id="arriba_derecha" style="height:100%;width:100%;overflow: auto">
+<div id="arriba_derecha" style="height:300px;width:100%;overflow:auto" >
 </div>	
 
 </td></tr>
-
-<!--CUADRO IZQUIERDA ABAJO-->
-
-<tr><td width="50%" height="50%">
-<div id="abajo_izquierda" style="height:100%;width:100%;overflow: hidden">
-<table  width="100%" height="100%" border=0 cellpadding="1" cellspacing="1">	
 <tr>
-<td id="platillosTd" height='50%' width="100%"><div id="platillos" style="position:relative;width:100%;height:100%"></div>
-</td>
-</tr>
-<tr>
-<td id="familias" height='50%' width="100%"></td>
-</tr>
-</table>
-</div>
-</td>
 <!--CUADRO DERECHA ABAJO-->
 
-<td width="50%" height="50%" id="abajoderecha">
+<td width="40%" height="50%" id="abajoderecha">
 <table  width="100%" height="100%" border=0 cellpadding="0" cellspacing="0">
    <!--TITULOS DE LOS INPUTS-->
 <tr class="title">
