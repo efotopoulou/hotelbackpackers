@@ -61,7 +61,7 @@ function LineaComandaScreen(){
   this.addTotal = function(precio){
   var propina = this.calcularPropina(precio);
   	 var html ='<div id="total'+this.actualComanda+'"><div style="float:right;width:80px;height:1px;background:#000;margin-right:15px"></div>'+
-  	           '<table style="text-align:center;clear:right" width=97% border=0 cellpadding=0 cellspacing=1>'+
+  	           '<table style="font-size:10px;text-align:center;clear:right" width=97% border=0 cellpadding=0 cellspacing=1>'+
   	           '<tr><td id="mensajeCocina" rowspan=3>&nbsp;</td><td width=20%>SubTot.<span id="precioTotal'+this.actualComanda+'" style="font-weight:bold">'+precio+'</span>'+
   	           '</td></tr><tr><td width=20%>Prop.<span  id="propina'+this.actualComanda+'" style="font-weight:bold">'+propina+'</span></td></tr>'+
   	           '<tr><td width=20%>Tot.<span id="TotalPropina'+this.actualComanda+'" style="font-weight:bold">'+(parseInt(parseInt(precio)+parseInt(propina)))+'</span></td></tr></table></div>';
