@@ -86,6 +86,10 @@ div.items .item {
 	color:#000;
 }
 
+.currentRow td, .fixedRow{
+	font-size:10px;
+	color:#000;
+}
 /* next / prev buttons */
 div.prev, div.next {
 	border:1px solid #ddd;

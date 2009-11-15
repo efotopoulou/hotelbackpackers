@@ -102,7 +102,11 @@ function sendComanda(){
   });
 }
 function sendCocina(){
- var myJsonMain = JSON.stringify(main.comanda());
+  var comandaAux = jQuery.extend(true, {}, main.comanda());
+  comandaAux.isAbierta = "";
+  comandaAux.isCocina = "";
+  comandaAux.isCerrada = "";
+  var myJsonMain = JSON.stringify(comandaAux); 
   $.getJSONGuate("Presentacion/jsonsendCocina.php",{ json: myJsonMain}, function(json){
     if (json["Mensaje"]) {
     	changeClass('Efectivo');

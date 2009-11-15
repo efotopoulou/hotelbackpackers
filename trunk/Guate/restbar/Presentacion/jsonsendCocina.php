@@ -15,6 +15,7 @@ $mesa = json_decode($json, true);
 //idComanda,estado,fechaHora,usuario,efectivo,mesa,tipoCliente,Total
 try {
 // 		$comandaId = $comanda->setComanda($mesa["comandaID"],$mesa["efectivo"],$mesaNum,$mesa["currentClientType"],$mesa["totalPropina"],$mesa["id_cliente"],$mesa["free"]);
+$aux = "";
 $lineas = $mesa["liniasComanda"];
  for ($i=0;$i<=$mesa["numRow"];$i++){
  	$cantidad = (int)$lineas[$i]["cantidad"];
@@ -23,6 +24,7 @@ $lineas = $mesa["liniasComanda"];
  	  $comanda->setCocina($mesa["comandaID"], $lineas[$i]["platoId"], $cantidad);
  	  //$comanda->setLineaComanda($comandaId,$lineas[$i]["platoId"],$cantidad, $lineas[$i]["precioN"]);
  }
+ 
 }catch (SQLException $e){
 	$aux = $e ->getNativeError();
  $mensaje->setMensaje("Error Desconocido: $aux!");
