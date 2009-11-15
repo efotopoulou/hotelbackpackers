@@ -252,7 +252,7 @@ var main = new Main(<?php echo($noMesas); ?>)
  
  </div><!--fin tabMesas-->
  <div id="tabPlatos" class="displaynone">
- 	       <div style="position: relative; width: 100%; height: 100%;" id="platillos"></div>
+ 	       <div id="platillos"></div>
  </div>
 </div>
  

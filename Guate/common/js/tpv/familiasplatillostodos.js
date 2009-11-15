@@ -8,7 +8,7 @@ function crearFamilias(json){
  var familias = new Array();
  var colores = new Array();
  //Numero de columnas de plato
- var numPlatCol = 9;
+ var numPlatCol = 8;
  var posPlatCol=0;
  html="<table style='text-align:center' width='100%' border=0 cellpadding='1' cellspacing='1'><tr>";
     for(var k in json["color"]){
@@ -18,7 +18,7 @@ function crearFamilias(json){
       	platillos=json["familias"][k];
       	color=colores[colores.length-1];
         for(i=0;i<platillos.length;i++){
-    	 html +='<td style="height:100%;background:'+color+'" onmousedown="platomousedown(\''+platillos[i]["nombre"]+'\',\''+platillos[i]["idBebida"]+'\','+platillos[i]["precioNormal"]+','+platillos[i]["precioLimitado"]+',this.id)"><table cellpadding="0" cellspacing="0" width="100%" height="100%" style="text-align:center"><tr><td class="plat2" >'+platillos[i]["nombre"]+'</td></tr></table></td>';
+    	 html +='<td style="height:100%;background:'+color+'" onmousedown="platomousedown(\''+platillos[i]["nombre"]+'\',\''+platillos[i]["idPlatillo"]+'\','+platillos[i]["precioNormal"]+','+platillos[i]["precioLimitado"]+',this.id)"><table cellpadding="0" cellspacing="0" width="100%" height="100%" style="text-align:center"><tr><td class="plat2" >'+platillos[i]["nombre"]+'</td></tr></table></td>';
     	 posPlatCol++;
  		 if (posPlatCol%numPlatCol==0) html +="</tr><tr>";
         }
