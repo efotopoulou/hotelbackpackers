@@ -4,6 +4,7 @@ require ($_SERVER['DOCUMENT_ROOT'] . '/recepcion/Datos/Dcaja.php');
 require ('findcaja.php');
 require ('cajacomanda.php');
 require ('usuariocomanda.php');
+require ('usuariocomandaimpr.php');
 require ('cajamovimiento.php');
 require ('cajamovsuma.php');
 require ('cuentausuario.php');
@@ -374,7 +375,36 @@ $rs = $uc->get_usuarios_comandas_fechas ($idusuario, $fechaStart, $fechaStop);
 	    }
 	return $ors;			
 }
-
+function get_usuarios_comandas_impr_fechas($idusuario, $fechaStart, $fechaStop){
+$uc = new Dcaja();
+$rs = $uc->get_usuarios_comandas_impr_fechas ($idusuario, $fechaStart, $fechaStop);
+	if($rs->getRecordCount()>0){ 
+		$n=0;
+		while($rs->next()){
+		$result=$rs->getRow();
+		$ors[$n] =new usuariocomandaimpr($result["numComanda"],$result["fechaHora"],$result["idLineaComanda"],$result["total"],$result["nombre"],$result["cantidad"]);
+		$n++;			
+		}
+    }else{
+		$result=null;
+	    }
+	return $ors;			
+}
+function get_usuarios_comandas_impr_fechas_all($idusuario){
+$uc = new Dcaja();
+$rs = $uc->get_usuarios_comandas_impr_fechas_all ($idusuario);
+	if($rs->getRecordCount()>0){ 
+		$n=0;
+		while($rs->next()){
+		$result=$rs->getRow();
+		$ors[$n] =new usuariocomandaimpr($result["numComanda"],$result["fechaHora"],$result["idLineaComanda"],$result["total"],$result["nombre"],$result["cantidad"]);
+		$n++;			
+		}
+    }else{
+		$result=null;
+	    }
+	return $ors;			
+}
 function get_usuarios_movimientos ($idusuario){
 $uc = new Dcaja();
 $rs = $uc->get_usuarios_movimientos ($idusuario);

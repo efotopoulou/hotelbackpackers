@@ -71,13 +71,18 @@ function eliminarcuenta($cuentadelete, $caja, $mensaje){
 }
 //--------------  IMPRIMIR CUENTA   -----------------------------
 function imprcuenta($idusuario,$fechaStart,$fechaStop, $caja){
+	$iduser = substr($idusuario, 1);
 	if ($fechaStart && $fechaStop){
-		$iduser = substr($idusuario, 1);
-		$response = imprtickets($caja,$iduser,$fechaStart,$fechaStop);	
+		$response = imprticketsImpr($caja,$iduser,$fechaStart,$fechaStop);	
 		$response += imprmovimientos($caja,$iduser,$fechaStart,$fechaStop);	
 		$totalTickets=$caja->total_cuenta($iduser);
 		$response["TotalTickets"]=$totalTickets;
-	} else $response = loadcuenta($idusuario, $caja);
+	} else {
+		$response = imprticketsall($caja,$iduser);
+		$response += loadmovimientos($caja,$iduser);	
+		$totalTickets=$caja->total_cuenta($iduser);
+		$response["TotalTickets"]=$totalTickets;
+	}
 	return $response;
 }
 //--------------  LOAD CUENTA   -----------------------------
@@ -136,6 +141,27 @@ $tikets=$caja->get_usuarios_comandas_fechas($iduser,$fechaStart,$fechaStop);
 if ((sizeof($tikets))>0){
 	  for($i=0;$i<count($tikets);$i++) {
 	  $TicketsInfo[$i]=array("idComanda"=>$tikets[$i]->idComanda,"numComanda"=>$tikets[$i]->numComanda,"procedencia"=>$tikets[$i]->procedencia,"fechaHora"=>$tikets[$i]->fechaHora,"total"=>$tikets[$i]->total,"nombre"=>$tikets[$i]->nombre);
+	  }
+ }
+ $response["TicketsInfo"]=$TicketsInfo;
+ return($response);		
+}
+function imprticketsImpr($caja,$iduser,$fechaStart,$fechaStop){
+$tikets=$caja->get_usuarios_comandas_impr_fechas($iduser,$fechaStart,$fechaStop);
+if ((sizeof($tikets))>0){
+	  for($i=0;$i<count($tikets);$i++) {
+	  $TicketsInfo[$i]=array("numComanda"=>$tikets[$i]->numComanda,"fechaHora"=>$tikets[$i]->fechaHora,"idLineaComanda"=>$tikets[$i]->idLineaComanda,"total"=>$tikets[$i]->total,"nombre"=>$tikets[$i]->nombre,"cantidad"=>$tikets[$i]->cantidad);
+	  }
+ }	
+ //echo ("(sizeof($tikets):".sizeof($tikets)."!");
+ $response["TicketsInfo"]=$TicketsInfo;
+ return($response);		
+}
+function imprticketsall($caja,$iduser){
+$tikets=$caja->get_usuarios_comandas_impr_fechas_all($iduser);
+if ((sizeof($tikets))>0){
+	  for($i=0;$i<count($tikets);$i++) {
+	  $TicketsInfo[$i]=array("numComanda"=>$tikets[$i]->numComanda,"fechaHora"=>$tikets[$i]->fechaHora,"idLineaComanda"=>$tikets[$i]->idLineaComanda,"total"=>$tikets[$i]->total,"nombre"=>$tikets[$i]->nombre,"cantidad"=>$tikets[$i]->cantidad);
 	  }
  }	
  $response["TicketsInfo"]=$TicketsInfo;
