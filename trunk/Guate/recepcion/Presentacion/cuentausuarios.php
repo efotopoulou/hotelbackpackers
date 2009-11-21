@@ -75,7 +75,7 @@ for($i=0;$i<count($categoria);$i++) {
 </head>
 <body>
 <?php include($_SERVER['DOCUMENT_ROOT'] . '/common/Presentacion/menu.php'); ?>
-<div id="principalesCj" style="width:29%;height:91%" >
+<div id="principalesCj" style="width:34%;height:91%" >
 	
 	<div class="box_amarillo" style="margin-top:10px;margin-right:10px">
 	<div><span class="label, titleboxes"><b>Gesti&oacute;n Empleados:</b></span>
@@ -87,7 +87,7 @@ for($i=0;$i<count($categoria);$i++) {
    	   </div>
    	   <br/>
 	  
-	  <div style="height:30%;overflow:auto">
+	  <div style="height:25%;overflow:auto">
       <table id="usuariosTable" width=97% cellpadding=0 cellspacing=1>
       </table>
       </div>
@@ -163,7 +163,7 @@ for($i=0;$i<count($categoria);$i++) {
 </div>
 </div></div>
 
-<div id="secundarioesCj" style="width:70%;height:91%">
+<div id="secundarioesCj" style="width:65%;height:91%">
 	<h5 class="titulos">Comandas a Cr&eacute;dito</h5>
 	<table  width=97% cellpadding=0 cellspacing=1>
     <tr><td width=2%>&nbsp;</td><td width=5%><h6>ID</h6></td><td width=25%><h6><center>Fecha Hora</center></h6></td><td width=6%><h6>Total</h6></td><td><h6><center>Nombre de Cliente</center></h6></td></tr>

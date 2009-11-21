@@ -45,7 +45,7 @@ if (json.TicketsInfo){
   	  $("#ticketsTable").html(" ");
      for(i=0;i<json.TicketsInfo.length;i++) {
      	numComanda=showid(json.TicketsInfo[i].numComanda);
-        $("#ticketsTable").append("<tr><td width=5%>"+numComanda+"</td><td width=25%>"+json.TicketsInfo[i].fechaHora+"</td><td width=6%>"+json.TicketsInfo[i].total+"</td><td>"+json.TicketsInfo[i].nombre+"</td></tr>");	
+        $("#ticketsTable").append("<tr><td width=5%>"+numComanda+"</td><td width=25%>"+json.TicketsInfo[i].fechaHora+"</td><td width=6%>"+json.TicketsInfo[i].total+"</td><td>"+json.TicketsInfo[i].nombre+"</td><td>"+json.TicketsInfo[i].cantidad+"</td></tr>");	
         }
         }else{
         $("#ticketsTable").html(" ");
@@ -80,7 +80,7 @@ else return "";
     	
     <div id="comandas"><h4>Comandas a Cr&eacute;dito realizadas<br/></h4></div>
     <table width=75% border=1>
-    <tr><td width=5%><h4>ID</h4></td><td width=25%><h4><center>Fecha Hora</center></h4></td><td width=6%><h4>Total</h4></td><td><h4><center>Nombre de Cliente</center></h4></td></tr>
+    <tr><td width=5%><h4>ID</h4></td><td width=25%><h4><center>Fecha Hora</center></h4></td><td width=6%><h4>Total</h4></td><td><h4><center>Nombre</center></h4></td><td><h4><center>Cantidad</center></h4></td></tr>
     </table>
     <table id="ticketsTable" width=75% border=1></table>
     <br/><br/>
