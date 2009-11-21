@@ -118,7 +118,10 @@ function calcularTotal(){
 
 //-------------------------------------------sendComanda----------------------------------------//
 function sendComanda(){
- var myJsonMain = JSON.stringify(main.comanda());
+ var auxComanda = eval (main.comanda().toSource());
+ auxComanda.isAbierta="";
+ var myJsonMain = JSON.stringify(auxComanda);
+ //var myJsonMain = JSON.stringify(main.comanda());
   $.getJSONGuate("Presentacion/jsonsaveventa.php",{ json: myJsonMain}, function(json){
     if (json["Mensaje"]) {
     	changeClass('Efectivo');
