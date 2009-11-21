@@ -147,7 +147,9 @@ function comprobarOut(id){
 }
 //-------------------------------------------sendComandaAbierta----------------------------------------//
 function sendComandaAbierta(){
- var myJsonMain = JSON.stringify(main.comanda());
+ var auxComanda = eval (main.comanda().toSource());
+ alert(auxComanda.isAbierta);
+ var myJsonMain = JSON.stringify(auxComanda);
   $.getJSONGuate("Presentacion/jsonsavetpv.php",{ json: myJsonMain,mesa:main.currentMesa}, function(json){
     if (json["Mensaje"]) {
     	changeClass('Efectivo');
