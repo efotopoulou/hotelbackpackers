@@ -29,8 +29,9 @@ if($_GET!=null){
 	if($sesion->is_allowed($p_req))
 		$page=$p_req;	
 }
+//echo ("hola edwin".$p_req."holaedwin");
 try{
-include('Presentacion/'.$page.'.php');
+	include('Presentacion/'.$page.'.php');
 }
 catch (Exception $excepcion) {
  	 		$texto=$excepcion->getMessage().$excepcion->getFile()."Line:".$excepcion->getLine().$excepcion->getTraceAsString();
