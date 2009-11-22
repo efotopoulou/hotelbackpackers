@@ -184,6 +184,8 @@ $xajax->printJavascript('xajax/');
 			<tr class="t_row" id="user_edit" style="background:#fff;display:none">
 			<td class="t_col" style="width:70px"><input style="width:70px" id="user_nombre" name="user_nombre" type="text"  value=""/></td>
 			<td class="t_col" style="width:100px;"><select style="font-size:10px;width:100px" id="user_perfiles"></select></td>
+			<td class="t_col" style="width:100px"><input style="width:100px" id="password" name="password" type="text"  value=""/></td>
+			<td class="t_col" style="width:100px"><input style="width:100px" id="email" name="email" type="text"  value=""/></td>
 			</tr>
 			</table>
 			<input id="user_id" name="user_id" type="hidden"  value=""/>
@@ -191,13 +193,13 @@ $xajax->printJavascript('xajax/');
 			</form>
 			
 			<div id="b1" style="float:left; width:100%; margin-top:5px;">			
-				<input type="button" value="A&ntilde;adir"  style="width:100px" onclick="optionUser(1)"/>
+				<input type="button" value="A&ntilde;adir"  style="width:100px" onclick="optionUser(1);"/>
 				<input type="button" value="Modificar" style="width:100px" onclick="optionUser(2)"/>
 				<input type="button" value="Eliminar" style="width:100px" onclick="optionUser(3)"/>		
 			</div>
 			
 			<div id="b2" style="float:left; width:100%; margin-top:5px; display:none">			
-				<input type="button" value="Guardar"  style="width:100px" onclick="copyIdPerfil(); xajax_changeUsers(xajax.getFormValues('FormUsers'), modo)"/>
+				<input type="button" value="Guardar"  style="width:100px" onclick="copyIdPerfil(); xajax_changeUsers(xajax.getFormValues('FormUsers'), modo);document.getElementById('user_edit').style.display='none'; "/>
 				<input type="button" value="Cancelar" style="width:100px" onclick="document.getElementById('user_edit').style.display='none'; showButtons('b2', 'b1')"/>	
 			</div>
 		</div>	

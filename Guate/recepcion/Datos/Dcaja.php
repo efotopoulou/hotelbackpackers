@@ -39,6 +39,7 @@ class Dcaja{
 	const FIND_CAJA = 'select id_caja,fechaHoraApertura,fechaHoraCierre,fondoInicial,EfectivoCerrar from caja where fechaHoraApertura <= ? and  fechaHoraApertura >= ?';
 	const FIND_ONE_CAJA = 'select id_caja,fechaHoraApertura,fechaHoraCierre,fondoInicial,EfectivoCerrar from caja where id_caja=?';
 	const LOAD_TICKETS = 'select t1.idComanda,t1.numComanda,t1.estado,concat(DATE_FORMAT(t1.fechaHora,"%d/%m")," ",TIME_FORMAT(t1.fechaHora,"%H:%i:%s")) as fechaHora,t1.total,t1.efectivo,t4.clientType,concat(t3.nombre," ",t3.apellido1," ", t3.apellido2) as nombre,null as free from comanda t1,caja t2, guate_bd.cliente t3,tipocliente t4 where t1.id_caja=t2.id_caja and t2.id_caja=? and t1.id_cliente=t3.Id_cliente and t4.idTipoCliente=t1.tipoCliente and t1.tipoCliente=3 union select t1.idComanda,t1.numComanda,t1.estado,concat(DATE_FORMAT(t1.fechaHora,"%d/%m")," ",TIME_FORMAT(t1.fechaHora,"%H:%i:%s")) as fechaHora,t1.total,t1.efectivo,t4.clientType,t3.nombre,null as free from comanda t1,caja t2,trabajador t3,tipocliente t4 where t1.id_caja=t2.id_caja and t2.id_caja=? and t1.id_cliente=t3.idTrabajador and t4.idTipoCliente=t1.tipoCliente and (t1.tipoCliente=2 or t1.tipoCliente=5) union select t1.idComanda,t1.numComanda,t1.estado,concat(DATE_FORMAT(t1.fechaHora,"%d/%m")," ",TIME_FORMAT(t1.fechaHora,"%H:%i:%s")) as fechaHora,t1.total,t1.efectivo,t4.clientType,null,t1.free from comanda t1,caja t2,tipocliente t4 where t1.id_caja=t2.id_caja and t2.id_caja=? and t1.id_cliente is null and  t1.tipoCliente=t4.idTipoCliente order by fechaHora desc';
+	const LOAD_TICKET = 'select t1.idComanda,t1.numComanda,t1.estado,concat(DATE_FORMAT(t1.fechaHora,"%d/%m/%y")," ", TIME_FORMAT(t1.fechaHora,"%H:%i:%s")) as fechaHora,t1.total,t1.efectivo,t4.clientType, concat(t3.nombre," ",t3.apellido1," ", t3.apellido2) as nombre,null as free from restbar_bd.comanda t1, guate_bd.cliente t3,tipocliente t4 where t1.numComanda=? and t1.id_cliente=t3.Id_cliente and t4.idTipoCliente=t1.tipoCliente and t1.tipoCliente=3 union select t1.idComanda,t1.numComanda,t1.estado,concat(DATE_FORMAT(t1.fechaHora,"%d/%m/%y")," ", TIME_FORMAT(t1.fechaHora,"%H:%i:%s")) as fechaHora,t1.total,t1.efectivo,t4.clientType, t3.nombre,null as free from restbar_bd.comanda t1,trabajador t3,tipocliente t4 where t1.numComanda=? and t1.id_cliente=t3.idTrabajador and t4.idTipoCliente=t1.tipoCliente and (t1.tipoCliente=2 or t1.tipoCliente=5) union select t1.idComanda,t1.numComanda,t1.estado,concat(DATE_FORMAT(t1.fechaHora,"%d/%m/%y")," ", TIME_FORMAT(t1.fechaHora,"%H:%i:%s")) as fechaHora,t1.total,t1.efectivo,t4.clientType, null,t1.free from restbar_bd.comanda t1, tipocliente t4 where t1.numComanda=? and t1.id_cliente is null and  t1.tipoCliente=t4.idTipoCliente order by fechaHora desc';	
 	const LOAD_MOV = 'SELECT t1.id_movimiento,t1.fechaHora,t1.tipo,t1.dinero,t1.descripcion,t3.nombre as categoria,t4.nombre as encargado from movimiento t1,caja t2,categoria t3,guate_bd.usuario t4 where t1.id_caja=t2.id_caja and t2.id_caja=? and t3.id_categoria=t1.id_categoria and t1.idencargado=t4.Id_usuario  order by t1.fechaHora desc';
 	const TOTAL_TICKETS_OLD = 'SELECT sum(t1.total) as totalTickets from comanda t1,caja t2 where t1.id_caja=t2.id_caja and t2.id_caja=? and t1.estado!="anulado" and t1.numComanda is not null';
 	const TOTAL_MONEY_MOV_OLD = 'SELECT t1.tipo,sum(t1.dinero) as suma from movimiento t1,caja t2 where t1.id_caja=t2.id_caja and t2.id_caja=? group by tipo union SELECT "ventaR" as tipo,sum(t1.total) as suma from comanda t1,caja t2,categoria t3 where t1.id_caja=t2.id_caja and t2.id_caja=? and t3.id_categoria=8 and t1.estado!="anulado" and t1.numComanda is null group by t3.nombre';
@@ -352,6 +353,15 @@ class Dcaja{
 		
 		return $result;
 	}
+	public function load_ticket ($name){
+		$comunication = new ComunicationRecep();
+		$PARAMS = array($name,$name,$name);
+		$PARAMS_TYPES = array (ComunicationRecep::$TINT,ComunicationRecep::$TINT,ComunicationRecep::$TINT);
+		$result = $comunication->query(self::LOAD_TICKET,$PARAMS,$PARAMS_TYPES);
+		
+		return $result;
+	}
+	
 	public function load_movimientos ($idcaja){
 		$comunication = new ComunicationRecep();
 		$PARAMS = array($idcaja);

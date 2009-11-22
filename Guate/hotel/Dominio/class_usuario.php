@@ -18,7 +18,7 @@ class user {
  			$rs=$datos->get_usuario_all();
  		$this->usr=null;
  		while($rs->next()) {
-			$this->usr[$rs->getInt('Id_usuario')] = array("nombre"=>$rs->getString('nombre'), "id_perfil"=>$rs->getInt('Id_perfil'));	
+			$this->usr[$rs->getInt('Id_usuario')] = array("nombre"=>$rs->getString('nombre'), "id_perfil"=>$rs->getInt('Id_perfil'), "email"=>$rs->getString('email'));	
 		}
 		return $rs->getRecordCount();
  	}
@@ -38,15 +38,15 @@ class user {
  	
 	function insertar_usuario($data){
 		$dtemp = new Dusuario();
-		
-		$rs = $dtemp->insert_usuario($data['user_idperfil'], $data['user_nombre']);
+		$pass=md5($data['password']);
+		$rs = $dtemp->insert_usuario($data['user_idperfil'], $data['user_nombre'],$pass, $data['email']);
 		return $rs;
 	}
 	
 	function modificar_usuario($data){
 		$dtemp = new Dusuario();
-		
-		$rs = $dtemp->update_usuario($data['user_id'],$data['user_idperfil'], $data['user_nombre']);
+		$pass=md5($data['password']);
+		$rs = $dtemp->update_usuario($data['user_id'],$data['user_idperfil'], $data['user_nombre'],$pass,$data['email']);
 		return $rs;
 	}
 	
@@ -69,8 +69,14 @@ class user {
 	//PRE: Se tiene que haber llamado antes a la función existe_usuario,
 	//que carga la información del usuario en la variable privada.
 	function get_id_perfil(){
+		//$a=current($this->usr);
+		//return $a['id_perfil'];
 		$a=$this->usr->Id_perfil;
-		return $a;		
+		return $a;			
+	}
+	function get_mail(){
+		$a=current($this->usr);
+		return $a['email'];
 	}
 	
 	function get_count(){

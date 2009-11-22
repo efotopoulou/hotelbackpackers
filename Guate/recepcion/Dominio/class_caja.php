@@ -207,7 +207,7 @@ class caja{
 			}
 			return $ors;	
 	}
-	function ld_tickets_old($id_caja){
+function ld_tickets_old($id_caja){
 	$ldtckold = new Dcaja();
 	$rs = $ldtckold->load_tickets($id_caja);
 	//echo($rs->getRecordCount());
@@ -223,6 +223,22 @@ class caja{
 	    }
 	return $ors;	
 }
+function ld_ticket_old($name,$mensaje){
+	$ldtckold = new Dcaja();
+	$rs = $ldtckold->load_ticket($name);
+	if($rs->getRecordCount()>0){ 
+		$n=0;
+		while($rs->next()){
+		$result=$rs->getRow();
+		$ors[$n] = new CajaComanda($result["idComanda"],$result["numComanda"],$result["estado"],$result["fechaHora"],$result["total"],$result["efectivo"],$result["clientType"],$result["nombre"],$result["free"]);
+		$n++;					
+		}
+    }else{
+		$result=null;
+    }
+	return $ors;	
+}
+
  function load_movimientos_old($idcaja){
 	$ldmkold = new Dcaja();
 	$rs = $ldmkold->load_movimientos($idcaja);

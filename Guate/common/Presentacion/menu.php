@@ -60,10 +60,11 @@ else
 <?php if($allowedRest["gestionbebidas"]){ ?><li><a style="font-weight:bold">Admin Recepci&oacute;n:</a></li><?php } ?>
 <?php if($allowedRest["gestionbebidas"]){ ?><li><a href="/recepcion/view.php?page=gestionbebidas">Gesti&oacute;n de Bebidas</a></li><?php } ?>
 <?php if($allowedRest["gestionplatillos"]){ ?><li><a href="/recepcion/view.php?page=gestionplatillos">Gesti&oacute;n de Platillos</a></li><?php } ?>
+<?php if($allowedRest["buscarporcomanda"]){ ?><li><a href="/recepcion/view.php?page=buscarporcomanda">Buscar por Comanda</a></li><?php } ?>
 
 		    </ul>
 		</li>		
-<?php if($allowedRest["restaurante"]){ ?><li><a href="/restbar/view.php?page=cajaRest">Ir a Restaurante</a></li><?php } ?>
+<?php if($allowedRest["cajaRest"]){ ?><li><a href="/restbar/view.php?page=cajaRest">Ir a Restaurante</a></li><?php } ?>
 			</ul>
 			
 		<div id="userdiv" style="width:190px">
