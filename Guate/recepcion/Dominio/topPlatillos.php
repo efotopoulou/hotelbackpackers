@@ -7,5 +7,5 @@ class TopPlatillos{
 	$this->nombre = $nombre;
 	$this->freq = $freq;
 	}	
-	}
+}
 ?>

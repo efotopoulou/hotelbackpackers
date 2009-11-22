@@ -5,6 +5,7 @@ require ('cmweek.php');
 require ('cmmonth.php');
 require ('cmyear.php');
 require ('topPlatillos.php');
+require ('topPlatillosVendidos.php');
 
 class estadisticas{
 		
@@ -67,6 +68,22 @@ class estadisticas{
 				$result=null;
 			}
 			return $ors;				
+		}
+		function topPlatillos($fechaInicio,$fechaFin){
+		$tpw = new Destadisticas();
+		$rs = $tpw->topPlatillos($fechaInicio,$fechaFin);
+		
+		  if ($rs->getRecordCount()>0){
+			$n=1;
+			while($rs->next()){
+				$result=$rs->getRow();
+				$ors[$n] = new TopPlatillosVendidos($result["nombre"],$result["venta"],$result["cortesia"],$result["gratis"]);
+				$n++;
+				}														
+		  }else{
+				$result=null;
+			}
+			return $ors;		
 		}
 		
 		function topPlatillosWeek($year,$month,$date,$limit){

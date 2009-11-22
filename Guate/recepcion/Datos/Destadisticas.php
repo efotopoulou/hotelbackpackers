@@ -54,6 +54,13 @@ class Destadisticas{
 		
 		return $result;
 	}
+	public function topPlatillos($fechaInicio,$fechaFin){
+	$comunication = new ComunicationRecep();
+		$params = array($fechaInicio,$fechaFin);
+		$PARAMS_INSERT = array(ComunicationRecep::$TDATE,ComunicationRecep::$TDATE);
+		$result = $comunication->query(self::TOP_PLATILLOS,$params,$PARAMS_INSERT);
+		return $result;	
+	}
 	public function topPlatillosWeek($year,$month,$date,$limit){
 	$comunication = new ComunicationRecep();
 		$params = array($year,$month,$date,$limit);

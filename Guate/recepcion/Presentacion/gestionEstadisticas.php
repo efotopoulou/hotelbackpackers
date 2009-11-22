@@ -8,7 +8,6 @@ $month =  $_GET['month'];
 $week =  $_GET['week'];
 $limit = $_GET['limit'];
 
-
 $estadisticas = new estadisticas();
 $mensaje = new MensajeJSON();
 

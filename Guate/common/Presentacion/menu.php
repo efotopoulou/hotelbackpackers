@@ -61,6 +61,7 @@ else
 <?php if($allowedRest["gestionbebidas"]){ ?><li><a href="/recepcion/view.php?page=gestionbebidas">Gesti&oacute;n de Bebidas</a></li><?php } ?>
 <?php if($allowedRest["gestionplatillos"]){ ?><li><a href="/recepcion/view.php?page=gestionplatillos">Gesti&oacute;n de Platillos</a></li><?php } ?>
 <?php if($allowedRest["buscarporcomanda"]){ ?><li><a href="/recepcion/view.php?page=buscarporcomanda">Buscar por Comanda</a></li><?php } ?>
+<?php if($allowedRest["platillosmaspedidos"]){ ?><li><a href="/recepcion/view.php?page=platillosmaspedidos">Platillos mas pedidos</a></li><?php } ?>
 
 		    </ul>
 		</li>		
@@ -68,9 +69,9 @@ else
 			</ul>
 			
 		<div id="userdiv" style="width:190px">
-			<div style="float:left">
+			<div style="float:left;display:none">
 			    <span style="font-size:15px;margin-right:10px;font-weight:bold"><a href="/common/docs/manualdeinstalacionwindows.pdf" target="blank">?</a></span>
-				<select id="selUsers" onChange="changeId()" style="font-size:10px">
+			    <select id="selUsers" onChange="changeId()" style="font-size:10px">
 				<?php echo genera_usuarios($sesion, $usr); ?>
 				</select>
 			</div>
@@ -78,9 +79,7 @@ else
 			<div style="float:right">
 				<a href="/hotel/view.php?page=login" style="color:#FFFFFF">Salir</a>
 			</div>	
-			
 			<div id="turno"  style="text-align:center"><span class='turnico'><?php echo($turn); ?></span></center></div>
-			
 			<div style="clear:both"></div>
 		</div>
 </div>
