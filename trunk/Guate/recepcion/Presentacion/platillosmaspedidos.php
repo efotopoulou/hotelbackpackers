@@ -48,7 +48,9 @@ function buscaPlatillos(){
 		$("#principalesCj").css('display', 'none');
 		$("#secundarioesCj").css('display', 'none');
 		$("#header-bar").css('display', 'none');
+		$.blockUI({ message: '<h1> Cargando los datos...</h1><h1>Espere por favor</h1><input type="button" value="Cancelar" style="margin-top:5px;margin-left:10px" onClick="$.unblockUI();"/>' }); 
 		$.getJSONGuate("Presentacion/jsonplatillosmasvendidos.php",{inicio:fechasArray[0],fin:fechasArray[1]}, function(json){
+     		$.unblockUI();
      		json = verificaJSON(json);
      		loadPage(json);     
    		});
@@ -56,24 +58,19 @@ function buscaPlatillos(){
 }
 //-------------------------------------------LOAD PAGE----------------------------------------------------------//
 function loadPage(json){
- $("#platillos").css("display","block");
- 
-  if (json.TicketsInfo){
-    for(i=0;i<json.TicketsInfo.length;i++) {
-        camb = cambio(json.TicketsInfo[i].efectivo,json.TicketsInfo[i].total);
-     	numComanda=showid(json.TicketsInfo[i].numComanda);
-        idCom=json.TicketsInfo[i].idComanda;
-     	nombre = descripcion(json.TicketsInfo[i].free,json.TicketsInfo[i].nombre)
-    
-     $("#ticketsTable").append("<tr  id="+idCom+"><td width=2%></td><td width=10%><h6>"+numComanda+"</h6></td><td width=10%><h6>"+json.TicketsInfo[i].estado+"</h6></td><td width=21%><h6>"+json.TicketsInfo[i].fechaHora+"</h6></td><td width=6%><h6>"+json.TicketsInfo[i].total+"</h6></td><td width=8%><h6>"+json.TicketsInfo[i].efectivo+"</h6></td><td width=8%><h6>"+camb+"</h6></td><td width=7%><h6>"+json.TicketsInfo[i].tipoCliente+"</h6></td><td><h6>"+nombre+"</h6></td></tr>");
-      $("#"+idCom+" td:not(.checkbox)").mousedown(function(e){
-           showpedido(this.parentNode.id);
-        });
-     if (json.TicketsInfo[i].estado=="cobrado"){$("#"+json.TicketsInfo[i].idComanda).addClass("verde");}
-     if (json.TicketsInfo[i].estado=="anulado"){$("#"+json.TicketsInfo[i].idComanda).addClass("redtext");}
-        //alert(json.TicketsInfo[i].idComanda);		
-        }
-   }	
+  $("#platillos").css("display","block");
+
+  if (json != null){
+  	var plato;
+	for (plato in json){
+		if (!json[plato][1])json[plato][1]="0";
+		if (!json[plato][2])json[plato][2]="0";
+		if (!json[plato][4])json[plato][4]="0";
+		if (!json[plato][5])json[plato][5]="0";
+		$("#platillosTable").append("<tr><td><h6>"+plato+"</h6></td><td width=10%><h6><center>"+json[plato][4]+"</center></h6></td><td width=10%><h6><center>"+json[plato][5]+"</center></h6></td><td width=10%><h6><center>"+json[plato][1]+"</center></h6></td><td width=10%><h6><center>"+json[plato][2]+"</center></h6></td><td width=10%><h6><center>"+json[plato]["total"]+"</center></h6></td></tr>");
+	}
+    	
+  }	else alert ("No hay datos para las fechas seleccionadas");
 }
 
 
@@ -97,36 +94,12 @@ function loadPage(json){
 
 <div id="secundarioesCj">
 
-	<h5 class="titulos">Comandas realizadas</h5>
-	<table  width=97% cellpadding=0 cellspacing=1>
-    <tr><td width=2%>&nbsp;</td><td width=10%><h6>ID</h6></td><td width=10%><h6>Estado</h6></td><td width=21%><h6><center>Fecha Hora</center></h6></td><td width=6%><h6><h6>Total</h6></h6></td><td width=8%><h6>efectivo</h6></td><td width=8%><h6>cambio</h6></td><td width=7%><h6>Cliente</h6></td><td><h6><center>Descripcion</center></h6></td></tr>
-    </table>
-  <div style="height:40%;overflow:auto">
-    <table id="ticketsTable" width=97% cellpadding=0 cellspacing=1>
-    </table>
-   </div>
-   <div id="reporte" style="width:100%;overflow:auto">
-    <div class="row" align="left">
-     <div style="margin-left:60px;float:left"><span><a id="reportehtml" onClick="reportecaja('html');">Reporte Caja HTML</a></span></div>
-     <div style="width:50%;float:right"><span><a id="reportexcel" onClick="reportecaja('excel');">Reporte Caja EXCEL</a></span></div>
-   </div>
-  </div>
-<br/>
-
-
-     <h5 class="titulos">Movimientos realizados</h5>
-     <table  width=96% cellpadding=0 cellspacing=1>
-      <tr><td width=18%><h6><center>Fecha Hora</center></h6></td><td width=8%><h6>tipo</h6></td><td width=7%><h6>dinero</h6></td><td><h6><center>descripcion</center></h6></td><td width=16%><h6><center>categoria</center></h6></td><td width=10%><h6><center>encargado</center></h6></td></tr>
-     </table>
-    <div style="height:40%;overflow:auto">
-     <table id="movimientosTable" width=98% cellpadding=0 cellspacing=1></table>
-    </div>
 </div>
 <div style="display:none" id="platillos">
   <table  width=100% cellpadding=0 cellspacing=1>
-    <tr><td><h6>Nombre Platillo</h6></td><td width=10%><h6><center>Normal</center></h6></td><td width=10%><h6><center>Credito</center></h6></td><td width=10%><h6><center>Gratis</center></h6></td><td width=10%><h6><center>Cupon</center></h6></td></tr>
+    <tr><td><h6>Nombre Platillo</h6></td><td width=10%><h6><center>Normal</center></h6></td><td width=10%><h6><center>Credito</center></h6></td><td width=10%><h6><center>Gratis</center></h6></td><td width=10%><h6><center>Cupon</center></h6></td><td width=10%><h6><center>Total</center></h6></td></tr>
     </table>
-    <table id="ticketsTable" width=97% cellpadding=0 cellspacing=1>
+    <table id="platillosTable" width=100% cellpadding=0 cellspacing=1>
     </table>
 </div>
 <br/>
