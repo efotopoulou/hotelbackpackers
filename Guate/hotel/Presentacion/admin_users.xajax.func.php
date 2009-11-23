@@ -20,7 +20,7 @@ require($_SERVER['DOCUMENT_ROOT'] . '/hotel/Dominio/class_usuario.php');
 			do{
 				$html.= '<tr class="t_row" id="user_'.$usr->get_id().'" style="cursor:pointer" onclick="selectUser(this.id)">' .
 					'<td class="t_col">'.$usr->get_nombre().'</td>' .
-					'<td class="t_col" id="'.$usr->get_id_perfil().'" style="text-align:center">'.$ses->get_nombre($usr->get_id_perfil()).'</td>'.
+					'<td class="t_col" id="'.$usr->get_idPerfil().'" style="text-align:center">'.$ses->get_nombre($usr->get_idPerfil()).'</td>'.
 					'<td class="t_col" style="text-align:center">*****</td>'.
 					'<td class="t_col" style="text-align:center">'.$usr->get_mail().'</td></tr>';
 			}while($usr->movenext());

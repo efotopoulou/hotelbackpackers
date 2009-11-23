@@ -74,6 +74,12 @@ class user {
 		$a=$this->usr->Id_perfil;
 		return $a;			
 	}
+	//Esta funcion se llama solo cuando se obtienen todos los 
+	function get_idPerfil(){
+		$a=current($this->usr);
+		return $a['id_perfil'];		
+	}
+
 	function get_mail(){
 		$a=current($this->usr);
 		return $a['email'];
