@@ -72,18 +72,18 @@ class estadisticas{
 		function topPlatillos($fechaInicio,$fechaFin){
 		$tpw = new Destadisticas();
 		$rs = $tpw->topPlatillos($fechaInicio,$fechaFin);
-		
 		  if ($rs->getRecordCount()>0){
-			$n=1;
+			$aucname="";
 			while($rs->next()){
 				$result=$rs->getRow();
-				$ors[$n] = new TopPlatillosVendidos($result["nombre"],$result["venta"],$result["cortesia"],$result["gratis"]);
-				$n++;
-				}														
+				if ($aucname!=$result["nombre"]) $top[$result["nombre"]]["total"]=$result["freq2"];
+				$top[$result["nombre"]][$result["tipoCliente"]]=$result["freq"];
+				$aucname=$result["nombre"];
+			}														
 		  }else{
 				$result=null;
 			}
-			return $ors;		
+			return $top;		
 		}
 		
 		function topPlatillosWeek($year,$month,$date,$limit){

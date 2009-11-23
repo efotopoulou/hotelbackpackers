@@ -5,11 +5,11 @@ class TopPlatillosVendidos{
     var $cortesia;
     var $gratis;
 	
-	function TopPlatillosVendidos($nombre,$venta, $cortesia, $gratis){
+	function TopPlatillosVendidos($nombre,$freq, $tipoCliente, $freqTotal){
 	$this->nombre = $nombre;
-	$this->venta = $venta;
-	$this->cortesia = $cortesia;
-	$this->gratis = $gratis;
+	$this->freq = $freq;
+	$this->tipoCliente = $tipoCliente;
+	$this->freqTotal = $freqTotal;
 	}	
 }
 ?>
