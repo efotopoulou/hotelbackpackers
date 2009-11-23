@@ -8,7 +8,7 @@ function crearFamilias(json){
  var familias = new Array();
  var colores = new Array();
  //Numero de columnas de plato
- var numPlatCol = 8;
+ var numPlatCol = 11;
  var posPlatCol=0;
  html="<table style='text-align:center' width='100%' border=0 cellpadding='1' cellspacing='1'><tr>";
     for(var k in json["color"]){
