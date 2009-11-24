@@ -10,7 +10,7 @@ class Dcomanda{
     const SET_COCINA ='insert into cocina values (0,?,?,?,NOW(),true,null)';    
 	const GET_USUARIO_SUMA_PLATILLO = 'select sum(t2.precioLimitado*t1.cantidad) as suma from lineacomanda t1,recepcion_bd.platillo t2 where idComanda=? and t2.idPlatillo=t1.idPlatillo group by idComanda';
 	const SET_COMANDA_USUARIO = 'INSERT INTO recepcion_bd.comandacredito values(?,?,false,?)';	
-
+	const ES_PLATILLO ='select idPlatillo from recepcion_bd.platillo where idPlatillo=?';
 
 	
 	const SET_COMANDA = 'INSERT INTO comanda values(?,?,NOW(),?,?,?,?,?,?,?)';
@@ -88,7 +88,13 @@ class Dcomanda{
 		$PARAMS_TYPES = array (ComunicationRestBar::$TINT,ComunicationRestBar::$TFLOAT,ComunicationRestBar::$TSTRING);
 		$result = $comunication->update(self::SET_COMANDA_USUARIO,$PARAMS,$PARAMS_TYPES);
 	}
-
+	public function esPlatillo($platoId){
+		$comunication = new ComunicationRestBar();
+		$PARAMS = array($platoId);
+		$PARAMS_TYPES = array (ComunicationRestBar::$TINT);
+		$result = $comunication->query(self::ES_PLATILLO,$PARAMS,$PARAMS_TYPES);
+		return $result;
+	}
 
 
 

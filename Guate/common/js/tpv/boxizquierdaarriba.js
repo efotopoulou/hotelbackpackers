@@ -14,10 +14,20 @@ function MesaScreen(){
    $("#mesa"+main.currentMesa).addClass("blueFuerte").addClass("btnunpress").removeClass("orange").removeClass("redFuerte");
  }
  this.changeTab = function(){
-   if ($("#tabMesas").hasClass("displaynone")) $("#tab").html("Platos");
-   else $("#tab").html("Mesas");
-   $("#tabPlatos").toggleClass("displaynone");
-   $("#tabMesas").toggleClass("displaynone");
+   if (!$("#tabMesas").hasClass("displaynone")){
+     $("#tab").html("Platos");
+     $("#tabPlatos").toggleClass("displaynone");
+     $("#tabMesas").toggleClass("displaynone");
+   }
+   else if (!$("#tabPlatos").hasClass("displaynone")) {
+     $("#tab").html("Bebidas");
+     $("#tabPlatos").toggleClass("displaynone");
+     $("#tabBebidas").toggleClass("displaynone");
+   }else {
+   	 $("#tab").html("Mesas");
+     $("#tabMesas").toggleClass("displaynone");
+     $("#tabBebidas").toggleClass("displaynone");
+   }  
  }
  this.changeTabPlato = function(){
    $("#tabMesas").toggleClass("displaynone")
