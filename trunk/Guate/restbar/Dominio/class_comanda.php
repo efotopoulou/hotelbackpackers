@@ -52,6 +52,11 @@ class comanda{
 			//$number=(int)substr($rs,1);
 			return $rs+1;
 		}
+		function esPlatillo($platoId){
+			$dtp = new DComanda();
+			$rs = $dtp->esPlatillo($platoId);
+			return ($rs->getRecordCount()>0);
+		}
 
 
 

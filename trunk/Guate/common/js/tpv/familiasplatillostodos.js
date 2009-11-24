@@ -1,14 +1,18 @@
 function getFamilias(){
  $.getJSONGuate("/recepcion/Presentacion/jsonplattpv.php", function(json){
     json = verificaJSON(json);
-    crearFamilias(json);
+    crearFamilias(json, "platillos",11);
  },false);
 }
-function crearFamilias(json){
+function getFamiliasBeb(){
+ $.getJSONGuate("/recepcion/Presentacion/jsonbebtpv.php", function(json){
+    json = verificaJSON(json);
+    crearFamilias(json, "bebidas",12);
+ },false);
+}
+function crearFamilias(json,id,numPlatCol){
  var familias = new Array();
  var colores = new Array();
- //Numero de columnas de plato
- var numPlatCol = 11;
  var posPlatCol=0;
  html="<table style='text-align:center' width='100%' border=0 cellpadding='1' cellspacing='1'><tr>";
     for(var k in json["color"]){
@@ -25,7 +29,7 @@ function crearFamilias(json){
       }
    }
    	html+="</tr></table>";
-   	$("#platillos").append(html);
+   	$("#"+id).append(html);
 }
 function crearPlatillosHTML(platillos,color,numPlatCol,posPlatCol){
     var i;

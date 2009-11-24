@@ -41,6 +41,7 @@ $(document).ready(function(){
    $("#idComanda").val("<?php $comanda=new comanda();echo $estadocaja=$comanda->getNextMaxIdComanda();?>");
    hotkeys();
    getFamilias();
+   getFamiliasBeb();
    listaPedidos.iniciar();
 //   restoreHibernar();
    $.unblockUI();
@@ -253,6 +254,9 @@ var main = new Main(<?php echo($noMesas); ?>)
  </div><!--fin tabMesas-->
  <div id="tabPlatos" class="displaynone">
  	       <div id="platillos"></div>
+ </div>
+ <div id="tabBebidas" class="displaynone">
+ 	       <div id="bebidas"></div>
  </div>
 </div>
  
