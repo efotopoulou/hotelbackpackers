@@ -1,0 +1,1 @@
+This final project is part of a cooperacion project that takes place in Guatemala.The main objective is to create a program that will facilitate effectively and efficiently the management of the restaurant and the bar of the Hotel Backpapers.
